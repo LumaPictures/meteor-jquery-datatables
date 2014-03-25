@@ -1,0 +1,74 @@
+<template name="dashboard">
+<!-- Page tabs -->
+<div class="tabbable page-tabs">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#tasks" data-toggle="tab"><i class="icon-grid"></i> My tasks <span class="label label-primary">31</span></a></li>
+
+        <li class="pull-right dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <i class="icon-cog3"></i>Settings <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-right icons-right">
+                <li><a href="#"><i class="icon-cogs"></i> This is</a></li>
+                <li><a href="#"><i class="icon-grid3"></i> Dropdown</a></li>
+                <li><a href="#"><i class="icon-spinner7"></i> With right</a></li>
+                <li><a href="#"><i class="icon-link"></i> Aligned icons</a></li>
+            </ul>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane fade" id="tasks">
+            <div class="block">
+                <h6 class="heading-hr"><i class="icon-paragraph-justify2"></i> My tasks</h6>
+                {{> dataTable
+                    selector="datatable-tasks"
+                    table_template="default_tasks_table_template"
+                    table_styles="table-striped"
+                    context=data.tasksTable
+                }}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /page tabs -->
+</template>
+
+<template name="default_tasks_table_template">
+    <table class="table {{../../table_styles}}">
+        {{> default_thead }}
+        <tbody>
+        {{#each rows }}
+        <tr>
+            <td class="task-desc">
+                <a href="{{_id}}">{{description}}</a>
+                <span>{{subtitle}}</span>
+            </td>
+            <td class="text-center"><span class="label label-danger">{{priority}}</span></td>
+            <td>{{date_added}}</td>
+            <td>
+                <div class="progress progress-micro">
+                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0"
+                         aria-valuemax="100" style="width: {{progress}}%;">
+                        <span class="sr-only">{{progress}}% Complete</span>
+                    </div>
+                </div>
+            </td>
+            <td><i class="icon-clock"></i> <strong class="text-danger">{{deadline}}</strong> hours left</td>
+            <td class="text-center">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-icon btn-success dropdown-toggle" data-toggle="dropdown">
+                        <i class="icon-cog4"></i>
+                    </button>
+                    <ul class="dropdown-menu icons-right dropdown-menu-right">
+                        <li><a href="#"><i class="icon-quill2"></i> Edit task</a></li>
+                        <li><a href="#"><i class="icon-share2"></i> Reassign</a></li>
+                        <li><a href="#"><i class="icon-checkmark3"></i> Complete</a></li>
+                        <li><a href="#"><i class="icon-stack"></i> Archive</a></li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+        {{/each}}
+        </tbody>
+    </table>
+</template>

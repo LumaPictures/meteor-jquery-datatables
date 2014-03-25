@@ -1,0 +1,20 @@
+# Meteor packages used by this project, one per line.
+#
+# 'meteor add' and 'meteor remove' will edit this file for you,
+# but you can also edit it by hand.
+
+standard-app-packages
+insecure
+preserve-inputs
+component-dataTable
+templating
+ui
+less
+spacebars
+coffeescript
+module-layout
+jquery
+jquery-ui
+blaze-layout
+iron-router
+iron-router-active

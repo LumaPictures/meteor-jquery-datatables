@@ -1,0 +1,266 @@
+<template name="custom_sort_dataTable">
+    <table class="table">
+        {{> default_tfoot }}
+    </table>
+</template>
+
+<template name="dataTables_inside_panels">
+    <!-- Default datatable inside panel -->
+    <div class="panel panel-default">
+        <div class="panel-heading"><h6 class="panel-title"><i class="icon-table"></i> Default datatable inside panel</h6></div>
+        {{> dataTable
+            selector="datatable"
+            table_template="default_table_template"
+            context=data.defaultTable
+        }}
+    </div>
+    <!-- /default datatable inside panel -->
+
+
+    <!-- Bordered datatable inside panel -->
+    <div class="panel panel-default">
+        <div class="panel-heading"><h6 class="panel-title"><i class="icon-file"></i> Bordered datatable inside panel</h6></div>
+        {{> dataTable
+            selector="borderd-datatable"
+            table_template="default_table_template"
+            table_styles="table-bordered"
+            context=data.defaultTable
+        }}
+    </div>
+    <!-- /bordered datatable inside panel -->
+
+
+    <!-- Striped datatable inside panel -->
+    <div class="panel panel-default">
+        <div class="panel-heading"><h6 class="panel-title"><i class="icon-paragraph-justify"></i> Striped datatable</h6></div>
+        {{> dataTable
+            selector="striped-datatable"
+            table_template="default_table_template"
+            table_styles="table-striped"
+            context=data.defaultTable
+        }}
+    </div>
+    <!-- /striped datatable inside panel -->
+
+
+    <!-- Striped and bordered datatable inside panel -->
+    <div class="panel panel-default">
+        <div class="panel-heading"><h6 class="panel-title"><i class="icon-paragraph-justify"></i> Striped &amp; bordered datatable</h6></div>
+        {{> dataTable
+            selector="striped-bordered-datatable"
+            table_template="default_table_template"
+            table_styles="table-striped table-bordered"
+            context=data.defaultTable
+        }}
+    </div>
+    <!-- /striped and bordered datatable inside panel -->
+
+
+    <!-- Condensed datatable inside panel -->
+    <div class="panel panel-default">
+        <div class="panel-heading"><h6 class="panel-title"><i class="icon-pagebreak"></i> Condensed datatable inside panel</h6></div>
+        {{> dataTable
+            selector="condensed-datatable"
+            table_template="default_table_template"
+            table_styles="table-condensed"
+            context=data.defaultTable
+        }}
+    </div>
+    <!-- /condensed datatable inside panel -->
+
+
+    <!-- Hover rows datatable inside panel -->
+    <div class="panel panel-default">
+        <div class="panel-heading"><h6 class="panel-title"><i class="icon-point-up"></i> Hover rows datatable inside panel</h6></div>
+        {{> dataTable
+            selector="hover-rows-datatable"
+            table_template="default_table_template"
+            table_styles="table-hover"
+            context=data.defaultTable
+        }}
+    </div>
+    <!-- /hover rows datatable inside panel -->
+
+
+    <!-- Datatable inside panel body -->
+    <div class="panel panel-default">
+        <div class="panel-heading"><h6 class="panel-title"><i class="icon-table"></i> Datatable inside panel body</h6></div>
+        <div class="panel-body">
+            {{> dataTable
+                selector="datatable-in-panel"
+                table_template="default_table_template"
+                context=data.defaultTable
+            }}
+        </div>
+    </div>
+    <!-- /datatable inside panel body -->
+</template>
+
+<template name="dataTables_outside_panels">
+    <!-- Default datatable -->
+    <div class="block">
+        <h6 class="heading-hr"><i class="icon-table"></i> Default datatable</h6>
+        {{> dataTable
+            selector="datatable-outside-panel"
+            table_template="default_table_template"
+            context=data.defaultTable
+        }}
+    </div>
+    <!-- /default datatable -->
+
+
+    <!-- Bordered datatable -->
+    <div class="block">
+        <h6 class="heading-hr"><i class="icon-file"></i> Bordered datatable</h6>
+        {{> dataTable
+            selector="borderd-datatable-outside-panel"
+            table_template="default_table_template"
+            table_styles="table-bordered"
+            context=data.defaultTable
+        }}
+    </div>
+    <!-- /bordered datatable -->
+
+
+    <!-- Striped datatable -->
+    <div class="block">
+        <h6 class="heading-hr"><i class="icon-paragraph-justify"></i> Striped datatable</h6>
+        {{> dataTable
+            selector="striped-datatable-outside-panel"
+            table_template="default_table_template"
+            table_styles="table-striped"
+            context=data.defaultTable
+        }}
+    </div>
+    <!-- /striped datatable -->
+
+
+    <!-- Striped and bordered datatable -->
+    <div class="block">
+        <h6 class="heading-hr"><i class="icon-paragraph-justify"></i> Striped &amp; bordered datatable</h6>
+        {{> dataTable
+            selector="striped-bordered-datatable-outside-panel"
+            table_template="default_table_template"
+            table_styles="table-striped table-bordered"
+            context=data.defaultTable
+        }}
+    </div>
+    <!-- /striped and bordered datatable -->
+
+    <!-- Condensed datatable -->
+    <div class="block">
+        <h6 class="heading-hr"><i class="icon-pagebreak"></i> Condensed datatable</h6>
+        {{> dataTable
+            selector="condensed-datatable-outside-panel"
+            table_template="default_table_template"
+            table_styles="table-condensed"
+            context=data.defaultTable
+        }}
+    </div>
+    <!-- /condensed datatable -->
+
+    <!-- Hover rows datatable -->
+    <div class="block">
+        <h6 class="heading-hr"><i class="icon-point-up"></i> Hover rows datatable</h6>
+        {{> dataTable
+            selector="hover-rows-datatable-outside-panel"
+            table_template="default_table_template"
+            table_style="table-hover"
+            context=data.defaultTable
+        }}
+    </div>
+    <!-- /hover rows datatable -->
+</template>
+
+<template name="dataTables_advanced">
+    <!-- Datatable with selectable rows -->
+    <div class="panel panel-default">
+        <div class="panel-heading"><h6 class="panel-title"><i class="icon-table"></i> Datatable with selectable rows</h6></div>
+        {{> dataTable
+            selector="datatable-selectable"
+            table_template="default_table_template"
+            context=data.defaultTable
+        }}
+    </div>
+    <!-- /datatable with selectable rows -->
+
+
+    <!-- Datatable with tools menu -->
+    <div class="panel panel-default">
+        <div class="panel-heading"><h6 class="panel-title"><i class="icon-table"></i> Datatable with tools menu</h6></div>
+        {{> dataTable
+            selector="datatable-tools"
+            table_template="default_table_template"
+            context=data.defaultTable
+        }}
+    </div>
+    <!-- /datatable with tools menu -->
+
+
+    <!-- Datatable with pager -->
+    <div class="panel panel-default">
+        <div class="panel-heading"><h6 class="panel-title"><i class="icon-table"></i> Datatable with pager</h6></div>
+        {{> dataTable
+            selector="datatable-pager"
+            table_template="default_table_template"
+            context=data.defaultTable
+        }}
+    </div>
+    <!-- /datatable with pager -->
+
+
+    <!-- Datatable with custom sortable columns -->
+    <div class="panel panel-default">
+        <div class="panel-heading"><h6 class="panel-title"><i class="icon-table"></i> Custom columns sorting</h6></div>
+        {{> dataTable
+            selector="datatable-custom-sort"
+            table_template="default_table_template"
+            context=data.defaultTable
+        }}
+    </div>
+    <!-- /datatable with custom sortable columns -->
+
+
+    <!-- Datatable with custom column filtering -->
+    <div class="panel panel-default">
+        <div class="panel-heading"><h6 class="panel-title"><i class="icon-table"></i> Add Rows</h6></div>
+        {{> dataTable
+            selector="datatable-add-row"
+            table_template="custom_sort_dataTable"
+            context=data.defaultTable
+        }}
+    </div>
+    <!-- /datatable with custom column filtering -->
+</template>
+
+
+<template name="datatables">
+    <!-- datatables -->
+    <div class="tabbable page-tabs">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#inside" data-toggle="tab"><i class="icon-checkbox-partial"></i> Inside panel</a></li>
+            <li><a href="#outside" data-toggle="tab"><i class="icon-checkbox-unchecked"></i> Ouside panel</a></li>
+            <li><a href="#advanced" data-toggle="tab"><i class="icon-checkmark3"></i> Advanced DataTables</a></li>
+        </ul>
+        <div class="tab-content">
+            <!-- First tab content -->
+            <div class="tab-pane active fade in" id="inside">
+                {{> dataTables_inside_panels }}
+            </div>
+            <!-- /first tab content -->
+
+            <!-- Second tab content -->
+            <div class="tab-pane fade" id="outside">
+                {{> dataTables_outside_panels}}
+            </div>
+            <!-- /second tab content -->
+
+            <!-- Third tab content -->
+            <div class="tab-pane fade" id="advanced">
+                {{> dataTables_advanced }}
+            </div>
+            <!-- /third tab content -->
+        </div>
+    </div>
+    <!-- /datatables -->
+</template>
