@@ -5,9 +5,5 @@
   "author": "Austin Rivas <austinrivas@gmail.com> (https://github.com/austinrivas)",
   "version": "0.0.1",
   "git": "https://github.com/lumapictures/component-dataTable",
-  "packages": {
-    "module-layout": {
-      "path": "../../packages/module-layout"
-    }
-  }
+  "packages": {}
 }

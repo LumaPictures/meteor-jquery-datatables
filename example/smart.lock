@@ -4,6 +4,9 @@
     "basePackages": {
       "component-dataTable": {
         "path": ".."
+      },
+      "module-layout": {
+        "path": "../../module-layout"
       }
     },
     "packages": {

@@ -14,15 +14,13 @@ Package.on_use(function (api, where) {
     'templating',
     'spacebars',
     'less'
-  ], 'client', {weak: true});
-
-  api.use('module-layout', 'client', {unordered: true});
+  ], 'client');
 
   api.add_files([
     'lib/datatables.min.js',
     'lib/tabletools.min.js',
-    'component-dataTable.html',
-    'component-dataTable.coffee'
+    'client/component-dataTable.html',
+    'client/component-dataTable.coffee'
   ], ['client']);
 });
 

@@ -6,12 +6,12 @@
 standard-app-packages
 insecure
 preserve-inputs
-component-dataTable
 templating
 ui
 less
 spacebars
 coffeescript
+component-dataTable
 module-layout
 jquery
 jquery-ui
