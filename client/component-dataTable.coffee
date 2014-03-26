@@ -1,55 +1,70 @@
+# Return the template specified in the component parameters
 Template.dataTable.chooseTemplate = (table_template) -> Template[ table_template or 'default_table_template' ]
 
-Template.dataTable.rendered = ->
-  templateInstance = @
-  selector = templateInstance.data.selector
-  options = templateInstance.data.options or presetOptions(selector) or {}
-  context = templateInstance.data.context or []
-
-  console.log 'rendered : ' + selector
-  console.log templateInstance
-
+# Global defaults for all datatables
+# These can be overridden in the options parameter
+Template.dataTable.defaultOptions =
   #===== Default Table
   # * Pagination
   # * Filtering
   # * Sorting
-  defaultOptions =
-    bJQueryUI: false
-    bAutoWidth: true
-    sPaginationType: "full_numbers"
-    sDom: "<\"datatable-header\"fl><\"datatable-scroll\"t><\"datatable-footer\"ip>"
-    oLanguage:
-      sSearch: "_INPUT_"
-      sLengthMenu: "<span>Show :</span> _MENU_"
-      oPaginate:
-        sFirst: "First"
-        sLast: "Last"
-        sNext: ">"
-        sPrevious: "<"
-    aoColumnDefs: []
-    aaSorting: []
+  bJQueryUI: false
+  bAutoWidth: true
+  sPaginationType: "full_numbers"
+  sDom: "<\"datatable-header\"fl><\"datatable-scroll\"t><\"datatable-footer\"ip>"
+  oLanguage:
+    sSearch: "_INPUT_"
+    sLengthMenu: "<span>Show :</span> _MENU_"
+    oPaginate:
+      sFirst: "First"
+      sLast: "Last"
+      sNext: ">"
+      sPrevious: "<"
+  aoColumnDefs: []
+  aaSorting: []
 
-  if context.rows and context.headers
-    defaultOptions.aaData = context.rows
-    defaultOptions.aoColumns = context.columns
+# Prepares the options object by merging the options passed in with the defaults
+Template.dataTable.prepareOptions = ->
+  options = @templateInstance.data.options or @presetOptions() or {}
+  context = @templateInstance.data.context or []
+  selector = @templateInstance.data.selector
+  if context.rows and context.columns
+    options.aaData = context.rows
+    options.aoColumns = context.columns
+  @templateInstance.data.options = _.defaults options, @defaultOptions
 
-  #===== Datatable init
-  templateInstance.dataTable = $(".#{selector} table").dataTable _.defaults options, defaultOptions
-
+# Creates an instance of dataTable with the given options and attaches it to this template instance
+Template.dataTable.initialize = ->
+  tI = @templateInstance
+  selector = tI.data.selector
+  options = tI.data.options
+  #===== Initialize DataTable object and attach to templateInstance
+  tI.dataTable = $(".#{selector} table").dataTable options
   #===== Datatable with footer filters
   if selector is 'datatable-add-row'
     $(".#{selector} .dataTables_wrapper tfoot input").keyup ->
       self = @
-      templateInstance.dataTable.fnFilter self.value, $(".#{selector} .dataTables_wrapper tfoot input").index(self)
-
+      tI.dataTable.fnFilter self.value, $(".#{selector} .dataTables_wrapper tfoot input").index(self)
   #===== Datatable results selector init
   $(".#{selector} .dataTables_length select").select2 minimumResultsForSearch: "-1"
-
   #===== Adding placeholder to Datatable filter input field =====//
   $(".#{selector} .dataTables_filter input[type=text]").attr "placeholder", "Type to filter..."
 
+
+Template.dataTable.rendered = ->
+  component = @__component__
+  # Merge options with defaults
+  component.prepareOptions()
+  # Initialze DataTable
+  component.initialize()
+  # TODO : add a global debug flag for console
+  # console.log "rendered::" + @data.selector
+  # console.log @
+
 # TODO : this is temporary all of this should be passed in through the options param
-presetOptions = (selector) ->
+Template.dataTable.presetOptions = ->
+  selector = @templateInstance.data.selector
+
   #===== Table with tasks =====
   if selector is 'datatable-tasks'
     options =
