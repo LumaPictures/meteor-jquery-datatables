@@ -1,4 +1,4 @@
-# DataTable Component
+# DataTable Component [![Build Status](https://travis-ci.org/LumaPictures/component-dataTable.svg?branch=dev)](https://travis-ci.org/LumaPictures/component-dataTable)
 
 ## [Live Example](http://component-dataTable.meteor.com)
 ## [DataTables Docs](https://datatables.net/usage/)
