@@ -17,10 +17,10 @@ Package.on_use(function (api, where) {
   ], 'client');
 
   api.add_files([
-    'lib/datatables.min.js',
-    'lib/tabletools.min.js',
-    'client/component-dataTable.html',
-    'client/component-dataTable.coffee'
+    'vendor/datatables.min.js',
+    'vendor/tabletools.min.js',
+    'lib/component-dataTable.html',
+    'lib/component-dataTable.coffee'
   ], ['client']);
 });
 
