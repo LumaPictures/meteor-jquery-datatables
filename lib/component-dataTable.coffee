@@ -1,26 +1,4 @@
-findCellRowIndexes = (oSettings, sSearch, iColumn) ->
-  i = undefined
-  iLen = undefined
-  j = undefined
-  jLen = undefined
-  aOut = []
-  aData = undefined
-  i = 0
-  iLen = oSettings.aoData.length
-
-  while i < iLen
-    aData = oSettings.aoData[i]._aData
-    if typeof iColumn is "undefined"
-      j = 0
-      jLen = aData.length
-
-      while j < jLen
-        aOut.push i  if aData[j] is sSearch
-        j++
-    else aOut.push i  if aData[iColumn] is sSearch
-    i++
-  aOut
-
+# Set default table template
 Template.dataTable.default_template = 'default_table_template'
 
 # Return the template specified in the component parameters
@@ -30,6 +8,7 @@ Template.dataTable.chooseTemplate = ( table_template = null ) ->
     return Template[ table_template ]
   else return Template[ Template.dataTable.default_template ]
 
+#====== Options
 # Global defaults for all datatables
 # These can be overridden in the options parameter
 Template.dataTable.defaultOptions =
@@ -52,78 +31,168 @@ Template.dataTable.defaultOptions =
   aoColumnDefs: []
   aaSorting: []
 
+Template.dataTable.setOptions = ( options ) ->
+  Match options, Object
+  @templateInstance.data.options = options
+
+Template.dataTable.getOptions = -> return @templateInstance.data.options or @presetOptions() or false
+
 # Prepares the options object by merging the options passed in with the defaults
 Template.dataTable.prepareOptions = ->
   self = @
-  options = self.templateInstance.data.options or self.presetOptions() or {}
-  columns = self.templateInstance.data.context.columns or []
-  rows = self.templateInstance.data.context.rows or []
-  if rows and columns
-    if _.isArray rows
-      options.aaData = rows
-    if _.isArray columns
-      options.aoColumns = columns
-  self.templateInstance.data.options = _.defaults options, self.defaultOptions
+  options = self.getOptions() or {}
+  columns = self.prepareColumns self.getColumns()
+  rows = self.prepareRows self.getRows()
+  if rows
+    options.aaData = rows
+  if columns
+    options.aoColumns = columns
+  self.setOptions _.defaults( options, self.defaultOptions )
 
-# Creates an instance of dataTable with the given options and attaches it to this template instance
-Template.dataTable.initialize = ->
-  tI = @templateInstance
-  selector = tI.data.selector
-  options = tI.data.options
-  rows = tI.data.context.rows
+#====== Selector
+Template.dataTable.setSelector = ( selector ) ->
+  Match selector, String
+  @templateInstance.data.selector = selector
 
-  #===== Initialize DataTable object and attach to templateInstance
-  tI.dataTable = $(".#{selector} table").dataTable options
+Template.dataTable.getSelector = -> return @templateInstance.data.selector or false
 
+Template.dataTable.prepareSelector = -> return
+
+#====== Query
+Template.dataTable.setQuery = ( query ) ->
+  Match query, Object
+  @templateInstance.data.query = query
+
+Template.dataTable.prepareQuery = -> return
+
+Template.dataTable.getQuery = -> return @templateInstance.data.query or false
+
+#====== Collection
+Template.dataTable.setCollection = ( collection ) ->
+  Match collection, Object
+  @templateInstance.data.collection = collection
+
+Template.dataTable.prepareCollection = -> return
+
+Template.dataTable.getCollection = -> return @templateInstance.data.collection or false
+
+#====== Rows
+Template.dataTable.setRows = ( rows ) ->
+  Match rows, Array
+  @templateInstance.data.rows = rows
+
+Template.dataTable.prepareRows = -> return
+
+Template.dataTable.getRows = -> return @templateInstance.data.rows or false
+
+#====== Columns
+Template.dataTable.setColumns = ( columns ) ->
+  Match columns, Array
+  @templateInstance.data.columns = columns
+
+Template.dataTable.prepareColumns = -> return
+
+Template.dataTable.getColumns = -> return @templateInstance.data.columns or false
+
+#====== Cursor
+Template.dataTable.setCursor = ( cursor ) ->
+  Match cursor, Object
+  @templateInstance.data.cursor = cursor
+
+Template.dataTable.prepareCursor = ->
+  query = @getQuery()
+  collection = @getCollection()
+  if query and collection
+    @setCursor collection.find query
+
+Template.dataTable.getCursor = -> return @templateInstance.data.cursor or false
+
+#====== DataTable
+Template.dataTable.getDataTable = -> return @templateInstance.dataTable or false
+
+Template.dataTable.setDatatTable = ( dataTable ) ->
+  Match dataTable, Object
+  @templateInstance.dataTable = dataTable
+
+Template.dataTable.prepareObservers = ->
+  self = @
+  tI = self.templateInstance
+  collection = self.getCollection()
+  cursor = self.getCursor
   #===== Setup observers to add and remove rows from the dataTable
-  if _.isObject rows
-    rows.observeChanges
+  if cursor
+    cursor.observeChanges
       added: ( _id, fields ) ->
         fields._id = _id
         tI.dataTable.fnAddData fields
+
       changed: ( _id, fields ) ->
         oSettings = tI.dataTable.fnSettings()
         aoData = oSettings.aoData
         counter = 0
         index = 0
-        aoData.forEach ( row ) =>
+        aoData.some ( row ) =>
           if row._aData._id is _id
             index = counter
+            return true
           counter++
-        tI.dataTable.fnUpdate rows.collection.findOne( _id ), index
+        tI.dataTable.fnUpdate collection.findOne( _id ), index
+
       moved: (document, oldIndex, newIndex) ->
         console.log("row moved: ", document)
+
       removed: ( _id ) ->
         oSettings = tI.dataTable.fnSettings()
         aoData = oSettings.aoData
         counter = 0
         index = 0
-        aoData.forEach ( row ) =>
+        aoData.some ( row ) =>
           if row._aData._id is _id
             index = counter
+            return true
           counter++
         tI.dataTable.fnDeleteRow index
+
+Template.dataTable.prepareFilters = ->
+  self = @
+  tI = self.templateInstance
+  selector = self.getSelector()
+  #===== Adding placeholder to Datatable filter input field =====//
+  $(".#{selector} .dataTables_filter input[type=text]").attr "placeholder", "Type to filter..."
 
   #===== Datatable with footer filters
   if selector is 'datatable-add-row'
     $(".#{selector} .dataTables_wrapper tfoot input").keyup ->
       target = @
-      tI.dataTable.fnFilter self.value, $(".#{selector} .dataTables_wrapper tfoot input").index( target )
+      tI.dataTable.fnFilter target.value, $(".#{selector} .dataTables_wrapper tfoot input").index( target )
 
+Template.dataTable.preparePagination = ->
+  selector = @getSelector()
   #===== Datatable results selector init
   if $().select2 isnt undefined
-    $(".#{selector} .dataTables_length select").select2 minimumResultsForSearch: "-1"
+    $(".#{ selector } .dataTables_length select").select2 minimumResultsForSearch: "-1"
 
-  #===== Adding placeholder to Datatable filter input field =====//
-  $(".#{selector} .dataTables_filter input[type=text]").attr "placeholder", "Type to filter..."
+Template.dataTable.prepareDataTable = ->
+  self = @
+  options = self.getOptions()
+  selector = self.getSelector()
+  self.setDatatTable $(".#{ selector } table").dataTable( options )
+  self.prepareObservers()
+  self.prepareFilters()
+  self.preparePagination()
+
+Template.dataTable.initialize = ->
+  @prepareQuery()
+  @prepareCollection()
+  @prepareCursor()
+  @prepareOptions()
+  @prepareDataTable()
 
 
 Template.dataTable.rendered = ->
   templateInstance = @
   component = templateInstance.__component__
   # Merge options with defaults
-  component.prepareOptions()
-  # Initialze DataTable
   component.initialize()
 
 # TODO : this is temporary all of this should be passed in through the options param

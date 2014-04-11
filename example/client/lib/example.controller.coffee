@@ -66,7 +66,7 @@ class @ExampleController extends PageController
 
           }
           {
-            sTitle: "Created At"
+            sTitle: "Created"
             mData: "createdAt"
             mRender: ( dataSource, call, rawData ) ->
               rawData.createdAt ?= ""

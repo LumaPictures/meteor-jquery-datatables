@@ -2,7 +2,7 @@
     <div class="{{selector}}">
         {{#with chooseTemplate table_template }}
             {{#with ../context}}     {{! original 'context' argument to dataTable}}
-                {{> .. }}            {{! return value from chooseTemplate(template) }}
+                {{> .. }}            {{! return value from chooseTemplate(table_template) }}
             {{/with}}
         {{/with}}
     </div>
