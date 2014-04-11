@@ -1,6 +1,14 @@
 <template name="custom_sort_dataTable">
     <table class="table">
-        {{> default_tfoot }}
+        <tfoot>
+            <tr>
+                <th><input type="text" name="search_engine" placeholder="Search Engine" class="form-control"></th>
+                <th><input type="text" name="search_browser" placeholder="Search Browswer" class="form-control"></th>
+                <th><input type="text" name="search_platform" placeholder="Search Platform" class="form-control"></th>
+                <th><input type="text" name="search_version" placeholder="Search Version" class="form-control"></th>
+                <th><input type="text" name="search_grade" placeholder="Grade" class="form-control"></th>
+            </tr>
+        </tfoot>
     </table>
 </template>
 
@@ -10,8 +18,7 @@
         <div class="panel-heading"><h6 class="panel-title"><i class="icon-table"></i> Default datatable inside panel</h6></div>
         {{> dataTable
             selector="datatable"
-            table_template="default_table_template"
-            context=data.table
+            context=table
         }}
     </div>
     <!-- /default datatable inside panel -->
@@ -22,9 +29,8 @@
         <div class="panel-heading"><h6 class="panel-title"><i class="icon-file"></i> Bordered datatable inside panel</h6></div>
         {{> dataTable
             selector="borderd-datatable"
-            table_template="default_table_template"
             table_styles="table-bordered"
-            context=data.table
+            context=pages
         }}
     </div>
     <!-- /bordered datatable inside panel -->
@@ -35,9 +41,8 @@
         <div class="panel-heading"><h6 class="panel-title"><i class="icon-paragraph-justify"></i> Striped datatable</h6></div>
         {{> dataTable
             selector="striped-datatable"
-            table_template="default_table_template"
             table_styles="table-striped"
-            context=data.table
+            context=table
         }}
     </div>
     <!-- /striped datatable inside panel -->
@@ -48,9 +53,8 @@
         <div class="panel-heading"><h6 class="panel-title"><i class="icon-paragraph-justify"></i> Striped &amp; bordered datatable</h6></div>
         {{> dataTable
             selector="striped-bordered-datatable"
-            table_template="default_table_template"
             table_styles="table-striped table-bordered"
-            context=data.table
+            context=table
         }}
     </div>
     <!-- /striped and bordered datatable inside panel -->
@@ -61,9 +65,8 @@
         <div class="panel-heading"><h6 class="panel-title"><i class="icon-pagebreak"></i> Condensed datatable inside panel</h6></div>
         {{> dataTable
             selector="condensed-datatable"
-            table_template="default_table_template"
             table_styles="table-condensed"
-            context=data.table
+            context=table
         }}
     </div>
     <!-- /condensed datatable inside panel -->
@@ -74,9 +77,8 @@
         <div class="panel-heading"><h6 class="panel-title"><i class="icon-point-up"></i> Hover rows datatable inside panel</h6></div>
         {{> dataTable
             selector="hover-rows-datatable"
-            table_template="default_table_template"
             table_styles="table-hover"
-            context=data.table
+            context=table
         }}
     </div>
     <!-- /hover rows datatable inside panel -->
@@ -88,8 +90,7 @@
         <div class="panel-body">
             {{> dataTable
                 selector="datatable-in-panel"
-                table_template="default_table_template"
-                context=data.table
+                context=table
             }}
         </div>
     </div>
@@ -102,8 +103,7 @@
         <h6 class="heading-hr"><i class="icon-table"></i> Default datatable</h6>
         {{> dataTable
             selector="datatable-outside-panel"
-            table_template="default_table_template"
-            context=data.table
+            context=table
         }}
     </div>
     <!-- /default datatable -->
@@ -114,9 +114,8 @@
         <h6 class="heading-hr"><i class="icon-file"></i> Bordered datatable</h6>
         {{> dataTable
             selector="borderd-datatable-outside-panel"
-            table_template="default_table_template"
             table_styles="table-bordered"
-            context=data.table
+            context=table
         }}
     </div>
     <!-- /bordered datatable -->
@@ -127,9 +126,8 @@
         <h6 class="heading-hr"><i class="icon-paragraph-justify"></i> Striped datatable</h6>
         {{> dataTable
             selector="striped-datatable-outside-panel"
-            table_template="default_table_template"
             table_styles="table-striped"
-            context=data.table
+            context=table
         }}
     </div>
     <!-- /striped datatable -->
@@ -140,9 +138,8 @@
         <h6 class="heading-hr"><i class="icon-paragraph-justify"></i> Striped &amp; bordered datatable</h6>
         {{> dataTable
             selector="striped-bordered-datatable-outside-panel"
-            table_template="default_table_template"
             table_styles="table-striped table-bordered"
-            context=data.table
+            context=table
         }}
     </div>
     <!-- /striped and bordered datatable -->
@@ -152,9 +149,8 @@
         <h6 class="heading-hr"><i class="icon-pagebreak"></i> Condensed datatable</h6>
         {{> dataTable
             selector="condensed-datatable-outside-panel"
-            table_template="default_table_template"
             table_styles="table-condensed"
-            context=data.table
+            context=table
         }}
     </div>
     <!-- /condensed datatable -->
@@ -164,9 +160,8 @@
         <h6 class="heading-hr"><i class="icon-point-up"></i> Hover rows datatable</h6>
         {{> dataTable
             selector="hover-rows-datatable-outside-panel"
-            table_template="default_table_template"
             table_style="table-hover"
-            context=data.table
+            context=table
         }}
     </div>
     <!-- /hover rows datatable -->
@@ -178,8 +173,7 @@
         <div class="panel-heading"><h6 class="panel-title"><i class="icon-table"></i> Datatable with selectable rows</h6></div>
         {{> dataTable
             selector="datatable-selectable"
-            table_template="default_table_template"
-            context=data.table
+            context=table
         }}
     </div>
     <!-- /datatable with selectable rows -->
@@ -190,8 +184,7 @@
         <div class="panel-heading"><h6 class="panel-title"><i class="icon-table"></i> Datatable with tools menu</h6></div>
         {{> dataTable
             selector="datatable-tools"
-            table_template="default_table_template"
-            context=data.table
+            context=table
         }}
     </div>
     <!-- /datatable with tools menu -->
@@ -202,8 +195,7 @@
         <div class="panel-heading"><h6 class="panel-title"><i class="icon-table"></i> Datatable with pager</h6></div>
         {{> dataTable
             selector="datatable-pager"
-            table_template="default_table_template"
-            context=data.table
+            context=table
         }}
     </div>
     <!-- /datatable with pager -->
@@ -215,7 +207,7 @@
         {{> dataTable
             selector="datatable-custom-sort"
             table_template="default_table_template"
-            context=data.table
+            context=table
         }}
     </div>
     <!-- /datatable with custom sortable columns -->
@@ -227,7 +219,7 @@
         {{> dataTable
             selector="datatable-add-row"
             table_template="custom_sort_dataTable"
-            context=data.table
+            context=table
         }}
     </div>
     <!-- /datatable with custom column filtering -->

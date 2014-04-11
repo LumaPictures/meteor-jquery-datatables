@@ -1,7 +1,7 @@
 <template name="dataTable">
     <div class="{{selector}}">
-        {{#with chooseTemplate table_template table_styles }}
-            {{#with ../context}}    {{! original 'data' argument to dataTable}}
+        {{#with chooseTemplate table_template }}
+            {{#with ../context}}     {{! original 'context' argument to dataTable}}
                 {{> .. }}            {{! return value from chooseTemplate(template) }}
             {{/with}}
         {{/with}}
@@ -10,28 +10,6 @@
 
 <template name="default_table_template">
     <table class="table {{../../table_styles}}"></table>
-</template>
-
-<template name="default_thead">
-    <thead>
-        <tr>
-            {{#each headers }}
-            <th class="{{#if selector}}{{selector}}{{/if}}{{#each options}} {{this}}{{/each}}">{{label}}</th>
-            {{/each}}
-        </tr>
-    </thead>
-</template>
-
-<template name="default_tfoot">
-    <tfoot>
-        <tr>
-            <th><input type="text" name="search_engine" placeholder="Search Engine" class="form-control"></th>
-            <th><input type="text" name="search_browser" placeholder="Search Browswer" class="form-control"></th>
-            <th><input type="text" name="search_platform" placeholder="Search Platform" class="form-control"></th>
-            <th><input type="text" name="search_version" placeholder="Search Version" class="form-control"></th>
-            <th><input type="text" name="search_grade" placeholder="Grade" class="form-control"></th>
-        </tr>
-    </tfoot>
 </template>
 
 

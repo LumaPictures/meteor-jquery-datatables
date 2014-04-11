@@ -1,5 +1,34 @@
+findCellRowIndexes = (oSettings, sSearch, iColumn) ->
+  i = undefined
+  iLen = undefined
+  j = undefined
+  jLen = undefined
+  aOut = []
+  aData = undefined
+  i = 0
+  iLen = oSettings.aoData.length
+
+  while i < iLen
+    aData = oSettings.aoData[i]._aData
+    if typeof iColumn is "undefined"
+      j = 0
+      jLen = aData.length
+
+      while j < jLen
+        aOut.push i  if aData[j] is sSearch
+        j++
+    else aOut.push i  if aData[iColumn] is sSearch
+    i++
+  aOut
+
+Template.dataTable.default_template = 'default_table_template'
+
 # Return the template specified in the component parameters
-Template.dataTable.chooseTemplate = (table_template) -> Template[ table_template or 'default_table_template' ]
+Template.dataTable.chooseTemplate = ( table_template = null ) ->
+  table_template ?= Template.dataTable.default_template
+  if Template[ table_template ]
+    return Template[ table_template ]
+  else return Template[ Template.dataTable.default_template ]
 
 # Global defaults for all datatables
 # These can be overridden in the options parameter
@@ -25,45 +54,82 @@ Template.dataTable.defaultOptions =
 
 # Prepares the options object by merging the options passed in with the defaults
 Template.dataTable.prepareOptions = ->
-  options = @templateInstance.data.options or @presetOptions() or {}
-  context = @templateInstance.data.context or []
-  selector = @templateInstance.data.selector
-  if context.rows and context.columns
-    options.aaData = context.rows
-    options.aoColumns = context.columns
-  @templateInstance.data.options = _.defaults options, @defaultOptions
+  self = @
+  options = self.templateInstance.data.options or self.presetOptions() or {}
+  columns = self.templateInstance.data.context.columns or []
+  rows = self.templateInstance.data.context.rows or []
+  if rows and columns
+    if _.isArray rows
+      options.aaData = rows
+    if _.isArray columns
+      options.aoColumns = columns
+  self.templateInstance.data.options = _.defaults options, self.defaultOptions
 
 # Creates an instance of dataTable with the given options and attaches it to this template instance
 Template.dataTable.initialize = ->
   tI = @templateInstance
   selector = tI.data.selector
   options = tI.data.options
+  rows = tI.data.context.rows
+
   #===== Initialize DataTable object and attach to templateInstance
   tI.dataTable = $(".#{selector} table").dataTable options
+
+  #===== Setup observers to add and remove rows from the dataTable
+  if _.isObject rows
+    rows.observeChanges
+      added: ( _id, fields ) ->
+        fields._id = _id
+        tI.dataTable.fnAddData fields
+      changed: ( _id, fields ) ->
+        oSettings = tI.dataTable.fnSettings()
+        aoData = oSettings.aoData
+        counter = 0
+        index = 0
+        aoData.forEach ( row ) =>
+          if row._aData._id is _id
+            index = counter
+          counter++
+        tI.dataTable.fnUpdate rows.collection.findOne( _id ), index
+      moved: (document, oldIndex, newIndex) ->
+        console.log("row moved: ", document)
+      removed: ( _id ) ->
+        oSettings = tI.dataTable.fnSettings()
+        aoData = oSettings.aoData
+        counter = 0
+        index = 0
+        aoData.forEach ( row ) =>
+          if row._aData._id is _id
+            index = counter
+          counter++
+        tI.dataTable.fnDeleteRow index
+
   #===== Datatable with footer filters
   if selector is 'datatable-add-row'
     $(".#{selector} .dataTables_wrapper tfoot input").keyup ->
-      self = @
-      tI.dataTable.fnFilter self.value, $(".#{selector} .dataTables_wrapper tfoot input").index(self)
+      target = @
+      tI.dataTable.fnFilter self.value, $(".#{selector} .dataTables_wrapper tfoot input").index( target )
+
   #===== Datatable results selector init
-  $(".#{selector} .dataTables_length select").select2 minimumResultsForSearch: "-1"
+  if $().select2 isnt undefined
+    $(".#{selector} .dataTables_length select").select2 minimumResultsForSearch: "-1"
+
   #===== Adding placeholder to Datatable filter input field =====//
   $(".#{selector} .dataTables_filter input[type=text]").attr "placeholder", "Type to filter..."
 
 
 Template.dataTable.rendered = ->
-  component = @__component__
+  templateInstance = @
+  component = templateInstance.__component__
   # Merge options with defaults
   component.prepareOptions()
   # Initialze DataTable
   component.initialize()
-  # TODO : add a global debug flag for console
-  # console.log "rendered::" + @data.selector
-  # console.log @
 
 # TODO : this is temporary all of this should be passed in through the options param
 Template.dataTable.presetOptions = ->
-  selector = @templateInstance.data.selector
+  self = @
+  selector = self.templateInstance.data.selector
 
   #===== Table with tasks =====
   if selector is 'datatable-tasks'

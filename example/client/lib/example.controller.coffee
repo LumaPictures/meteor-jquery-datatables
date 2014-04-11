@@ -1,31 +1,70 @@
 class @ExampleController extends PageController
   onBeforeAction: -> super
   onAfterAction: -> super
-  action: -> super
+  action: -> super if @ready()
+  waitOn: -> return [
+    Meteor.subscribe "all_pages"
+    Meteor.subscribe "all_browsers"
+  ]
   data: ->
-    @data.table =
-      columns: [
-        {
-          sTitle: "Engine"
-        }
-        {
-          sTitle: "Browser"
-        }
-        {
-          sTitle: "Platform"
-        }
-        {
-          sTitle: "Version"
-          sClass: "center"
-        }
-        {
-          sTitle: "Grade"
-          sClass: "center"
-          fnRender: (obj) ->
-            sReturn = obj.aData[obj.iDataColumn]
-            sReturn = "<b>A</b>"  if sReturn is "A"
-            sReturn
-        }
-      ]
-      rows: []
+    self = @
+    if self.ready()
+      self.data.pages =
+        columns: [
+          {
+            sTitle: "Route"
+            mData: "route"
+          }
+          {
+            sTitle: "Path"
+            mData: "path"
+          }
+          {
+            sTitle: "Controller"
+            mData: "controller"
+          }
+        ]
+        rows: Pages.find()
+
+      self.data.table =
+        columns: [
+          {
+            sTitle: "id"
+            mData: "_id"
+            bVisible: false
+          }
+          {
+            sTitle: "Engine"
+            mData: "engine"
+            mRender: ( dataSource, call, rawData ) -> rawData.engine ?= ""
+          }
+          {
+            sTitle: "Browser"
+            mData: "browser"
+            mRender: ( dataSource, call, rawData ) -> rawData.browser ?= ""
+          }
+          {
+            sTitle: "Platform"
+            mData: "platform"
+            mRender: ( dataSource, call, rawData ) -> rawData.platform ?= ""
+          }
+          {
+            sTitle: "Version"
+            mData: "version"
+            sClass: "center"
+            mRender: ( dataSource, call, rawData ) -> rawData.version ?= ""
+          }
+          {
+            sTitle: "Grade"
+            mData: "grade"
+            sClass: "center"
+            mRender: ( dataSource, call, rawData ) ->
+              rawData ?= ""
+              switch rawData.grade
+                when "A" then return "<b>A</b>"
+                else return rawData.grade
+
+          }
+        ]
+        rows: Browsers.find()
     super

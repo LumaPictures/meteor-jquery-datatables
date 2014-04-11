@@ -4,7 +4,8 @@
       "path": ".."
     },
     "module-layout": {
-      "path": "../../module-layout"
-    }
+      "git": "https://github.com/lumapictures/module-layout"
+    },
+    "houston": {}
   }
 }

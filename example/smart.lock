@@ -1,0 +1,60 @@
+{
+  "meteor": {},
+  "dependencies": {
+    "basePackages": {
+      "component-dataTable": {
+        "path": ".."
+      },
+      "module-layout": {
+        "git": "https://github.com/lumapictures/module-layout",
+        "branch": "master"
+      },
+      "houston": {}
+    },
+    "packages": {
+      "component-dataTable": {
+        "path": ".."
+      },
+      "module-layout": {
+        "git": "https://github.com/lumapictures/module-layout",
+        "branch": "master",
+        "commit": "7b6813940d5b670fe589f41e42da45df4fd2ea82"
+      },
+      "houston": {
+        "git": "https://github.com/gterrono/houston.git",
+        "tag": "v1.0.2",
+        "commit": "c9af02ec7b52b5ea061a36d260386aa25644507d"
+      },
+      "blaze-layout": {
+        "git": "https://github.com/EventedMind/blaze-layout.git",
+        "tag": "v0.2.4",
+        "commit": "b40e9b0612329288d75cf52ad14a7da64bb8618f"
+      },
+      "iron-router": {
+        "git": "https://github.com/EventedMind/iron-router.git",
+        "tag": "v0.7.0",
+        "commit": "05f34bc48c4cad9fdaa366c1ddcabe6980232ece"
+      },
+      "iron-router-active": {
+        "git": "https://github.com/XpressiveCode/iron-router-active.git",
+        "tag": "v0.2.0",
+        "commit": "1b05aad5325c3dfdb5186b9c288aa53013d767b8"
+      },
+      "jquery-ui": {
+        "git": "https://github.com/TimHeckel/meteor-jquery-ui.git",
+        "tag": "v1.9.2",
+        "commit": "c437d45edcf1367df8d5ffa8bad2867758030bd2"
+      },
+      "paginated-subscription": {
+        "git": "https://github.com/tmeasday/meteor-paginated-subscription.git",
+        "tag": "v0.1.2",
+        "commit": "35e0c6112df2b4cfeb60b559276a93cac5ee2dd6"
+      },
+      "spin": {
+        "git": "https://github.com/SachaG/meteor-spin.git",
+        "tag": "v0.2.2",
+        "commit": "3f655f0016228e4195acc784c45d3e3a247dc39f"
+      }
+    }
+  }
+}

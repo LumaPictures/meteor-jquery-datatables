@@ -22,6 +22,10 @@ Package.on_use(function (api, where) {
     'lib/component-dataTable.html',
     'lib/component-dataTable.coffee'
   ], ['client']);
+
+  api.export([
+    'DataTable'
+  ],['client']);
 });
 
 Package.on_test(function (api) {
@@ -32,5 +36,7 @@ Package.on_test(function (api) {
     'test-helpers'
   ], ['client', 'server']);
 
-  api.add_files(['tests/component-dataTable.test.coffee'],['client', 'server']);
+  api.add_files([
+    'tests/component-dataTable.test.coffee'
+  ], ['client', 'server']);
 });

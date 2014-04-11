@@ -1,4 +1,4 @@
-Browsers = new Meteor.Collection 'browsers'
+@Browsers = new Meteor.Collection 'browsers'
 
 Browsers.allow
   insert: -> true

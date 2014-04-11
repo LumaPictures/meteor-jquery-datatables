@@ -10,7 +10,8 @@ if Meteor.isServer
           subtitle: "This isn't really home, its work."
       },{
         route: "tables"
-        path: "/tables"
+        template: "datatables"
+        path: "/tables/dataTables"
         controller: 'ExampleController'
         nav:
           priority: 8
