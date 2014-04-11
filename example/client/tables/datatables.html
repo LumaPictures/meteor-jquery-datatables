@@ -24,77 +24,81 @@
     <!-- /default datatable inside panel -->
 
 
-    <!-- Bordered datatable inside panel -->
-    <div class="panel panel-default">
-        <div class="panel-heading"><h6 class="panel-title"><i class="icon-file"></i> Bordered datatable inside panel</h6></div>
-        {{> dataTable
-            selector="borderd-datatable"
-            table_styles="table-bordered"
-            context=pages
-        }}
+
+</template>
+
+<template name="temp2">
+  <!-- Bordered datatable inside panel -->
+  <div class="panel panel-default">
+    <div class="panel-heading"><h6 class="panel-title"><i class="icon-file"></i> Bordered datatable inside panel</h6></div>
+    {{> dataTable
+    selector="borderd-datatable"
+    table_styles="table-bordered"
+    context=pages
+    }}
+  </div>
+  <!-- /bordered datatable inside panel -->
+
+
+  <!-- Striped datatable inside panel -->
+  <div class="panel panel-default">
+    <div class="panel-heading"><h6 class="panel-title"><i class="icon-paragraph-justify"></i> Striped datatable</h6></div>
+    {{> dataTable
+    selector="striped-datatable"
+    table_styles="table-striped"
+    context=table
+    }}
+  </div>
+  <!-- /striped datatable inside panel -->
+
+
+  <!-- Striped and bordered datatable inside panel -->
+  <div class="panel panel-default">
+    <div class="panel-heading"><h6 class="panel-title"><i class="icon-paragraph-justify"></i> Striped &amp; bordered datatable</h6></div>
+    {{> dataTable
+    selector="striped-bordered-datatable"
+    table_styles="table-striped table-bordered"
+    context=table
+    }}
+  </div>
+  <!-- /striped and bordered datatable inside panel -->
+
+
+  <!-- Condensed datatable inside panel -->
+  <div class="panel panel-default">
+    <div class="panel-heading"><h6 class="panel-title"><i class="icon-pagebreak"></i> Condensed datatable inside panel</h6></div>
+    {{> dataTable
+    selector="condensed-datatable"
+    table_styles="table-condensed"
+    context=table
+    }}
+  </div>
+  <!-- /condensed datatable inside panel -->
+
+
+  <!-- Hover rows datatable inside panel -->
+  <div class="panel panel-default">
+    <div class="panel-heading"><h6 class="panel-title"><i class="icon-point-up"></i> Hover rows datatable inside panel</h6></div>
+    {{> dataTable
+    selector="hover-rows-datatable"
+    table_styles="table-hover"
+    context=table
+    }}
+  </div>
+  <!-- /hover rows datatable inside panel -->
+
+
+  <!-- Datatable inside panel body -->
+  <div class="panel panel-default">
+    <div class="panel-heading"><h6 class="panel-title"><i class="icon-table"></i> Datatable inside panel body</h6></div>
+    <div class="panel-body">
+      {{> dataTable
+      selector="datatable-in-panel"
+      context=table
+      }}
     </div>
-    <!-- /bordered datatable inside panel -->
-
-
-    <!-- Striped datatable inside panel -->
-    <div class="panel panel-default">
-        <div class="panel-heading"><h6 class="panel-title"><i class="icon-paragraph-justify"></i> Striped datatable</h6></div>
-        {{> dataTable
-            selector="striped-datatable"
-            table_styles="table-striped"
-            context=table
-        }}
-    </div>
-    <!-- /striped datatable inside panel -->
-
-
-    <!-- Striped and bordered datatable inside panel -->
-    <div class="panel panel-default">
-        <div class="panel-heading"><h6 class="panel-title"><i class="icon-paragraph-justify"></i> Striped &amp; bordered datatable</h6></div>
-        {{> dataTable
-            selector="striped-bordered-datatable"
-            table_styles="table-striped table-bordered"
-            context=table
-        }}
-    </div>
-    <!-- /striped and bordered datatable inside panel -->
-
-
-    <!-- Condensed datatable inside panel -->
-    <div class="panel panel-default">
-        <div class="panel-heading"><h6 class="panel-title"><i class="icon-pagebreak"></i> Condensed datatable inside panel</h6></div>
-        {{> dataTable
-            selector="condensed-datatable"
-            table_styles="table-condensed"
-            context=table
-        }}
-    </div>
-    <!-- /condensed datatable inside panel -->
-
-
-    <!-- Hover rows datatable inside panel -->
-    <div class="panel panel-default">
-        <div class="panel-heading"><h6 class="panel-title"><i class="icon-point-up"></i> Hover rows datatable inside panel</h6></div>
-        {{> dataTable
-            selector="hover-rows-datatable"
-            table_styles="table-hover"
-            context=table
-        }}
-    </div>
-    <!-- /hover rows datatable inside panel -->
-
-
-    <!-- Datatable inside panel body -->
-    <div class="panel panel-default">
-        <div class="panel-heading"><h6 class="panel-title"><i class="icon-table"></i> Datatable inside panel body</h6></div>
-        <div class="panel-body">
-            {{> dataTable
-                selector="datatable-in-panel"
-                context=table
-            }}
-        </div>
-    </div>
-    <!-- /datatable inside panel body -->
+  </div>
+  <!-- /datatable inside panel body -->
 </template>
 
 <template name="dataTables_outside_panels">
@@ -241,18 +245,23 @@
             </div>
             <!-- /first tab content -->
 
-            <!-- Second tab content -->
-            <div class="tab-pane fade" id="outside">
-                {{> dataTables_outside_panels}}
-            </div>
-            <!-- /second tab content -->
 
-            <!-- Third tab content -->
-            <div class="tab-pane fade" id="advanced">
-                {{> dataTables_advanced }}
-            </div>
-            <!-- /third tab content -->
         </div>
     </div>
     <!-- /datatables -->
+</template>
+
+
+<template name="temp">
+  <!-- Second tab content -->
+  <div class="tab-pane fade" id="outside">
+    {{> dataTables_outside_panels}}
+  </div>
+  <!-- /second tab content -->
+
+  <!-- Third tab content -->
+  <div class="tab-pane fade" id="advanced">
+    {{> dataTables_advanced }}
+  </div>
+  <!-- /third tab content -->
 </template>

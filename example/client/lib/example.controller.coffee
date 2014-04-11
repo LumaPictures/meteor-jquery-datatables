@@ -65,6 +65,15 @@ class @ExampleController extends PageController
                 else return rawData.grade
 
           }
+          {
+            sTitle: "Created At"
+            mData: "createdAt"
+            mRender: ( dataSource, call, rawData ) ->
+              rawData.createdAt ?= ""
+              if rawData.createdAt
+                return moment( rawData.createdAt ).fromNow()
+              else return rawData.createdAt
+          }
         ]
         rows: Browsers.find()
     super
