@@ -13,18 +13,22 @@
 </template>
 
 <template name="dataTables_inside_panels">
-    <!-- Default datatable inside panel -->
     <div class="panel panel-default">
-        <div class="panel-heading"><h6 class="panel-title"><i class="icon-table"></i> Default datatable inside panel</h6></div>
+        <div class="panel-heading"><h6 class="panel-title"><i class="icon-table"></i> Static Array DataSource</h6></div>
         {{> dataTable
-            selector="datatable"
-            context=table
+            selector=pages.selector
+            columns=pages.columns
+            rows=pages.rows
         }}
     </div>
-    <!-- /default datatable inside panel -->
-
-
-
+    <div class="panel panel-default">
+        <div class="panel-heading"><h6 class="panel-title"><i class="icon-table"></i> Reactive Cursor DataSource</h6></div>
+        {{> dataTable
+            selector=browsers.selector
+            columns=browsers.columns
+            collection=browsers.collection
+        }}
+    </div>
 </template>
 
 <template name="temp2">
