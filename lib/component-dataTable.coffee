@@ -133,12 +133,6 @@ Template.dataTable.setRows = ( rows ) ->
   @log 'rows:set', rows
 
 Template.dataTable.prepareRows = ->
-  ###
-  if @getCollection() and @getQuery()
-    rows = @getCollection().find( @getQuery() ).fetch()
-    dictionary = @arrayToDictionary rows, '_id'
-    @setRows rows
-  ###
   return
 
 Template.dataTable.getRows = ->
@@ -231,7 +225,7 @@ Template.dataTable.getDataTable = ->
 Template.dataTable.setDataTable = ( dataTable ) ->
   Match.test dataTable, Object
   @getTemplateInstance().dataTable = dataTable
-  @log "dataTable:set", dataTable
+  @log "dataTable:set", dataTable.fnSettings()
 
 Template.dataTable.prepareDataTable = ->
   @setDataTable $(".#{ @getSelector() } table").dataTable( @getOptions() )
@@ -289,7 +283,7 @@ Template.dataTable.isDebug = ->
 
 Template.dataTable.log = ( message, object ) ->
   if @isDebug()
-    console.log "#{ @getSelector() }:#{ message }", object
+    console.log "dataTable:#{ @getSelector() }:#{ message }", object
 #====== /Utility ======#
 
 #====== Presets ======#
