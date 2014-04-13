@@ -132,17 +132,6 @@ Template.dataTable.setRows = ( rows ) ->
   @setData 'rows', rows
   @log 'rows:set', rows
 
-Template.dataTable.setRow = ( row ) ->
-  Match.test row, Object
-  if @getRows()
-    @getTemplateInstance().data.rows[ row._id ] = row
-    @log "row:set:#{ row._id }", row
-
-Template.dataTable.unsetRow = ( _id ) ->
-  if @getRows()
-    delete @getTemplateInstance().data.rows[ _id ]
-    @log "row:unset:#{ _id }"
-
 Template.dataTable.prepareRows = ->
   ###
   if @getCollection() and @getQuery()
@@ -150,46 +139,50 @@ Template.dataTable.prepareRows = ->
     dictionary = @arrayToDictionary rows, '_id'
     @setRows rows
   ###
+  return
 
 Template.dataTable.getRows = ->
-  return @getData().rows or false
+  if @getDataTable()
+    return @getDataTable().fnSettings().aoData or false
+  else return @getData().rows or false
 
-Template.dataTable.getRow = ( _id ) ->
-  if @getRows()[ _id ]
-    return @getRows()[ _id ]
-  else return false
+Template.dataTable.getRowIndex = ( _id ) ->
+  index = false
+  counter = 0
+  rows = @getRows()
+  checkIndex = ( row ) ->
+    if row._aData._id is _id
+      index = counter
+    counter++
+  checkIndex row for row in rows
+  return index
+
 
 Template.dataTable.addRow = ( _id, fields ) ->
   Match.test _id, String
   Match.test fields, Object
-  unless @getRow _id
-    row = fields
-    row._id = _id
-    if @getDataTable()
-      index = @getDataTable().fnAddData row
-      @setRow row
-      @log "row:added:#{ index } -> ", row
+  index = @getRowIndex _id
+  unless index
+    row = @getCollection().findOne _id
+    index = @getDataTable().fnAddData row
+    @log "row:added:#{ _id } -> ", row
 
 Template.dataTable.updateRow = ( _id, fields ) ->
   Match.test _id, String
   Match.test fields, Object
-  if @getRow _id
-    row = fields
-    row._id = _id
-    @setRow row
-    if @getDataTable()
-      @getDataTable().fnUpdate row, _id
-      @log "row:updated:#{ _id } -> ", row
+  index = @getRowIndex _id
+  if index
+    row = @getCollection().findOne _id
+    @getDataTable().fnUpdate row, index
+    @log "row:updated:#{ _id } -> ", row
   else @addRow _id, fields
 
 Template.dataTable.removeRow = ( _id ) ->
   Match.test _id, String
-  if @getRow _id
-    @unsetRow _id
-    if @getDataTable()
-      @getDataTable().fnDeleteRow _id
-      @log "row:removed:#{ _id }"
-    else throw new Error "DataTable undefined"
+  index = @getRowIndex _id
+  if index
+    @getDataTable().fnDeleteRow index
+    @log "row:removed:#{ _id }"
 
 Template.dataTable.moveRow = ( row, oldIndex, newIndex ) ->
   @log "row:moved:#{ row._id } ", row
