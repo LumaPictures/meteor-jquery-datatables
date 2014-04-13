@@ -83,6 +83,30 @@ Template.dataTable.prepareOptions = ->
   options = @getOptions() or {}
   options.aaData = @getRows() or []
   options.aoColumns = @getColumns() or []
+  if @getCursor()
+    options.bServerSide = true
+    options.iDeferLoading = @getCursor().count()
+    options.sAjaxSource = "useful?"
+    options.fnServerData = ( sSource, aoData, fnCallback, oSettings ) =>
+      @log 'fnServerData:context', @
+      @log 'fnServerData:sSource', sSource
+      @log 'fnServerData:aoData', aoData
+      @log 'fnServerData:fnCallback', fnCallback
+      @log 'fnServerData:oSettings', oSettings
+      callbackCursor = @getCollection().find @getQuery()
+      sEcho = aoData[ 0 ].value
+      iTotalRecords = callbackCursor.count()
+      iTotalDisplayRecords = callbackCursor.count()
+      aaData = callbackCursor.fetch()
+      @log 'fnServerData:fnCallback:sEcho', sEcho
+      @log 'fnServerData:fnCallback:iTotalRecords', iTotalRecords
+      @log 'fnServerData:fnCallback:iTotalDisplayRecords', iTotalDisplayRecords
+      @log 'fnServerData:fnCallback:aaData', aaData
+      fnCallback
+        sEcho: sEcho
+        iTotalRecords: iTotalRecords
+        iTotalDisplayRecords: iTotalDisplayRecords
+        aaData: aaData
   @setOptions _.defaults( options, @defaultOptions )
 #====== /Options ======#
 
@@ -151,7 +175,6 @@ Template.dataTable.getRowIndex = ( _id ) ->
     counter++
   checkIndex row for row in rows
   return index
-
 
 Template.dataTable.addRow = ( _id, fields ) ->
   Match.test _id, String
@@ -283,7 +306,7 @@ Template.dataTable.isDebug = ->
   return @getData().debug or false
 
 Template.dataTable.log = ( message, object ) ->
-  if @isDebug()
+  if @isDebug() is 'true' or @isDebug() is message
     console.log "dataTable:#{ @getSelector() }:#{ message }", object
 #====== /Utility ======#
 

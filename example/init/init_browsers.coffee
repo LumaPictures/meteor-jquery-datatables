@@ -105,4 +105,4 @@ if Meteor.isServer
   Meteor.publish "all_browsers", -> Browsers.find()
   Meteor.startup ->
     if Browsers.find().count() is 0
-      insertBrowsers 12
+      insertBrowsers 110
