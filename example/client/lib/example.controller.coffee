@@ -25,11 +25,11 @@ class @ExampleController extends PageController
           }
           {
             sTitle: "Title"
-            mData: 'page.title'
+            mData: "page.title"
           }
           {
             sTitle: "Subtitile"
-            mData: 'page.subtitle'
+            mData: "page.subtitle"
           }
         ]
         selector: "datatable"

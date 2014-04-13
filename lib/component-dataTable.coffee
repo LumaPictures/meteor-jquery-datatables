@@ -7,7 +7,7 @@ Template.dataTable.chooseTemplate = ( table_template = null ) ->
   table_template ?= Template.dataTable.default_template
   if Template[ table_template ]
     return Template[ table_template ]
-  else return Template[ Template.dataTable.default_template ]
+  else return Template[ @default_template ]
 #====== /Template ======#
 
 #====== Initialization ======#
@@ -27,6 +27,18 @@ Template.dataTable.initialize = ->
   @prepareFilters()
   @preparePagination()
   @prepareObservers()
+
+Template.dataTable.getTemplateInstance = ->
+  return @templateInstance or false
+
+Template.dataTable.getGuid = ->
+  return @guid or false
+
+Template.dataTable.getData = ->
+  return @getTemplateInstance().data or false
+
+Template.dataTable.setData = ( key, data ) ->
+  @templateInstance.data[ key ] = data
 #====== /Initialization ======#
 
 #====== Options ======#
@@ -57,83 +69,128 @@ Template.dataTable.defaultOptions =
 
 Template.dataTable.setOptions = ( options ) ->
   Match.test options, Object
-  @templateInstance.data.options = options
+  @setData 'options', options
 
 Template.dataTable.getOptions = ->
-  return @templateInstance.data.options or @presetOptions() or false
+  return @getData().options or @presetOptions() or false
 
 # Prepares the options object by merging the options passed in with the defaults
 Template.dataTable.prepareOptions = ->
-  self = @
-  options = self.getOptions() or {}
-  rows = self.getRows()
-  columns = self.getColumns()
-  if rows
-    options.aaData = rows
-  if columns
-    options.aoColumns = columns
-  self.setOptions _.defaults( options, self.defaultOptions )
+  options = @getOptions() or {}
+  options.aaData = @getRows() or []
+  options.aoColumns = @getColumns() or []
+  @setOptions _.defaults( options, @defaultOptions )
 #====== /Options ======#
 
 #====== Selector ======#
 Template.dataTable.setSelector = ( selector ) ->
   Match.test selector, String
-  @templateInstance.data.selector = selector
+  @setData 'selector', selector
 
 Template.dataTable.getSelector = ->
-  return @templateInstance.data.selector or false
+  return @getData().selector or false
 
 Template.dataTable.prepareSelector = ->
-  return
+  unless @getSelector()
+    @setSelector "datatable-#{ @getGuid() }"
 #====== /Selector ======#
 
 #====== Query ======#
 Template.dataTable.setQuery = ( query ) ->
   Match.test query, Object
-  @templateInstance.data.query = query
+  @setData 'query', query
 
 Template.dataTable.prepareQuery = ->
-  query = @getQuery()
-  unless query
-    query = {}
-  @setQuery query
+  unless @getQuery()
+    @setQuery {}
 
 Template.dataTable.getQuery = ->
-  return @templateInstance.data.query or false
+  return @getData().query or false
 #====== /Query ======#
 
 #====== Collection ======#
 Template.dataTable.setCollection = ( collection ) ->
   Match.test collection, Object
-  @templateInstance.data.collection = collection
+  @setData 'collection', collection
 
 Template.dataTable.prepareCollection = ->
   return
 
 Template.dataTable.getCollection = ->
-  return @templateInstance.data.collection or false
+  return @getData().collection or false
 #====== /Collection ======#
 
 #====== Rows ======#
 Template.dataTable.setRows = ( rows ) ->
-  Match.test rows, Array
-  @templateInstance.data.rows = rows
+  Match.test rows, Object
+  @setData 'rows', rows
+
+Template.dataTable.setRow = ( row ) ->
+  Match.test row, Object
+  if @getRows()
+    @getTemplateInstance().data.rows[ row._id ] = row
+
+Template.dataTable.unsetRow = ( _id ) ->
+  if @getRows()
+    delete @getTemplateInstance().data.rows[ _id ]
 
 Template.dataTable.prepareRows = ->
-  return
+  if @getCollection() and @getQuery()
+    rows = @getCollection().find( @getQuery() ).fetch()
+    dictionary = @arrayToDictionary rows, '_id'
+    @setRows dictionary
 
 Template.dataTable.getRows = ->
-  return @templateInstance.data.rows or false
+  return @getData().rows or false
+
+Template.dataTable.getRow = ( _id ) ->
+  if @getRows()[ _id ]
+    return @getRows()[ _id ]
+  else return false
+
+Template.dataTable.addRow = ( _id, fields ) ->
+  Match.test _id, String
+  Match.test fields, Object
+  unless @getRow _id
+    row = fields
+    row._id = _id
+    @setRow row
+    if @getDataTable()
+      index = @getDataTable().fnAddData row
+      console.log "#{ @getSelector() }:row:added:#{ index } -> ", row
+
+Template.dataTable.updateRow = ( _id, fields ) ->
+  Match.test _id, String
+  Match.test fields, Object
+  if @getRow _id
+    row = fields
+    row._id = _id
+    @setRow row
+    if @getDataTable()
+      @getDataTable().fnUpdate row, _id
+      console.log "#{ @getSelector() }:row:updated:#{ _id } -> ", row
+  else @addRow _id, fields
+
+Template.dataTable.removeRow = ( _id ) ->
+  Match.test _id, String
+  if @getRow _id
+    @unsetRow _id
+    if @getDataTable()
+      @getDataTable().fnDeleteRow _id
+      console.log "#{ @getSelector() }:row:removed:#{ _id }"
+    else throw new Error "DataTable undefined"
+
+Template.dataTable.moveRow = ( document, oldIndex, newIndex ) ->
+  console.log( "row moved: ", document, oldIndex, newIndex )
 #====== /Rows ======#
 
 #====== Columns ======#
 Template.dataTable.setColumns = ( columns ) ->
   Match.test columns, Array
-  @templateInstance.data.columns = columns
+  @setData 'columns', columns
 
 Template.dataTable.prepareColumns = ->
-  self = @
-  columns = self.getColumns()
+  columns = @getColumns() or []
   # add _id as a hidden column
   columns.push
     sTitle: "id"
@@ -141,112 +198,89 @@ Template.dataTable.prepareColumns = ->
     bVisible: false
   # a function to add a default mRender function if one is not defined
   # iterate over the columns array and add mRender to the columns that need it
-  Template.dataTable.setDefaultCellValue( column ) for column in columns
-  self.setColumns columns
+  @setDefaultCellValue column for column in columns
+  @setColumns columns
 
 Template.dataTable.getColumns = ->
-  return @templateInstance.data.columns or false
+  return @getData().columns or false
 #====== /Columns ======#
 
 #====== Cursor ======#
 Template.dataTable.setCursor = ( cursor ) ->
   Match.test cursor, Object
-  @templateInstance.data.cursor = cursor
+  @setData 'cursor', cursor
 
 Template.dataTable.prepareCursor = ->
-  query = @getQuery()
-  collection = @getCollection()
-  if query and collection
-    @setCursor collection.find( query )
+  if @getQuery() and @getCollection()
+    @setCursor @getCollection().find( @getQuery() )
 
 Template.dataTable.getCursor = ->
-  return @templateInstance.data.cursor or false
+  return @getData().cursor or false
 #====== /Cursor ======#
 
 #====== DataTable ======#
 Template.dataTable.getDataTable = ->
-  return @templateInstance.dataTable or false
+  return @getTemplateInstance().dataTable or false
 
 Template.dataTable.setDataTable = ( dataTable ) ->
   Match.test dataTable, Object
-  @templateInstance.dataTable = dataTable
+  @getTemplateInstance().dataTable = dataTable
 
 Template.dataTable.prepareDataTable = ->
-  self = @
-  dataTable = $(".#{ self.getSelector() } table").dataTable( self.getOptions() )
-  self.setDataTable dataTable
+  @setDataTable $(".#{ @getSelector() } table").dataTable( @getOptions() )
 #====== /DataTable ======#
 
 #====== Observers ======#
 Template.dataTable.prepareObservers = ->
-  component = @
-  dataTable = component.getDataTable()
-  console.log "#{ component.getSelector() }:component -> ", component
-  console.log "#{ component.getSelector() }:options -> ", component.getOptions()
-  console.log "#{ component.getSelector() }:oSettings -> ", dataTable.fnSettings()
-  collection = component.getCollection()
-  cursor = component.getCursor()
   #===== Setup observers to add and remove rows from the dataTable ======#
-  if cursor
-    cursor.observeChanges
-      #====== callback fired whenever a new document is added that matches the cursor ======#
-      added: ( _id, fields ) ->
-        fields._id = _id
-        console.log "#{ component.getSelector() }:row:added -> ", fields
-        ###
-        oSettings = dataTable.fnSettings()
-        rows = oSettings.aoData
-        index = Template.dataTable.getRowIndexById _id, rows
-        unless index
-          dataTable.fnAddData fields
-        ###
-      #====== callback fired whenever a new document is changed that matches the cursor ======#
-      changed: ( _id, fields ) ->
-        oSettings = dataTable.fnSettings()
-        rows = oSettings.aoData
-        index = Template.dataTable.getRowIndexById _id, rows
-        if index
-          row = collection.findOne _id
-          dataTable.fnUpdate row, index
-      #====== callback fired whenever a new document is added that matches the cursor ======#
-      moved: ( document, oldIndex, newIndex ) ->
-        console.log( "row moved: ", document )
-      #====== callback fired whenever a new document is removed that matches the cursor ======#
-      removed: ( _id ) ->
-        oSettings = dataTable.fnSettings()
-        rows = oSettings.aoData
-        index = Template.dataTable.getRowIndexById _id, rows
-        if index
-          dataTable.fnDeleteRow index
+  if @getCursor()
+    @getCursor().observeChanges
+      added: @addRow.bind @
+      changed: @updateRow.bind @
+      moved: @moveRow.bind @
+      removed: @removeRow.bind @
 #====== /Observers ======#
 
 #====== Filters ======#
 Template.dataTable.prepareFilters = ->
-  self = @
-  tI = self.templateInstance
-  selector = self.getSelector()
-  #===== Adding placeholder to Datatable filter input field =====#
-  $(".#{selector} .dataTables_filter input[type=text]").attr "placeholder", "Type to filter..."
-  #===== Datatable with footer filters ======#
+  @prepareFilterPlaceholder()
+  @prepareFooterFilter()
+
+Template.dataTable.prepareFilterPlaceholder = ->
+  $(".#{ @getSelector() } .dataTables_filter input[type=text]").attr "placeholder", "Type to filter..."
+
+Template.dataTable.prepareFooterFilter = ->
+  selector = @getSelector()
   if selector is 'datatable-add-row'
-    $(".#{selector} .dataTables_wrapper tfoot input").keyup ->
+    self = @
+    $(".#{ selector } .dataTables_wrapper tfoot input").keyup ->
       target = @
-      tI.dataTable.fnFilter target.value, $(".#{selector} .dataTables_wrapper tfoot input").index( target )
+      self.getDataTable().fnFilter target.value, $(".#{ self.getSelector() } .dataTables_wrapper tfoot input").index( target )
 #====== /Filters ======#
 
 #====== Pagination ======#
 Template.dataTable.preparePagination = ->
-  selector = @getSelector()
-  #===== Datatable results selector init ======#
-  if $().select2 isnt undefined
-    $(".#{ selector } .dataTables_length select").select2 minimumResultsForSearch: "-1"
+  unless $().select2
+    $(".#{ @getSelector() } .dataTables_length select").select2 minimumResultsForSearch: "-1"
 #====== /Pagination ======#
+
+#====== Utility ======#
+Template.dataTable.setDefaultCellValue = ( column ) ->
+  Match.test column.mData, String
+  Match.test column.sTitle, String
+  unless column.mRender
+    column.mRender = ( dataSource, call, rawData ) -> rawData[ column.mData ] ?= ""
+
+Template.dataTable.arrayToDictionary = ( array, key ) ->
+  dict = {}
+  dict[obj[key]] = obj for obj in array when obj[key]?
+  dict
+#====== /Utility ======#
 
 #====== Presets ======#
 # TODO : this is temporary all of this should be passed in through the options param
 Template.dataTable.presetOptions = ->
-  self = @
-  selector = self.templateInstance.data.selector
+  selector = @getSelector()
   #===== Table with tasks =====#
   if selector is 'datatable-tasks'
     options =
@@ -343,21 +377,3 @@ Template.dataTable.presetOptions = ->
   #====== Return ======#
   return options
 #====== /Presets ======#
-
-#====== Utility ======#
-Template.dataTable.getRowIndexById = ( _id, rows ) ->
-  index = 0
-  rowFound = rows.some ( row ) ->
-    if row._aData._id is _id
-      return true
-    index++
-  if rowFound
-    return index
-  else return false
-
-Template.dataTable.setDefaultCellValue = ( column ) ->
-  Match.test column.mData, String
-  Match.test column.sTitle, String
-  unless column.mRender
-    column.mRender = ( dataSource, call, rawData ) -> rawData[ column.mData ] ?= ""
-#====== /Utility ======#

@@ -93,16 +93,16 @@ Browsers.allow
     }
   ]
   count = 0
-  insertBrowser = ( x ) ->
-    browser = browserList[ x % browserList.length ]
+  insertBrowser = ( i ) ->
+    browser = browserList[ i % browserList.length ]
     browser.createdAt = new Date()
     Browsers.insert browser
     count++
-  insertBrowser(x) for x in [1..howManyBrowsers]
+  insertBrowser i for i in [ 1..howManyBrowsers ]
   console.log( count + ' browsers inserted')
 
 if Meteor.isServer
   Meteor.publish "all_browsers", -> Browsers.find()
   Meteor.startup ->
     if Browsers.find().count() is 0
-      insertBrowsers(12)
+      insertBrowsers 12
