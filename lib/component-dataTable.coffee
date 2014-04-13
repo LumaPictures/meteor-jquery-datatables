@@ -54,6 +54,7 @@ Template.dataTable.defaultOptions =
   # * Bootstrap3 Markup
   bJQueryUI: false
   bAutoWidth: true
+  bDeferRender: true
   sPaginationType: "full_numbers"
   sDom: "<\"datatable-header\"fl><\"datatable-scroll\"t><\"datatable-footer\"ip>"
   oLanguage:
