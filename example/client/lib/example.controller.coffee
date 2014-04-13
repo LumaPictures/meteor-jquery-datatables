@@ -26,13 +26,17 @@ class @ExampleController extends PageController
           {
             sTitle: "Title"
             mData: "page.title"
+            mRender:  ( dataSource, call, rawData ) ->
+              rawData.page.title ?= ""
           }
           {
             sTitle: "Subtitile"
             mData: "page.subtitle"
+            mRender:  ( dataSource, call, rawData ) ->
+              rawData.page.subtitle ?= ""
           }
         ]
-        selector: "datatable"
+        selector: "dataTable-pages"
         rows: Pages.find().fetch()
 
       router.data.browsers =

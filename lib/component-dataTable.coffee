@@ -14,6 +14,7 @@ Template.dataTable.chooseTemplate = ( table_template = null ) ->
 Template.dataTable.rendered = ->
   templateInstance = @
   instantiatedComponent = templateInstance.__component__
+  instantiatedComponent.log "rendered", @
   instantiatedComponent.initialize()
 
 Template.dataTable.initialize = ->
@@ -27,6 +28,7 @@ Template.dataTable.initialize = ->
   @prepareFilters()
   @preparePagination()
   @prepareObservers()
+  @log "initialized", @
 
 Template.dataTable.getTemplateInstance = ->
   return @templateInstance or false
@@ -70,6 +72,7 @@ Template.dataTable.defaultOptions =
 Template.dataTable.setOptions = ( options ) ->
   Match.test options, Object
   @setData 'options', options
+  @log "options:set", options
 
 Template.dataTable.getOptions = ->
   return @getData().options or @presetOptions() or false
@@ -86,6 +89,7 @@ Template.dataTable.prepareOptions = ->
 Template.dataTable.setSelector = ( selector ) ->
   Match.test selector, String
   @setData 'selector', selector
+  @log 'selector:set', selector
 
 Template.dataTable.getSelector = ->
   return @getData().selector or false
@@ -99,6 +103,7 @@ Template.dataTable.prepareSelector = ->
 Template.dataTable.setQuery = ( query ) ->
   Match.test query, Object
   @setData 'query', query
+  @log 'query:set', query
 
 Template.dataTable.prepareQuery = ->
   unless @getQuery()
@@ -112,6 +117,7 @@ Template.dataTable.getQuery = ->
 Template.dataTable.setCollection = ( collection ) ->
   Match.test collection, Object
   @setData 'collection', collection
+  @log 'collection:set', collection
 
 Template.dataTable.prepareCollection = ->
   return
@@ -124,21 +130,26 @@ Template.dataTable.getCollection = ->
 Template.dataTable.setRows = ( rows ) ->
   Match.test rows, Object
   @setData 'rows', rows
+  @log 'rows:set', rows
 
 Template.dataTable.setRow = ( row ) ->
   Match.test row, Object
   if @getRows()
     @getTemplateInstance().data.rows[ row._id ] = row
+    @log "row:set:#{ row._id }", row
 
 Template.dataTable.unsetRow = ( _id ) ->
   if @getRows()
     delete @getTemplateInstance().data.rows[ _id ]
+    @log "row:unset:#{ _id }"
 
 Template.dataTable.prepareRows = ->
+  ###
   if @getCollection() and @getQuery()
     rows = @getCollection().find( @getQuery() ).fetch()
     dictionary = @arrayToDictionary rows, '_id'
-    @setRows dictionary
+    @setRows rows
+  ###
 
 Template.dataTable.getRows = ->
   return @getData().rows or false
@@ -154,10 +165,10 @@ Template.dataTable.addRow = ( _id, fields ) ->
   unless @getRow _id
     row = fields
     row._id = _id
-    @setRow row
     if @getDataTable()
       index = @getDataTable().fnAddData row
-      console.log "#{ @getSelector() }:row:added:#{ index } -> ", row
+      @setRow row
+      @log "row:added:#{ index } -> ", row
 
 Template.dataTable.updateRow = ( _id, fields ) ->
   Match.test _id, String
@@ -168,7 +179,7 @@ Template.dataTable.updateRow = ( _id, fields ) ->
     @setRow row
     if @getDataTable()
       @getDataTable().fnUpdate row, _id
-      console.log "#{ @getSelector() }:row:updated:#{ _id } -> ", row
+      @log "row:updated:#{ _id } -> ", row
   else @addRow _id, fields
 
 Template.dataTable.removeRow = ( _id ) ->
@@ -177,17 +188,18 @@ Template.dataTable.removeRow = ( _id ) ->
     @unsetRow _id
     if @getDataTable()
       @getDataTable().fnDeleteRow _id
-      console.log "#{ @getSelector() }:row:removed:#{ _id }"
+      @log "row:removed:#{ _id }"
     else throw new Error "DataTable undefined"
 
-Template.dataTable.moveRow = ( document, oldIndex, newIndex ) ->
-  console.log( "row moved: ", document, oldIndex, newIndex )
+Template.dataTable.moveRow = ( row, oldIndex, newIndex ) ->
+  @log "row:moved:#{ row._id } ", row
 #====== /Rows ======#
 
 #====== Columns ======#
 Template.dataTable.setColumns = ( columns ) ->
   Match.test columns, Array
   @setData 'columns', columns
+  @log "columns:set", columns
 
 Template.dataTable.prepareColumns = ->
   columns = @getColumns() or []
@@ -209,6 +221,7 @@ Template.dataTable.getColumns = ->
 Template.dataTable.setCursor = ( cursor ) ->
   Match.test cursor, Object
   @setData 'cursor', cursor
+  @log "cursor:set", cursor
 
 Template.dataTable.prepareCursor = ->
   if @getQuery() and @getCollection()
@@ -225,6 +238,7 @@ Template.dataTable.getDataTable = ->
 Template.dataTable.setDataTable = ( dataTable ) ->
   Match.test dataTable, Object
   @getTemplateInstance().dataTable = dataTable
+  @log "dataTable:set", dataTable
 
 Template.dataTable.prepareDataTable = ->
   @setDataTable $(".#{ @getSelector() } table").dataTable( @getOptions() )
@@ -251,7 +265,7 @@ Template.dataTable.prepareFilterPlaceholder = ->
 
 Template.dataTable.prepareFooterFilter = ->
   selector = @getSelector()
-  if selector is 'datatable-add-row'
+  if selector is 'datatable-add-row' and $.keyup
     self = @
     $(".#{ selector } .dataTables_wrapper tfoot input").keyup ->
       target = @
@@ -260,7 +274,7 @@ Template.dataTable.prepareFooterFilter = ->
 
 #====== Pagination ======#
 Template.dataTable.preparePagination = ->
-  unless $().select2
+  unless $.select2
     $(".#{ @getSelector() } .dataTables_length select").select2 minimumResultsForSearch: "-1"
 #====== /Pagination ======#
 
@@ -269,12 +283,20 @@ Template.dataTable.setDefaultCellValue = ( column ) ->
   Match.test column.mData, String
   Match.test column.sTitle, String
   unless column.mRender
-    column.mRender = ( dataSource, call, rawData ) -> rawData[ column.mData ] ?= ""
+    column.mRender = ( dataSource, call, rawData ) ->
+      rawData[ column.mData ] ?= ""
 
 Template.dataTable.arrayToDictionary = ( array, key ) ->
   dict = {}
   dict[obj[key]] = obj for obj in array when obj[key]?
   dict
+
+Template.dataTable.isDebug = ->
+  return @getData().debug or false
+
+Template.dataTable.log = ( message, object ) ->
+  if @isDebug()
+    console.log "#{ @getSelector() }:#{ message }", object
 #====== /Utility ======#
 
 #====== Presets ======#
