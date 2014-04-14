@@ -79,14 +79,14 @@ Template.dataTable.getOptions = ->
   return @getData().options or @presetOptions() or false
 
 Template.dataTable.fnServerData = ( sSource, aoData, fnCallback, oSettings ) ->
-  @log 'fnServerData:context', @
-  @log 'fnServerData:aoData', aoData
-  @log 'fnServerData:oSettings', oSettings
   aoData = @arrayToDictionary aoData, 'name'
+  @log 'fnServerData:aoData', aoData
   callbackOptions =
-    $skip: aoData.iDisplayStart.value
-    $limit: aoData.iDisplayLength.value
+    skip: aoData.iDisplayStart.value
+    limit: aoData.iDisplayLength.value
   callbackCursor = @getCollection().find @getQuery(), callbackOptions
+  aaData = callbackCursor.fetch()
+  @log 'fnServerData:aaData', aaData
   fnCallback
     # An unaltered copy of sEcho sent from the client side.
     # This parameter will change with each draw (it is basically a draw count)
@@ -95,9 +95,9 @@ Template.dataTable.fnServerData = ( sSource, aoData, fnCallback, oSettings ) ->
     iTotalRecords: @getCollection().find().count()
     # Total records, after filtering (i.e. the total number of records after filtering has been applied
     # not just the number of records being returned in this result set)
-    iTotalDisplayRecords: callbackCursor.count()
+    iTotalDisplayRecords: @getCollection().find().count()
     # The data in a 2D array. Note that you can change the name of this parameter with sAjaxDataProp.
-    aaData: callbackCursor.fetch()
+    aaData: aaData
 
 # Prepares the options object by merging the options passed in with the defaults
 Template.dataTable.prepareOptions = ->
