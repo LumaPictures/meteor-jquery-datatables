@@ -78,6 +78,27 @@ Template.dataTable.setOptions = ( options ) ->
 Template.dataTable.getOptions = ->
   return @getData().options or @presetOptions() or false
 
+Template.dataTable.fnServerData = ( sSource, aoData, fnCallback, oSettings ) ->
+  @log 'fnServerData:context', @
+  @log 'fnServerData:sSource', sSource
+  @log 'fnServerData:aoData', aoData
+  @log 'fnServerData:fnCallback', fnCallback
+  @log 'fnServerData:oSettings', oSettings
+  callbackCursor = @getCollection().find @getQuery()
+  sEcho = aoData[ 0 ].value
+  iTotalRecords = callbackCursor.count()
+  iTotalDisplayRecords = callbackCursor.count()
+  aaData = callbackCursor.fetch()
+  @log 'fnServerData:fnCallback:sEcho', sEcho
+  @log 'fnServerData:fnCallback:iTotalRecords', iTotalRecords
+  @log 'fnServerData:fnCallback:iTotalDisplayRecords', iTotalDisplayRecords
+  @log 'fnServerData:fnCallback:aaData', aaData
+  fnCallback
+    sEcho: sEcho
+    iTotalRecords: iTotalRecords
+    iTotalDisplayRecords: iTotalDisplayRecords
+    aaData: aaData
+
 # Prepares the options object by merging the options passed in with the defaults
 Template.dataTable.prepareOptions = ->
   options = @getOptions() or {}
@@ -87,26 +108,7 @@ Template.dataTable.prepareOptions = ->
     options.bServerSide = true
     options.iDeferLoading = @getCursor().count()
     options.sAjaxSource = "useful?"
-    options.fnServerData = ( sSource, aoData, fnCallback, oSettings ) =>
-      @log 'fnServerData:context', @
-      @log 'fnServerData:sSource', sSource
-      @log 'fnServerData:aoData', aoData
-      @log 'fnServerData:fnCallback', fnCallback
-      @log 'fnServerData:oSettings', oSettings
-      callbackCursor = @getCollection().find @getQuery()
-      sEcho = aoData[ 0 ].value
-      iTotalRecords = callbackCursor.count()
-      iTotalDisplayRecords = callbackCursor.count()
-      aaData = callbackCursor.fetch()
-      @log 'fnServerData:fnCallback:sEcho', sEcho
-      @log 'fnServerData:fnCallback:iTotalRecords', iTotalRecords
-      @log 'fnServerData:fnCallback:iTotalDisplayRecords', iTotalDisplayRecords
-      @log 'fnServerData:fnCallback:aaData', aaData
-      fnCallback
-        sEcho: sEcho
-        iTotalRecords: iTotalRecords
-        iTotalDisplayRecords: iTotalDisplayRecords
-        aaData: aaData
+    options.fnServerData = @fnServerData.bind @
   @setOptions _.defaults( options, @defaultOptions )
 #====== /Options ======#
 
@@ -183,7 +185,7 @@ Template.dataTable.addRow = ( _id, fields ) ->
   unless index
     row = @getCollection().findOne _id
     index = @getDataTable().fnAddData row
-    @log "row:added:#{ _id } -> ", row
+    @log "row:added:#{ _id }", row
 
 Template.dataTable.updateRow = ( _id, fields ) ->
   Match.test _id, String
@@ -306,8 +308,9 @@ Template.dataTable.isDebug = ->
   return @getData().debug or false
 
 Template.dataTable.log = ( message, object ) ->
-  if @isDebug() is 'true' or @isDebug() is message
-    console.log "dataTable:#{ @getSelector() }:#{ message }", object
+  if @isDebug()
+    if message.indexOf( @isDebug() ) isnt -1 or @isDebug() is "true"
+      console.log "dataTable:#{ @getSelector() }:#{ message } ->", object
 #====== /Utility ======#
 
 #====== Presets ======#
