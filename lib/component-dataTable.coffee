@@ -80,24 +80,24 @@ Template.dataTable.getOptions = ->
 
 Template.dataTable.fnServerData = ( sSource, aoData, fnCallback, oSettings ) ->
   @log 'fnServerData:context', @
-  @log 'fnServerData:sSource', sSource
   @log 'fnServerData:aoData', aoData
-  @log 'fnServerData:fnCallback', fnCallback
   @log 'fnServerData:oSettings', oSettings
-  callbackCursor = @getCollection().find @getQuery()
-  sEcho = aoData[ 0 ].value
-  iTotalRecords = callbackCursor.count()
-  iTotalDisplayRecords = callbackCursor.count()
-  aaData = callbackCursor.fetch()
-  @log 'fnServerData:fnCallback:sEcho', sEcho
-  @log 'fnServerData:fnCallback:iTotalRecords', iTotalRecords
-  @log 'fnServerData:fnCallback:iTotalDisplayRecords', iTotalDisplayRecords
-  @log 'fnServerData:fnCallback:aaData', aaData
+  aoData = @arrayToDictionary aoData, 'name'
+  callbackOptions =
+    $skip: aoData.iDisplayStart.value
+    $limit: aoData.iDisplayLength.value
+  callbackCursor = @getCollection().find @getQuery(), callbackOptions
   fnCallback
-    sEcho: sEcho
-    iTotalRecords: iTotalRecords
-    iTotalDisplayRecords: iTotalDisplayRecords
-    aaData: aaData
+    # An unaltered copy of sEcho sent from the client side.
+    # This parameter will change with each draw (it is basically a draw count)
+    sEcho: aoData.sEcho.value
+    # Total records, before filtering (i.e. the total number of records in the database)
+    iTotalRecords: @getCollection().find().count()
+    # Total records, after filtering (i.e. the total number of records after filtering has been applied
+    # not just the number of records being returned in this result set)
+    iTotalDisplayRecords: callbackCursor.count()
+    # The data in a 2D array. Note that you can change the name of this parameter with sAjaxDataProp.
+    aaData: callbackCursor.fetch()
 
 # Prepares the options object by merging the options passed in with the defaults
 Template.dataTable.prepareOptions = ->
