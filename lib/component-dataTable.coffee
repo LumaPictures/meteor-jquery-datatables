@@ -55,7 +55,7 @@ Template.dataTable.defaultOptions =
   # * Bootstrap3 Markup
   bJQueryUI: false
   bAutoWidth: true
-  bDeferRender: false
+  bDeferRender: true
   sPaginationType: "full_numbers"
   sDom: "<\"datatable-header\"fl><\"datatable-scroll\"t><\"datatable-footer\"ip>"
   oLanguage:
@@ -90,11 +90,53 @@ Template.dataTable.prepareOptions = ->
     options.fnServerData = @fnServerData.bind @
   @setOptions _.defaults( options, @defaultOptions )
 
-Template.dataTable.fnServerData = ( sSource, aoData, fnCallback, oSettings ) ->
+Template.dataTable.mapTableState = ( aoData ) ->
   aoData = @arrayToDictionary aoData, 'name'
+  @log 'mapTableState:aoData', aoData
+  tableState =
+    sEcho: aoData.sEcho.value or 1
+    bRegex: aoData.bRegex.value or false
+    iColumns: aoData.iColumns.value or 0
+    iDisplayLength: aoData.iDisplayLength.value or 10
+    iDisplayStart: aoData.iDisplayStart.value or 0
+    iSortingCols: aoData.iSortingCols.value or 0
+    sColumns: aoData.sColumns.value or ""
+    sSearch: aoData.sSearch.value or ""
+  getDataProp = ( key, index ) ->
+    key = "#{ key }_#{ index }"
+    return aoData[ key ].value
+  mapColumns = ( index ) ->
+    tableState[ getDataProp 'mDataProp', index ] =
+      mDataProp: getDataProp 'mDataProp', index
+      bRegex: getDataProp 'bRegex', index
+      bSearchable: getDataProp 'bSearchable', index
+      bSortable: getDataProp 'bSortable', index
+      sSearch: getDataProp 'sSearch', index
+  mapColumns index for index in [ 0..( tableState.iColumns - 1 ) ]
+  if tableState.iSortingCols > 0
+    mapSortOrder = ( sortIndex ) ->
+      sortIndex = sortIndex - 1
+      propertyIndex = getDataProp 'iSortCol', sortIndex
+      propertyName = getDataProp 'mDataProp', propertyIndex
+      tableState[ propertyName ].sSortDir = getDataProp 'sSortDir', sortIndex
+    mapSortOrder sortIndex for sortIndex in [ 1..tableState.iSortingCols ]
+  return tableState
+
+Template.dataTable.setTableState = ( aoData ) ->
+  Match.test aoData, Object
+  tableState = @mapTableState aoData
+  @setData 'tableState', tableState
+  @log 'tableState:set', tableState
+
+Template.dataTable.getTableState = ->
+  return @getData().tableState or false
+
+
+Template.dataTable.fnServerData = ( sSource, aoData, fnCallback, oSettings ) ->
+  @setTableState aoData
   @setSubscriptionOptions
-    skip: aoData.iDisplayStart.value
-    limit: aoData.iDisplayLength.value
+    skip: @getTableState().iDisplayStart
+    limit: @getTableState().iDisplayLength
   @setSubscriptionHandle Meteor.subscribe( @getSubscription(), @getQuery(), @getSubscriptionOptions() )
   @setSubscriptionAutorun Deps.autorun =>
     if @getSubscriptionHandle() and @getSubscriptionHandle().ready()
@@ -105,7 +147,7 @@ Template.dataTable.fnServerData = ( sSource, aoData, fnCallback, oSettings ) ->
       fnCallback
         # An unaltered copy of sEcho sent from the client side.
         # This parameter will change with each draw (it is basically a draw count)
-        sEcho: aoData.sEcho.value
+        sEcho: @getTableState().sEcho
         # Total records, before filtering (i.e. the total number of records in the database)
         iTotalRecords: @getTotalCount()
         # Total records, after filtering (i.e. the total number of records after filtering has been applied

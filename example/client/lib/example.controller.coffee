@@ -76,5 +76,4 @@ class @ExampleController extends PageController
       selector: "dataTable-browsers"
       collection: Browsers
       subscription: "all_browsers"
-      count: CountAllBrowsers
     super

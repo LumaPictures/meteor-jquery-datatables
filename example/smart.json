@@ -5,7 +5,6 @@
     },
     "module-layout": {
       "git": "https://github.com/lumapictures/module-layout"
-    },
-    "npm": {}
+    }
   }
 }
