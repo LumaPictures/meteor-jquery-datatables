@@ -112,5 +112,12 @@ if Meteor.isServer
     ]
 
   Meteor.startup ->
+    Browsers._ensureIndex {_id: 1}, {unique: 1}
+    Browsers._ensureIndex engine: 1
+    Browsers._ensureIndex browsers: 1
+    Browsers._ensureIndex platform: 1
+    Browsers._ensureIndex version: 1
+    Browsers._ensureIndex grade: 1
+    Browsers._ensureIndex createdAt: 1
     if Browsers.find().count() is 0
       insertBrowsers 1000000

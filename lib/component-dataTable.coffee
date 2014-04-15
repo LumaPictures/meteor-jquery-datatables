@@ -114,11 +114,14 @@ Template.dataTable.mapTableState = ( aoData ) ->
       sSearch: getDataProp 'sSearch', index
   mapColumns index for index in [ 0..( tableState.iColumns - 1 ) ]
   if tableState.iSortingCols > 0
+    tableState.sort = {}
     mapSortOrder = ( sortIndex ) ->
       sortIndex = sortIndex - 1
       propertyIndex = getDataProp 'iSortCol', sortIndex
       propertyName = getDataProp 'mDataProp', propertyIndex
-      tableState[ propertyName ].sSortDir = getDataProp 'sSortDir', sortIndex
+      switch getDataProp( 'sSortDir', sortIndex )
+        when 'asc' then tableState.sort[ propertyName ] = 1
+        when 'desc' then tableState.sort[ propertyName ] = -1
     mapSortOrder sortIndex for sortIndex in [ 1..tableState.iSortingCols ]
   return tableState
 
@@ -137,11 +140,16 @@ Template.dataTable.fnServerData = ( sSource, aoData, fnCallback, oSettings ) ->
   @setSubscriptionOptions
     skip: @getTableState().iDisplayStart
     limit: @getTableState().iDisplayLength
+    sort: @getTableState().sort
   @setSubscriptionHandle Meteor.subscribe( @getSubscription(), @getQuery(), @getSubscriptionOptions() )
   @setSubscriptionAutorun Deps.autorun =>
     if @getSubscriptionHandle() and @getSubscriptionHandle().ready()
       @log 'fnServerdData:handle:ready', @getSubscriptionHandle().ready()
-      @setCursor @getCollection().find( @getQuery() )
+      cursorOptions =
+        skip: 0
+        limit: @getTableState().iDisplayLength
+        sort: @getTableState().sort
+      @setCursor @getCollection().find @getQuery(), cursorOptions
       aaData = @getCursor().fetch()
       @log 'fnServerData:aaData', aaData
       fnCallback
