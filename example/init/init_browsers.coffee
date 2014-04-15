@@ -107,13 +107,9 @@ if Meteor.isServer
   Meteor.publish "all_browsers", ( query, options ) ->
     console.log "all_browsers:query", query
     console.log 'all_browsers:options', options
-    Browsers.find query, options
-
-  Meteor.methods
-    countBrowsers: ->
-      return Browsers.find().count()
-    countBrowsersFiltered: ->
-      return Browsers.find().count()
+    return [
+      Browsers.find query, options
+    ]
 
   Meteor.startup ->
     if Browsers.find().count() is 0
