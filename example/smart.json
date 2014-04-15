@@ -6,6 +6,6 @@
     "module-layout": {
       "git": "https://github.com/lumapictures/module-layout"
     },
-    "houston": {}
+    "npm": {}
   }
 }

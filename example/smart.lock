@@ -9,7 +9,7 @@
         "git": "https://github.com/lumapictures/module-layout",
         "branch": "master"
       },
-      "houston": {}
+      "npm": {}
     },
     "packages": {
       "component-dataTable": {
@@ -20,10 +20,10 @@
         "branch": "master",
         "commit": "7b6813940d5b670fe589f41e42da45df4fd2ea82"
       },
-      "houston": {
-        "git": "https://github.com/gterrono/houston.git",
-        "tag": "v1.0.2",
-        "commit": "c9af02ec7b52b5ea061a36d260386aa25644507d"
+      "npm": {
+        "git": "https://github.com/arunoda/meteor-npm.git",
+        "tag": "v0.2.6",
+        "commit": "177ab6118de5bf8cffb19481343d5762ff7a2aaf"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",
@@ -44,16 +44,6 @@
         "git": "https://github.com/TimHeckel/meteor-jquery-ui.git",
         "tag": "v1.9.2",
         "commit": "c437d45edcf1367df8d5ffa8bad2867758030bd2"
-      },
-      "paginated-subscription": {
-        "git": "https://github.com/tmeasday/meteor-paginated-subscription.git",
-        "tag": "v0.1.2",
-        "commit": "35e0c6112df2b4cfeb60b559276a93cac5ee2dd6"
-      },
-      "spin": {
-        "git": "https://github.com/SachaG/meteor-spin.git",
-        "tag": "v0.2.2",
-        "commit": "3f655f0016228e4195acc784c45d3e3a247dc39f"
       }
     }
   }

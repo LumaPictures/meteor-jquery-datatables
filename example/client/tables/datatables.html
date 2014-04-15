@@ -27,7 +27,9 @@
             selector=browsers.selector
             columns=browsers.columns
             collection=browsers.collection
-            debug="fnServerData"
+            subscription=browsers.subscription
+            count=browsers.count
+            debug="result"
         }}
     </div>
 </template>
@@ -37,7 +39,7 @@
   <div class="panel panel-default">
     <div class="panel-heading"><h6 class="panel-title"><i class="icon-file"></i> Bordered datatable inside panel</h6></div>
     {{> dataTable
-    selector="borderd-datatable"
+    selector="bordered-datatable"
     table_styles="table-bordered"
     context=pages
     }}

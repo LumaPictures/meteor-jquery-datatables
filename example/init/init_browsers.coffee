@@ -1,4 +1,6 @@
 @Browsers = new Meteor.Collection 'browsers'
+if Meteor.isClient
+  @CountAllBrowsers = new Meteor.Collection 'count_all_browsers'
 
 Browsers.allow
   insert: -> true
@@ -102,7 +104,17 @@ Browsers.allow
   console.log( count + ' browsers inserted')
 
 if Meteor.isServer
-  Meteor.publish "all_browsers", -> Browsers.find()
+  Meteor.publish "all_browsers", ( query, options ) ->
+    console.log "all_browsers:query", query
+    console.log 'all_browsers:options', options
+    Browsers.find query, options
+
+  Meteor.methods
+    countBrowsers: ->
+      return Browsers.find().count()
+    countBrowsersFiltered: ->
+      return Browsers.find().count()
+
   Meteor.startup ->
     if Browsers.find().count() is 0
-      insertBrowsers 110
+      insertBrowsers 1000000

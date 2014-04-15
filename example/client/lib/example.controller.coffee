@@ -1,13 +1,8 @@
 class @ExampleController extends PageController
-  onBeforeAction: ->
-    Meteor.subscribe "all_browsers"
-    super
+  onBeforeAction: -> super
   onAfterAction: -> super
   action: -> super
-  waitOn: -> return [
-    Meteor.subscribe "all_pages"
-    Meteor.subscribe "all_browsers"
-  ]
+  waitOn: -> return
   data: ->
     @data.pages =
       columns: [
@@ -80,4 +75,6 @@ class @ExampleController extends PageController
       ]
       selector: "dataTable-browsers"
       collection: Browsers
+      subscription: "all_browsers"
+      count: CountAllBrowsers
     super

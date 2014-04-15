@@ -17,17 +17,18 @@ Template.dataTable.rendered = ->
   instantiatedComponent.log "rendered", @
   instantiatedComponent.initialize()
 
+Template.dataTable.destroyed = ->
+
+
 Template.dataTable.initialize = ->
   @prepareQuery()
   @prepareCollection()
-  @prepareCursor()
   @prepareColumns()
   @prepareRows()
   @prepareOptions()
   @prepareDataTable()
   @prepareFilters()
   @preparePagination()
-  @prepareObservers()
   @log "initialized", @
 
 Template.dataTable.getTemplateInstance = ->
@@ -54,7 +55,7 @@ Template.dataTable.defaultOptions =
   # * Bootstrap3 Markup
   bJQueryUI: false
   bAutoWidth: true
-  bDeferRender: true
+  bDeferRender: false
   sPaginationType: "full_numbers"
   sDom: "<\"datatable-header\"fl><\"datatable-scroll\"t><\"datatable-footer\"ip>"
   oLanguage:
@@ -78,38 +79,41 @@ Template.dataTable.setOptions = ( options ) ->
 Template.dataTable.getOptions = ->
   return @getData().options or @presetOptions() or false
 
-Template.dataTable.fnServerData = ( sSource, aoData, fnCallback, oSettings ) ->
-  aoData = @arrayToDictionary aoData, 'name'
-  @log 'fnServerData:aoData', aoData
-  callbackOptions =
-    skip: aoData.iDisplayStart.value
-    limit: aoData.iDisplayLength.value
-  callbackCursor = @getCollection().find @getQuery(), callbackOptions
-  aaData = callbackCursor.fetch()
-  @log 'fnServerData:aaData', aaData
-  fnCallback
-    # An unaltered copy of sEcho sent from the client side.
-    # This parameter will change with each draw (it is basically a draw count)
-    sEcho: aoData.sEcho.value
-    # Total records, before filtering (i.e. the total number of records in the database)
-    iTotalRecords: @getCollection().find().count()
-    # Total records, after filtering (i.e. the total number of records after filtering has been applied
-    # not just the number of records being returned in this result set)
-    iTotalDisplayRecords: @getCollection().find().count()
-    # The data in a 2D array. Note that you can change the name of this parameter with sAjaxDataProp.
-    aaData: aaData
-
 # Prepares the options object by merging the options passed in with the defaults
 Template.dataTable.prepareOptions = ->
   options = @getOptions() or {}
   options.aaData = @getRows() or []
   options.aoColumns = @getColumns() or []
-  if @getCursor()
+  if @getCollection() and @getQuery()
     options.bServerSide = true
-    options.iDeferLoading = @getCursor().count()
     options.sAjaxSource = "useful?"
     options.fnServerData = @fnServerData.bind @
   @setOptions _.defaults( options, @defaultOptions )
+
+Template.dataTable.fnServerData = ( sSource, aoData, fnCallback, oSettings ) ->
+  aoData = @arrayToDictionary aoData, 'name'
+  @setSubscriptionOptions
+    skip: aoData.iDisplayStart.value
+    limit: aoData.iDisplayLength.value
+  @setSubscriptionHandle Meteor.subscribe( @getSubscription(), @getQuery(), @getSubscriptionOptions() )
+  @setSubscriptionAutorun Deps.autorun =>
+    if @getSubscriptionHandle() and @getSubscriptionHandle().ready()
+      @log 'fnServerdData:handle:ready', @getSubscriptionHandle().ready()
+      @setCursor @getCollection().find( @getQuery() )
+      aaData = @getCursor().fetch()
+      @log 'fnServerData:aaData', aaData
+      fnCallback
+        # An unaltered copy of sEcho sent from the client side.
+        # This parameter will change with each draw (it is basically a draw count)
+        sEcho: aoData.sEcho.value
+        # Total records, before filtering (i.e. the total number of records in the database)
+        iTotalRecords: @getTotalCount()
+        # Total records, after filtering (i.e. the total number of records after filtering has been applied
+        # not just the number of records being returned in this result set)
+        iTotalDisplayRecords: @getFilteredCount()
+        # The data in a 2D array. Note that you can change the name of this parameter with sAjaxDataProp.
+        aaData: aaData
+      #@prepareObservers()
 #====== /Options ======#
 
 #====== Selector ======#
@@ -146,12 +150,75 @@ Template.dataTable.setCollection = ( collection ) ->
   @setData 'collection', collection
   @log 'collection:set', collection
 
+Template.dataTable.setTotalCount = ( count ) ->
+  Match.test count, Number
+  @setData 'countTotal', count
+  @log 'collection:count:total:set', count
+
+Template.dataTable.setFilteredCount = ( count ) ->
+  Match.test count, Number
+  @setData 'filteredCount', count
+  @log 'collection:count:filtered:set'
+
 Template.dataTable.prepareCollection = ->
   return
 
 Template.dataTable.getCollection = ->
   return @getData().collection or false
+
+Template.dataTable.getTotalCount = ->
+  return 1000000 or false
+
+Template.dataTable.getFilteredCount = ( query = {} ) ->
+  return 1000000 or false
 #====== /Collection ======#
+
+#====== Subscription ======#
+Template.dataTable.setSubscription = ( subscription ) ->
+  Match.test subscription, Object
+  @setData 'subscription', subscription
+  @log 'subscription:set', subscription
+
+Template.dataTable.setSubscriptionOptions = ( options ) ->
+  Match.test options, Object
+  @setData 'subscriptionOptions', options
+  @log 'subscription:options:set', options
+
+Template.dataTable.setSubscriptionHandle = ( handle ) ->
+  Match.test handle, Object
+  if @getSubscriptionHandle()
+    @getSubscriptionHandle().stop()
+  @setData 'handle', handle
+  @log 'subscription:handle:set', handle
+
+Template.dataTable.setSubscriptionAutorun = ( autorun ) ->
+  Match.test autorun, Object
+  if @getSubscriptionAutorun()
+    @getSubscriptionAutorun().stop()
+  @setData 'autorun', autorun
+  @log 'subscription:autorun:set', autorun
+
+Template.dataTable.prepareSubscription = ->
+  return
+
+Template.dataTable.prepareSubscriptionHandle = ->
+  return
+
+Template.dataTable.prepareSubscriptionAutorun = ->
+  return
+
+Template.dataTable.getSubscription = ->
+  return @getData().subscription or false
+
+Template.dataTable.getSubscriptionOptions = ->
+  return @getData().subscriptionOptions or false
+
+Template.dataTable.getSubscriptionHandle = ->
+  return @getData().handle or false
+
+Template.dataTable.getSubscriptionAutorun = ->
+  return @getData().autorun or false
+#====== /Subscription ======#
 
 #====== Rows ======#
 Template.dataTable.setRows = ( rows ) ->
@@ -178,31 +245,34 @@ Template.dataTable.getRowIndex = ( _id ) ->
   checkIndex row for row in rows
   return index
 
-Template.dataTable.addRow = ( _id, fields ) ->
+Template.dataTable.addRow = ( _id, fields, before = null ) ->
   Match.test _id, String
   Match.test fields, Object
-  index = @getRowIndex _id
-  unless index
-    row = @getCollection().findOne _id
-    index = @getDataTable().fnAddData row
-    @log "row:added:#{ _id }", row
+  if @getSubscriptionHandle() and @getSubscriptionHandle().ready()
+    index = @getRowIndex _id
+    unless index
+        row = @getCollection().findOne _id
+        index = @getDataTable().fnAddData row
+        @log "row:added:#{ _id }", row
 
 Template.dataTable.updateRow = ( _id, fields ) ->
   Match.test _id, String
   Match.test fields, Object
-  index = @getRowIndex _id
-  if index
-    row = @getCollection().findOne _id
-    @getDataTable().fnUpdate row, index
-    @log "row:updated:#{ _id } -> ", row
-  else @addRow _id, fields
+  if @getSubscriptionHandle() and @getSubscriptionHandle().ready()
+    index = @getRowIndex _id
+    if index
+      row = @getCollection().findOne _id
+      @getDataTable().fnUpdate row, index
+      @log "row:updated:#{ _id } -> ", row
+    else @addRow _id, fields
 
 Template.dataTable.removeRow = ( _id ) ->
   Match.test _id, String
-  index = @getRowIndex _id
-  if index
-    @getDataTable().fnDeleteRow index
-    @log "row:removed:#{ _id }"
+  if @getSubscriptionHandle() and @getSubscriptionHandle().ready()
+    index = @getRowIndex _id
+    if index
+      @getDataTable().fnDeleteRow index
+      @log "row:removed:#{ _id }"
 
 Template.dataTable.moveRow = ( row, oldIndex, newIndex ) ->
   @log "row:moved:#{ row._id } ", row
@@ -233,15 +303,48 @@ Template.dataTable.getColumns = ->
 #====== Cursor ======#
 Template.dataTable.setCursor = ( cursor ) ->
   Match.test cursor, Object
+  if @getCursorObserver()
+    @stopObservers()
   @setData 'cursor', cursor
   @log "cursor:set", cursor
 
+Template.dataTable.setCursorObserver = ( cursorObserver ) ->
+  Match.test cursorObserver, Object
+  if @getCursorObserver()
+    @stopObservers()
+  @setData 'cursorObserver', cursorObserver
+  @log "cursor:observer:set", cursorObserver
+
+Template.dataTable.unsetCursorObserver = ->
+  if @getCursorObserver()
+    delete @templateInstance.data.cursorObserver
+    @log "cursor:observer:set", @templateInstance.data.cursorObserver
+
 Template.dataTable.prepareCursor = ->
-  if @getQuery() and @getCollection()
-    @setCursor @getCollection().find( @getQuery() )
+  return
 
 Template.dataTable.getCursor = ->
   return @getData().cursor or false
+
+Template.dataTable.getCursorObserver = ->
+  return @getData().cursorObserver or false
+
+Template.dataTable.prepareObservers = ->
+  if @getSubscriptionHandle() and @getSubscriptionHandle().ready()
+    if @getCollection() and @getQuery()
+      collectionObserver = @getCollection().find( @getQuery() ).observeChanges
+        added: @addRow.bind @
+        changed: @updateRow.bind @
+        moved: @moveRow.bind @
+        removed: @removeRow.bind @
+      @setCursorObserver collectionObserver
+      @log 'cursor:observe:start'
+
+Template.dataTable.stopObservers = ->
+  if @getCursorObserver()
+    @getCursorObserver().stop()
+    @unsetCursorObserver()
+    @log 'cursor:observer:stopped', @getCursorObserver()
 #====== /Cursor ======#
 
 #====== DataTable ======#
@@ -256,17 +359,6 @@ Template.dataTable.setDataTable = ( dataTable ) ->
 Template.dataTable.prepareDataTable = ->
   @setDataTable $(".#{ @getSelector() } table").dataTable( @getOptions() )
 #====== /DataTable ======#
-
-#====== Observers ======#
-Template.dataTable.prepareObservers = ->
-  #===== Setup observers to add and remove rows from the dataTable ======#
-  if @getCursor()
-    @getCursor().observeChanges
-      added: @addRow.bind @
-      changed: @updateRow.bind @
-      moved: @moveRow.bind @
-      removed: @removeRow.bind @
-#====== /Observers ======#
 
 #====== Filters ======#
 Template.dataTable.prepareFilters = ->
