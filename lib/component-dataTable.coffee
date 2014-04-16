@@ -4,9 +4,12 @@ Template.dataTable.default_template = 'default_table_template'
 
 # Return the template specified in the component parameters
 Template.dataTable.chooseTemplate = ( table_template = null ) ->
+  # set table template to default if no template name is passed in
   table_template ?= Template.dataTable.default_template
+  # if the template is defined return it
   if Template[ table_template ]
     return Template[ table_template ]
+  # otherwise return the default template
   else return Template[ @default_template ]
 #====== /Template ======#
 
@@ -18,7 +21,7 @@ Template.dataTable.rendered = ->
   instantiatedComponent.initialize()
 
 Template.dataTable.destroyed = ->
-
+  @log "destroyed"
 
 Template.dataTable.initialize = ->
   @prepareQuery()
@@ -30,18 +33,6 @@ Template.dataTable.initialize = ->
   @prepareFilters()
   @preparePagination()
   @log "initialized", @
-
-Template.dataTable.getTemplateInstance = ->
-  return @templateInstance or false
-
-Template.dataTable.getGuid = ->
-  return @guid or false
-
-Template.dataTable.getData = ->
-  return @getTemplateInstance().data or false
-
-Template.dataTable.setData = ( key, data ) ->
-  @templateInstance.data[ key ] = data
 #====== /Initialization ======#
 
 #====== Options ======#
@@ -79,77 +70,117 @@ Template.dataTable.setOptions = ( options ) ->
 Template.dataTable.getOptions = ->
   return @getData().options or @presetOptions() or false
 
-# Prepares the options object by merging the options passed in with the defaults
+# Prepares the datatable options object by merging the options passed in with the defaults
 Template.dataTable.prepareOptions = ->
   options = @getOptions() or {}
   options.aaData = @getRows() or []
   options.aoColumns = @getColumns() or []
+  # if this is a reactive datatable
   if @getCollection() and @getQuery()
     options.bServerSide = true
+    # this field is currently useless, but is passed into fnServerData by datatables
     options.sAjaxSource = "useful?"
+    # bind the datatables server callback to this component instance
     options.fnServerData = @fnServerData.bind @
+  # merge defaults into options object
   @setOptions _.defaults( options, @defaultOptions )
 
 Template.dataTable.mapTableState = ( aoData ) ->
+  # convert aoData to key -> value pairs
   aoData = @arrayToDictionary aoData, 'name'
   @log 'mapTableState:aoData', aoData
+  # use aoData to setup table state
   tableState =
+    # request counter
     sEcho: aoData.sEcho.value or 1
     bRegex: aoData.bRegex.value or false
+    # number of columns being displayed
     iColumns: aoData.iColumns.value or 0
+    # number of rows being displayed
     iDisplayLength: aoData.iDisplayLength.value or 10
+    # number of rows to skip
     iDisplayStart: aoData.iDisplayStart.value or 0
+    # number of rows being sorted
     iSortingCols: aoData.iSortingCols.value or 0
+    # individual column filters ( csv )
     sColumns: aoData.sColumns.value or ""
+    # global filter
     sSearch: aoData.sSearch.value or ""
     columns: []
+  # helper for getting aoData properties
   getDataProp = ( key, index ) ->
     key = "#{ key }_#{ index }"
     return aoData[ key ].value
+  # iterator for setting up columns
   mapColumns = ( index ) ->
+    # create an element for each column
     tableState.columns[ getDataProp 'mDataProp', index ] =
+      # field name
       mDataProp: getDataProp 'mDataProp', index
+      # field regex
       bRegex: getDataProp 'bRegex', index
+      # is searchable boolean
       bSearchable: getDataProp 'bSearchable', index
+      # is sortable boolean
       bSortable: getDataProp 'bSortable', index
+      # search string
       sSearch: getDataProp 'sSearch', index
+  # setup each column in aoData
   mapColumns index for index in [ 0..( tableState.iColumns - 1 ) ]
-
+  # if there is a global filter
   if tableState.sSearch isnt ""
+    # initialize filter query
+    # filter query uses parallel $or's for each searchable field
+    # each searchable field should also be indexed
     searchQuery = $or: []
+    # iterator for creating filter query
     mapQuery = ( key, property ) ->
-      unless key is '_id'
-        if tableState.sSearch isnt ""
-          obj = {}
-          obj[ key ] =
-            $regex: tableState.sSearch
-            $options: 'i'
-          searchQuery.$or.push obj
-
+      # don't search the _id field
+      unless property.bSearchable is false
+        # initialize empty object
+        obj = {}
+        # set regex options for the current field
+        obj[ key ] =
+          # set regex to the value of the global search filter
+          $regex: tableState.sSearch
+          # ignore case in search regex
+          $options: 'i'
+        # add the object to the searchQuery
+        searchQuery.$or.push obj
+    # setup searchQuery for each searchable field
     for key, property of tableState.columns
       mapQuery key, property
-
+    # if the table query is for all records in the collection
     if @getQuery is {}
+      # set the table state query to just be the search query
       tableState.query = searchQuery
     else
+      # if the table query is already filtering the collection
       tableState.query =
+        # all documents must pass both the table query and search query
         $and: [
           @getQuery()
           searchQuery
         ]
+  # if there is no global filter just set the table state query to the table query
   else tableState.query = @getQuery()
-
+  # if there are columns being sorted
   if tableState.iSortingCols > 0
+    # initialize sort object
     tableState.sort = {}
+    # iterator for creating sort query
     mapSortOrder = ( sortIndex ) ->
+      # switch to zero based index
       sortIndex = sortIndex - 1
+      # figure out which column is being sorted
       propertyIndex = getDataProp 'iSortCol', sortIndex
       propertyName = getDataProp 'mDataProp', propertyIndex
+      # set sort direction for each sorted field
       switch getDataProp( 'sSortDir', sortIndex )
         when 'asc' then tableState.sort[ propertyName ] = 1
         when 'desc' then tableState.sort[ propertyName ] = -1
+    # setup sort object
     mapSortOrder sortIndex for sortIndex in [ 1..tableState.iSortingCols ]
-
   return tableState
 
 Template.dataTable.setTableState = ( aoData ) ->
@@ -161,24 +192,31 @@ Template.dataTable.setTableState = ( aoData ) ->
 Template.dataTable.getTableState = ->
   return @getData().tableState or false
 
-
 Template.dataTable.fnServerData = ( sSource, aoData, fnCallback, oSettings ) ->
+  # prepare table state ( sort, filter )
   @setTableState aoData
+  # prepare subscription options ( pagination, limit, sort )
   @setSubscriptionOptions
     skip: @getTableState().iDisplayStart
     limit: @getTableState().iDisplayLength
     sort: @getTableState().sort
+  # subscibe to the dataset matching the current table state
   @setSubscriptionHandle Meteor.subscribe( @getSubscription(), @getTableState().query, @getSubscriptionOptions() )
+  # run the datatables server callback when the subscription is ready
   @setSubscriptionAutorun Deps.autorun =>
     if @getSubscriptionHandle() and @getSubscriptionHandle().ready()
       @log 'fnServerdData:handle:ready', @getSubscriptionHandle().ready()
+      # setup local cursor options ( identical to server except no skip )
       cursorOptions =
         skip: 0
         limit: @getTableState().iDisplayLength
         sort: @getTableState().sort
+      # set local cursor to monitor the current table state
       @setCursor @getCollection().find @getTableState().query, cursorOptions
+      # fetch the data for the current table state
       aaData = @getCursor().fetch()
       @log 'fnServerData:aaData', aaData
+      # call the datatable server callback with the current table state ( called from the client )
       fnCallback
         # An unaltered copy of sEcho sent from the client side.
         # This parameter will change with each draw (it is basically a draw count)
@@ -368,6 +406,7 @@ Template.dataTable.prepareColumns = ->
     sTitle: "id"
     mData: "_id"
     bVisible: false
+    bSearchable: false
   # a function to add a default mRender function if one is not defined
   # iterate over the columns array and add mRender to the columns that need it
   @setDefaultCellValue column for column in columns
@@ -461,6 +500,18 @@ Template.dataTable.preparePagination = ->
 #====== /Pagination ======#
 
 #====== Utility ======#
+Template.dataTable.getTemplateInstance = ->
+  return @templateInstance or false
+
+Template.dataTable.getGuid = ->
+  return @guid or false
+
+Template.dataTable.getData = ->
+  return @getTemplateInstance().data or false
+
+Template.dataTable.setData = ( key, data ) ->
+  @templateInstance.data[ key ] = data
+
 Template.dataTable.setDefaultCellValue = ( column ) ->
   Match.test column.mData, String
   Match.test column.sTitle, String
