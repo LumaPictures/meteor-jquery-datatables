@@ -98,6 +98,7 @@ Browsers.allow
   insertBrowser = ( i ) ->
     browser = browserList[ i % browserList.length ]
     browser.createdAt = new Date()
+    browser.counter = i
     Browsers.insert browser
     count++
   insertBrowser i for i in [ 1..howManyBrowsers ]
@@ -108,16 +109,16 @@ if Meteor.isServer
     console.log "all_browsers:query", query
     console.log 'all_browsers:options', options
     return [
-      Browsers.find query, options
+      Browsers.find( query, options )
     ]
-
   Meteor.startup ->
-    Browsers._ensureIndex {_id: 1}, {unique: 1}
+    Browsers._ensureIndex { _id: 1 }, { unique: 1 }
     Browsers._ensureIndex engine: 1
     Browsers._ensureIndex browsers: 1
     Browsers._ensureIndex platform: 1
     Browsers._ensureIndex version: 1
     Browsers._ensureIndex grade: 1
     Browsers._ensureIndex createdAt: 1
+    Browsers._ensureIndex counter: 1
     if Browsers.find().count() is 0
-      insertBrowsers 1000000
+      insertBrowsers 100000

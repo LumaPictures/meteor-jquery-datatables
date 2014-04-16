@@ -102,17 +102,43 @@ Template.dataTable.mapTableState = ( aoData ) ->
     iSortingCols: aoData.iSortingCols.value or 0
     sColumns: aoData.sColumns.value or ""
     sSearch: aoData.sSearch.value or ""
+    columns: []
   getDataProp = ( key, index ) ->
     key = "#{ key }_#{ index }"
     return aoData[ key ].value
   mapColumns = ( index ) ->
-    tableState[ getDataProp 'mDataProp', index ] =
+    tableState.columns[ getDataProp 'mDataProp', index ] =
       mDataProp: getDataProp 'mDataProp', index
       bRegex: getDataProp 'bRegex', index
       bSearchable: getDataProp 'bSearchable', index
       bSortable: getDataProp 'bSortable', index
       sSearch: getDataProp 'sSearch', index
   mapColumns index for index in [ 0..( tableState.iColumns - 1 ) ]
+
+  if tableState.sSearch isnt ""
+    searchQuery = $or: []
+    mapQuery = ( key, property ) ->
+      unless key is '_id'
+        if tableState.sSearch isnt ""
+          obj = {}
+          obj[ key ] =
+            $regex: tableState.sSearch
+            $options: 'i'
+          searchQuery.$or.push obj
+
+    for key, property of tableState.columns
+      mapQuery key, property
+
+    if @getQuery is {}
+      tableState.query = searchQuery
+    else
+      tableState.query =
+        $and: [
+          @getQuery()
+          searchQuery
+        ]
+  else tableState.query = @getQuery()
+
   if tableState.iSortingCols > 0
     tableState.sort = {}
     mapSortOrder = ( sortIndex ) ->
@@ -123,6 +149,7 @@ Template.dataTable.mapTableState = ( aoData ) ->
         when 'asc' then tableState.sort[ propertyName ] = 1
         when 'desc' then tableState.sort[ propertyName ] = -1
     mapSortOrder sortIndex for sortIndex in [ 1..tableState.iSortingCols ]
+
   return tableState
 
 Template.dataTable.setTableState = ( aoData ) ->
@@ -141,7 +168,7 @@ Template.dataTable.fnServerData = ( sSource, aoData, fnCallback, oSettings ) ->
     skip: @getTableState().iDisplayStart
     limit: @getTableState().iDisplayLength
     sort: @getTableState().sort
-  @setSubscriptionHandle Meteor.subscribe( @getSubscription(), @getQuery(), @getSubscriptionOptions() )
+  @setSubscriptionHandle Meteor.subscribe( @getSubscription(), @getTableState().query, @getSubscriptionOptions() )
   @setSubscriptionAutorun Deps.autorun =>
     if @getSubscriptionHandle() and @getSubscriptionHandle().ready()
       @log 'fnServerdData:handle:ready', @getSubscriptionHandle().ready()
@@ -149,7 +176,7 @@ Template.dataTable.fnServerData = ( sSource, aoData, fnCallback, oSettings ) ->
         skip: 0
         limit: @getTableState().iDisplayLength
         sort: @getTableState().sort
-      @setCursor @getCollection().find @getQuery(), cursorOptions
+      @setCursor @getCollection().find @getTableState().query, cursorOptions
       aaData = @getCursor().fetch()
       @log 'fnServerData:aaData', aaData
       fnCallback
@@ -217,10 +244,10 @@ Template.dataTable.getCollection = ->
   return @getData().collection or false
 
 Template.dataTable.getTotalCount = ->
-  return 1000000 or false
+  return 100000 or false
 
 Template.dataTable.getFilteredCount = ( query = {} ) ->
-  return 1000000 or false
+  return 100000 or false
 #====== /Collection ======#
 
 #====== Subscription ======#

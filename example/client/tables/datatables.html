@@ -28,6 +28,7 @@
             columns=browsers.columns
             collection=browsers.collection
             subscription=browsers.subscription
+            query=browsers.query
             debug="tableState"
         }}
     </div>
@@ -38,9 +39,9 @@
   <div class="panel panel-default">
     <div class="panel-heading"><h6 class="panel-title"><i class="icon-file"></i> Bordered datatable inside panel</h6></div>
     {{> dataTable
-    selector="bordered-datatable"
-    table_styles="table-bordered"
-    context=pages
+        selector="bordered-datatable"
+        table_styles="table-bordered"
+        context=pages
     }}
   </div>
   <!-- /bordered datatable inside panel -->

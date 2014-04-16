@@ -72,6 +72,10 @@ class @ExampleController extends PageController
               return moment( rawData.createdAt ).fromNow()
             else return rawData.createdAt
         }
+        {
+          sTitle: "Counter"
+          mData: "counter"
+        }
       ]
       selector: "dataTable-browsers"
       collection: Browsers
