@@ -23,7 +23,7 @@ class DataTable
       DataTable.log "#{ subscription }:options", options
       total = collection.find( baseQuery ).count()
       DataTable.log "#{ subscription }:count:total", total
-      filtered = Browsers.find( filteredQuery ).count()
+      filtered = collection.find( filteredQuery ).count()
       DataTable.log "#{ subscription }:count:filtered", filtered
       @added( DataTable.countCollection, subscription, { count: total } )
       @added( DataTable.countCollection, "#{ subscription }_filtered", { count: filtered } )
