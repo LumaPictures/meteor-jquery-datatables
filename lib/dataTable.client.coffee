@@ -203,7 +203,7 @@ Template.dataTable.fnServerData = ( sSource, aoData, fnCallback, oSettings ) ->
     limit: @getTableState().iDisplayLength
     sort: @getTableState().sort
   # subscibe to the dataset matching the current table state
-  @setSubscriptionHandle Meteor.subscribe( @getSubscription(), @getTableState().query, @getSubscriptionOptions() )
+  @setSubscriptionHandle Meteor.subscribe( @getSubscription(), @getQuery(), @getTableState().query, @getSubscriptionOptions() )
   # run the datatables server callback when the subscription is ready
   @setSubscriptionAutorun Deps.autorun =>
     if @getSubscriptionHandle() and @getSubscriptionHandle().ready()

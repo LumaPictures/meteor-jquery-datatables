@@ -1,12 +1,13 @@
 @Browsers = new Meteor.Collection 'browsers'
 
 if Meteor.isServer
+  DataTable.debug = "true"
   DataTable.publish "all_browsers", Browsers
 
   Meteor.startup ->
     Browsers._ensureIndex { _id: 1 }, { unique: 1 }
     Browsers._ensureIndex engine: 1
-    Browsers._ensureIndex browsers: 1
+    Browsers._ensureIndex browser: 1
     Browsers._ensureIndex platform: 1
     Browsers._ensureIndex version: 1
     Browsers._ensureIndex grade: 1
