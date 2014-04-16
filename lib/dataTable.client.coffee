@@ -1,3 +1,5 @@
+DataTableSubscriptionCount = new Meteor.Collection("datatable_subscription_count")
+
 #====== Template ======#
 # Set default table template
 Template.dataTable.default_template = 'default_table_template'
@@ -265,27 +267,30 @@ Template.dataTable.setCollection = ( collection ) ->
   @setData 'collection', collection
   @log 'collection:set', collection
 
-Template.dataTable.setTotalCount = ( count ) ->
-  Match.test count, Number
-  @setData 'countTotal', count
-  @log 'collection:count:total:set', count
-
-Template.dataTable.setFilteredCount = ( count ) ->
-  Match.test count, Number
-  @setData 'filteredCount', count
-  @log 'collection:count:filtered:set'
+Template.dataTable.setCountCollection = ( collection ) ->
+  Match.test collection, Object
+  @setData 'countCollection', collection
+  @log 'collection:count:set', collection
 
 Template.dataTable.prepareCollection = ->
+  @prepareCountCollection()
   return
+
+Template.dataTable.prepareCountCollection = ->
+  collection = @getData().countCollection or DataTableSubscriptionCount
+  @setCountCollection collection
 
 Template.dataTable.getCollection = ->
   return @getData().collection or false
 
-Template.dataTable.getTotalCount = ->
-  return 100000 or false
+Template.dataTable.getCountCollection = ->
+  return @getData().countCollection or false
 
-Template.dataTable.getFilteredCount = ( query = {} ) ->
-  return 100000 or false
+Template.dataTable.getTotalCount = ->
+  return @getCountCollection().findOne( "#{ @getSubscription() }" ).count or false
+
+Template.dataTable.getFilteredCount = ->
+  return @getCountCollection().findOne( "#{ @getSubscription() }_filtered" ).count or false
 #====== /Collection ======#
 
 #====== Subscription ======#

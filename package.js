@@ -19,13 +19,21 @@ Package.on_use(function (api, where) {
   api.add_files([
     'vendor/datatables.min.js',
     'vendor/tabletools.min.js',
-    'lib/component-dataTable.html',
-    'lib/component-dataTable.coffee'
+    'lib/dataTable.html',
+    'lib/dataTable.client.coffee'
   ], ['client']);
+
+  api.add_files([
+    'lib/dataTable.server.coffee'
+  ],['server']);
 
   api.export([
     'DataTable'
-  ],['client']);
+  ],['client','server']);
+
+  api.export([
+    'DataTableSubscriptionCount'
+  ],[ 'client' ]);
 });
 
 Package.on_test(function (api) {
