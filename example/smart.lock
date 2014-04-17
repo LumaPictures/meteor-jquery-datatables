@@ -2,28 +2,22 @@
   "meteor": {},
   "dependencies": {
     "basePackages": {
-      "component-dataTable": {
+      "jquery-datatables": {
         "path": ".."
       },
-      "module-layout": {
-        "git": "https://github.com/lumapictures/module-layout",
+      "module-ui": {
+        "git": "https://github.com/lumapictures/module-ui",
         "branch": "master"
-      },
-      "npm": {}
+      }
     },
     "packages": {
-      "component-dataTable": {
+      "jquery-datatables": {
         "path": ".."
       },
-      "module-layout": {
-        "git": "https://github.com/lumapictures/module-layout",
+      "module-ui": {
+        "git": "https://github.com/lumapictures/module-ui",
         "branch": "master",
-        "commit": "7b6813940d5b670fe589f41e42da45df4fd2ea82"
-      },
-      "npm": {
-        "git": "https://github.com/arunoda/meteor-npm.git",
-        "tag": "v0.2.6",
-        "commit": "177ab6118de5bf8cffb19481343d5762ff7a2aaf"
+        "commit": "a03781107f7d1d4a8b234eee6be4118efc1cd469"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",
@@ -32,8 +26,8 @@
       },
       "iron-router": {
         "git": "https://github.com/EventedMind/iron-router.git",
-        "tag": "v0.7.0",
-        "commit": "05f34bc48c4cad9fdaa366c1ddcabe6980232ece"
+        "tag": "v0.7.1",
+        "commit": "d1ffb3f06ea4c112132b030f2eb1a70b81675ecb"
       },
       "iron-router-active": {
         "git": "https://github.com/XpressiveCode/iron-router-active.git",

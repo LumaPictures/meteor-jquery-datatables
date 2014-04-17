@@ -1,19 +1,11 @@
-# DataTable Component [![Build Status](https://travis-ci.org/LumaPictures/component-dataTable.svg?branch=dev)](https://travis-ci.org/LumaPictures/component-dataTable)
-
-## [Live Example](http://component-dataTable.meteor.com)
+# jQuery DataTables [![Build Status](https://travis-ci.org/LumaPictures/jquery-datatables.svg?branch=dev)](https://travis-ci.org/LumaPictures/jquery-datatables)
+### Sort, page, and filter millions of records reactively.
+## [Live Example](http://jquery-datatables.meteor.com)
 ## [DataTables Docs](https://datatables.net/usage/)
 ## [TableTools Docs](https://datatables.net/extras/tabletools/)
 
 ## Installation
-Add to `smart.json` `packages` object :
-
-```javascript
-"component-dataTable": {
-    "git": "https://github.com/lumapictures/component-dataTable"
-}
-```
-
-Then `$ mrt add component-dataTable` in your app
+`$ mrt add jquery-datatables` in your app
 
 ## Options
 * `selector` [string] [required]
@@ -41,7 +33,8 @@ Then `$ mrt add component-dataTable` in your app
 
 To develop this package locally just :
 
-1. `$ git clone https://github.com/lumapictures/component-dataTable`
-2. `$ cd component-dataTable/example`
-3. `$ mrt --force`
+1. `$ git clone https://github.com/lumapictures/jquery-datatables`
+2. `$ cd jquery-datatables/example`
+3. `$ mrt add jquery-datatables`
+4. `$ mrt add module-ui`
 4. `$ meteor`

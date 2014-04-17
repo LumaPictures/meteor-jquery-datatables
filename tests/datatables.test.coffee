@@ -146,6 +146,3 @@ if Meteor.isClient
       Template.dataTable.setDefaultTemplate 'undefined_template'
     catch error
       test.notEqual error, undefined, "Trying to set the default template to an undefined template should throw an error."
-
-  Tinytest.add "dataTable Component - Template.dataTable.rendered()", ( test ) ->
-    test.equal false, true, "Expected the dataTable to contain the rows passed in through the context."

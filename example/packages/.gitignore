@@ -1,10 +1,6 @@
-/component-dataTable
-/module-layout
+/jquery-datatables
+/module-ui
 /blaze-layout
 /iron-router
 /iron-router-active
 /jquery-ui
-/houston
-/paginated-subscription
-/spin
-/npm

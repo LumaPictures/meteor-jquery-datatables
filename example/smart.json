@@ -1,10 +1,10 @@
 {
   "packages": {
-    "component-dataTable": {
+    "jquery-datatables": {
       "path": ".."
     },
-    "module-layout": {
-      "git": "https://github.com/lumapictures/module-layout"
+    "module-ui": {
+      "git": "https://github.com/lumapictures/module-ui"
     }
   }
 }
