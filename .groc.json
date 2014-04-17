@@ -8,5 +8,10 @@
     "example/client/**/*.coffee",
     "example/server/**/*.coffee"
   ],
+  "except": [
+    "*.meteor",
+    "*packages",
+    "*.build"
+  ],
   "github": true
 }
