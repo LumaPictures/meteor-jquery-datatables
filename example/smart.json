@@ -1,10 +1,10 @@
 {
   "packages": {
-    "jquery-datatables": {
+    "luma-datatables": {
       "path": ".."
     },
-    "module-ui": {
-      "git": "https://github.com/lumapictures/module-ui"
+    "luma-ui": {
+      "git": "https://github.com/lumapictures/luma-ui"
     }
   }
 }

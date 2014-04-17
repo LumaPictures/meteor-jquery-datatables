@@ -39,15 +39,15 @@ class DataTable
         addedAt: ( doc, index, before ) ->
           updateCount initialized
           self.added collection._name, doc._id, doc
-          DataTable.log "added", doc._id
+          DataTable.log "#{ subscription }:added", doc._id
         changedAt: ( newDoc, oldDoc, index ) ->
           updateCount initialized
           self.changed collection._name, newDoc._id, newDoc
-          DataTable.log "changed", newDoc._id
+          DataTable.log "#{ subscription }:changed", newDoc._id
         removedAt: ( doc, index ) ->
           updateCount initialized
           self.removed collection._name, doc._id
-          DataTable.log "removed", doc._id
+          DataTable.log "#{ subscription }:removed", doc._id
       initialized = true
       updateCount initialized, true
       self.ready()

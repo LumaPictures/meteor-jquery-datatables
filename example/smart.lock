@@ -2,22 +2,22 @@
   "meteor": {},
   "dependencies": {
     "basePackages": {
-      "jquery-datatables": {
+      "luma-datatables": {
         "path": ".."
       },
-      "module-ui": {
-        "git": "https://github.com/lumapictures/module-ui",
+      "luma-ui": {
+        "git": "https://github.com/lumapictures/luma-ui",
         "branch": "master"
       }
     },
     "packages": {
-      "jquery-datatables": {
+      "luma-datatables": {
         "path": ".."
       },
-      "module-ui": {
-        "git": "https://github.com/lumapictures/module-ui",
+      "luma-ui": {
+        "git": "https://github.com/lumapictures/luma-ui",
         "branch": "master",
-        "commit": "a03781107f7d1d4a8b234eee6be4118efc1cd469"
+        "commit": "cc78e1efb31eff06a28a877950dccbc7057921fe"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",

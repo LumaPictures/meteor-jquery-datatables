@@ -10,5 +10,5 @@ ui
 less
 spacebars
 coffeescript
-jquery-datatables
-module-ui
+luma-datatables
+luma-ui

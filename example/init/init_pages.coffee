@@ -6,7 +6,7 @@ if Meteor.isServer
         path: '/'
         controller: 'PageController'
         page:
-          title: "jQuery DataTables"
+          title: "Luma DataTables"
           subtitle: "Sort, page, and filter millions of records reactively."
       }]
       count = 0
