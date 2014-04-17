@@ -8,12 +8,9 @@
   ],
   "glob": [
     "*.md",
-    "docs/*.md",
     "*.js",
     "*.json",
-    "lib/**/*.coffee",
-    "example/**/*.coffee",
-    "tests/*.coffee"
+    "*.coffee"
   ],
   "github": true
 }
