@@ -1,5 +1,5 @@
 Package.describe({
-  summary: "Sort, page, and filter millions of records reactively."
+  summary: "Sort, page, and filter millions of records. Reactively."
 });
 
 Package.on_use(function (api, where) {
