@@ -1,11 +1,5 @@
 {
   "glob": [
-    "!.build/*.js",
-    "!.build/**/*.js",
-    "!example/.meteor/**/*.js",
-    "!example/.meteor/**/*.coffee",
-    "!example/packages/**/*.js",
-    "!example/packages/**/*.coffee",
     "README.md",
     "package.js",
     "smart.json",
