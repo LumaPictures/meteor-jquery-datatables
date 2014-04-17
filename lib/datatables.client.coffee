@@ -1,7 +1,10 @@
 # Client
 # ======
-
-# ##Initialization
+#
+#
+# ## Initialization
+#
+#
 # ### rendered()
 #   * When the component is first rendered datatables is initialized
 #   * The `this` context for all of the component methods is `templateInstance.__component__`
@@ -33,30 +36,33 @@ Template.dataTable.initialize = ->
   @log "initialized", @
 
 # ## Component Parameters
+#
+#
 # #### `options` Object ( optional )
 #   * Any additional options you would like merged with the defaults `_.defaults options, defaultOptions`
 #   * The datatables options object, see datatables docs for more info
 #   * The default options are listed below.
 #   * The default options can changed by setting `Template.dataTable.defaultOptions.yourDumbProperty`
+#
 # #### Default Options
 #   * All options passed through the options parameter will be merged with the default options.
 #   * e.g. `_.defaults options, defaultOptions`
-# #### [DataTables Options Full Reference](https://datatables.net/ref)
-# #### Bootstrap 3 Markup
-#   * You can change this by setting `Template.dataTable.defaultOptions.sDom` property.
-#   * For some example Less / CSS styles check out [luma-ui's dataTable styles](https://github.com/LumaPictures/luma-ui/blob/master/components/dataTables/dataTables.import.less)
-# #### Loading Message
-#   * Set `oLanguage.sProcessing` to whatever you want, event html
-#   * Haven't tried a Meteor template yet, could be fun!
 Template.dataTable.defaultOptions =
+  # #### [DataTables Options Full Reference](https://datatables.net/ref)
   bJQueryUI: false
   bAutoWidth: true
   bDeferRender: true
   sPaginationType: "full_numbers"
+  # #### Bootstrap 3 Markup
+  #   * You can change this by setting `Template.dataTable.defaultOptions.sDom` property.
+  #   * For some example Less / CSS styles check out [luma-ui's dataTable styles](https://github.com/LumaPictures/luma-ui/blob/master/components/dataTables/dataTables.import.less)
   sDom: "<\"datatable-header\"fl><\"datatable-scroll\"rt><\"datatable-footer\"ip>"
   oLanguage:
     sSearch: "_INPUT_"
     sLengthMenu: "<span>Show :</span> _MENU_"
+    # #### Loading Message
+    #   * Set `oLanguage.sProcessing` to whatever you want, event html
+    #   * Haven't tried a Meteor template yet, could be fun!
     sProcessing: "Loading"
     oPaginate:
       sFirst: "First"
@@ -423,21 +429,21 @@ Template.dataTable.getTableState = ->
 #   * `aoData` is an array of objects provided by datatables reflecting its current state
 #   * `fnCallback` is the function that will be called when the server returns a result
 #   * `oSettings` is the datatables settings object
-# #### Wat?
-#   * `setTableState()` parses aoData and creates a usable table state object
-#   * `setSubscriptionOptions()` turns the table state into a MongoDB query options object
-#   * `setSubscriptionHandle()` subscribes the the dataset for the current table state
-#     * reactive subscription
-#     * base query and filter query
-#     * with sort order
-#     * limited to the table display limit
-#   * `setSubscriptionAutorun()` creates a Deps.autrun computation
-#     * sets the datatable when the subscription is ready
 Template.dataTable.fnServerData = ( sSource, aoData, fnCallback, oSettings ) ->
   @setTableState aoData
   @setSubscriptionOptions()
   @setSubscriptionHandle()
   @setSubscriptionAutorun fnCallback
+  # #### Wat?
+  #   * `setTableState()` parses aoData and creates a usable table state object
+  #   * `setSubscriptionOptions()` turns the table state into a MongoDB query options object
+  #   * `setSubscriptionHandle()` subscribes the the dataset for the current table state
+  #     * reactive subscription
+  #     * base query and filter query
+  #     * with sort order
+  #     * limited to the table display limit
+  #   * `setSubscriptionAutorun()` creates a Deps.autrun computation
+  #     * sets the datatable when the subscription is ready
 
 # ### Collection Counts
 #   * datatables maintains counts of both the base query and filtered query reactively
