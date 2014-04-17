@@ -165,12 +165,14 @@ Place the following component in one of your templates.
 You must also setup a Datatables publication on the server.
 
 ```coffeescript
-@Browsers = new Meteor.Collection 'browsers'
-
 if Meteor.isServer
   DataTable.debug = "true"
   DataTable.publish "all_browsers", Browsers
+```
 
+Calling `_ensureIndex` is necessary in order to sort and filter collections.
+
+```coffeescript
   Meteor.startup ->
     Browsers._ensureIndex { _id: 1 }, { unique: 1 }
     Browsers._ensureIndex engine: 1
@@ -181,8 +183,6 @@ if Meteor.isServer
     Browsers._ensureIndex createdAt: 1
     Browsers._ensureIndex counter: 1
 ```
-
-Calling `_ensureIndex` is necessary in order to sort and filter collections.
 
 Make sure the required data exists in the template context by setting it via template properties.
 

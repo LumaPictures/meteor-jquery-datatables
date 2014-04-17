@@ -11,7 +11,8 @@
   "except": [
     "*.meteor",
     "*packages",
-    "*.build"
+    "*.build",
+    "*.idea"
   ],
   "github": true
 }
