@@ -1,5 +1,6 @@
 # Luma DataTables [![Build Status](https://travis-ci.org/LumaPictures/luma-datatables.svg?branch=dev)](https://travis-ci.org/LumaPictures/luma-datatables)
-### Sort, page, and filter millions of records reactively.
+### Sort, page, and filter millions of records.
+#### Reactively.
 
 This meteor package gives you the ability to page, sort, and filter your largest collections with ease.
 
