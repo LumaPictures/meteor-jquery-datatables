@@ -1,6 +1,6 @@
 {
   "name": "luma-datatables",
-  "description": "Sort, page, and filter millions of records reactively.",
+  "description": "Sort, page, and filter millions of records. Reactively.",
   "homepage": "https://github.com/lumapictures/luma-datatables",
   "author": "Austin Rivas <austinrivas@gmail.com> (https://github.com/austinrivas)",
   "version": "0.1.0",
