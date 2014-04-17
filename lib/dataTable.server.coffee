@@ -16,14 +16,15 @@ class DataTable
     Meteor.publish subscription, ( baseQuery, filteredQuery, options ) ->
       self = @
       initialized = false
+      countInitialized = false
       Match.test baseQuery, Object
       Match.test filteredQuery, Object
       Match.test options, Object
       DataTable.log "#{ subscription }:query:base", baseQuery
       DataTable.log "#{ subscription }:query:filtered", filteredQuery
       DataTable.log "#{ subscription }:options", options
-      updateCount = ( first = false ) ->
-        if initialized
+      updateCount = ( ready, first = false ) ->
+        if ready
           total = collection.find( baseQuery ).count()
           DataTable.log "#{ subscription }:count:total", total
           filtered = collection.find( filteredQuery ).count()
@@ -36,18 +37,29 @@ class DataTable
             self.changed( DataTable.countCollection, "#{ subscription }_filtered", { count: filtered } )
       handle = collection.find( filteredQuery, options ).observe
         addedAt: ( doc, index, before ) ->
-          updateCount()
+          updateCount initialized
           self.added collection._name, doc._id, doc
           DataTable.log "added", doc._id
         changedAt: ( newDoc, oldDoc, index ) ->
-          updateCount()
+          updateCount initialized
           self.changed collection._name, newDoc._id, newDoc
           DataTable.log "changed", newDoc._id
         removedAt: ( doc, index ) ->
-          updateCount()
+          updateCount initialized
           self.removed collection._name, doc._id
           DataTable.log "removed", doc._id
       initialized = true
-      updateCount initialized
-      self.onStop -> handle.stop()
+      updateCount initialized, true
       self.ready()
+      lastPage = collection.find( filteredQuery ).count() - options.limit
+      if lastPage > 0
+        countOptions = options
+        countOptions.skip = lastPage
+        countHandle = collection.find( filteredQuery, countOptions ).observe
+          addedAt: -> updateCount countInitialized
+          changedAt: -> updateCount countInitialized
+          removedAt: -> updateCount countInitialized
+        countInitialized = true
+        self.onStop ->
+          handle.stop()
+          countHandle.stop()

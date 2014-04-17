@@ -50,10 +50,11 @@ Template.dataTable.defaultOptions =
   bAutoWidth: true
   bDeferRender: true
   sPaginationType: "full_numbers"
-  sDom: "<\"datatable-header\"fl><\"datatable-scroll\"t><\"datatable-footer\"ip>"
+  sDom: "<\"datatable-header\"fl><\"datatable-scroll\"rt><\"datatable-footer\"ip>"
   oLanguage:
     sSearch: "_INPUT_"
     sLengthMenu: "<span>Show :</span> _MENU_"
+    sProcessing: "Loading"
     oPaginate:
       sFirst: "First"
       sLast: "Last"
@@ -80,10 +81,11 @@ Template.dataTable.prepareOptions = ->
   # if this is a reactive datatable
   if @getCollection() and @getQuery()
     options.bServerSide = true
+    options.bProcessing = true
     # this field is currently useless, but is passed into fnServerData by datatables
     options.sAjaxSource = "useful?"
     # bind the datatables server callback to this component instance
-    options.fnServerData = @fnServerData.bind @
+    options.fnServerData = _.debounce( @fnServerData.bind( @ ), 300 )
   # merge defaults into options object
   @setOptions _.defaults( options, @defaultOptions )
 
@@ -230,7 +232,6 @@ Template.dataTable.fnServerData = ( sSource, aoData, fnCallback, oSettings ) ->
         iTotalDisplayRecords: @getFilteredCount()
         # The data in a 2D array. Note that you can change the name of this parameter with sAjaxDataProp.
         aaData: aaData
-      #@prepareObservers()
 #====== /Options ======#
 
 #====== Selector ======#

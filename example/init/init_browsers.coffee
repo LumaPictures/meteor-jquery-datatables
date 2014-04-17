@@ -112,7 +112,7 @@ Browsers.allow
   insertBrowser = ( i ) ->
     browser = browserList[ i % browserList.length ]
     browser.createdAt = new Date()
-    browser.counter = i
+    browser.counter = "#{ i }"
     Browsers.insert browser
     count++
   insertBrowser i for i in [ 1..howManyBrowsers ]
