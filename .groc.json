@@ -4,6 +4,10 @@
     "package.js",
     "smart.json",
     "lib/**/*.coffee",
+    "!example/.meteor/**/*.js",
+    "!example/.meteor/**/*.coffee",
+    "!example/packages/**/*.js",
+    "!example/packages/**/*.coffee",
     "example/init/**/*.coffee",
     "example/client/**/*.coffee",
     "example/server/**/*.coffee"
