@@ -1,12 +1,20 @@
 {
+  "except": [
+    "*.meteor",
+    "*packages",
+    "*.build",
+    "*.idea",
+    "*vendor",
+    ".groc.json"
+  ],
   "glob": [
-    "README.md",
-    "package.js",
-    "smart.json",
+    "*.md",
+    "*.js",
+    "*.json",
+    "*.coffee",
     "lib/**/*.coffee",
-    "example/init/**/*.coffee",
-    "example/client/**/*.coffee",
-    "example/server/**/*.coffee"
+    "example/**/*.coffee",
+    "tests/**/*.coffee"
   ],
   "github": true
 }

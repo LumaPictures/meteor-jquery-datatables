@@ -1,10 +1,10 @@
 {
   "packages": {
-    "component-dataTable": {
+    "luma-datatables": {
       "path": ".."
     },
-    "module-layout": {
-      "path": "../../module-layout"
+    "luma-ui": {
+      "git": "https://github.com/lumapictures/luma-ui"
     }
   }
 }

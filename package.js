@@ -1,5 +1,5 @@
 Package.describe({
-  summary: "A reactive dataTable component"
+  summary: "Sort, page, and filter millions of records reactively."
 });
 
 Package.on_use(function (api, where) {
@@ -12,25 +12,38 @@ Package.on_use(function (api, where) {
     'jquery',
     'ui',
     'templating',
-    'spacebars',
-    'less'
+    'spacebars'
   ], 'client');
 
   api.add_files([
     'vendor/datatables.min.js',
     'vendor/tabletools.min.js',
-    'lib/component-dataTable.html',
-    'lib/component-dataTable.coffee'
+    'lib/datatables.html',
+    'lib/datatables.client.coffee'
   ], ['client']);
+
+  api.add_files([
+    'lib/datatables.server.coffee'
+  ],['server']);
+
+  api.export([
+    'DataTable'
+  ],['client','server']);
+
+  api.export([
+    'DataTableSubscriptionCount'
+  ],[ 'client' ]);
 });
 
 Package.on_test(function (api) {
   api.use([
     'coffeescript',
-    'component-dataTable',
+    'luma-datatables',
     'tinytest',
     'test-helpers'
   ], ['client', 'server']);
 
-  api.add_files(['tests/component-dataTable.test.coffee'],['client', 'server']);
+  api.add_files([
+    'tests/datatables.test.coffee'
+  ], ['client', 'server']);
 });

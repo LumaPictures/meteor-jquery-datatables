@@ -10,10 +10,5 @@ ui
 less
 spacebars
 coffeescript
-component-dataTable
-module-layout
-jquery
-jquery-ui
-blaze-layout
-iron-router
-iron-router-active
+luma-datatables
+luma-ui

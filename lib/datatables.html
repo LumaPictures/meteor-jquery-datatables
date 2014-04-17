@@ -1,0 +1,13 @@
+<template name="dataTable">
+    <div class="{{selector}}">
+        {{#with chooseTemplate table_template }}
+            {{#with .. }}     {{! original arguments to dataTable}}
+                {{> .. }}     {{! return value from chooseTemplate(table_template) }}
+            {{/with}}
+        {{/with}}
+    </div>
+</template>
+
+<template name="default_table_template">
+    <table class="table {{../../table_styles}}"></table>
+</template>
