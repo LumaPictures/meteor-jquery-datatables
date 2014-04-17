@@ -4,13 +4,17 @@
     "*packages",
     "*.build",
     "*.idea",
-    "*vendor"
+    "*vendor",
+    ".groc.json"
   ],
   "glob": [
     "*.md",
     "*.js",
     "*.json",
-    "*.coffee"
+    "*.coffee",
+    "lib/**/*.coffee",
+    "example/**/*.coffee",
+    "tests/**/*.coffee"
   ],
   "github": true
 }
