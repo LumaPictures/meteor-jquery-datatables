@@ -2,17 +2,17 @@ DataTableSubscriptionCount = new Meteor.Collection("datatable_subscription_count
 
 #====== Template ======#
 # Set default table template
-Template.dataTable.default_template = 'default_table_template'
+Template.dataTable.defaultTemplate = 'default_table_template'
 
 # Return the template specified in the component parameters
 Template.dataTable.chooseTemplate = ( table_template = null ) ->
   # set table template to default if no template name is passed in
-  table_template ?= Template.dataTable.default_template
+  table_template ?= Template.dataTable.defaultTemplate
   # if the template is defined return it
   if Template[ table_template ]
     return Template[ table_template ]
   # otherwise return the default template
-  else return Template[ @default_template ]
+  else return Template[ @defaultTemplate ]
 #====== /Template ======#
 
 #====== Initialization ======#
