@@ -129,11 +129,9 @@ if Meteor.isClient
   Tinytest.add "dataTable Component - default options", ( test ) ->
     test.notEqual Template.dataTable.defaultOptions, undefined, "Expected defaultOptions to be defined on the client."
 
-    test.equal true, false, "Figure out how to test prepareOptions()"
-
   Tinytest.add "dataTable Component - chooseTemplate()", ( test ) ->
-    test.notEqual Template[ Template.dataTable.default_template ], undefined, "Expected the default dataTable template to be defined."
-    test.equal Template.dataTable.chooseTemplate(), Template[ Template.dataTable.default_template ], "Calling chooseTemplate without a param returns the default_table_template."
+    test.notEqual Template[ Template.dataTable.defaultTemplate ], undefined, "Expected the default dataTable template to be defined."
+    test.equal Template.dataTable.chooseTemplate(), Template[ Template.dataTable.defaultTemplate ], "Calling chooseTemplate without a param returns the default_table_template."
     test.notEqual Template.dataTable.chooseTemplate('undefined_template'), undefined, "chooseTemplate() should never return undefined."
     # stub some_template being defined
     Template['some_template'] = true
