@@ -1,13 +1,12 @@
 # Client
 # ======
-#
-#
+
 # ## Initialization
-#
-#
+
 # ### rendered()
 #   * When the component is first rendered datatables is initialized
 #   * The `this` context for all of the component methods is `templateInstance.__component__`
+
 Template.dataTable.rendered = ->
   templateInstance = @
   instantiatedComponent = templateInstance.__component__
@@ -17,6 +16,7 @@ Template.dataTable.rendered = ->
 # ### destroyed()
 #   * Currently nothing is done when the component is destroyed
 #   * This may change
+
 Template.dataTable.destroyed = ->
   @log "destroyed"
 
@@ -24,6 +24,7 @@ Template.dataTable.destroyed = ->
 #   * Set the initial table properties from the component declaration
 #   * Initialize the jQuery DataTables object
 #   * Initialize other third parties if they exist ( plugins, select2, etc. )
+
 Template.dataTable.initialize = ->
   @prepareQuery()
   @prepareCollection()
@@ -36,33 +37,36 @@ Template.dataTable.initialize = ->
   @log "initialized", @
 
 # ## Component Parameters
-#
-#
+
 # #### `options` Object ( optional )
 #   * Any additional options you would like merged with the defaults `_.defaults options, defaultOptions`
 #   * The datatables options object, see datatables docs for more info
 #   * The default options are listed below.
 #   * The default options can changed by setting `Template.dataTable.defaultOptions.yourDumbProperty`
-#
-# #### Default Options
+
+# #### [DataTables Options Full Reference](https://datatables.net/ref)
 #   * All options passed through the options parameter will be merged with the default options.
 #   * e.g. `_.defaults options, defaultOptions`
+
 Template.dataTable.defaultOptions =
-  # #### [DataTables Options Full Reference](https://datatables.net/ref)
   bJQueryUI: false
   bAutoWidth: true
   bDeferRender: true
   sPaginationType: "full_numbers"
+
   # #### Bootstrap 3 Markup
   #   * You can change this by setting `Template.dataTable.defaultOptions.sDom` property.
   #   * For some example Less / CSS styles check out [luma-ui's dataTable styles](https://github.com/LumaPictures/luma-ui/blob/master/components/dataTables/dataTables.import.less)
+
   sDom: "<\"datatable-header\"fl><\"datatable-scroll\"rt><\"datatable-footer\"ip>"
   oLanguage:
     sSearch: "_INPUT_"
     sLengthMenu: "<span>Show :</span> _MENU_"
+
     # #### Loading Message
     #   * Set `oLanguage.sProcessing` to whatever you want, event html
     #   * Haven't tried a Meteor template yet, could be fun!
+
     sProcessing: "Loading"
     oPaginate:
       sFirst: "First"
@@ -87,6 +91,7 @@ Template.dataTable.getOptions = ->
 #   * If the componet was declared with a collection and a query it is setup as a reactive datatable
 #   * `options.sAjaxSource` is currently useless, but is passed into `fnServerData` by datatables
 #   * binds the datatables `fnServerData` server callback to this component instance
+
 Template.dataTable.prepareOptions = ->
   options = @getOptions() or {}
   options.aaData = @getRows() or []
@@ -101,6 +106,7 @@ Template.dataTable.prepareOptions = ->
 # #### `selector` String ( required )
 #   * The table selector for the dataTable instance you are creating.
 #   * Needs to be unique in the page scope or you will get datatable mulit-render error
+
 Template.dataTable.setSelector = ( selector ) ->
   Match.test selector, String
   @setData 'selector', selector
@@ -116,6 +122,7 @@ Template.dataTable.prepareSelector = ->
 # #### `rows` Array of Object ( optional )
 #   * this is a static datasource
 #   * can be used to display static data, or reactive client side data
+
 Template.dataTable.setRows = ( rows ) ->
   Match.test rows, Object
   @setData 'rows', rows
@@ -131,6 +138,7 @@ Template.dataTable.getRows = ->
 
 # ##### getRowIndex()
 #   * gets the datatable index of a row by mongo id
+
 Template.dataTable.getRowIndex = ( _id ) ->
   index = false
   counter = 0
@@ -146,6 +154,7 @@ Template.dataTable.getRowIndex = ( _id ) ->
 #   * The column definitions you are passing to the datatable component
 #   * This is where to map object properties to columns and their headers
 #   * This is where you define custom templates for rendering data in cells
+
 Template.dataTable.setColumns = ( columns ) ->
   Match.test columns, Array
   @setData 'columns', columns
@@ -154,6 +163,7 @@ Template.dataTable.setColumns = ( columns ) ->
 # ##### prepareColumns()
 #   * adds _id as a hidden column by default
 #   * sets a default cell render function for every column
+
 Template.dataTable.prepareColumns = ->
   columns = @getColumns() or []
   columns.push
@@ -166,6 +176,7 @@ Template.dataTable.prepareColumns = ->
 
 # ##### setDefaultCellValue()
 #   * defaults all cells to "" if undefined
+
 Template.dataTable.setDefaultCellValue = ( column ) ->
   Match.test column.mData, String
   Match.test column.sTitle, String
@@ -180,8 +191,10 @@ Template.dataTable.getColumns = ->
 #   * The name of table layout template that you want to render.
 #   * default is `default_table_template` found [here](lib/datatables.html)
 #   * You can set your default template by assigning the template name to `Template.datatable.defaultTemplate`
+
 # ##### Default Table Template
 #   * The default table template is defined in datatables.html
+
 Template.dataTable.defaultTemplate = 'default_table_template'
 
 # ##### chooseTemplate Helper
@@ -189,6 +202,7 @@ Template.dataTable.defaultTemplate = 'default_table_template'
 #   * Set table template to default if no template name is passed in
 #   * If the template is defined return it
 #   * Otherwise return the default template
+
 Template.dataTable.chooseTemplate = ( table_template = null ) ->
   table_template ?= Template.dataTable.defaultTemplate
   if Template[ table_template ]
@@ -199,6 +213,7 @@ Template.dataTable.chooseTemplate = ( table_template = null ) ->
 # #### `collection` Meteor Collection ( required )
 #   * This is the collection that house the documents your datatable is displaying
 #   * This collection must be defined on both the client and the server
+
 Template.dataTable.setCollection = ( collection ) ->
   Match.test collection, Object
   @setData 'collection', collection
@@ -216,6 +231,7 @@ Template.dataTable.prepareCollection = ->
 # #### `subscription` String ( required )
 #   * The name of the subscription your datatables is paging, sorting, and filtering
 #   * This must be a datatable compatible publication ( for more info see Publishing below )
+
 Template.dataTable.setSubscription = ( subscription ) ->
   Match.test subscription, Object
   @setData 'subscription', subscription
@@ -232,6 +248,7 @@ Template.dataTable.setSubscriptionOptions = ->
 # ##### setSubscriptionHandle()
 #   * subscribes to the dataset for the current table state
 #   * stores the handle for later access
+
 Template.dataTable.setSubscriptionHandle = ->
   if @getSubscriptionHandle()
     @getSubscriptionHandle().stop()
@@ -250,6 +267,7 @@ Template.dataTable.setSubscriptionHandle = ->
 #       * both of these counts come from the `DataTableSubscriptionCount` collection on the client
 #       * `DataTableSubscriptionCount` is populated reactively by the DataTables publication for this table
 #       * The selector used to retrieve the counts is the subscription name and + '_filtered'
+
 Template.dataTable.setSubscriptionAutorun = ( fnCallback ) ->
   Match.test fnCallback, Object
   if @getSubscriptionAutorun()
@@ -288,6 +306,7 @@ Template.dataTable.getSubscriptionAutorun = ->
 #   * The initial filter for your datatable
 #   * You should attempt to narrow your selection as much as possbile to improve performance
 #   * The default query is `{}`
+
 Template.dataTable.setQuery = ( query ) ->
   Match.test query, Object
   @setData 'query', query
@@ -310,6 +329,7 @@ Template.dataTable.getQuery = ->
 #     * `initialized` logs the inital state of the datatable after data is acquired
 #     * `options` logs the datatables options for that instantiated component
 #     * `fnServerData` logs each request to the server by the component
+
 Template.dataTable.isDebug = ->
   return @getData().debug or false
 
@@ -319,20 +339,24 @@ Template.dataTable.log = ( message, object ) ->
       console.log "dataTable:#{ @getSelector() }:#{ message } ->", object
 
 # ## Querying MongoDB
+
 # ### mapTableState()
 #   * Take the `aoData` parameter of `fnServerData` and map it into a more usable object
 #   * Convert aoData to key -> value pairs
-# #### tableState
-#   * `aoData.sEcho` is a request counter, incremented on every server call
-#   * `aoData.columns` contains the property meta data for each column
-#   * `aoData.iColumns` is the number of columns being displayed
-#   * `aoData.iSortingCols` is the number of columns being sorted
-#   * `aoData.iDisplayLength` is the number of rows being displayed
-#   * `aoData.iDisplayStart` is the number of rows to skip for pagination
-#   * `aoData.sSearch` is the datatables search input value
+
 Template.dataTable.mapTableState = ( aoData ) ->
   aoData = @arrayToDictionary aoData, 'name'
   @log 'mapTableState:aoData', aoData
+
+  # #### tableState
+  #   * `aoData.sEcho` is a request counter, incremented on every server call
+  #   * `aoData.columns` contains the property meta data for each column
+  #   * `aoData.iColumns` is the number of columns being displayed
+  #   * `aoData.iSortingCols` is the number of columns being sorted
+  #   * `aoData.iDisplayLength` is the number of rows being displayed
+  #   * `aoData.iDisplayStart` is the number of rows to skip for pagination
+  #   * `aoData.sSearch` is the datatables search input value
+
   tableState =
     sEcho: aoData.sEcho.value or 1
     bRegex: aoData.bRegex.value or false
@@ -346,6 +370,7 @@ Template.dataTable.mapTableState = ( aoData ) ->
 
   # #### getDataProp()
   #   * function scope helper for getting `aoData` properties
+
   getDataProp = ( key, index ) ->
     key = "#{ key }_#{ index }"
     return aoData[ key ].value
@@ -358,6 +383,7 @@ Template.dataTable.mapTableState = ( aoData ) ->
   #   * `bSearchable` is a boolean used to determine which fields are searchable
   #   * `bSortable` is a boolean used to determine which fields are sortable
   #   * `sSearch` contains the column search string if column filters are setup
+
   mapColumns = ( index ) ->
     tableState.columns[ getDataProp 'mDataProp', index ] =
       mDataProp: getDataProp 'mDataProp', index
@@ -377,6 +403,7 @@ Template.dataTable.mapTableState = ( aoData ) ->
   #   * If the base query is for all records in the collection, the filter query is the only query run
   #   * If the base query is already filter the collection, the filter query is run as an `$and` against it
   #   * e.g. all documents must pass both the table query and search query
+
   if tableState.sSearch isnt ""
     searchQuery = $or: []
     mapQuery = ( key, property ) ->
@@ -429,11 +456,13 @@ Template.dataTable.getTableState = ->
 #   * `aoData` is an array of objects provided by datatables reflecting its current state
 #   * `fnCallback` is the function that will be called when the server returns a result
 #   * `oSettings` is the datatables settings object
+
 Template.dataTable.fnServerData = ( sSource, aoData, fnCallback, oSettings ) ->
   @setTableState aoData
   @setSubscriptionOptions()
   @setSubscriptionHandle()
   @setSubscriptionAutorun fnCallback
+
   # #### Wat?
   #   * `setTableState()` parses aoData and creates a usable table state object
   #   * `setSubscriptionOptions()` turns the table state into a MongoDB query options object
@@ -448,6 +477,7 @@ Template.dataTable.fnServerData = ( sSource, aoData, fnCallback, oSettings ) ->
 # ### Collection Counts
 #   * datatables maintains counts of both the base query and filtered query reactively
 #   * these counts are published by the datatables publication
+
 DataTableSubscriptionCount = new Meteor.Collection "datatable_subscription_count"
 Template.dataTable.prepareCountCollection = ->
   collection = @getData().countCollection or DataTableSubscriptionCount
@@ -468,6 +498,7 @@ Template.dataTable.getFilteredCount = ->
 # ### Cursor
 #   * The reactive cursor responsible for keeping the client in sync
 #   * identical to the server cursor publishing the data, except it does not skip
+
 Template.dataTable.setCursor = ( cursor ) ->
   Match.test cursor, Object
   @setData 'cursor', cursor
@@ -480,6 +511,7 @@ Template.dataTable.getCursor = ->
   return @getData().cursor or false
 
 # ### DataTable Instance
+
 Template.dataTable.getDataTable = ->
   return @getTemplateInstance().dataTable or false
 
@@ -511,6 +543,7 @@ Template.dataTable.preparePagination = ->
     $(".#{ @getSelector() } .dataTables_length select").select2 minimumResultsForSearch: "-1"
 
 # ## Utility Methods
+
 Template.dataTable.getTemplateInstance = ->
   return @templateInstance or false
 
@@ -529,7 +562,9 @@ Template.dataTable.arrayToDictionary = ( array, key ) ->
   dict
 
 # ## Preset Tables
+
 # * TODO : this is temporary all of this should be passed in through the options param
+
 Template.dataTable.presetOptions = ->
   selector = @getSelector()
 
