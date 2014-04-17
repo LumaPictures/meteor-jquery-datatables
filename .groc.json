@@ -1,13 +1,15 @@
 {
   "glob": [
-    "README.md",
-    "package.js",
-    "smart.json",
-    "lib/**/*.coffee",
+    "!.build/*.js",
+    "!.build/**/*.js",
     "!example/.meteor/**/*.js",
     "!example/.meteor/**/*.coffee",
     "!example/packages/**/*.js",
     "!example/packages/**/*.coffee",
+    "README.md",
+    "package.js",
+    "smart.json",
+    "lib/**/*.coffee",
     "example/init/**/*.coffee",
     "example/client/**/*.coffee",
     "example/server/**/*.coffee"
