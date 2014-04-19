@@ -1,0 +1,476 @@
+<!DOCTYPE html><html lang="en"><head><title>datatables.client</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="datatables.client"><meta name="groc-project-path" content="lib/datatables.client.coffee"><meta name="groc-github-url" content="https://github.com/lumapictures/luma-datatables"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/lumapictures/luma-datatables/blob/master/lib/datatables.client.coffee">lib/datatables.client.coffee</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="client">Client</h1></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="initialization">Initialization</h2></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="rendered">rendered()</h5>
+
+<p>When the component is first rendered datatables is initialized
+  The <code>this</code> context for all of the component methods is <code>templateInstance.__component__</code></p></div></div><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.rendered = </span><span class="nf">-&gt;</span>
+  <span class="nv">templateInstance = </span><span class="nx">@</span>
+  <span class="nv">instantiatedComponent = </span><span class="nx">templateInstance</span><span class="p">.</span><span class="nx">__component__</span>
+  <span class="nx">instantiatedComponent</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;rendered&quot;</span><span class="p">,</span> <span class="nx">@</span>
+  <span class="nx">instantiatedComponent</span><span class="p">.</span><span class="nx">initialize</span><span class="p">()</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="destroyed">destroyed()</h5>
+
+<p>Currently nothing is done when the component is destroyed
+  This may change</p></div></div><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.destroyed = </span><span class="nf">-&gt;</span>
+  <span class="nx">@log</span> <span class="s">&quot;destroyed&quot;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="initialize">initialize()</h5>
+
+<p>Set the initial table properties from the component declaration
+  Initialize the jQuery DataTables object
+  Initialize other third parties if they exist ( plugins, select2, etc. )</p></div></div><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.initialize = </span><span class="nf">-&gt;</span>
+  <span class="nx">@prepareQuery</span><span class="p">()</span>
+  <span class="nx">@prepareCollection</span><span class="p">()</span>
+  <span class="nx">@prepareColumns</span><span class="p">()</span>
+  <span class="nx">@prepareRows</span><span class="p">()</span>
+  <span class="nx">@prepareOptions</span><span class="p">()</span>
+  <span class="nx">@prepareDataTable</span><span class="p">()</span>
+  <span class="nx">@prepareFilters</span><span class="p">()</span>
+  <span class="nx">@preparePagination</span><span class="p">()</span>
+  <span class="nx">@log</span> <span class="s">&quot;initialized&quot;</span><span class="p">,</span> <span class="nx">@</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="component-parameters">Component Parameters</h2></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="optionsobjectoptional"><code>options</code> Object ( optional )</h4>
+
+<p>Any additional options you would like merged with the defaults <code>_.defaults options, defaultOptions</code>
+  The datatables options object, see datatables docs for more info
+  The default options are listed below.
+  The default options can changed by setting <code>Template.dataTable.defaultOptions.yourDumbProperty</code></p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="datatablesoptionsfullreferencehttpsdatatablesnetref"><a href="https://datatables.net/ref">DataTables Options Full Reference</a></h5>
+
+<p>All options passed through the options parameter will be merged with the default options.
+  e.g. <code>_.defaults options, defaultOptions</code></p></div></div><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.defaultOptions =</span>
+  <span class="nv">bJQueryUI: </span><span class="kc">false</span>
+  <span class="nv">bAutoWidth: </span><span class="kc">true</span>
+  <span class="nv">bDeferRender: </span><span class="kc">true</span>
+  <span class="nv">sPaginationType: </span><span class="s">&quot;full_numbers&quot;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="bootstrap-3-markup">Bootstrap 3 Markup</h5>
+
+<p>You can change this by setting <code>Template.dataTable.defaultOptions.sDom</code> property.
+  For some example Less / CSS styles check out <a href="https://github.com/LumaPictures/luma-ui/blob/master/components/dataTables/dataTables.import.less">luma-ui's dataTable styles</a></p></div></div><div class="code"><div class="wrapper">  <span class="nv">sDom: </span><span class="s">&quot;&lt;\&quot;datatable-header\&quot;fl&gt;&lt;\&quot;datatable-scroll\&quot;rt&gt;&lt;\&quot;datatable-footer\&quot;ip&gt;&quot;</span>
+  <span class="nv">oLanguage:</span>
+    <span class="nv">sSearch: </span><span class="s">&quot;_INPUT_&quot;</span>
+    <span class="nv">sLengthMenu: </span><span class="s">&quot;&lt;span&gt;Show :&lt;/span&gt; _MENU_&quot;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="loading-message">Loading Message</h5>
+
+<p>Set <code>oLanguage.sProcessing</code> to whatever you want, event html
+  Haven't tried a Meteor template yet, could be fun!</p></div></div><div class="code"><div class="wrapper">    <span class="nv">sProcessing: </span><span class="s">&quot;Loading&quot;</span>
+    <span class="nv">oPaginate:</span>
+      <span class="nv">sFirst: </span><span class="s">&quot;First&quot;</span>
+      <span class="nv">sLast: </span><span class="s">&quot;Last&quot;</span>
+      <span class="nv">sNext: </span><span class="s">&quot;&gt;&quot;</span>
+      <span class="nv">sPrevious: </span><span class="s">&quot;&lt;&quot;</span>
+  <span class="nv">aoColumnDefs: </span><span class="p">[]</span>
+  <span class="nv">aaSorting: </span><span class="p">[]</span>
+  <span class="nv">aaData: </span><span class="p">[]</span>
+  <span class="nv">aoColumns: </span><span class="p">[]</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="setoptions">setOptions()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.setOptions = </span><span class="nf">( options ) -&gt;</span>
+  <span class="nx">Match</span><span class="p">.</span><span class="nx">test</span> <span class="nx">options</span><span class="p">,</span> <span class="nb">Object</span>
+  <span class="nx">@setData</span> <span class="s">&#39;options&#39;</span><span class="p">,</span> <span class="nx">options</span>
+  <span class="nx">@log</span> <span class="s">&quot;options:set&quot;</span><span class="p">,</span> <span class="nx">options</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="getoptions">getOptions()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.getOptions = </span><span class="nf">-&gt;</span>
+  <span class="k">return</span> <span class="nx">@getData</span><span class="p">().</span><span class="nx">options</span> <span class="o">or</span> <span class="nx">@presetOptions</span><span class="p">()</span> <span class="o">or</span> <span class="kc">false</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="prepareoptions">prepareOptions()</h5>
+
+<p>Prepares the datatable options object by merging the options passed in with the defaults
+  If the componet was declared with a collection and a query it is setup as a reactive datatable
+  <code>options.sAjaxSource</code> is currently useless, but is passed into <code>fnServerData</code> by datatables
+  binds the datatables <code>fnServerData</code> server callback to this component instance</p></div></div><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.prepareOptions = </span><span class="nf">-&gt;</span>
+  <span class="nv">options = </span><span class="nx">@getOptions</span><span class="p">()</span> <span class="o">or</span> <span class="p">{}</span>
+  <span class="nv">options.aaData = </span><span class="nx">@getRows</span><span class="p">()</span> <span class="o">or</span> <span class="p">[]</span>
+  <span class="nv">options.aoColumns = </span><span class="nx">@getColumns</span><span class="p">()</span> <span class="o">or</span> <span class="p">[]</span>
+  <span class="k">if</span> <span class="nx">@getCollection</span><span class="p">()</span> <span class="o">and</span> <span class="nx">@getQuery</span><span class="p">()</span>
+    <span class="nv">options.bServerSide = </span><span class="kc">true</span>
+    <span class="nv">options.bProcessing = </span><span class="kc">true</span>
+    <span class="nv">options.sAjaxSource = </span><span class="s">&quot;useful?&quot;</span>
+    <span class="nv">options.fnServerData = </span><span class="nx">_</span><span class="p">.</span><span class="nx">debounce</span><span class="p">(</span> <span class="nx">@fnServerData</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span> <span class="nx">@</span> <span class="p">),</span> <span class="mi">300</span> <span class="p">)</span>
+  <span class="nx">@setOptions</span> <span class="nx">_</span><span class="p">.</span><span class="nx">defaults</span><span class="p">(</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">@defaultOptions</span> <span class="p">)</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="selectorstringrequired"><code>selector</code> String ( required )</h4>
+
+<p>The table selector for the dataTable instance you are creating.
+  Needs to be unique in the page scope or you will get datatable mulit-render error</p></div></div><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.setSelector = </span><span class="nf">( selector ) -&gt;</span>
+  <span class="nx">Match</span><span class="p">.</span><span class="nx">test</span> <span class="nx">selector</span><span class="p">,</span> <span class="nb">String</span>
+  <span class="nx">@setData</span> <span class="s">&#39;selector&#39;</span><span class="p">,</span> <span class="nx">selector</span>
+  <span class="nx">@log</span> <span class="s">&#39;selector:set&#39;</span><span class="p">,</span> <span class="nx">selector</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="getselector">getSelector()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.getSelector = </span><span class="nf">-&gt;</span>
+  <span class="k">return</span> <span class="nx">@getData</span><span class="p">().</span><span class="nx">selector</span> <span class="o">or</span> <span class="kc">false</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="prepareselector">prepareSelector()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.prepareSelector = </span><span class="nf">-&gt;</span>
+  <span class="k">unless</span> <span class="nx">@getSelector</span><span class="p">()</span>
+    <span class="nx">@setSelector</span> <span class="s">&quot;datatable-</span><span class="si">#{</span> <span class="nx">@getGuid</span><span class="p">()</span> <span class="si">}</span><span class="s">&quot;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="rowsarrayofobjectoptional"><code>rows</code> Array of Object ( optional )</h4>
+
+<p>this is a static datasource
+  can be used to display static data, or reactive client side data</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="setrows">setRows()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.setRows = </span><span class="nf">( rows ) -&gt;</span>
+  <span class="nx">Match</span><span class="p">.</span><span class="nx">test</span> <span class="nx">rows</span><span class="p">,</span> <span class="nb">Object</span>
+  <span class="nx">@setData</span> <span class="s">&#39;rows&#39;</span><span class="p">,</span> <span class="nx">rows</span>
+  <span class="nx">@log</span> <span class="s">&#39;rows:set&#39;</span><span class="p">,</span> <span class="nx">rows</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="preprarerows">preprareRows()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.prepareRows = </span><span class="nf">-&gt;</span>
+  <span class="k">return</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="getrows">getRows()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.getRows = </span><span class="nf">-&gt;</span>
+  <span class="k">if</span> <span class="nx">@getDataTable</span><span class="p">()</span>
+    <span class="k">return</span> <span class="nx">@getDataTable</span><span class="p">().</span><span class="nx">fnSettings</span><span class="p">().</span><span class="nx">aoData</span> <span class="o">or</span> <span class="kc">false</span>
+  <span class="k">else</span> <span class="k">return</span> <span class="nx">@getData</span><span class="p">().</span><span class="nx">rows</span> <span class="o">or</span> <span class="kc">false</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="getrowindex">getRowIndex()</h5>
+
+<p>gets the datatable index of a row by mongo id</p></div></div><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.getRowIndex = </span><span class="nf">( _id ) -&gt;</span>
+  <span class="nv">index = </span><span class="kc">false</span>
+  <span class="nv">counter = </span><span class="mi">0</span>
+  <span class="nv">rows = </span><span class="nx">@getRows</span><span class="p">()</span>
+  <span class="nv">checkIndex = </span><span class="nf">( row ) -&gt;</span>
+    <span class="k">if</span> <span class="nx">row</span><span class="p">.</span><span class="nx">_aData</span><span class="p">.</span><span class="nx">_id</span> <span class="o">is</span> <span class="nx">_id</span>
+      <span class="nv">index = </span><span class="nx">counter</span>
+    <span class="nx">counter</span><span class="o">++</span>
+  <span class="nx">checkIndex</span> <span class="nx">row</span> <span class="k">for</span> <span class="nx">row</span> <span class="k">in</span> <span class="nx">rows</span>
+  <span class="k">return</span> <span class="nx">index</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="columnsarrayofobjectsrequired"><code>columns</code> Array of Objects ( required )</h4>
+
+<p>The column definitions you are passing to the datatable component
+  This is where to map object properties to columns and their headers
+  This is where you define custom templates for rendering data in cells</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="setcolumns">setColumns()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.setColumns = </span><span class="nf">( columns ) -&gt;</span>
+  <span class="nx">Match</span><span class="p">.</span><span class="nx">test</span> <span class="nx">columns</span><span class="p">,</span> <span class="nb">Array</span>
+  <span class="nx">@setData</span> <span class="s">&#39;columns&#39;</span><span class="p">,</span> <span class="nx">columns</span>
+  <span class="nx">@log</span> <span class="s">&quot;columns:set&quot;</span><span class="p">,</span> <span class="nx">columns</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="preparecolumns">prepareColumns()</h5>
+
+<p>adds _id as a hidden column by default
+  sets a default cell render function for every column</p></div></div><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.prepareColumns = </span><span class="nf">-&gt;</span>
+  <span class="nv">columns = </span><span class="nx">@getColumns</span><span class="p">()</span> <span class="o">or</span> <span class="p">[]</span>
+  <span class="nx">columns</span><span class="p">.</span><span class="nx">push</span>
+    <span class="nv">sTitle: </span><span class="s">&quot;id&quot;</span>
+    <span class="nv">mData: </span><span class="s">&quot;_id&quot;</span>
+    <span class="nv">bVisible: </span><span class="kc">false</span>
+    <span class="nv">bSearchable: </span><span class="kc">false</span>
+  <span class="nx">@setDefaultCellValue</span> <span class="nx">column</span> <span class="k">for</span> <span class="nx">column</span> <span class="k">in</span> <span class="nx">columns</span>
+  <span class="nx">@setColumns</span> <span class="nx">columns</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="setdefaultcellvalue">setDefaultCellValue()</h5>
+
+<p>defaults all cells to "" if undefined</p></div></div><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.setDefaultCellValue = </span><span class="nf">( column ) -&gt;</span>
+  <span class="nx">Match</span><span class="p">.</span><span class="nx">test</span> <span class="nx">column</span><span class="p">.</span><span class="nx">mData</span><span class="p">,</span> <span class="nb">String</span>
+  <span class="nx">Match</span><span class="p">.</span><span class="nx">test</span> <span class="nx">column</span><span class="p">.</span><span class="nx">sTitle</span><span class="p">,</span> <span class="nb">String</span>
+  <span class="k">unless</span> <span class="nx">column</span><span class="p">.</span><span class="nx">mRender</span>
+    <span class="nv">column.mRender = </span><span class="nf">( dataSource, call, rawData ) -&gt;</span>
+      <span class="nx">rawData</span><span class="p">[</span> <span class="nx">column</span><span class="p">.</span><span class="nx">mData</span> <span class="p">]</span> <span class="o">?=</span> <span class="s">&quot;&quot;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="getcolumns">getColumns()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.getColumns = </span><span class="nf">-&gt;</span>
+  <span class="k">return</span> <span class="nx">@getData</span><span class="p">().</span><span class="nx">columns</span> <span class="o">or</span> <span class="kc">false</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="table_templatestringoptional"><code>table_template</code> String ( optional )</h4>
+
+<p>The name of table layout template that you want to render.
+  default is <code>default_table_template</code> found <a href="lib/datatables.html">here</a>
+  You can set your default template by assigning the template name to <code>Template.datatable.defaultTemplate</code></p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="default-table-template">Default Table Template</h5>
+
+<p>The default table template is defined in datatables.html</p></div></div><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.defaultTemplate = </span><span class="s">&#39;default_table_template&#39;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="choosetemplate-helper">chooseTemplate Helper</h5>
+
+<p>Return the template specified in the component parameters
+  Set table template to default if no template name is passed in
+  If the template is defined return it
+  Otherwise return the default template</p></div></div><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.chooseTemplate = </span><span class="nf">( table_template = null ) -&gt;</span>
+  <span class="nx">table_template</span> <span class="o">?=</span> <span class="nx">Template</span><span class="p">.</span><span class="nx">dataTable</span><span class="p">.</span><span class="nx">defaultTemplate</span>
+  <span class="k">if</span> <span class="nx">Template</span><span class="p">[</span> <span class="nx">table_template</span> <span class="p">]</span>
+    <span class="k">return</span> <span class="nx">Template</span><span class="p">[</span> <span class="nx">table_template</span> <span class="p">]</span>
+  <span class="k">else</span> <span class="k">return</span> <span class="nx">Template</span><span class="p">[</span> <span class="nx">@defaultTemplate</span> <span class="p">]</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="collectionmeteorcollectionrequired"><code>collection</code> Meteor Collection ( required )</h4>
+
+<p>This is the collection that house the documents your datatable is displaying
+  This collection must be defined on both the client and the server</p></div></div><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.setCollection = </span><span class="nf">( collection ) -&gt;</span>
+  <span class="nx">Match</span><span class="p">.</span><span class="nx">test</span> <span class="nx">collection</span><span class="p">,</span> <span class="nb">Object</span>
+  <span class="nx">@setData</span> <span class="s">&#39;collection&#39;</span><span class="p">,</span> <span class="nx">collection</span>
+  <span class="nx">@log</span> <span class="s">&#39;collection:set&#39;</span><span class="p">,</span> <span class="nx">collection</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="setcountcollection">setCountCollection()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.setCountCollection = </span><span class="nf">( collection ) -&gt;</span>
+  <span class="nx">Match</span><span class="p">.</span><span class="nx">test</span> <span class="nx">collection</span><span class="p">,</span> <span class="nb">Object</span>
+  <span class="nx">@setData</span> <span class="s">&#39;countCollection&#39;</span><span class="p">,</span> <span class="nx">collection</span>
+  <span class="nx">@log</span> <span class="s">&#39;collection:count:set&#39;</span><span class="p">,</span> <span class="nx">collection</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="preparecollection">prepareCollection()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.prepareCollection = </span><span class="nf">-&gt;</span>
+  <span class="nx">@prepareCountCollection</span><span class="p">()</span>
+  <span class="k">return</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="subscriptionstringrequired"><code>subscription</code> String ( required )</h4>
+
+<p>The name of the subscription your datatables is paging, sorting, and filtering
+  This must be a datatable compatible publication ( for more info see Publishing below )</p></div></div><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.setSubscription = </span><span class="nf">( subscription ) -&gt;</span>
+  <span class="nx">Match</span><span class="p">.</span><span class="nx">test</span> <span class="nx">subscription</span><span class="p">,</span> <span class="nb">Object</span>
+  <span class="nx">@setData</span> <span class="s">&#39;subscription&#39;</span><span class="p">,</span> <span class="nx">subscription</span>
+  <span class="nx">@log</span> <span class="s">&#39;subscription:set&#39;</span><span class="p">,</span> <span class="nx">subscription</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="setsubscriptionoptions">setSubscriptionOptions()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.setSubscriptionOptions = </span><span class="nf">-&gt;</span>
+  <span class="nv">options =</span>
+    <span class="nv">skip: </span><span class="nx">@getTableState</span><span class="p">().</span><span class="nx">iDisplayStart</span>
+    <span class="nv">limit: </span><span class="nx">@getTableState</span><span class="p">().</span><span class="nx">iDisplayLength</span>
+    <span class="nv">sort: </span><span class="nx">@getTableState</span><span class="p">().</span><span class="nx">sort</span>
+  <span class="nx">@setData</span> <span class="s">&#39;subscriptionOptions&#39;</span><span class="p">,</span> <span class="nx">options</span>
+  <span class="nx">@log</span> <span class="s">&#39;subscription:options:set&#39;</span><span class="p">,</span> <span class="nx">options</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="setsubscriptionhandle">setSubscriptionHandle()</h5>
+
+<p>subscribes to the dataset for the current table state
+  stores the handle for later access</p></div></div><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.setSubscriptionHandle = </span><span class="nf">-&gt;</span>
+  <span class="k">if</span> <span class="nx">@getSubscriptionHandle</span><span class="p">()</span>
+    <span class="nx">@getSubscriptionHandle</span><span class="p">().</span><span class="nx">stop</span><span class="p">()</span>
+  <span class="nv">handle = </span><span class="nx">Meteor</span><span class="p">.</span><span class="nx">subscribe</span> <span class="nx">@getSubscription</span><span class="p">(),</span> <span class="nx">@getQuery</span><span class="p">(),</span> <span class="nx">@getTableState</span><span class="p">().</span><span class="nx">query</span><span class="p">,</span> <span class="nx">@getSubscriptionOptions</span><span class="p">()</span>
+  <span class="nx">@setData</span> <span class="s">&#39;handle&#39;</span><span class="p">,</span> <span class="nx">handle</span>
+  <span class="nx">@log</span> <span class="s">&#39;subscription:handle:set&#39;</span><span class="p">,</span> <span class="nx">handle</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="setsubscriptionautorun">setSubscriptionAutorun()</h5>
+
+<p>creates a reactive computation that runs when the subscription is <code>ready()</code>
+  sets up local cursor ( identical to server except no skip )</p></div></div><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.setSubscriptionAutorun = </span><span class="nf">( fnCallback ) -&gt;</span>
+  <span class="nx">Match</span><span class="p">.</span><span class="nx">test</span> <span class="nx">fnCallback</span><span class="p">,</span> <span class="nb">Object</span>
+  <span class="k">if</span> <span class="nx">@getSubscriptionAutorun</span><span class="p">()</span>
+    <span class="nx">@getSubscriptionAutorun</span><span class="p">().</span><span class="nx">stop</span><span class="p">()</span>
+  <span class="nv">autorun = </span><span class="nx">Deps</span><span class="p">.</span><span class="nx">autorun</span> <span class="o">=&gt;</span>
+    <span class="k">if</span> <span class="nx">@getSubscriptionHandle</span><span class="p">()</span> <span class="o">and</span> <span class="nx">@getSubscriptionHandle</span><span class="p">().</span><span class="nx">ready</span><span class="p">()</span>
+      <span class="nx">@log</span> <span class="s">&#39;fnServerdData:handle:ready&#39;</span><span class="p">,</span> <span class="nx">@getSubscriptionHandle</span><span class="p">().</span><span class="nx">ready</span><span class="p">()</span>
+      <span class="nv">cursorOptions =</span>
+        <span class="nv">skip: </span><span class="mi">0</span>
+        <span class="nv">limit: </span><span class="nx">@getTableState</span><span class="p">().</span><span class="nx">iDisplayLength</span>
+        <span class="nv">sort: </span><span class="nx">@getTableState</span><span class="p">().</span><span class="nx">sort</span>
+      <span class="nx">@setCursor</span> <span class="nx">@getCollection</span><span class="p">().</span><span class="nx">find</span> <span class="nx">@getTableState</span><span class="p">().</span><span class="nx">query</span><span class="p">,</span> <span class="nx">cursorOptions</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>fetches data from collection and passes it to datatables
+    does this by calling the <code>fnCallback()</code> passed to <code>fnServerData()</code>
+    sends an unaltered copy of <code>sEcho</code> ( draw count ) to datatables
+    gets total docs, before filtering i.e. the total number of records in the database
+    gets total records, after filtering i.e. the total number of records after filtering has been applied</p></div></div><div class="code"><div class="wrapper">      <span class="nv">aaData = </span><span class="nx">@getCursor</span><span class="p">().</span><span class="nx">fetch</span><span class="p">()</span>
+      <span class="nx">@log</span> <span class="s">&#39;fnServerData:aaData&#39;</span><span class="p">,</span> <span class="nx">aaData</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><pre><code>both of these counts come from the `DataTableSubscriptionCount` collection on the client
+`DataTableSubscriptionCount` is populated reactively by the DataTables publication for this table
+The selector used to retrieve the counts is the subscription name and + '_filtered'
+</code></pre></div></div><div class="code"><div class="wrapper">      <span class="nx">fnCallback</span>
+        <span class="nv">sEcho: </span><span class="nx">@getTableState</span><span class="p">().</span><span class="nx">sEcho</span>
+        <span class="nv">iTotalRecords: </span><span class="nx">@getTotalCount</span><span class="p">()</span>
+        <span class="nv">iTotalDisplayRecords: </span><span class="nx">@getFilteredCount</span><span class="p">()</span>
+        <span class="nv">aaData: </span><span class="nx">aaData</span>
+  <span class="nx">@setData</span> <span class="s">&#39;autorun&#39;</span><span class="p">,</span> <span class="nx">autorun</span>
+  <span class="nx">@log</span> <span class="s">&#39;subscription:autorun:set&#39;</span><span class="p">,</span> <span class="nx">autorun</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="getsubscription">getSubscription()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.getSubscription = </span><span class="nf">-&gt;</span>
+  <span class="k">return</span> <span class="nx">@getData</span><span class="p">().</span><span class="nx">subscription</span> <span class="o">or</span> <span class="kc">false</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="getsubscriptionoptions">getSubscriptionOptions()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.getSubscriptionOptions = </span><span class="nf">-&gt;</span>
+  <span class="k">return</span> <span class="nx">@getData</span><span class="p">().</span><span class="nx">subscriptionOptions</span> <span class="o">or</span> <span class="kc">false</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="getsubscriptionhandle">getSubscriptionHandle()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.getSubscriptionHandle = </span><span class="nf">-&gt;</span>
+  <span class="k">return</span> <span class="nx">@getData</span><span class="p">().</span><span class="nx">handle</span> <span class="o">or</span> <span class="kc">false</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="getsubscriptionautorun">getSubscriptionAutorun()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.getSubscriptionAutorun = </span><span class="nf">-&gt;</span>
+  <span class="k">return</span> <span class="nx">@getData</span><span class="p">().</span><span class="nx">autorun</span> <span class="o">or</span> <span class="kc">false</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="querymongodbselectoroptional"><code>query</code> MongoDB Selector ( optional )</h4>
+
+<p>The initial filter for your datatable
+  You should attempt to narrow your selection as much as possbile to improve performance
+  The default query is <code>{}</code></p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="setquery">setQuery()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.setQuery = </span><span class="nf">( query ) -&gt;</span>
+  <span class="nx">Match</span><span class="p">.</span><span class="nx">test</span> <span class="nx">query</span><span class="p">,</span> <span class="nb">Object</span>
+  <span class="nx">@setData</span> <span class="s">&#39;query&#39;</span><span class="p">,</span> <span class="nx">query</span>
+  <span class="nx">@log</span> <span class="s">&#39;query:set&#39;</span><span class="p">,</span> <span class="nx">query</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="preparequery">prepareQuery()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.prepareQuery = </span><span class="nf">-&gt;</span>
+  <span class="k">unless</span> <span class="nx">@getQuery</span><span class="p">()</span>
+    <span class="nx">@setQuery</span> <span class="p">{}</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="getquery">getQuery()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.getQuery = </span><span class="nf">-&gt;</span>
+  <span class="k">return</span> <span class="nx">@getData</span><span class="p">().</span><span class="nx">query</span> <span class="o">or</span> <span class="kc">false</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="debugstringoptional"><code>debug</code> String ( optional )</h4>
+
+<p>A handy option for granular debug logs
+  <code>true</code> logs all messages from datatables
+  Set debug to any string to only log messages that contain that string
+  Some useful debug settings are :
+    * <code>rendered</code> logs the instantiated component on render
+    * <code>destroyed</code> logs when the component is detroyed
+    * <code>initialized</code> logs the inital state of the datatable after data is acquired
+    * <code>options</code> logs the datatables options for that instantiated component
+    * <code>fnServerData</code> logs each request to the server by the component</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="isdebug">isDebug()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.isDebug = </span><span class="nf">-&gt;</span>
+  <span class="k">return</span> <span class="nx">@getData</span><span class="p">().</span><span class="nx">debug</span> <span class="o">or</span> <span class="kc">false</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="log">log()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.log = </span><span class="nf">( message, object ) -&gt;</span>
+  <span class="k">if</span> <span class="nx">@isDebug</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nx">message</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span> <span class="nx">@isDebug</span><span class="p">()</span> <span class="p">)</span> <span class="o">isnt</span> <span class="o">-</span><span class="mi">1</span> <span class="o">or</span> <span class="nx">@isDebug</span><span class="p">()</span> <span class="o">is</span> <span class="s">&quot;true&quot;</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;dataTable:</span><span class="si">#{</span> <span class="nx">@getSelector</span><span class="p">()</span> <span class="si">}</span><span class="s">:</span><span class="si">#{</span> <span class="nx">message</span> <span class="si">}</span><span class="s"> -&gt;&quot;</span><span class="p">,</span> <span class="nx">object</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="querying-mongodb">Querying MongoDB</h2></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="maptablestate">mapTableState()</h5>
+
+<p>Take the <code>aoData</code> parameter of <code>fnServerData</code> and map it into a more usable object
+  Convert aoData to key -> value pairs</p></div></div><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.mapTableState = </span><span class="nf">( aoData ) -&gt;</span>
+  <span class="nv">aoData = </span><span class="nx">@arrayToDictionary</span> <span class="nx">aoData</span><span class="p">,</span> <span class="s">&#39;name&#39;</span>
+  <span class="nx">@log</span> <span class="s">&#39;mapTableState:aoData&#39;</span><span class="p">,</span> <span class="nx">aoData</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="tablestate">tableState</h5>
+
+<p><code>aoData.sEcho</code> is a request counter, incremented on every server call
+  <code>aoData.columns</code> contains the property meta data for each column
+  <code>aoData.iColumns</code> is the number of columns being displayed
+  <code>aoData.iSortingCols</code> is the number of columns being sorted
+  <code>aoData.iDisplayLength</code> is the number of rows being displayed
+  <code>aoData.iDisplayStart</code> is the number of rows to skip for pagination
+  <code>aoData.sSearch</code> is the datatables search input value</p></div></div><div class="code"><div class="wrapper">  <span class="nv">tableState =</span>
+    <span class="nv">sEcho: </span><span class="nx">aoData</span><span class="p">.</span><span class="nx">sEcho</span><span class="p">.</span><span class="nx">value</span> <span class="o">or</span> <span class="mi">1</span>
+    <span class="nv">bRegex: </span><span class="nx">aoData</span><span class="p">.</span><span class="nx">bRegex</span><span class="p">.</span><span class="nx">value</span> <span class="o">or</span> <span class="kc">false</span>
+    <span class="nv">columns: </span><span class="p">[]</span>
+    <span class="nv">iColumns: </span><span class="nx">aoData</span><span class="p">.</span><span class="nx">iColumns</span><span class="p">.</span><span class="nx">value</span> <span class="o">or</span> <span class="mi">0</span>
+    <span class="nv">iSortingCols: </span><span class="nx">aoData</span><span class="p">.</span><span class="nx">iSortingCols</span><span class="p">.</span><span class="nx">value</span> <span class="o">or</span> <span class="mi">0</span>
+    <span class="nv">sColumns: </span><span class="nx">aoData</span><span class="p">.</span><span class="nx">sColumns</span><span class="p">.</span><span class="nx">value</span> <span class="o">or</span> <span class="s">&quot;&quot;</span>
+    <span class="nv">iDisplayLength: </span><span class="nx">aoData</span><span class="p">.</span><span class="nx">iDisplayLength</span><span class="p">.</span><span class="nx">value</span> <span class="o">or</span> <span class="mi">10</span>
+    <span class="nv">iDisplayStart: </span><span class="nx">aoData</span><span class="p">.</span><span class="nx">iDisplayStart</span><span class="p">.</span><span class="nx">value</span> <span class="o">or</span> <span class="mi">0</span>
+    <span class="nv">sSearch: </span><span class="nx">aoData</span><span class="p">.</span><span class="nx">sSearch</span><span class="p">.</span><span class="nx">value</span> <span class="o">or</span> <span class="s">&quot;&quot;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="getdataprop">getDataProp()</h5>
+
+<p>function scope helper for getting <code>aoData</code> properties</p></div></div><div class="code"><div class="wrapper">  <span class="nv">getDataProp = </span><span class="nf">( key, index ) -&gt;</span>
+    <span class="nv">key = </span><span class="s">&quot;</span><span class="si">#{</span> <span class="nx">key</span> <span class="si">}</span><span class="s">_</span><span class="si">#{</span> <span class="nx">index</span> <span class="si">}</span><span class="s">&quot;</span>
+    <span class="k">return</span> <span class="nx">aoData</span><span class="p">[</span> <span class="nx">key</span> <span class="p">].</span><span class="nx">value</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="mapcolumns">mapColumns()</h5>
+
+<p>iterator for setting up columns
+  create an element for each column
+  <code>mDataProp</code> is the field name
+  <code>bRegex</code> is a boolean for if the field has a search input
+  <code>bSearchable</code> is a boolean used to determine which fields are searchable
+  <code>bSortable</code> is a boolean used to determine which fields are sortable
+  <code>sSearch</code> contains the column search string if column filters are setup</p></div></div><div class="code"><div class="wrapper">  <span class="nv">mapColumns = </span><span class="nf">( index ) -&gt;</span>
+    <span class="nx">tableState</span><span class="p">.</span><span class="nx">columns</span><span class="p">[</span> <span class="nx">getDataProp</span> <span class="s">&#39;mDataProp&#39;</span><span class="p">,</span> <span class="nx">index</span> <span class="p">]</span> <span class="o">=</span>
+      <span class="nv">mDataProp: </span><span class="nx">getDataProp</span> <span class="s">&#39;mDataProp&#39;</span><span class="p">,</span> <span class="nx">index</span>
+      <span class="nv">bRegex: </span><span class="nx">getDataProp</span> <span class="s">&#39;bRegex&#39;</span><span class="p">,</span> <span class="nx">index</span>
+      <span class="nv">bSearchable: </span><span class="nx">getDataProp</span> <span class="s">&#39;bSearchable&#39;</span><span class="p">,</span> <span class="nx">index</span>
+      <span class="nv">bSortable: </span><span class="nx">getDataProp</span> <span class="s">&#39;bSortable&#39;</span><span class="p">,</span> <span class="nx">index</span>
+      <span class="nv">sSearch: </span><span class="nx">getDataProp</span> <span class="s">&#39;sSearch&#39;</span><span class="p">,</span> <span class="nx">index</span>
+  <span class="nx">mapColumns</span> <span class="nx">index</span> <span class="k">for</span> <span class="nx">index</span> <span class="k">in</span> <span class="p">[</span> <span class="mi">0</span><span class="p">..(</span> <span class="nx">tableState</span><span class="p">.</span><span class="nx">iColumns</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">)</span> <span class="p">]</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="mapquery">mapQuery()</h5>
+
+<p>If there is a global filter the filter query is merged with the tables default query
+  <code>mapQuery()</code> is actually just an iterator
+  The filter query is initialized as an <code>$or</code> of all the searchable columns against the search regex
+  Letter case is ignored for all search querys.
+  The <code>$or</code>'s run in parrallel in MongoDB, improving search performance
+  You MUST still index all searchable fields
+  If the base query is for all records in the collection, the filter query is the only query run
+  If the base query is already filter the collection, the filter query is run as an <code>$and</code> against it
+  e.g. all documents must pass both the table query and search query</p></div></div><div class="code"><div class="wrapper">  <span class="k">if</span> <span class="nx">tableState</span><span class="p">.</span><span class="nx">sSearch</span> <span class="o">isnt</span> <span class="s">&quot;&quot;</span>
+    <span class="nv">searchQuery = $or: </span><span class="p">[]</span>
+    <span class="nv">mapQuery = </span><span class="nf">( key, property ) -&gt;</span>
+      <span class="k">unless</span> <span class="nx">property</span><span class="p">.</span><span class="nx">bSearchable</span> <span class="o">is</span> <span class="kc">false</span>
+        <span class="nv">obj = </span><span class="p">{}</span>
+        <span class="nx">obj</span><span class="p">[</span> <span class="nx">key</span> <span class="p">]</span> <span class="o">=</span>
+          <span class="nv">$regex: </span><span class="nx">tableState</span><span class="p">.</span><span class="nx">sSearch</span>
+          <span class="nv">$options: </span><span class="s">&#39;i&#39;</span>
+        <span class="nx">searchQuery</span><span class="p">.</span><span class="nx">$or</span><span class="p">.</span><span class="nx">push</span> <span class="nx">obj</span>
+    <span class="k">for</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">property</span> <span class="k">of</span> <span class="nx">tableState</span><span class="p">.</span><span class="nx">columns</span>
+      <span class="nx">mapQuery</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">property</span>
+    <span class="k">if</span> <span class="nx">@getQuery</span> <span class="o">is</span> <span class="p">{}</span>
+      <span class="nv">tableState.query = </span><span class="nx">searchQuery</span>
+    <span class="k">else</span>
+      <span class="nv">tableState.query =</span>
+        <span class="nv">$and: </span><span class="p">[</span>
+          <span class="nx">@getQuery</span><span class="p">()</span>
+          <span class="nx">searchQuery</span>
+        <span class="p">]</span>
+  <span class="k">else</span> <span class="nv">tableState.query = </span><span class="nx">@getQuery</span><span class="p">()</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="mapsortorder">mapSortOrder()</h5>
+
+<p>Another column iterator
+  Only runs if columns are being sorted
+  Sets sort direction for each sorted field, allowing multi column sort</p></div></div><div class="code"><div class="wrapper">  <span class="k">if</span> <span class="nx">tableState</span><span class="p">.</span><span class="nx">iSortingCols</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="nv">tableState.sort = </span><span class="p">{}</span>
+    <span class="nv">mapSortOrder = </span><span class="nf">( sortIndex ) -&gt;</span>
+      <span class="nv">sortIndex = </span><span class="nx">sortIndex</span> <span class="o">-</span> <span class="mi">1</span>
+      <span class="nv">propertyIndex = </span><span class="nx">getDataProp</span> <span class="s">&#39;iSortCol&#39;</span><span class="p">,</span> <span class="nx">sortIndex</span>
+      <span class="nv">propertyName = </span><span class="nx">getDataProp</span> <span class="s">&#39;mDataProp&#39;</span><span class="p">,</span> <span class="nx">propertyIndex</span>
+      <span class="k">switch</span> <span class="nx">getDataProp</span><span class="p">(</span> <span class="s">&#39;sSortDir&#39;</span><span class="p">,</span> <span class="nx">sortIndex</span> <span class="p">)</span>
+        <span class="k">when</span> <span class="s">&#39;asc&#39;</span> <span class="k">then</span> <span class="nx">tableState</span><span class="p">.</span><span class="nx">sort</span><span class="p">[</span> <span class="nx">propertyName</span> <span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">when</span> <span class="s">&#39;desc&#39;</span> <span class="k">then</span> <span class="nx">tableState</span><span class="p">.</span><span class="nx">sort</span><span class="p">[</span> <span class="nx">propertyName</span> <span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="nx">mapSortOrder</span> <span class="nx">sortIndex</span> <span class="k">for</span> <span class="nx">sortIndex</span> <span class="k">in</span> <span class="p">[</span> <span class="mi">1</span><span class="p">..</span><span class="nx">tableState</span><span class="p">.</span><span class="nx">iSortingCols</span> <span class="p">]</span>
+  <span class="k">return</span> <span class="nx">tableState</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="settablestate">setTableState()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.setTableState = </span><span class="nf">( aoData ) -&gt;</span>
+  <span class="nx">Match</span><span class="p">.</span><span class="nx">test</span> <span class="nx">aoData</span><span class="p">,</span> <span class="nb">Object</span>
+  <span class="nv">tableState = </span><span class="nx">@mapTableState</span> <span class="nx">aoData</span>
+  <span class="nx">@setData</span> <span class="s">&#39;tableState&#39;</span><span class="p">,</span> <span class="nx">tableState</span>
+  <span class="nx">@log</span> <span class="s">&#39;tableState:set&#39;</span><span class="p">,</span> <span class="nx">tableState</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="gettablestate">getTableState()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.getTableState = </span><span class="nf">-&gt;</span>
+  <span class="k">return</span> <span class="nx">@getData</span><span class="p">().</span><span class="nx">tableState</span> <span class="o">or</span> <span class="kc">false</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="fnserverdata">fnServerData()</h5>
+
+<p>The callback for every dataTables user / reactivity event
+  <code>sSource</code> is the currently useless <code>sAjaxProp</code> from the options
+  <code>aoData</code> is an array of objects provided by datatables reflecting its current state
+  <code>fnCallback</code> is the function that will be called when the server returns a result
+  <code>oSettings</code> is the datatables settings object</p></div></div><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.fnServerData = </span><span class="nf">( sSource, aoData, fnCallback, oSettings ) -&gt;</span>
+  <span class="nx">@setTableState</span> <span class="nx">aoData</span>
+  <span class="nx">@setSubscriptionOptions</span><span class="p">()</span>
+  <span class="nx">@setSubscriptionHandle</span><span class="p">()</span>
+  <span class="nx">@setSubscriptionAutorun</span> <span class="nx">fnCallback</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="wat">Wat?</h5>
+
+<p><code>setTableState()</code> parses aoData and creates a usable table state object
+  <code>setSubscriptionOptions()</code> turns the table state into a MongoDB query options object
+  <code>setSubscriptionHandle()</code> subscribes the the dataset for the current table state
+    * reactive subscription
+    * base query and filter query
+    * with sort order
+    * limited to the table display limit
+  <code>setSubscriptionAutorun()</code> creates a Deps.autrun computation
+    sets the datatable when the subscription is ready</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="collection-counts">Collection Counts</h3>
+
+<p>datatables maintains counts of both the base query and filtered query reactively
+  these counts are published by the datatables publication</p></div></div><div class="code"><div class="wrapper"><span class="nv">DataTableSubscriptionCount = </span><span class="k">new</span> <span class="nx">Meteor</span><span class="p">.</span><span class="nx">Collection</span> <span class="s">&quot;datatable_subscription_count&quot;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="preparecountcollection">prepareCountCollection()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.prepareCountCollection = </span><span class="nf">-&gt;</span>
+  <span class="nv">collection = </span><span class="nx">@getData</span><span class="p">().</span><span class="nx">countCollection</span> <span class="o">or</span> <span class="nx">DataTableSubscriptionCount</span>
+  <span class="nx">@setCountCollection</span> <span class="nx">collection</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="getcollection">getCollection()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.getCollection = </span><span class="nf">-&gt;</span>
+  <span class="k">return</span> <span class="nx">@getData</span><span class="p">().</span><span class="nx">collection</span> <span class="o">or</span> <span class="kc">false</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="getcountcollection">getCountCollection()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.getCountCollection = </span><span class="nf">-&gt;</span>
+  <span class="k">return</span> <span class="nx">@getData</span><span class="p">().</span><span class="nx">countCollection</span> <span class="o">or</span> <span class="kc">false</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="gettotalcount">getTotalCount()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.getTotalCount = </span><span class="nf">-&gt;</span>
+  <span class="k">return</span> <span class="nx">@getCountCollection</span><span class="p">().</span><span class="nx">findOne</span><span class="p">(</span> <span class="s">&quot;</span><span class="si">#{</span> <span class="nx">@getSubscription</span><span class="p">()</span> <span class="si">}</span><span class="s">&quot;</span> <span class="p">).</span><span class="nx">count</span> <span class="o">or</span> <span class="kc">false</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="getfilteredcount">getFilteredCount()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.getFilteredCount = </span><span class="nf">-&gt;</span>
+  <span class="k">return</span> <span class="nx">@getCountCollection</span><span class="p">().</span><span class="nx">findOne</span><span class="p">(</span> <span class="s">&quot;</span><span class="si">#{</span> <span class="nx">@getSubscription</span><span class="p">()</span> <span class="si">}</span><span class="s">_filtered&quot;</span> <span class="p">).</span><span class="nx">count</span> <span class="o">or</span> <span class="kc">false</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="cursor">Cursor</h3>
+
+<p>The reactive cursor responsible for keeping the client in sync
+  identical to the server cursor publishing the data, except it does not skip</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="setcursor">setCursor()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.setCursor = </span><span class="nf">( cursor ) -&gt;</span>
+  <span class="nx">Match</span><span class="p">.</span><span class="nx">test</span> <span class="nx">cursor</span><span class="p">,</span> <span class="nb">Object</span>
+  <span class="nx">@setData</span> <span class="s">&#39;cursor&#39;</span><span class="p">,</span> <span class="nx">cursor</span>
+  <span class="nx">@log</span> <span class="s">&quot;cursor:set&quot;</span><span class="p">,</span> <span class="nx">cursor</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="preparecursor">prepareCursor()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.prepareCursor = </span><span class="nf">-&gt;</span>
+  <span class="k">return</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="getcursor">getCursor()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.getCursor = </span><span class="nf">-&gt;</span>
+  <span class="k">return</span> <span class="nx">@getData</span><span class="p">().</span><span class="nx">cursor</span> <span class="o">or</span> <span class="kc">false</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="datatable-instance">DataTable Instance</h3></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="getdatatable">getDataTable()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.getDataTable = </span><span class="nf">-&gt;</span>
+  <span class="k">return</span> <span class="nx">@getTemplateInstance</span><span class="p">().</span><span class="nx">dataTable</span> <span class="o">or</span> <span class="kc">false</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="setdatatable">setDataTable()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.setDataTable = </span><span class="nf">( dataTable ) -&gt;</span>
+  <span class="nx">Match</span><span class="p">.</span><span class="nx">test</span> <span class="nx">dataTable</span><span class="p">,</span> <span class="nb">Object</span>
+  <span class="nx">@getTemplateInstance</span><span class="p">().</span><span class="nv">dataTable = </span><span class="nx">dataTable</span>
+  <span class="nx">@log</span> <span class="s">&quot;dataTable:set&quot;</span><span class="p">,</span> <span class="nx">dataTable</span><span class="p">.</span><span class="nx">fnSettings</span><span class="p">()</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="preparedatatable">prepareDataTable()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.prepareDataTable = </span><span class="nf">-&gt;</span>
+  <span class="nx">@setDataTable</span> <span class="nx">$</span><span class="p">(</span><span class="s">&quot;.</span><span class="si">#{</span> <span class="nx">@getSelector</span><span class="p">()</span> <span class="si">}</span><span class="s"> table&quot;</span><span class="p">).</span><span class="nx">dataTable</span><span class="p">(</span> <span class="nx">@getOptions</span><span class="p">()</span> <span class="p">)</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="preparefilters">prepareFilters()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.prepareFilters = </span><span class="nf">-&gt;</span>
+  <span class="nx">@prepareFilterPlaceholder</span><span class="p">()</span>
+  <span class="nx">@prepareFooterFilter</span><span class="p">()</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="preparefilterplaceholder">prepareFilterPlaceholder()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.prepareFilterPlaceholder = </span><span class="nf">-&gt;</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s">&quot;.</span><span class="si">#{</span> <span class="nx">@getSelector</span><span class="p">()</span> <span class="si">}</span><span class="s"> .dataTables_filter input[type=text]&quot;</span><span class="p">).</span><span class="nx">attr</span> <span class="s">&quot;placeholder&quot;</span><span class="p">,</span> <span class="s">&quot;Type to filter...&quot;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="preparefooterfilter">prepareFooterFilter()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.prepareFooterFilter = </span><span class="nf">-&gt;</span>
+  <span class="nv">selector = </span><span class="nx">@getSelector</span><span class="p">()</span>
+  <span class="k">if</span> <span class="nx">selector</span> <span class="o">is</span> <span class="s">&#39;datatable-add-row&#39;</span> <span class="o">and</span> <span class="nx">$</span><span class="p">.</span><span class="nx">keyup</span>
+    <span class="nv">self = </span><span class="nx">@</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s">&quot;.</span><span class="si">#{</span> <span class="nx">selector</span> <span class="si">}</span><span class="s"> .dataTables_wrapper tfoot input&quot;</span><span class="p">).</span><span class="nx">keyup</span> <span class="nf">-&gt;</span>
+      <span class="nv">target = </span><span class="nx">@</span>
+      <span class="nx">self</span><span class="p">.</span><span class="nx">getDataTable</span><span class="p">().</span><span class="nx">fnFilter</span> <span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">,</span> <span class="nx">$</span><span class="p">(</span><span class="s">&quot;.</span><span class="si">#{</span> <span class="nx">self</span><span class="p">.</span><span class="nx">getSelector</span><span class="p">()</span> <span class="si">}</span><span class="s"> .dataTables_wrapper tfoot input&quot;</span><span class="p">).</span><span class="nx">index</span><span class="p">(</span> <span class="nx">target</span> <span class="p">)</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="preparepagination">preparePagination()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.preparePagination = </span><span class="nf">-&gt;</span>
+  <span class="k">unless</span> <span class="nx">$</span><span class="p">.</span><span class="nx">select2</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s">&quot;.</span><span class="si">#{</span> <span class="nx">@getSelector</span><span class="p">()</span> <span class="si">}</span><span class="s"> .dataTables_length select&quot;</span><span class="p">).</span><span class="nx">select2</span> <span class="nv">minimumResultsForSearch: </span><span class="s">&quot;-1&quot;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="utility-methods">Utility Methods</h2></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="gettemplateinstance">getTemplateInstance()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.getTemplateInstance = </span><span class="nf">-&gt;</span>
+  <span class="k">return</span> <span class="nx">@templateInstance</span> <span class="o">or</span> <span class="kc">false</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="getguid">getGuid()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.getGuid = </span><span class="nf">-&gt;</span>
+  <span class="k">return</span> <span class="nx">@guid</span> <span class="o">or</span> <span class="kc">false</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="getdata">getData()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.getData = </span><span class="nf">-&gt;</span>
+  <span class="k">return</span> <span class="nx">@getTemplateInstance</span><span class="p">().</span><span class="nx">data</span> <span class="o">or</span> <span class="kc">false</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="setdata">setData()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.setData = </span><span class="nf">( key, data ) -&gt;</span>
+  <span class="nx">@templateInstance</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span> <span class="nx">key</span> <span class="p">]</span> <span class="o">=</span> <span class="nx">data</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="arraytodictionary">arrayToDictionary()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.arrayToDictionary = </span><span class="nf">( array, key ) -&gt;</span>
+  <span class="nv">dict = </span><span class="p">{}</span>
+  <span class="nx">dict</span><span class="p">[</span><span class="nx">obj</span><span class="p">[</span><span class="nx">key</span><span class="p">]]</span> <span class="o">=</span> <span class="nx">obj</span> <span class="k">for</span> <span class="nx">obj</span> <span class="k">in</span> <span class="nx">array</span> <span class="k">when</span> <span class="nx">obj</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span><span class="o">?</span>
+  <span class="nx">dict</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="preset-tables">Preset Tables</h2></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>TODO : this is temporary all of this should be passed in through the options param</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="presetoptions">presetOptions()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.presetOptions = </span><span class="nf">-&gt;</span>
+  <span class="nv">selector = </span><span class="nx">@getSelector</span><span class="p">()</span>
+
+  <span class="k">if</span> <span class="nx">selector</span> <span class="o">is</span> <span class="s">&#39;datatable-tasks&#39;</span>
+    <span class="nv">options =</span>
+      <span class="nv">aoColumnDefs: </span><span class="p">[{</span>
+        <span class="nv">bSortable: </span><span class="kc">false</span>
+        <span class="nv">aTargets: </span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+      <span class="p">}]</span>
+
+  <span class="k">if</span> <span class="nx">selector</span> <span class="o">is</span> <span class="s">&#39;datatable-invoices&#39;</span>
+    <span class="nv">options =</span>
+      <span class="nv">aoColumnDefs: </span><span class="p">[{</span>
+        <span class="nv">bSortable: </span><span class="kc">false</span>
+        <span class="nv">aTargets: </span><span class="p">[</span>
+          <span class="mi">1</span>
+          <span class="mi">6</span>
+        <span class="p">]</span>
+      <span class="p">}]</span>
+      <span class="nv">aaSorting: </span><span class="p">[</span>
+        <span class="p">[</span>
+          <span class="mi">0</span>
+          <span class="s">&quot;desc&quot;</span>
+        <span class="p">]</span>
+      <span class="p">]</span>
+
+  <span class="k">if</span> <span class="nx">selector</span> <span class="o">is</span> <span class="s">&#39;datatable-selectable&#39;</span>
+    <span class="nv">options =</span>
+      <span class="nv">sDom: </span><span class="s">&quot;&lt;\&quot;datatable-header\&quot;Tfl&gt;&lt;\&quot;datatable-scroll\&quot;t&gt;&lt;\&quot;datatable-footer\&quot;ip&gt;&quot;</span>
+      <span class="nv">oTableTools:</span>
+        <span class="nv">sRowSelect: </span><span class="s">&quot;multi&quot;</span>
+        <span class="nv">aButtons: </span><span class="p">[{</span>
+          <span class="nv">sExtends: </span><span class="s">&quot;collection&quot;</span>
+          <span class="nv">sButtonText: </span><span class="s">&quot;Tools &lt;span class=&#39;caret&#39;&gt;&lt;/span&gt;&quot;</span>
+          <span class="nv">sButtonClass: </span><span class="s">&quot;btn btn-primary&quot;</span>
+          <span class="nv">aButtons: </span><span class="p">[</span>
+            <span class="s">&quot;select_all&quot;</span>
+            <span class="s">&quot;select_none&quot;</span>
+          <span class="p">]</span>
+        <span class="p">}]</span>
+
+  <span class="k">if</span> <span class="nx">selector</span> <span class="o">is</span> <span class="s">&#39;datatable-media&#39;</span>
+    <span class="nv">options =</span>
+      <span class="nv">aoColumnDefs: </span><span class="p">[</span>
+        <span class="nv">bSortable: </span><span class="kc">false</span>
+        <span class="nv">aTargets: </span><span class="p">[</span>
+          <span class="mi">0</span>
+          <span class="mi">4</span>
+        <span class="p">]</span>
+      <span class="p">]</span>
+
+  <span class="k">if</span> <span class="nx">selector</span> <span class="o">is</span> <span class="s">&#39;datatable-pager&#39;</span>
+    <span class="nv">options =</span>
+      <span class="nv">sPaginationType: </span><span class="s">&quot;two_button&quot;</span>
+      <span class="nv">oLanguage:</span>
+        <span class="nv">sSearch: </span><span class="s">&quot;&lt;span&gt;Filter:&lt;/span&gt; _INPUT_&quot;</span>
+        <span class="nv">sLengthMenu: </span><span class="s">&quot;&lt;span&gt;Show entries:&lt;/span&gt; _MENU_&quot;</span>
+        <span class="nv">oPaginate:</span>
+          <span class="nv">sNext: </span><span class="s">&quot;Next →&quot;</span>
+          <span class="nv">sPrevious: </span><span class="s">&quot;← Previous&quot;</span>
+
+  <span class="k">if</span> <span class="nx">selector</span> <span class="o">is</span> <span class="s">&#39;datatable-tools&#39;</span>
+    <span class="nv">options =</span>
+      <span class="nv">sDom: </span><span class="s">&quot;&lt;\&quot;datatable-header\&quot;Tfl&gt;&lt;\&quot;datatable-scroll\&quot;t&gt;&lt;\&quot;datatable-footer\&quot;ip&gt;&quot;</span>
+      <span class="nv">oTableTools:</span>
+        <span class="nv">sRowSelect: </span><span class="s">&quot;single&quot;</span>
+        <span class="nv">sSwfPath: </span><span class="s">&quot;static/swf/copy_csv_xls_pdf.swf&quot;</span>
+        <span class="nv">aButtons: </span><span class="p">[{</span>
+          <span class="nv">sExtends: </span><span class="s">&quot;copy&quot;</span>
+          <span class="nv">sButtonText: </span><span class="s">&quot;Copy&quot;</span>
+          <span class="nv">sButtonClass: </span><span class="s">&quot;btn&quot;</span>
+        <span class="p">},{</span>
+          <span class="nv">sExtends: </span><span class="s">&quot;print&quot;</span>
+          <span class="nv">sButtonText: </span><span class="s">&quot;Print&quot;</span>
+          <span class="nv">sButtonClass: </span><span class="s">&quot;btn&quot;</span>
+        <span class="p">},{</span>
+          <span class="nv">sExtends: </span><span class="s">&quot;collection&quot;</span>
+          <span class="nv">sButtonText: </span><span class="s">&quot;Save &lt;span class=&#39;caret&#39;&gt;&lt;/span&gt;&quot;</span>
+          <span class="nv">sButtonClass: </span><span class="s">&quot;btn btn-primary&quot;</span>
+          <span class="nv">aButtons: </span><span class="p">[</span>
+            <span class="s">&quot;csv&quot;</span>
+            <span class="s">&quot;xls&quot;</span>
+            <span class="s">&quot;pdf&quot;</span>
+          <span class="p">]</span>
+        <span class="p">}]</span>
+
+  <span class="k">if</span> <span class="nx">selector</span> <span class="o">is</span> <span class="s">&#39;datatable-custom-sort&#39;</span>
+    <span class="nv">options =</span>
+      <span class="nv">aoColumnDefs: </span><span class="p">[{</span>
+        <span class="nv">bSortable: </span><span class="kc">false</span>
+        <span class="nv">aTargets: </span><span class="p">[</span>
+          <span class="mi">0</span>
+          <span class="mi">1</span>
+        <span class="p">]</span>
+      <span class="p">}]</span>
+
+  <span class="k">return</span> <span class="nx">options</span></div></div></div></div></body></html>

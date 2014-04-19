@@ -1,0 +1,131 @@
+<!DOCTYPE html><html lang="en"><head><title>example/example</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="example/example"><meta name="groc-project-path" content="example/example.coffee"><meta name="groc-github-url" content="https://github.com/lumapictures/luma-datatables"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/lumapictures/luma-datatables/blob/master/example/example.coffee">example/example.coffee</a></div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="k">if</span> <span class="nx">Meteor</span><span class="p">.</span><span class="nx">isClient</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="array-data-source">Array Data Source</h1>
+
+<ul>
+<li>You can render static ( or client only ) data easily by setting the <code>rows</code> property to an array of objects</li>
+</ul>
+
+<pre><code class="html">{{&gt; dataTable
+    selector=pages.selector
+    columns=pages.columns
+    rows=pages.rows
+}}
+</code></pre></div></div><div class="code"><div class="wrapper">  <span class="nv">Template.home.pages = </span><span class="nf">-&gt;</span>
+    <span class="nv">pages =</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="columns">Columns</h2>
+
+<ul>
+<li><code>mData</code> maps the object properties to column headings</li>
+<li><code>sTitle</code> is the column heading</li>
+<li><code>mRender</code> is a custom render function for that property ( default is "" )</li>
+</ul></div></div><div class="code"><div class="wrapper">      <span class="nv">columns: </span><span class="p">[</span>
+        <span class="p">{</span>
+          <span class="nv">sTitle: </span><span class="s">&quot;Route&quot;</span>
+          <span class="nv">mData: </span><span class="s">&quot;route&quot;</span>
+        <span class="p">}</span>
+        <span class="p">{</span>
+          <span class="nv">sTitle: </span><span class="s">&quot;Path&quot;</span>
+          <span class="nv">mData: </span><span class="s">&quot;path&quot;</span>
+        <span class="p">}</span>
+        <span class="p">{</span>
+          <span class="nv">sTitle: </span><span class="s">&quot;Controller&quot;</span>
+          <span class="nv">mData: </span><span class="s">&quot;controller&quot;</span>
+        <span class="p">}</span>
+        <span class="p">{</span>
+          <span class="nv">sTitle: </span><span class="s">&quot;Title&quot;</span>
+          <span class="nv">mData: </span><span class="s">&quot;page.title&quot;</span>
+          <span class="nv">mRender: </span> <span class="nf">( dataSource, call, rawData ) -&gt;</span>
+            <span class="nx">rawData</span><span class="p">.</span><span class="nx">page</span><span class="p">.</span><span class="nx">title</span> <span class="o">?=</span> <span class="s">&quot;&quot;</span>
+        <span class="p">}</span>
+        <span class="p">{</span>
+          <span class="nv">sTitle: </span><span class="s">&quot;Subtitile&quot;</span>
+          <span class="nv">mData: </span><span class="s">&quot;page.subtitle&quot;</span>
+          <span class="nv">mRender: </span> <span class="nf">( dataSource, call, rawData ) -&gt;</span>
+            <span class="nx">rawData</span><span class="p">.</span><span class="nx">page</span><span class="p">.</span><span class="nx">subtitle</span> <span class="o">?=</span> <span class="s">&quot;&quot;</span>
+        <span class="p">}</span>
+      <span class="p">]</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="selector">Selector</h2>
+
+<ul>
+<li>must be unique in page scope</li>
+</ul></div></div><div class="code"><div class="wrapper">      <span class="nv">selector: </span><span class="s">&quot;dataTable-pages&quot;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="rows">Rows</h2>
+
+<ul>
+<li>Array data source for this table</li>
+</ul></div></div><div class="code"><div class="wrapper">      <span class="nv">rows: </span><span class="nx">Pages</span><span class="p">.</span><span class="nx">find</span><span class="p">().</span><span class="nx">fetch</span><span class="p">()</span>
+    <span class="k">return</span> <span class="nx">pages</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="reactive-data-source">Reactive Data Source</h1>
+
+<ul>
+<li>You must setup a Datatables publication on the server.</li>
+</ul></div></div><div class="code"><div class="wrapper"><span class="k">if</span> <span class="nx">Meteor</span><span class="p">.</span><span class="nx">isServer</span>
+  <span class="nv">DataTable.debug = </span><span class="s">&quot;true&quot;</span>
+  <span class="nx">DataTable</span><span class="p">.</span><span class="nx">publish</span> <span class="s">&quot;a_browsers&quot;</span><span class="p">,</span> <span class="nx">Browsers</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Calling <code>_ensureIndex</code> is necessary in order to sort and filter collections.
+<ul><li><a href="http://docs.mongodb.org/manual/reference/method/db.collection.ensureIndex/">see mongod docs for more info</a></li></ul></li>
+</ul></div></div><div class="code"><div class="wrapper">  <span class="nx">Meteor</span><span class="p">.</span><span class="nx">startup</span> <span class="nf">-&gt;</span>
+    <span class="nx">Browsers</span><span class="p">.</span><span class="nx">_ensureIndex</span> <span class="p">{</span> <span class="nv">_id: </span><span class="mi">1</span> <span class="p">},</span> <span class="p">{</span> <span class="nv">unique: </span><span class="mi">1</span> <span class="p">}</span>
+    <span class="nx">Browsers</span><span class="p">.</span><span class="nx">_ensureIndex</span> <span class="nv">engine: </span><span class="mi">1</span>
+    <span class="nx">Browsers</span><span class="p">.</span><span class="nx">_ensureIndex</span> <span class="nv">browser: </span><span class="mi">1</span>
+    <span class="nx">Browsers</span><span class="p">.</span><span class="nx">_ensureIndex</span> <span class="nv">platform: </span><span class="mi">1</span>
+    <span class="nx">Browsers</span><span class="p">.</span><span class="nx">_ensureIndex</span> <span class="nv">version: </span><span class="mi">1</span>
+    <span class="nx">Browsers</span><span class="p">.</span><span class="nx">_ensureIndex</span> <span class="nv">grade: </span><span class="mi">1</span>
+    <span class="nx">Browsers</span><span class="p">.</span><span class="nx">_ensureIndex</span> <span class="nv">createdAt: </span><span class="mi">1</span>
+    <span class="nx">Browsers</span><span class="p">.</span><span class="nx">_ensureIndex</span> <span class="nv">counter: </span><span class="mi">1</span>
+
+<span class="k">if</span> <span class="nx">Meteor</span><span class="p">.</span><span class="nx">isClient</span>
+  <span class="nv">Template.home.browsers = </span><span class="nf">-&gt;</span>
+    <span class="nv">browsers =</span>
+      <span class="nv">columns: </span><span class="p">[</span>
+        <span class="p">{</span>
+          <span class="nv">sTitle: </span><span class="s">&quot;Engine&quot;</span>
+          <span class="nv">mData: </span><span class="s">&quot;engine&quot;</span>
+        <span class="p">}</span>
+        <span class="p">{</span>
+          <span class="nv">sTitle: </span><span class="s">&quot;Browser&quot;</span>
+          <span class="nv">mData: </span><span class="s">&quot;browser&quot;</span>
+        <span class="p">}</span>
+        <span class="p">{</span>
+          <span class="nv">sTitle: </span><span class="s">&quot;Platform&quot;</span>
+          <span class="nv">mData: </span><span class="s">&quot;platform&quot;</span>
+        <span class="p">}</span>
+        <span class="p">{</span>
+          <span class="nv">sTitle: </span><span class="s">&quot;Version&quot;</span>
+          <span class="nv">mData: </span><span class="s">&quot;version&quot;</span>
+          <span class="nv">sClass: </span><span class="s">&quot;center&quot;</span>
+        <span class="p">}</span>
+        <span class="p">{</span>
+          <span class="nv">sTitle: </span><span class="s">&quot;Grade&quot;</span>
+          <span class="nv">mData: </span><span class="s">&quot;grade&quot;</span>
+          <span class="nv">sClass: </span><span class="s">&quot;center&quot;</span>
+          <span class="nv">mRender: </span><span class="nf">( dataSource, call, rawData ) -&gt;</span>
+            <span class="nx">rawData</span> <span class="o">?=</span> <span class="s">&quot;&quot;</span>
+            <span class="k">switch</span> <span class="nx">rawData</span><span class="p">.</span><span class="nx">grade</span>
+              <span class="k">when</span> <span class="s">&quot;A&quot;</span> <span class="k">then</span> <span class="k">return</span> <span class="s">&quot;&lt;b&gt;A&lt;/b&gt;&quot;</span>
+              <span class="k">else</span> <span class="k">return</span> <span class="nx">rawData</span><span class="p">.</span><span class="nx">grade</span>
+        <span class="p">}</span>
+        <span class="p">{</span>
+          <span class="nv">sTitle: </span><span class="s">&quot;Created&quot;</span>
+          <span class="nv">mData: </span><span class="s">&quot;createdAt&quot;</span>
+          <span class="nv">mRender: </span><span class="nf">( dataSource, call, rawData ) -&gt;</span>
+            <span class="nx">rawData</span><span class="p">.</span><span class="nx">createdAt</span> <span class="o">?=</span> <span class="s">&quot;&quot;</span>
+            <span class="k">if</span> <span class="nx">rawData</span><span class="p">.</span><span class="nx">createdAt</span>
+              <span class="k">return</span> <span class="nx">moment</span><span class="p">(</span> <span class="nx">rawData</span><span class="p">.</span><span class="nx">createdAt</span> <span class="p">).</span><span class="nx">fromNow</span><span class="p">()</span>
+            <span class="k">else</span> <span class="k">return</span> <span class="nx">rawData</span><span class="p">.</span><span class="nx">createdAt</span>
+        <span class="p">}</span>
+        <span class="p">{</span>
+          <span class="nv">sTitle: </span><span class="s">&quot;Counter&quot;</span>
+          <span class="nv">mData: </span><span class="s">&quot;counter&quot;</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
+      <span class="nv">selector: </span><span class="s">&quot;dataTable-browsers&quot;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="collection">Collection</h2>
+
+<ul>
+<li>the collection these documents come from, must be the same as the server collection</li>
+</ul></div></div><div class="code"><div class="wrapper">      <span class="nv">collection: </span><span class="nx">Browsers</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="subscription">Subscription</h2>
+
+<ul>
+<li>the datatables publication providing the data on the server</li>
+</ul></div></div><div class="code"><div class="wrapper">      <span class="nv">subscription: </span><span class="s">&quot;a_browsers&quot;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="query">Query</h2>
+
+<ul>
+<li>the initial filter on the dataset</li>
+</ul></div></div><div class="code"><div class="wrapper">      <span class="nv">query:</span>
+        <span class="nv">grade: </span><span class="s">&quot;A&quot;</span>
+    <span class="k">return</span> <span class="nx">browsers</span></div></div></div></div></body></html>

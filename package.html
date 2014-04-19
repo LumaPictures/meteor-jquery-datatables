@@ -1,0 +1,46 @@
+<!DOCTYPE html><html lang="en"><head><title>package</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="package"><meta name="groc-project-path" content="package.js"><meta name="groc-github-url" content="https://github.com/lumapictures/luma-datatables"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/lumapictures/luma-datatables/blob/master/package.js">package.js</a></div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="nx">Package</span><span class="p">.</span><span class="nx">describe</span><span class="p">({</span>
+  <span class="nx">summary</span><span class="o">:</span> <span class="s2">&quot;Sort, page, and filter millions of records. Reactively.&quot;</span>
+<span class="p">});</span>
+
+<span class="nx">Package</span><span class="p">.</span><span class="nx">on_use</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">api</span><span class="p">,</span> <span class="nx">where</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">api</span><span class="p">.</span><span class="nx">use</span><span class="p">([</span>
+    <span class="s1">&#39;coffeescript&#39;</span>
+  <span class="p">],[</span><span class="s1">&#39;client&#39;</span><span class="p">,</span> <span class="s1">&#39;server&#39;</span><span class="p">]);</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>for helpers</p></div></div><div class="code"><div class="wrapper">  <span class="nx">api</span><span class="p">.</span><span class="nx">use</span><span class="p">([</span>
+    <span class="s1">&#39;jquery&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ui&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;templating&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;spacebars&#39;</span>
+  <span class="p">],</span> <span class="s1">&#39;client&#39;</span><span class="p">);</span>
+
+  <span class="nx">api</span><span class="p">.</span><span class="nx">add_files</span><span class="p">([</span>
+    <span class="s1">&#39;vendor/datatables.min.js&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;vendor/tabletools.min.js&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;lib/datatables.html&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;lib/datatables.client.coffee&#39;</span>
+  <span class="p">],</span> <span class="p">[</span><span class="s1">&#39;client&#39;</span><span class="p">]);</span>
+
+  <span class="nx">api</span><span class="p">.</span><span class="nx">add_files</span><span class="p">([</span>
+    <span class="s1">&#39;lib/datatables.server.coffee&#39;</span>
+  <span class="p">],[</span><span class="s1">&#39;server&#39;</span><span class="p">]);</span>
+
+  <span class="nx">api</span><span class="p">.</span><span class="kr">export</span><span class="p">([</span>
+    <span class="s1">&#39;DataTable&#39;</span>
+  <span class="p">],[</span><span class="s1">&#39;client&#39;</span><span class="p">,</span><span class="s1">&#39;server&#39;</span><span class="p">]);</span>
+
+  <span class="nx">api</span><span class="p">.</span><span class="kr">export</span><span class="p">([</span>
+    <span class="s1">&#39;DataTableSubscriptionCount&#39;</span>
+  <span class="p">],[</span> <span class="s1">&#39;client&#39;</span> <span class="p">]);</span>
+<span class="p">});</span>
+
+<span class="nx">Package</span><span class="p">.</span><span class="nx">on_test</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">api</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">api</span><span class="p">.</span><span class="nx">use</span><span class="p">([</span>
+    <span class="s1">&#39;coffeescript&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;luma-datatables&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;tinytest&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;test-helpers&#39;</span>
+  <span class="p">],</span> <span class="p">[</span><span class="s1">&#39;client&#39;</span><span class="p">,</span> <span class="s1">&#39;server&#39;</span><span class="p">]);</span>
+
+  <span class="nx">api</span><span class="p">.</span><span class="nx">add_files</span><span class="p">([</span>
+    <span class="s1">&#39;tests/datatables.test.coffee&#39;</span>
+  <span class="p">],</span> <span class="p">[</span><span class="s1">&#39;client&#39;</span><span class="p">,</span> <span class="s1">&#39;server&#39;</span><span class="p">]);</span>
+<span class="p">});</span></div></div></div></div></body></html>

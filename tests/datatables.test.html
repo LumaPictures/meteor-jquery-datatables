@@ -1,0 +1,144 @@
+<!DOCTYPE html><html lang="en"><head><title>tests/datatables.test</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="tests/datatables.test"><meta name="groc-project-path" content="tests/datatables.test.coffee"><meta name="groc-github-url" content="https://github.com/lumapictures/luma-datatables"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/lumapictures/luma-datatables/blob/master/tests/datatables.test.coffee">tests/datatables.test.coffee</a></div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="k">if</span> <span class="nx">Meteor</span><span class="p">.</span><span class="nx">isClient</span>
+  <span class="nv">browserList = </span><span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nv">engine: </span><span class="s">&quot;Trident&quot;</span>
+      <span class="nv">browser: </span><span class="s">&quot;Internet Explorer 4.0&quot;</span>
+      <span class="nv">platform: </span><span class="s">&quot;Win 95+&quot;</span>
+      <span class="nv">version: </span><span class="mi">4</span>
+      <span class="nv">grade: </span><span class="s">&quot;X&quot;</span>
+    <span class="p">}</span>
+    <span class="p">{</span>
+      <span class="nv">engine: </span><span class="s">&quot;Trident&quot;</span>
+      <span class="nv">browser: </span><span class="s">&quot;Internet Explorer 5.0&quot;</span>
+      <span class="nv">platform: </span><span class="s">&quot;Win 95+&quot;</span>
+      <span class="nv">version: </span><span class="mi">5</span>
+      <span class="nv">grade: </span><span class="s">&quot;C&quot;</span>
+    <span class="p">}</span>
+    <span class="p">{</span>
+      <span class="nv">engine: </span> <span class="s">&quot;Trident&quot;</span>
+      <span class="nv">browser: </span><span class="s">&quot;Internet Explorer 5.5&quot;</span>
+      <span class="nv">platform: </span><span class="s">&quot;Win 95+&quot;</span>
+      <span class="nv">version: </span><span class="mf">5.5</span>
+      <span class="nv">grade: </span><span class="s">&quot;A&quot;</span>
+    <span class="p">}</span>
+    <span class="p">{</span>
+      <span class="nv">engine: </span><span class="s">&quot;Trident&quot;</span>
+      <span class="nv">browser: </span><span class="s">&quot;Internet Explorer 6.0&quot;</span>
+      <span class="nv">platform: </span><span class="s">&quot;Win 98+&quot;</span>
+      <span class="nv">version: </span><span class="mi">6</span>
+      <span class="nv">grade: </span><span class="s">&quot;A&quot;</span>
+    <span class="p">}</span>
+    <span class="p">{</span>
+      <span class="nv">engine: </span><span class="s">&quot;Trident&quot;</span>
+      <span class="nv">browser: </span><span class="s">&quot;Internet Explorer 7.0&quot;</span>
+      <span class="nv">platform: </span><span class="s">&quot;Win XP SP2+&quot;</span>
+      <span class="nv">version: </span><span class="mi">7</span>
+      <span class="nv">grade: </span><span class="s">&quot;A&quot;</span>
+    <span class="p">}</span>
+    <span class="p">{</span>
+      <span class="nv">engine: </span><span class="s">&quot;Gecko&quot;</span>
+      <span class="nv">browser: </span><span class="s">&quot;Firefox 1.5&quot;</span>
+      <span class="nv">platform: </span><span class="s">&quot;Win 98+ / OSX.2+&quot;</span>
+      <span class="nv">version: </span><span class="mf">1.8</span>
+      <span class="nv">grade: </span><span class="s">&quot;A&quot;</span>
+    <span class="p">}</span>
+    <span class="p">{</span>
+      <span class="nv">engine: </span><span class="s">&quot;Gecko&quot;</span>
+      <span class="nv">browser: </span><span class="s">&quot;Firefox 2&quot;</span>
+      <span class="nv">platform: </span><span class="s">&quot;Win 98+ / OSX.2+&quot;</span>
+      <span class="nv">version: </span><span class="mf">1.8</span>
+      <span class="nv">grade: </span><span class="s">&quot;A&quot;</span>
+    <span class="p">}</span>
+    <span class="p">{</span>
+      <span class="nv">engine: </span><span class="s">&quot;Gecko&quot;</span>
+      <span class="nv">browser: </span><span class="s">&quot;Firefox 3&quot;</span>
+      <span class="nv">platform: </span><span class="s">&quot;Win 2k+ / OSX.3+&quot;</span>
+      <span class="nv">version: </span><span class="mf">1.9</span>
+      <span class="nv">grade: </span><span class="s">&quot;A&quot;</span>
+    <span class="p">}</span>
+    <span class="p">{</span>
+      <span class="nv">engine: </span><span class="s">&quot;Webkit&quot;</span>
+      <span class="nv">browser: </span><span class="s">&quot;Safari 1.2&quot;</span>
+      <span class="nv">platform: </span><span class="s">&quot;OSX.3&quot;</span>
+      <span class="nv">version: </span><span class="mf">125.5</span>
+      <span class="nv">grade: </span><span class="s">&quot;A&quot;</span>
+    <span class="p">}</span>
+    <span class="p">{</span>
+      <span class="nv">engine: </span><span class="s">&quot;Webkit&quot;</span>
+      <span class="nv">browser: </span><span class="s">&quot;Safari 1.3&quot;</span>
+      <span class="nv">platform: </span><span class="s">&quot;OSX.3&quot;</span>
+      <span class="nv">version: </span><span class="mf">312.8</span>
+      <span class="nv">grade: </span><span class="s">&quot;A&quot;</span>
+    <span class="p">}</span>
+    <span class="p">{</span>
+      <span class="nv">engine: </span><span class="s">&quot;Webkit&quot;</span>
+      <span class="nv">browser: </span><span class="s">&quot;Safari 2.0&quot;</span>
+      <span class="nv">platform: </span><span class="s">&quot;OSX.4+&quot;</span>
+      <span class="nv">version: </span><span class="mf">419.3</span>
+      <span class="nv">grade: </span><span class="s">&quot;A&quot;</span>
+    <span class="p">}</span>
+    <span class="p">{</span>
+      <span class="nv">engine: </span><span class="s">&quot;Webkit&quot;</span>
+      <span class="nv">browser: </span><span class="s">&quot;Safari 3.0&quot;</span>
+      <span class="nv">platform: </span><span class="s">&quot;OSX.4+&quot;</span>
+      <span class="nv">version: </span><span class="mf">522.1</span>
+      <span class="nv">grade: </span><span class="s">&quot;A&quot;</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+
+  <span class="nv">columns = </span><span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nv">sTitle: </span><span class="s">&quot;Engine&quot;</span>
+      <span class="nv">mData: </span><span class="s">&quot;engine&quot;</span>
+    <span class="p">}</span>
+    <span class="p">{</span>
+      <span class="nv">sTitle: </span><span class="s">&quot;Browser&quot;</span>
+      <span class="nv">mData: </span><span class="s">&quot;browser&quot;</span>
+    <span class="p">}</span>
+    <span class="p">{</span>
+      <span class="nv">sTitle: </span><span class="s">&quot;Platform&quot;</span>
+      <span class="nv">mData: </span><span class="s">&quot;platform&quot;</span>
+    <span class="p">}</span>
+    <span class="p">{</span>
+      <span class="nv">sTitle: </span><span class="s">&quot;Version&quot;</span>
+      <span class="nv">mData: </span><span class="s">&quot;version&quot;</span>
+      <span class="nv">sClass: </span><span class="s">&quot;center&quot;</span>
+    <span class="p">}</span>
+    <span class="p">{</span>
+      <span class="nv">sTitle: </span><span class="s">&quot;Grade&quot;</span>
+      <span class="nv">mData: </span><span class="s">&quot;grade&quot;</span>
+      <span class="nv">sClass: </span><span class="s">&quot;center&quot;</span>
+      <span class="nv">mRender: </span><span class="nf">( dataSource, call, rawData ) -&gt;</span>
+        <span class="k">switch</span> <span class="nx">rawData</span><span class="p">.</span><span class="nx">grade</span>
+          <span class="k">when</span> <span class="s">&quot;A&quot;</span> <span class="k">then</span> <span class="k">return</span> <span class="s">&quot;&lt;b&gt;A&lt;/b&gt;&quot;</span>
+          <span class="k">else</span> <span class="k">return</span> <span class="nx">rawData</span><span class="p">.</span><span class="nx">grade</span>
+
+    <span class="p">}</span>
+  <span class="p">]</span>
+
+  <span class="nv">createDataTableStub = </span><span class="nf">( data ) -&gt;</span>
+    <span class="nv">instantiatedComponent = </span><span class="nx">UI</span><span class="p">.</span><span class="nx">renderWithData</span> <span class="nx">Template</span><span class="p">.</span><span class="nx">dataTable</span><span class="p">,</span> <span class="nx">data</span>
+    <span class="nv">fakeDOM = </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span> <span class="s">&#39;div&#39;</span>
+    <span class="nx">UI</span><span class="p">.</span><span class="nx">insert</span> <span class="nx">instantiatedComponent</span><span class="p">,</span> <span class="nx">fakeDOM</span>
+    <span class="k">return</span> <span class="nx">instantiatedComponent</span>
+
+  <span class="nx">Tinytest</span><span class="p">.</span><span class="nx">add</span> <span class="s">&quot;dataTable Component - defined on client&quot;</span><span class="p">,</span> <span class="nf">( test ) -&gt;</span>
+    <span class="nx">test</span><span class="p">.</span><span class="nx">notEqual</span> <span class="nx">$</span><span class="p">().</span><span class="nx">dataTable</span><span class="p">,</span> <span class="kc">undefined</span><span class="p">,</span> <span class="s">&quot;Expected DataTable jQuery plugin to be defined on the client.&quot;</span>
+    <span class="nx">test</span><span class="p">.</span><span class="nx">notEqual</span> <span class="nx">Template</span><span class="p">.</span><span class="nx">dataTable</span><span class="p">,</span> <span class="kc">undefined</span><span class="p">,</span> <span class="s">&quot;Expected Template.dataTable to be defined on the client.&quot;</span>
+
+  <span class="nx">Tinytest</span><span class="p">.</span><span class="nx">add</span> <span class="s">&quot;dataTable Component - default options&quot;</span><span class="p">,</span> <span class="nf">( test ) -&gt;</span>
+    <span class="nx">test</span><span class="p">.</span><span class="nx">notEqual</span> <span class="nx">Template</span><span class="p">.</span><span class="nx">dataTable</span><span class="p">.</span><span class="nx">defaultOptions</span><span class="p">,</span> <span class="kc">undefined</span><span class="p">,</span> <span class="s">&quot;Expected defaultOptions to be defined on the client.&quot;</span>
+
+  <span class="nx">Tinytest</span><span class="p">.</span><span class="nx">add</span> <span class="s">&quot;dataTable Component - chooseTemplate()&quot;</span><span class="p">,</span> <span class="nf">( test ) -&gt;</span>
+    <span class="nx">test</span><span class="p">.</span><span class="nx">notEqual</span> <span class="nx">Template</span><span class="p">[</span> <span class="nx">Template</span><span class="p">.</span><span class="nx">dataTable</span><span class="p">.</span><span class="nx">defaultTemplate</span> <span class="p">],</span> <span class="kc">undefined</span><span class="p">,</span> <span class="s">&quot;Expected the default dataTable template to be defined.&quot;</span>
+    <span class="nx">test</span><span class="p">.</span><span class="nx">equal</span> <span class="nx">Template</span><span class="p">.</span><span class="nx">dataTable</span><span class="p">.</span><span class="nx">chooseTemplate</span><span class="p">(),</span> <span class="nx">Template</span><span class="p">[</span> <span class="nx">Template</span><span class="p">.</span><span class="nx">dataTable</span><span class="p">.</span><span class="nx">defaultTemplate</span> <span class="p">],</span> <span class="s">&quot;Calling chooseTemplate without a param returns the default_table_template.&quot;</span>
+    <span class="nx">test</span><span class="p">.</span><span class="nx">notEqual</span> <span class="nx">Template</span><span class="p">.</span><span class="nx">dataTable</span><span class="p">.</span><span class="nx">chooseTemplate</span><span class="p">(</span><span class="s">&#39;undefined_template&#39;</span><span class="p">),</span> <span class="kc">undefined</span><span class="p">,</span> <span class="s">&quot;chooseTemplate() should never return undefined.&quot;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>stub some_template being defined</p></div></div><div class="code"><div class="wrapper">    <span class="nx">Template</span><span class="p">[</span><span class="s">&#39;some_template&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">true</span>
+    <span class="nx">test</span><span class="p">.</span><span class="nx">equal</span> <span class="nx">Template</span><span class="p">.</span><span class="nx">dataTable</span><span class="p">.</span><span class="nx">chooseTemplate</span><span class="p">(</span><span class="s">&#39;some_template&#39;</span><span class="p">),</span> <span class="nx">Template</span><span class="p">[</span><span class="s">&#39;some_template&#39;</span><span class="p">],</span> <span class="s">&quot;Passing a template name to chooseTemplate() returns that template.&quot;</span>
+    <span class="k">try</span>
+      <span class="nx">Template</span><span class="p">.</span><span class="nx">dataTable</span><span class="p">.</span><span class="nx">setDefaultTemplate</span> <span class="mi">5</span>
+    <span class="k">catch</span> <span class="nx">error</span>
+      <span class="nx">test</span><span class="p">.</span><span class="nx">notEqual</span> <span class="nx">error</span><span class="p">,</span> <span class="kc">undefined</span><span class="p">,</span> <span class="s">&quot;Passing something other than a string to setDefaultTemplate() should throw an error.&quot;</span>
+    <span class="k">try</span>
+      <span class="nx">Template</span><span class="p">.</span><span class="nx">dataTable</span><span class="p">.</span><span class="nx">setDefaultTemplate</span> <span class="s">&#39;undefined_template&#39;</span>
+    <span class="k">catch</span> <span class="nx">error</span>
+      <span class="nx">test</span><span class="p">.</span><span class="nx">notEqual</span> <span class="nx">error</span><span class="p">,</span> <span class="kc">undefined</span><span class="p">,</span> <span class="s">&quot;Trying to set the default template to an undefined template should throw an error.&quot;</span></div></div></div></div></body></html>

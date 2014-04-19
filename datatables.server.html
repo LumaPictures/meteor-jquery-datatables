@@ -1,0 +1,97 @@
+<!DOCTYPE html><html lang="en"><head><title>datatables.server</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="datatables.server"><meta name="groc-project-path" content="lib/datatables.server.coffee"><meta name="groc-github-url" content="https://github.com/lumapictures/luma-datatables"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/lumapictures/luma-datatables/blob/master/lib/datatables.server.coffee">lib/datatables.server.coffee</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="server">Server</h1>
+
+<h4 id="datatable">DataTable</h4>
+
+<p>A static class that provides a simple pub / sub interface for client dataTables</p></div></div><div class="code"><div class="wrapper"><span class="k">class</span> <span class="nx">DataTable</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="countcollection">@countCollection</h5>
+
+<p>The name of the client only collection that tracks the collection counts for its base and filtered queries.</p></div></div><div class="code"><div class="wrapper">  <span class="vi">@countCollection: </span><span class="s">&quot;datatable_subscription_count&quot;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="publish">@publish()</h5>
+
+<p>A static method for creating paginated DataTables publications. <code>DataTable.publish</code> takes a subscription name (string)
+and a Meteor Collection as parameters.</p></div></div><div class="code"><div class="wrapper">  <span class="vi">@publish: </span><span class="nf">( subscription, collection ) -&gt;</span>
+    <span class="nx">Match</span><span class="p">.</span><span class="nx">test</span> <span class="nx">subscription</span><span class="p">,</span> <span class="nb">String</span>
+    <span class="nx">Match</span><span class="p">.</span><span class="nx">test</span> <span class="nx">collection</span><span class="p">,</span> <span class="nb">Object</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h6 id="meteorpublish">Meteor.publish</h6>
+
+<p>The publication that DataTable provides is a paginated and filtered subset of the base query defined by the DataTable
+on the client.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li>baseQuery: ( object ) the initial query on the dataset. Eventually this may be defined only on the server, to prevent
+clients from gaining access to the entire dataset if they modify the baseQuery.</li>
+<li>filteredQuery: ( object ) the filter being applied by the client datatable's current state.</li>
+<li>options : ( object ) sort and pagination options supplied by the client datatables's current state.</li>
+</ul></div></div><div class="code"><div class="wrapper">    <span class="nx">Meteor</span><span class="p">.</span><span class="nx">publish</span> <span class="nx">subscription</span><span class="p">,</span> <span class="nf">( baseQuery, filteredQuery, options ) -&gt;</span>
+      <span class="nv">self = </span><span class="nx">@</span>
+      <span class="nv">initialized = </span><span class="kc">false</span>
+      <span class="nv">countInitialized = </span><span class="kc">false</span>
+      <span class="nx">Match</span><span class="p">.</span><span class="nx">test</span> <span class="nx">baseQuery</span><span class="p">,</span> <span class="nb">Object</span>
+      <span class="nx">Match</span><span class="p">.</span><span class="nx">test</span> <span class="nx">filteredQuery</span><span class="p">,</span> <span class="nb">Object</span>
+      <span class="nx">Match</span><span class="p">.</span><span class="nx">test</span> <span class="nx">options</span><span class="p">,</span> <span class="nb">Object</span>
+      <span class="nx">DataTable</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;</span><span class="si">#{</span> <span class="nx">subscription</span> <span class="si">}</span><span class="s">:query:base&quot;</span><span class="p">,</span> <span class="nx">baseQuery</span>
+      <span class="nx">DataTable</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;</span><span class="si">#{</span> <span class="nx">subscription</span> <span class="si">}</span><span class="s">:query:filtered&quot;</span><span class="p">,</span> <span class="nx">filteredQuery</span>
+      <span class="nx">DataTable</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;</span><span class="si">#{</span> <span class="nx">subscription</span> <span class="si">}</span><span class="s">:options&quot;</span><span class="p">,</span> <span class="nx">options</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h6 id="updatecount">updateCount</h6>
+
+<p>Update the count values of the client DataTableCount Collection to reflect the current filter state.</p></div></div><div class="code"><div class="wrapper">      <span class="nv">updateCount = </span><span class="nf">( ready, added = false ) -&gt;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>ready</code> is the initialization state of the subscriptions observe handle. Counts are only published after the observes
+are initialized.</p></div></div><div class="code"><div class="wrapper">        <span class="k">if</span> <span class="nx">ready</span>
+          <span class="nv">total = </span><span class="nx">collection</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span> <span class="nx">baseQuery</span> <span class="p">).</span><span class="nx">count</span><span class="p">()</span>
+          <span class="nx">DataTable</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;</span><span class="si">#{</span> <span class="nx">subscription</span> <span class="si">}</span><span class="s">:count:total&quot;</span><span class="p">,</span> <span class="nx">total</span>
+          <span class="nv">filtered = </span><span class="nx">collection</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span> <span class="nx">filteredQuery</span> <span class="p">).</span><span class="nx">count</span><span class="p">()</span>
+          <span class="nx">DataTable</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;</span><span class="si">#{</span> <span class="nx">subscription</span> <span class="si">}</span><span class="s">:count:filtered&quot;</span><span class="p">,</span> <span class="nx">filtered</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p><code>added</code> is a flag that is set to true on the initial insert into the DaTableCount collection from this subscription.</p></div></div><div class="code"><div class="wrapper">          <span class="k">if</span> <span class="nx">added</span>
+            <span class="nx">self</span><span class="p">.</span><span class="nx">added</span><span class="p">(</span> <span class="nx">DataTable</span><span class="p">.</span><span class="nx">countCollection</span><span class="p">,</span> <span class="nx">subscription</span><span class="p">,</span> <span class="p">{</span> <span class="nv">count: </span><span class="nx">total</span> <span class="p">}</span> <span class="p">)</span>
+            <span class="nx">self</span><span class="p">.</span><span class="nx">added</span><span class="p">(</span> <span class="nx">DataTable</span><span class="p">.</span><span class="nx">countCollection</span><span class="p">,</span> <span class="s">&quot;</span><span class="si">#{</span> <span class="nx">subscription</span> <span class="si">}</span><span class="s">_filtered&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nv">count: </span><span class="nx">filtered</span> <span class="p">}</span> <span class="p">)</span>
+          <span class="k">else</span>
+            <span class="nx">self</span><span class="p">.</span><span class="nx">changed</span><span class="p">(</span> <span class="nx">DataTable</span><span class="p">.</span><span class="nx">countCollection</span><span class="p">,</span> <span class="nx">subscription</span><span class="p">,</span> <span class="p">{</span> <span class="nv">count: </span><span class="nx">total</span> <span class="p">}</span> <span class="p">)</span>
+            <span class="nx">self</span><span class="p">.</span><span class="nx">changed</span><span class="p">(</span> <span class="nx">DataTable</span><span class="p">.</span><span class="nx">countCollection</span><span class="p">,</span> <span class="s">&quot;</span><span class="si">#{</span> <span class="nx">subscription</span> <span class="si">}</span><span class="s">_filtered&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="nv">count: </span><span class="nx">filtered</span> <span class="p">}</span> <span class="p">)</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h6 id="observe">observe</h6>
+
+<p>DataTable observes just the filtered and paginated subset of the Collection. This is for performance reasons as
+observing large datasets entirely is unrealistic. The observe callbacks use <code>At</code> due to the sort and limit options
+passed the the observer.</p></div></div><div class="code"><div class="wrapper">      <span class="nv">handle = </span><span class="nx">collection</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span> <span class="nx">filteredQuery</span><span class="p">,</span> <span class="nx">options</span> <span class="p">).</span><span class="nx">observe</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h6 id="addedat">addedAt()</h6>
+
+<p>Updates the count and sends the new doc to the client.</p></div></div><div class="code"><div class="wrapper">        <span class="nv">addedAt: </span><span class="nf">( doc, index, before ) -&gt;</span>
+          <span class="nx">updateCount</span> <span class="nx">initialized</span>
+          <span class="nx">self</span><span class="p">.</span><span class="nx">added</span> <span class="nx">collection</span><span class="p">.</span><span class="nx">_name</span><span class="p">,</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">_id</span><span class="p">,</span> <span class="nx">doc</span>
+          <span class="nx">DataTable</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;</span><span class="si">#{</span> <span class="nx">subscription</span> <span class="si">}</span><span class="s">:added&quot;</span><span class="p">,</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">_id</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h6 id="changedat">changedAt()</h6>
+
+<p>Updates the count and sends the changed properties to the client.</p></div></div><div class="code"><div class="wrapper">        <span class="nv">changedAt: </span><span class="nf">( newDoc, oldDoc, index ) -&gt;</span>
+          <span class="nx">updateCount</span> <span class="nx">initialized</span>
+          <span class="nx">self</span><span class="p">.</span><span class="nx">changed</span> <span class="nx">collection</span><span class="p">.</span><span class="nx">_name</span><span class="p">,</span> <span class="nx">newDoc</span><span class="p">.</span><span class="nx">_id</span><span class="p">,</span> <span class="nx">newDoc</span>
+          <span class="nx">DataTable</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;</span><span class="si">#{</span> <span class="nx">subscription</span> <span class="si">}</span><span class="s">:changed&quot;</span><span class="p">,</span> <span class="nx">newDoc</span><span class="p">.</span><span class="nx">_id</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h6 id="removedat">removedAt()</h6>
+
+<p>Updates the count and removes the document from the client.</p></div></div><div class="code"><div class="wrapper">        <span class="nv">removedAt: </span><span class="nf">( doc, index ) -&gt;</span>
+          <span class="nx">updateCount</span> <span class="nx">initialized</span>
+          <span class="nx">self</span><span class="p">.</span><span class="nx">removed</span> <span class="nx">collection</span><span class="p">.</span><span class="nx">_name</span><span class="p">,</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">_id</span>
+          <span class="nx">DataTable</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;</span><span class="si">#{</span> <span class="nx">subscription</span> <span class="si">}</span><span class="s">:removed&quot;</span><span class="p">,</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">_id</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>After the observer is initialized the <code>initialized</code> flag is set to true, the initial count is published,
+and the publication is marked as <code>ready()</code></p></div></div><div class="code"><div class="wrapper">      <span class="nv">initialized = </span><span class="kc">true</span>
+      <span class="nx">updateCount</span> <span class="nx">initialized</span><span class="p">,</span> <span class="kc">true</span>
+      <span class="nx">self</span><span class="p">.</span><span class="nx">ready</span><span class="p">()</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>This is an attempt to monitor the last page in the dataset for changes, this is due to datatable on the client
+breaking when the last page no longer contains any data, or is no longer the last page.</p></div></div><div class="code"><div class="wrapper">      <span class="nv">lastPage = </span><span class="nx">collection</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span> <span class="nx">filteredQuery</span> <span class="p">).</span><span class="nx">count</span><span class="p">()</span> <span class="o">-</span> <span class="nx">options</span><span class="p">.</span><span class="nx">limit</span>
+      <span class="k">if</span> <span class="nx">lastPage</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="nv">countOptions = </span><span class="nx">options</span>
+        <span class="nv">countOptions.skip = </span><span class="nx">lastPage</span>
+        <span class="nv">countHandle = </span><span class="nx">collection</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span> <span class="nx">filteredQuery</span><span class="p">,</span> <span class="nx">countOptions</span> <span class="p">).</span><span class="nx">observe</span>
+          <span class="nv">addedAt: </span><span class="nf">-&gt;</span> <span class="nx">updateCount</span> <span class="nx">countInitialized</span>
+          <span class="nv">changedAt: </span><span class="nf">-&gt;</span> <span class="nx">updateCount</span> <span class="nx">countInitialized</span>
+          <span class="nv">removedAt: </span><span class="nf">-&gt;</span> <span class="nx">updateCount</span> <span class="nx">countInitialized</span>
+        <span class="nv">countInitialized = </span><span class="kc">true</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>When the publication is terminated the observers are stopped to prevent memory leaks.</p></div></div><div class="code"><div class="wrapper">      <span class="nx">self</span><span class="p">.</span><span class="nx">onStop</span> <span class="nf">-&gt;</span>
+        <span class="nx">handle</span><span class="p">.</span><span class="nx">stop</span><span class="p">()</span>
+        <span class="nx">countHandle</span><span class="p">.</span><span class="nx">stop</span><span class="p">()</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="debug">@debug</h5>
+
+<p>Debug flag is initialized to false. Set <code>DataTable.debug = "true"</code> for all debug messages.
+Set Debug flag to a string to only log messages containing that string.</p>
+
+<h5 id="examples">examples</h5>
+
+<ul>
+<li><code>"query"</code> : will log the base and filtered queries for every subscription.</li>
+<li><code>"added"</code> : will log all documents added to subscriptions.</li>
+<li><code>"changed"</code> : will log all documents changed for a subscription.</li>
+<li><code>"removed"</code> : will log all documents removed from a collection.</li>
+</ul></div></div><div class="code"><div class="wrapper">  <span class="vi">@debug: </span><span class="kc">false</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="isdebug">@isDebug()</h5>
+
+<p>A utility method for returning the current debug string or false if debug is not enabled.</p></div></div><div class="code"><div class="wrapper">  <span class="vi">@isDebug: </span><span class="nf">-&gt;</span> <span class="k">return</span> <span class="nx">DataTable</span><span class="p">.</span><span class="nx">debug</span> <span class="o">or</span> <span class="kc">false</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="log">@log()</h5>
+
+<p>Wraps console log and only logs messages if <code>DataTable.debug</code> is true or if the message contains the debug string.</p></div></div><div class="code"><div class="wrapper">  <span class="vi">@log: </span><span class="nf">( message, object ) -&gt;</span>
+    <span class="k">if</span> <span class="nx">DataTable</span><span class="p">.</span><span class="nx">isDebug</span><span class="p">()</span>
+      <span class="k">if</span> <span class="nx">message</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span> <span class="nx">DataTable</span><span class="p">.</span><span class="nx">isDebug</span><span class="p">()</span> <span class="p">)</span> <span class="o">isnt</span> <span class="o">-</span><span class="mi">1</span> <span class="o">or</span> <span class="nx">DataTable</span><span class="p">.</span><span class="nx">isDebug</span><span class="p">()</span> <span class="o">is</span> <span class="s">&quot;true&quot;</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;dataTable:</span><span class="si">#{</span> <span class="nx">message</span> <span class="si">}</span><span class="s"> -&gt;&quot;</span><span class="p">,</span> <span class="nx">object</span></div></div></div></div></body></html>
