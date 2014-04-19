@@ -2,8 +2,6 @@
 ### Sort, page, and filter millions of records.
 #### Reactively.
 
-This meteor package gives you the ability to page, sort, and filter your largest collections with ease.
-
 All you have to do is include the datatable component in one of your templates like so:
 
 ```html
