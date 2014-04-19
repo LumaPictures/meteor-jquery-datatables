@@ -1,10 +1,11 @@
 {
   "except": [
-    "*.meteor",
-    "*packages",
-    "*.build",
-    "*.idea",
-    "*vendor",
+    "example/.meteor",
+    "example/packages/**/*.coffee",
+    "example/packages/**/*.js",
+    ".build",
+    ".idea",
+    "vendor",
     ".groc.json"
   ],
   "glob": [
