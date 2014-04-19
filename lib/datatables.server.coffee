@@ -62,6 +62,6 @@ class DataTable
           changedAt: -> updateCount countInitialized
           removedAt: -> updateCount countInitialized
         countInitialized = true
-        self.onStop ->
-          handle.stop()
-          countHandle.stop()
+      self.onStop ->
+        handle.stop()
+        countHandle.stop()
