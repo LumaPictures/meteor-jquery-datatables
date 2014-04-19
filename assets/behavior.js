@@ -102,6 +102,14 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                     "slug": "initialize"
                   },
                   "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "Collection Counts",
+                    "slug": "collection-counts"
+                  },
+                  "depth": 3
                 }
               ]
             }, {
@@ -349,6 +357,14 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "type": "heading",
                   "data": {
                     "level": 5,
+                    "title": "examples",
+                    "slug": "examples"
+                  },
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
                     "title": "isDebug()",
                     "slug": "isdebug"
                   },
@@ -443,66 +459,58 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                     "title": "fnServerData()",
                     "slug": "fnserverdata"
                   },
+                  "depth": 5,
+                  "children": [
+                    {
+                      "type": "heading",
+                      "data": {
+                        "level": 6,
+                        "title": "Parameters",
+                        "slug": "parameters"
+                      },
+                      "depth": 6
+                    }
+                  ]
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "prepareCountCollection()",
+                    "slug": "preparecountcollection"
+                  },
                   "depth": 5
                 }, {
                   "type": "heading",
                   "data": {
                     "level": 5,
-                    "title": "Wat?",
-                    "slug": "wat"
+                    "title": "getCollection()",
+                    "slug": "getcollection"
                   },
                   "depth": 5
                 }, {
                   "type": "heading",
                   "data": {
-                    "level": 3,
-                    "title": "Collection Counts",
-                    "slug": "collection-counts"
+                    "level": 5,
+                    "title": "getCountCollection()",
+                    "slug": "getcountcollection"
                   },
-                  "depth": 3,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 5,
-                        "title": "prepareCountCollection()",
-                        "slug": "preparecountcollection"
-                      },
-                      "depth": 5
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 5,
-                        "title": "getCollection()",
-                        "slug": "getcollection"
-                      },
-                      "depth": 5
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 5,
-                        "title": "getCountCollection()",
-                        "slug": "getcountcollection"
-                      },
-                      "depth": 5
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 5,
-                        "title": "getTotalCount()",
-                        "slug": "gettotalcount"
-                      },
-                      "depth": 5
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 5,
-                        "title": "getFilteredCount()",
-                        "slug": "getfilteredcount"
-                      },
-                      "depth": 5
-                    }
-                  ]
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "getTotalCount()",
+                    "slug": "gettotalcount"
+                  },
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "getFilteredCount()",
+                    "slug": "getfilteredcount"
+                  },
+                  "depth": 5
                 }, {
                   "type": "heading",
                   "data": {
@@ -717,6 +725,14 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                 "slug": "initialize"
               },
               "depth": 5
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Collection Counts",
+                "slug": "collection-counts"
+              },
+              "depth": 3
             }
           ]
         }, {
@@ -964,6 +980,14 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "type": "heading",
               "data": {
                 "level": 5,
+                "title": "examples",
+                "slug": "examples"
+              },
+              "depth": 5
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 5,
                 "title": "isDebug()",
                 "slug": "isdebug"
               },
@@ -1058,66 +1082,58 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                 "title": "fnServerData()",
                 "slug": "fnserverdata"
               },
+              "depth": 5,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 6,
+                    "title": "Parameters",
+                    "slug": "parameters"
+                  },
+                  "depth": 6
+                }
+              ]
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 5,
+                "title": "prepareCountCollection()",
+                "slug": "preparecountcollection"
+              },
               "depth": 5
             }, {
               "type": "heading",
               "data": {
                 "level": 5,
-                "title": "Wat?",
-                "slug": "wat"
+                "title": "getCollection()",
+                "slug": "getcollection"
               },
               "depth": 5
             }, {
               "type": "heading",
               "data": {
-                "level": 3,
-                "title": "Collection Counts",
-                "slug": "collection-counts"
+                "level": 5,
+                "title": "getCountCollection()",
+                "slug": "getcountcollection"
               },
-              "depth": 3,
-              "children": [
-                {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "prepareCountCollection()",
-                    "slug": "preparecountcollection"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "getCollection()",
-                    "slug": "getcollection"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "getCountCollection()",
-                    "slug": "getcountcollection"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "getTotalCount()",
-                    "slug": "gettotalcount"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "getFilteredCount()",
-                    "slug": "getfilteredcount"
-                  },
-                  "depth": 5
-                }
-              ]
+              "depth": 5
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 5,
+                "title": "getTotalCount()",
+                "slug": "gettotalcount"
+              },
+              "depth": 5
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 5,
+                "title": "getFilteredCount()",
+                "slug": "getfilteredcount"
+              },
+              "depth": 5
             }, {
               "type": "heading",
               "data": {
