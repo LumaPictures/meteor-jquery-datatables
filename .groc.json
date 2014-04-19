@@ -1,21 +1,21 @@
 {
-  "except": [
-    "example/.meteor",
-    "example/packages/**/*.coffee",
-    "example/packages/**/*.js",
-    ".build",
-    ".idea",
-    "vendor",
-    ".groc.json"
-  ],
   "glob": [
     "*.md",
     "*.js",
     "*.json",
     "*.coffee",
     "lib/**/*.coffee",
-    "example/**/*.coffee",
+    "example/*.coffee",
+    "example/lib/*.coffee",
     "tests/**/*.coffee"
+  ],
+  "except": [
+    "*.build",
+    "*.idea",
+    "*vendor",
+    ".groc.json",
+    "example/packages/**",
+    "example/.meteor/**"
   ],
   "github": true
 }
