@@ -4,8 +4,7 @@
 # ## Initialization
 
 # ##### rendered()
-#   When the component is first rendered datatables is initialized
-#   The `this` context for all of the component methods is `templateInstance.__component__`
+# When the component is first rendered datatables is initialized `templateInstance.__component__` is the this context
 Template.dataTable.rendered = ->
   templateInstance = @
   instantiatedComponent = templateInstance.__component__
@@ -13,15 +12,13 @@ Template.dataTable.rendered = ->
   instantiatedComponent.initialize()
 
 # ##### destroyed()
-#   Currently nothing is done when the component is destroyed
-#   This may change
+# Currently nothing is done when the component is destroyed.
 Template.dataTable.destroyed = ->
   @log "destroyed"
 
 # ##### initialize()
-#   Set the initial table properties from the component declaration
-#   Initialize the jQuery DataTables object
-#   Initialize other third parties if they exist ( plugins, select2, etc. )
+# Set the initial table properties from the component declaration, initialize the jQuery DataTables object, and initialize
+# other third parties if they exist ( plugins, select2, etc. )
 Template.dataTable.initialize = ->
   @prepareQuery()
   @prepareCollection()
@@ -33,32 +30,33 @@ Template.dataTable.initialize = ->
   @preparePagination()
   @log "initialized", @
 
+# ### Collection Counts
+# Datatables maintains counts of both the base query and filtered query reactively.
+# These counts are published by the datatables publication
+
+DataTableSubscriptionCount = new Meteor.Collection "datatable_subscription_count"
+
 # ## Component Parameters
 
 # #### `options` Object ( optional )
-#   Any additional options you would like merged with the defaults `_.defaults options, defaultOptions`
-#   The datatables options object, see datatables docs for more info
-#   The default options are listed below.
-#   The default options can changed by setting `Template.dataTable.defaultOptions.yourDumbProperty`
-
+# `options` are additional options you would like merged with the defaults `_.defaults options, defaultOptions`.
+# For more information on available dataTable options see the [DataTables Docs](https://datatables.net/usage/).
+# The default options are listed below and can be changed by setting `Template.dataTable.defaultOptions.yourDumbProperty`
 # ##### [DataTables Options Full Reference](https://datatables.net/ref)
-#   All options passed through the options parameter will be merged with the default options.
-#   e.g. `_.defaults options, defaultOptions`
 Template.dataTable.defaultOptions =
   bJQueryUI: false
   bAutoWidth: true
   bDeferRender: true
   sPaginationType: "full_numbers"
   # ##### Bootstrap 3 Markup
-  #   You can change this by setting `Template.dataTable.defaultOptions.sDom` property.
-  #   For some example Less / CSS styles check out [luma-ui's dataTable styles](https://github.com/LumaPictures/luma-ui/blob/master/components/dataTables/dataTables.import.less)
+  # You can change this by setting `Template.dataTable.defaultOptions.sDom` property.
+  # For some example Less / CSS styles check out [luma-ui's dataTable styles](https://github.com/LumaPictures/luma-ui/blob/master/components/dataTables/dataTables.import.less)
   sDom: "<\"datatable-header\"fl><\"datatable-scroll\"rt><\"datatable-footer\"ip>"
   oLanguage:
     sSearch: "_INPUT_"
     sLengthMenu: "<span>Show :</span> _MENU_"
     # ##### Loading Message
-    #   Set `oLanguage.sProcessing` to whatever you want, event html
-    #   Haven't tried a Meteor template yet, could be fun!
+    # Set `oLanguage.sProcessing` to whatever you want, event html. I haven't tried a Meteor template yet, could be fun!
     sProcessing: "Loading"
     oPaginate:
       sFirst: "First"
@@ -81,24 +79,25 @@ Template.dataTable.getOptions = ->
   return @getData().options or @presetOptions() or false
 
 # ##### prepareOptions()
-#   Prepares the datatable options object by merging the options passed in with the defaults
-#   If the componet was declared with a collection and a query it is setup as a reactive datatable
-#   `options.sAjaxSource` is currently useless, but is passed into `fnServerData` by datatables
-#   binds the datatables `fnServerData` server callback to this component instance
+# Prepares the datatable options object by merging the options passed in with the defaults.
 Template.dataTable.prepareOptions = ->
   options = @getOptions() or {}
   options.aaData = @getRows() or []
   options.aoColumns = @getColumns() or []
+  # If the componet was declared with a collection and a query it is setup as a reactive datatable.
   if @getCollection() and @getQuery()
     options.bServerSide = true
     options.bProcessing = true
+    # `options.sAjaxSource` is currently useless, but is passed into `fnServerData` by datatables.
     options.sAjaxSource = "useful?"
+    # This binds the datatables `fnServerData` server callback to this component instance.
+    # `_.debounce` is used to prevent unneccesary subcription calls while typing a search
     options.fnServerData = _.debounce( @fnServerData.bind( @ ), 300 )
   @setOptions _.defaults( options, @defaultOptions )
 
 # #### `selector` String ( required )
-#   The table selector for the dataTable instance you are creating.
-#   Needs to be unique in the page scope or you will get datatable mulit-render error
+# The table selector for the dataTable instance you are creating, must be unique in the page scope or you will get
+# datatable mulit-render error.
 Template.dataTable.setSelector = ( selector ) ->
   Match.test selector, String
   @setData 'selector', selector
@@ -114,8 +113,7 @@ Template.dataTable.prepareSelector = ->
     @setSelector "datatable-#{ @getGuid() }"
 
 # #### `rows` Array of Object ( optional )
-#   this is a static datasource
-#   can be used to display static data, or reactive client side data
+# Can be used to display static data, or reactive client side data.
 
 # ##### setRows()
 Template.dataTable.setRows = ( rows ) ->
@@ -134,7 +132,7 @@ Template.dataTable.getRows = ->
   else return @getData().rows or false
 
 # ##### getRowIndex()
-#   gets the datatable index of a row by mongo id
+# Gets the datatable index of a row by mongo id.
 Template.dataTable.getRowIndex = ( _id ) ->
   index = false
   counter = 0
@@ -147,9 +145,8 @@ Template.dataTable.getRowIndex = ( _id ) ->
   return index
 
 # #### `columns` Array of Objects ( required )
-#   The column definitions you are passing to the datatable component
-#   This is where to map object properties to columns and their headers
-#   This is where you define custom templates for rendering data in cells
+# The column definitions you are passing to the datatable component. This is where to map object properties to columns
+# and their headers. You can also define custom templates for rendering data in cells using the `mData` property.
 
 # ##### setColumns()
 Template.dataTable.setColumns = ( columns ) ->
@@ -158,20 +155,20 @@ Template.dataTable.setColumns = ( columns ) ->
   @log "columns:set", columns
 
 # ##### prepareColumns()
-#   adds _id as a hidden column by default
-#   sets a default cell render function for every column
 Template.dataTable.prepareColumns = ->
   columns = @getColumns() or []
+  # Adds _id as a hidden column by default.
   columns.push
     sTitle: "id"
     mData: "_id"
     bVisible: false
     bSearchable: false
+  # Sets a default cell render function for every column.
   @setDefaultCellValue column for column in columns
   @setColumns columns
 
 # ##### setDefaultCellValue()
-#   defaults all cells to "" if undefined
+# The default cell render function defaults all cells to "" if undefined.
 Template.dataTable.setDefaultCellValue = ( column ) ->
   Match.test column.mData, String
   Match.test column.sTitle, String
@@ -184,29 +181,29 @@ Template.dataTable.getColumns = ->
   return @getData().columns or false
 
 # #### `table_template` String ( optional )
-#   The name of table layout template that you want to render.
-#   default is `default_table_template` found [here](lib/datatables.html)
-#   You can set your default template by assigning the template name to `Template.datatable.defaultTemplate`
+# The name of table layout template that you want to render.
+# Default is `default_table_template` found [here](lib/datatables.html).
+# You can set your default template by assigning the template name to `Template.datatable.defaultTemplate`.
 
 # ##### Default Table Template
-#   The default table template is defined in datatables.html
+# The default table template is defined in datatables.html.
 Template.dataTable.defaultTemplate = 'default_table_template'
 
 # ##### chooseTemplate Helper
-#   Return the template specified in the component parameters
-#   Set table template to default if no template name is passed in
-#   If the template is defined return it
-#   Otherwise return the default template
+# Return the template specified in the component parameters
 Template.dataTable.chooseTemplate = ( table_template = null ) ->
+  # Set table template to default if no template name is passed in
   table_template ?= Template.dataTable.defaultTemplate
+  # If the template is defined return it
   if Template[ table_template ]
     return Template[ table_template ]
+  # Otherwise return the default template
   else return Template[ @defaultTemplate ]
 
 
 # #### `collection` Meteor Collection ( required )
-#   This is the collection that house the documents your datatable is displaying
-#   This collection must be defined on both the client and the server
+# This is the collection that houses the documents your datatable is displaying
+# and must be defined on both the client and the server.
 Template.dataTable.setCollection = ( collection ) ->
   Match.test collection, Object
   @setData 'collection', collection
@@ -224,8 +221,8 @@ Template.dataTable.prepareCollection = ->
   return
 
 # #### `subscription` String ( required )
-#   The name of the subscription your datatables is paging, sorting, and filtering
-#   This must be a datatable compatible publication ( for more info see Publishing below )
+# The name of the subscription your datatable is paging, sorting, and filtering.
+# This must be a datatable compatible publication ( for more info see Server )
 Template.dataTable.setSubscription = ( subscription ) ->
   Match.test subscription, Object
   @setData 'subscription', subscription
@@ -241,8 +238,7 @@ Template.dataTable.setSubscriptionOptions = ->
   @log 'subscription:options:set', options
 
 # ##### setSubscriptionHandle()
-#   subscribes to the dataset for the current table state
-#   stores the handle for later access
+# Subscribes to the dataset for the current table state and stores the handle for later access.
 Template.dataTable.setSubscriptionHandle = ->
   if @getSubscriptionHandle()
     @getSubscriptionHandle().stop()
@@ -251,8 +247,8 @@ Template.dataTable.setSubscriptionHandle = ->
   @log 'subscription:handle:set', handle
 
 # ##### setSubscriptionAutorun()
-#   creates a reactive computation that runs when the subscription is `ready()`
-#   sets up local cursor ( identical to server except no skip )
+# Creates a reactive computation that runs when the subscription is `ready()`
+# and sets up local cursor ( identical to server except no skip ).
 Template.dataTable.setSubscriptionAutorun = ( fnCallback ) ->
   Match.test fnCallback, Object
   if @getSubscriptionAutorun()
@@ -265,19 +261,19 @@ Template.dataTable.setSubscriptionAutorun = ( fnCallback ) ->
         limit: @getTableState().iDisplayLength
         sort: @getTableState().sort
       @setCursor @getCollection().find @getTableState().query, cursorOptions
-      #   fetches data from collection and passes it to datatables
-      #     does this by calling the `fnCallback()` passed to `fnServerData()`
-      #     sends an unaltered copy of `sEcho` ( draw count ) to datatables
-      #     gets total docs, before filtering i.e. the total number of records in the database
-      #     gets total records, after filtering i.e. the total number of records after filtering has been applied
+      # Here data is fetched from the collection and passed dataTables by calling the `fnCallback()`
+      # passed to `fnServerData()`.
       aaData = @getCursor().fetch()
       @log 'fnServerData:aaData', aaData
-      #     both of these counts come from the `DataTableSubscriptionCount` collection on the client
-      #     `DataTableSubscriptionCount` is populated reactively by the DataTables publication for this table
-      #     The selector used to retrieve the counts is the subscription name and + '_filtered'
       fnCallback
+        # Sends an unaltered copy of `sEcho` ( draw count ) to datatables.
         sEcho: @getTableState().sEcho
+        # Gets total docs, before filtering i.e. the total number of records in the server collection.
+        # Both of these counts come from the `DataTableSubscriptionCount` collection on the client.
+        # `DataTableSubscriptionCount` is populated reactively by the DataTables publication for this table.
+        # The selector used to retrieve the counts is the subscription name and + '_filtered'.
         iTotalRecords: @getTotalCount()
+        # Gets total records, after filtering i.e. the total number of records after filtering has been applied
         iTotalDisplayRecords: @getFilteredCount()
         aaData: aaData
   @setData 'autorun', autorun
@@ -300,9 +296,9 @@ Template.dataTable.getSubscriptionAutorun = ->
   return @getData().autorun or false
 
 # #### `query` MongoDB Selector ( optional )
-#   The initial filter for your datatable
-#   You should attempt to narrow your selection as much as possbile to improve performance
-#   The default query is `{}`
+# The initial filter for your datatable.
+# The default query is `{}`
+# You should attempt to narrow your selection as much as possbile to improve performance.
 
 # ##### setQuery()
 Template.dataTable.setQuery = ( query ) ->
@@ -320,15 +316,15 @@ Template.dataTable.getQuery = ->
   return @getData().query or false
 
 # #### `debug` String ( optional )
-#   A handy option for granular debug logs
-#   `true` logs all messages from datatables
-#   Set debug to any string to only log messages that contain that string
-#   Some useful debug settings are :
-#     * `rendered` logs the instantiated component on render
-#     * `destroyed` logs when the component is detroyed
-#     * `initialized` logs the inital state of the datatable after data is acquired
-#     * `options` logs the datatables options for that instantiated component
-#     * `fnServerData` logs each request to the server by the component
+# A handy option for granular debug logs.
+# `true` logs all messages from datatables.
+# Set debug to any string to only log messages that contain that string
+# ##### examples
+#   + `rendered` logs the instantiated component on render
+#   + `destroyed` logs when the component is detroyed
+#   + `initialized` logs the inital state of the datatable after data is acquired
+#   + `options` logs the datatables options for that instantiated component
+#   + `fnServerData` logs each request to the server by the component
 
 # ##### isDebug()
 Template.dataTable.isDebug = ->
@@ -343,77 +339,70 @@ Template.dataTable.log = ( message, object ) ->
 # ## Querying MongoDB
 
 # ##### mapTableState()
-#   Take the `aoData` parameter of `fnServerData` and map it into a more usable object
-#   Convert aoData to key -> value pairs
+# Take the `aoData` parameter of `fnServerData` and map it into a more usable object.
 Template.dataTable.mapTableState = ( aoData ) ->
   aoData = @arrayToDictionary aoData, 'name'
   @log 'mapTableState:aoData', aoData
 
   # ##### tableState
-  #   `aoData.sEcho` is a request counter, incremented on every server call
-  #   `aoData.columns` contains the property meta data for each column
-  #   `aoData.iColumns` is the number of columns being displayed
-  #   `aoData.iSortingCols` is the number of columns being sorted
-  #   `aoData.iDisplayLength` is the number of rows being displayed
-  #   `aoData.iDisplayStart` is the number of rows to skip for pagination
-  #   `aoData.sSearch` is the datatables search input value
   tableState =
+    #   + `aoData.sEcho` is a request counter, incremented on every server call
     sEcho: aoData.sEcho.value or 1
     bRegex: aoData.bRegex.value or false
+    #   + `aoData.columns` contains the property meta data for each column
     columns: []
+    #   + `aoData.iColumns` is the number of columns being displayed
     iColumns: aoData.iColumns.value or 0
+    #   + `aoData.iSortingCols` is the number of columns being sorted
     iSortingCols: aoData.iSortingCols.value or 0
     sColumns: aoData.sColumns.value or ""
+    #   + `aoData.iDisplayLength` is the number of rows being displayed
     iDisplayLength: aoData.iDisplayLength.value or 10
+    #   + `aoData.iDisplayStart` is the number of rows to skip for pagination
     iDisplayStart: aoData.iDisplayStart.value or 0
+    #   + `aoData.sSearch` is the datatables search input value
     sSearch: aoData.sSearch.value or ""
 
   # ##### getDataProp()
-  #   function scope helper for getting `aoData` properties
+  # Function scope helper for getting `aoData` properties.
   getDataProp = ( key, index ) ->
     key = "#{ key }_#{ index }"
     return aoData[ key ].value
 
   # ##### mapColumns()
-  #   iterator for setting up columns
-  #   create an element for each column
-  #   `mDataProp` is the field name
-  #   `bRegex` is a boolean for if the field has a search input
-  #   `bSearchable` is a boolean used to determine which fields are searchable
-  #   `bSortable` is a boolean used to determine which fields are sortable
-  #   `sSearch` contains the column search string if column filters are setup
+  # iterator for setting up columns
   mapColumns = ( index ) ->
     tableState.columns[ getDataProp 'mDataProp', index ] =
+      #   + `mDataProp` is the field name
       mDataProp: getDataProp 'mDataProp', index
+      #   + `bRegex` is a boolean for if the field has a search input
       bRegex: getDataProp 'bRegex', index
+      #   + `bSearchable` is a boolean used to determine which fields are searchable
       bSearchable: getDataProp 'bSearchable', index
+      #   + `bSortable` is a boolean used to determine which fields are sortable
       bSortable: getDataProp 'bSortable', index
+      #   + `sSearch` contains the column search string if column filters are setup
       sSearch: getDataProp 'sSearch', index
   mapColumns index for index in [ 0..( tableState.iColumns - 1 ) ]
 
   # ##### mapQuery()
-  #   If there is a global filter the filter query is merged with the tables default query
-  #   `mapQuery()` is actually just an iterator
-  #   The filter query is initialized as an `$or` of all the searchable columns against the search regex
-  #   Letter case is ignored for all search querys.
-  #   The `$or`'s run in parrallel in MongoDB, improving search performance
-  #   You MUST still index all searchable fields
-  #   If the base query is for all records in the collection, the filter query is the only query run
-  #   If the base query is already filter the collection, the filter query is run as an `$and` against it
-  #   e.g. all documents must pass both the table query and search query
   if tableState.sSearch isnt ""
+    # The filter query is initialized as an `$or` of all the searchable columns against the search regex.
     searchQuery = $or: []
     mapQuery = ( key, property ) ->
       unless property.bSearchable is false
         obj = {}
         obj[ key ] =
           $regex: tableState.sSearch
+          # Letter case is ignored for all search querys.
           $options: 'i'
         searchQuery.$or.push obj
     for key, property of tableState.columns
       mapQuery key, property
+    # If the base query is for all records in the collection, the filter query is the only query run.
     if @getQuery is {}
       tableState.query = searchQuery
+    # If the base query is already filter the collection, the filter query is run as an `$and` against it.
     else
       tableState.query =
         $and: [
@@ -423,11 +412,10 @@ Template.dataTable.mapTableState = ( aoData ) ->
   else tableState.query = @getQuery()
 
   # ##### mapSortOrder()
-  #   Another column iterator
-  #   Only runs if columns are being sorted
-  #   Sets sort direction for each sorted field, allowing multi column sort
+  # Only runs if columns are being sorted.
   if tableState.iSortingCols > 0
     tableState.sort = {}
+    # Sets sort direction for each sorted field, allowing multi column sort.
     mapSortOrder = ( sortIndex ) ->
       sortIndex = sortIndex - 1
       propertyIndex = getDataProp 'iSortCol', sortIndex
@@ -450,32 +438,22 @@ Template.dataTable.getTableState = ->
   return @getData().tableState or false
 
 # ##### fnServerData()
-#   The callback for every dataTables user / reactivity event
-#   `sSource` is the currently useless `sAjaxProp` from the options
-#   `aoData` is an array of objects provided by datatables reflecting its current state
-#   `fnCallback` is the function that will be called when the server returns a result
-#   `oSettings` is the datatables settings object
+# The callback for every dataTables user / reactivity event
+# ###### Parameters
+#   + `sSource` is the currently useless `sAjaxProp` from the options
+#   + `aoData` is an array of objects provided by datatables reflecting its current state
+#   + `fnCallback` is the function that will be called when the server returns a result
+#   + `oSettings` is the datatables settings object
 Template.dataTable.fnServerData = ( sSource, aoData, fnCallback, oSettings ) ->
+  # `setTableState()` parses aoData and creates a usable table state object.
   @setTableState aoData
+  # `setSubscriptionOptions()` turns the table state into a MongoDB query options object.
   @setSubscriptionOptions()
+  # `setSubscriptionHandle()` subscribes the the dataset for the current table state.
   @setSubscriptionHandle()
+  # `setSubscriptionAutorun()` creates a Deps.autrun computation. The autorun computation will call datatables fnCallback
+  # when the current table state subscription is ready.
   @setSubscriptionAutorun fnCallback
-  # ##### Wat?
-  #   `setTableState()` parses aoData and creates a usable table state object
-  #   `setSubscriptionOptions()` turns the table state into a MongoDB query options object
-  #   `setSubscriptionHandle()` subscribes the the dataset for the current table state
-  #     * reactive subscription
-  #     * base query and filter query
-  #     * with sort order
-  #     * limited to the table display limit
-  #   `setSubscriptionAutorun()` creates a Deps.autrun computation
-  #     sets the datatable when the subscription is ready
-
-# ### Collection Counts
-#   datatables maintains counts of both the base query and filtered query reactively
-#   these counts are published by the datatables publication
-
-DataTableSubscriptionCount = new Meteor.Collection "datatable_subscription_count"
 
 # ##### prepareCountCollection()
 Template.dataTable.prepareCountCollection = ->
