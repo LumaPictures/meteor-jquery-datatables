@@ -95,7 +95,8 @@ class DataTable
       # When the publication is terminated the observers are stopped to prevent memory leaks.
       self.onStop ->
         handle.stop()
-        countHandle.stop()
+        if countHandle
+          countHandle.stop()
 
   # ##### @debug
   # Debug flag is initialized to false. Set `DataTable.debug = "true"` for all debug messages.
