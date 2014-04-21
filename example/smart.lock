@@ -5,24 +5,21 @@
       "luma-datatables": {
         "path": ".."
       },
-      "luma-ui": {
-        "git": "https://github.com/lumapictures/luma-ui",
-        "branch": "master"
-      }
+      "luma-ui": {}
     },
     "packages": {
       "luma-datatables": {
         "path": ".."
       },
       "luma-ui": {
-        "git": "https://github.com/lumapictures/luma-ui",
-        "branch": "master",
-        "commit": "cc78e1efb31eff06a28a877950dccbc7057921fe"
+        "git": "https://github.com/lumapictures/luma-ui.git",
+        "tag": "v0.1.3",
+        "commit": "df9624853a3497e5daf558758195e668bcca6082"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",
-        "tag": "v0.2.4",
-        "commit": "b40e9b0612329288d75cf52ad14a7da64bb8618f"
+        "tag": "v0.2.5",
+        "commit": "273e3ab7d005d91a1a59c71bd224533b4dae2fbd"
       },
       "iron-router": {
         "git": "https://github.com/EventedMind/iron-router.git",

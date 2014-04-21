@@ -12,3 +12,4 @@ spacebars
 coffeescript
 luma-datatables
 luma-ui
+iron-router

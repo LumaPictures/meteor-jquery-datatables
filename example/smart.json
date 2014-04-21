@@ -3,8 +3,6 @@
     "luma-datatables": {
       "path": ".."
     },
-    "luma-ui": {
-      "git": "https://github.com/lumapictures/luma-ui"
-    }
+    "luma-ui": {}
   }
 }

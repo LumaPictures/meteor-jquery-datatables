@@ -30,6 +30,8 @@ if Meteor.isClient
         {
           sTitle: "Controller"
           mData: "controller"
+          mRender:  ( dataSource, call, rawData ) ->
+            rawData.controller ?= "null"
         }
         {
           sTitle: "Title"
@@ -43,13 +45,19 @@ if Meteor.isClient
           mRender:  ( dataSource, call, rawData ) ->
             rawData.page.subtitle ?= ""
         }
+        {
+          sTitle: "External Route"
+          mData: "external"
+          mRender: ( dataSource, call, rawData ) ->
+            rawData.external ?= "false"
+        }
       ]
       # ## Selector
       #   * must be unique in page scope
       selector: "dataTable-pages"
       # ## Rows
       #   * Array data source for this table
-      rows: Pages.find().fetch()
+      rows: Router.collection.find().fetch()
     return pages
 
 # Reactive Data Source
