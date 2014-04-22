@@ -20,3 +20,4 @@ If you would like some help styling datatables you can check out my `luma-ui` pa
 ## [Annotated Source](http://lumapictures.github.io/luma-datatables)
 ## [DataTables Docs](https://datatables.net/usage/)
 ## [TableTools Docs](https://datatables.net/extras/tabletools/)
+## [License](https://github.com/lumapictures/luma-datatables/LICENSE.md)
