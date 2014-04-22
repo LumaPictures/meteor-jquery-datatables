@@ -90,7 +90,7 @@ if (Meteor.isClient)
     subscription: "all_browsers",
     options: {
       oLanguage: {
-        sProcessing: "You must build construct additional pylons!"
+        sProcessing: "You must construct additional pylons!"
       }  
     },    
     query: {
