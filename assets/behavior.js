@@ -13,7 +13,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "commentsOnly": true,
           "name": "Markdown"
         },
-        "sourcePath": "/Users/Linz/Desktop/austins_shit/luma-datatables/README.md",
+        "sourcePath": "/home/austin/Workspace/packages/meteor-jquery-datatables/README.md",
         "projectPath": "README.md",
         "targetPath": "index",
         "pageTitle": "index",
@@ -40,8 +40,56 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "depth": 4
             }
           ]
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 2,
+            "title": "DataTables.net features",
+            "slug": "datatablesnet-features"
+          },
+          "depth": 2
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 2,
+            "title": "Usage",
+            "slug": "usage"
+          },
+          "depth": 2
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 2,
+            "title": "Styling",
+            "slug": "styling"
+          },
+          "depth": 2
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 2,
+            "title": "Contributing",
+            "slug": "contributing"
+          },
+          "depth": 2
         }
       ]
+    }, {
+      "type": "file",
+      "data": {
+        "language": {
+          "nameMatchers": [".md", ".markdown", ".mkd", ".mkdn", ".mdown"],
+          "commentsOnly": true,
+          "name": "Markdown"
+        },
+        "sourcePath": "/home/austin/Workspace/packages/meteor-jquery-datatables/LICENSE.md",
+        "projectPath": "LICENSE.md",
+        "targetPath": "LICENSE",
+        "pageTitle": "LICENSE",
+        "title": "LICENSE"
+      },
+      "depth": 1,
+      "outline": []
     }, {
       "type": "file",
       "data": {
@@ -55,7 +103,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "foldPrefix": "^",
           "name": "CoffeeScript"
         },
-        "sourcePath": "/Users/Linz/Desktop/austins_shit/luma-datatables/lib/datatables.client.coffee",
+        "sourcePath": "/home/austin/Workspace/packages/meteor-jquery-datatables/lib/datatables.client.coffee",
         "projectPath": "lib/datatables.client.coffee",
         "targetPath": "datatables.client",
         "pageTitle": "datatables.client",
@@ -1323,7 +1371,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "foldPrefix": "^",
           "name": "CoffeeScript"
         },
-        "sourcePath": "/Users/Linz/Desktop/austins_shit/luma-datatables/lib/datatables.server.coffee",
+        "sourcePath": "/home/austin/Workspace/packages/meteor-jquery-datatables/lib/datatables.server.coffee",
         "projectPath": "lib/datatables.server.coffee",
         "targetPath": "datatables.server",
         "pageTitle": "datatables.server",
@@ -1603,7 +1651,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "CoffeeScript"
             },
-            "sourcePath": "/Users/Linz/Desktop/austins_shit/luma-datatables/example/example.coffee",
+            "sourcePath": "/home/austin/Workspace/packages/meteor-jquery-datatables/example/example.coffee",
             "projectPath": "example/example.coffee",
             "targetPath": "example/example",
             "pageTitle": "example/example",
@@ -1704,7 +1752,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "foldPrefix": "^",
                   "name": "CoffeeScript"
                 },
-                "sourcePath": "/Users/Linz/Desktop/austins_shit/luma-datatables/example/lib/browsers.coffee",
+                "sourcePath": "/home/austin/Workspace/packages/meteor-jquery-datatables/example/lib/browsers.coffee",
                 "projectPath": "example/lib/browsers.coffee",
                 "targetPath": "example/lib/browsers",
                 "pageTitle": "example/lib/browsers",
@@ -1712,29 +1760,29 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               },
               "depth": 3,
               "outline": []
-            }, {
-              "type": "file",
-              "data": {
-                "language": {
-                  "nameMatchers": [".coffee", "Cakefile"],
-                  "pygmentsLexer": "coffee-script",
-                  "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-                  "strictMultiLineEnd": false,
-                  "singleLineComment": ["#"],
-                  "ignorePrefix": "}",
-                  "foldPrefix": "^",
-                  "name": "CoffeeScript"
-                },
-                "sourcePath": "/Users/Linz/Desktop/austins_shit/luma-datatables/example/lib/pages.coffee",
-                "projectPath": "example/lib/pages.coffee",
-                "targetPath": "example/lib/pages",
-                "pageTitle": "example/lib/pages",
-                "title": "pages"
-              },
-              "depth": 3,
-              "outline": []
             }
           ]
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".coffee", "Cakefile"],
+              "pygmentsLexer": "coffee-script",
+              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+              "strictMultiLineEnd": false,
+              "singleLineComment": ["#"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "CoffeeScript"
+            },
+            "sourcePath": "/home/austin/Workspace/packages/meteor-jquery-datatables/example/routes.coffee",
+            "projectPath": "example/routes.coffee",
+            "targetPath": "example/routes",
+            "pageTitle": "example/routes",
+            "title": "routes"
+          },
+          "depth": 2,
+          "outline": []
         }
       ]
     }, {
@@ -1749,7 +1797,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "foldPrefix": "^",
           "name": "JavaScript"
         },
-        "sourcePath": "/Users/Linz/Desktop/austins_shit/luma-datatables/package.js",
+        "sourcePath": "/home/austin/Workspace/packages/meteor-jquery-datatables/package.js",
         "projectPath": "package.js",
         "targetPath": "package",
         "pageTitle": "package",
@@ -1766,7 +1814,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "codeOnly": true,
           "name": "JSON"
         },
-        "sourcePath": "/Users/Linz/Desktop/austins_shit/luma-datatables/smart.json",
+        "sourcePath": "/home/austin/Workspace/packages/meteor-jquery-datatables/smart.json",
         "projectPath": "smart.json",
         "targetPath": "smart",
         "pageTitle": "smart",
@@ -1795,7 +1843,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "CoffeeScript"
             },
-            "sourcePath": "/Users/Linz/Desktop/austins_shit/luma-datatables/tests/datatables.test.coffee",
+            "sourcePath": "/home/austin/Workspace/packages/meteor-jquery-datatables/tests/datatables.test.coffee",
             "projectPath": "tests/datatables.test.coffee",
             "targetPath": "tests/datatables.test",
             "pageTitle": "tests/datatables.test",
