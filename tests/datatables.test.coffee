@@ -122,14 +122,14 @@ if Meteor.isClient
     UI.insert instantiatedComponent, fakeDOM
     return instantiatedComponent
 
-  Tinytest.add "dataTable Component - defined on client", ( test ) ->
+  Tinytest.add "jQuery DataTables - defined on client", ( test ) ->
     test.notEqual $().dataTable, undefined, "Expected DataTable jQuery plugin to be defined on the client."
     test.notEqual Template.dataTable, undefined, "Expected Template.dataTable to be defined on the client."
 
-  Tinytest.add "dataTable Component - default options", ( test ) ->
+  Tinytest.add "jQuery DataTables - default options", ( test ) ->
     test.notEqual Template.dataTable.defaultOptions, undefined, "Expected defaultOptions to be defined on the client."
 
-  Tinytest.add "dataTable Component - chooseTemplate()", ( test ) ->
+  Tinytest.add "jQuery DataTables - chooseTemplate()", ( test ) ->
     test.notEqual Template[ Template.dataTable.defaultTemplate ], undefined, "Expected the default dataTable template to be defined."
     test.equal Template.dataTable.chooseTemplate(), Template[ Template.dataTable.defaultTemplate ], "Calling chooseTemplate without a param returns the default_table_template."
     test.notEqual Template.dataTable.chooseTemplate('undefined_template'), undefined, "chooseTemplate() should never return undefined."

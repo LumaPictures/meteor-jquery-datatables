@@ -38,7 +38,7 @@ Package.on_use(function (api, where) {
 Package.on_test(function (api) {
   api.use([
     'coffeescript',
-    'luma-datatables',
+    'jquery-datatables',
     'tinytest',
     'test-helpers'
   ], ['client', 'server']);

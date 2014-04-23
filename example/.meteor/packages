@@ -10,6 +10,6 @@ ui
 less
 spacebars
 coffeescript
-luma-datatables
+jquery-datatables
 luma-ui
 iron-router

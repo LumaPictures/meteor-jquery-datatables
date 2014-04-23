@@ -1,4 +1,4 @@
-# Luma DataTables [![Build Status](https://travis-ci.org/LumaPictures/luma-datatables.svg?branch=dev)](https://travis-ci.org/LumaPictures/luma-datatables)
+# jQuery DataTables [![Build Status](https://travis-ci.org/LumaPictures/meteor-jquery-datatables.svg?branch=dev)](https://travis-ci.org/LumaPictures/meteor-jquery-datatables)
 ### Sort, page, and filter millions of records.
 #### Reactively.
 
@@ -17,7 +17,7 @@ This package wraps the powerful and mature DataTables.net jQuery plugin for enha
 * Rock solid - backed by a suite of 2900 [unit tests](http://datatables.net/development/testing)
 * Wide variety of plug-ins inc. Editor, TableTools, FixedColumns and more
 
-## [Live Example](http://luma-datatables.meteor.com)
+## [Live Example](http://jquery-datatables.meteor.com)
 
 ## Usage
 

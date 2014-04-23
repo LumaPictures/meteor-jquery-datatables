@@ -3,11 +3,11 @@ Router.addRoutes [{
   path: '/'
   controller: 'PackageLayoutController'
   page:
-    title: "Luma DataTables"
+    title: "jQuery DataTables"
     subtitle: "Sort, page, and filter millions of records reactively."
 },{
   route: 'gitHub'
-  path: "https://github.com/lumapictures/luma-datatables"
+  path: "https://github.com/lumapictures/meteor-jquery-datatables"
   external: true
   page:
     title: "GitHub"
@@ -17,14 +17,14 @@ Router.addRoutes [{
     icon: 'icon-github'
 },{
   route: 'reportBugs'
-  path: "https://github.com/lumapictures/luma-datatables/issues/new"
+  path: "https://github.com/lumapictures/meteor-jquery-datatables/issues/new"
   external: true
   page:
     title: "Report Bugs"
     subtitle: "GitHub Issues"
 },{
   route: 'source'
-  path: "http://lumapictures.github.io/luma-datatables/"
+  path: "http://lumapictures.github.io/meteor-jquery-datatables/"
   external: true
   page:
     title: "Annotated Source"
@@ -34,7 +34,7 @@ Router.addRoutes [{
     icon: 'icon-code'
 },{
   route: 'build'
-  path: "https://travis-ci.org/LumaPictures/luma-datatables"
+  path: "https://travis-ci.org/LumaPictures/meteor-jquery-datatables"
   external: true
   page:
     title: "Build Status"
