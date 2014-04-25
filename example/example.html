@@ -4,6 +4,15 @@
 
 <template name="home">
     <div class="panel panel-default">
+        <div class="panel-heading"><h6 class="panel-title"><i class="icon-table"></i> Column Filtering</h6></div>
+        {{> dataTable
+            selector=columnFilters.selector
+            columns=columnFilters.columns
+            rows=columnFilters.rows
+            options=columnFilters.options
+        }}
+    </div>
+    <div class="panel panel-default">
         <div class="panel-heading"><h6 class="panel-title"><i class="icon-table"></i> Reactive Cursor Data Source</h6></div>
         {{> dataTable
             selector=browsers.selector
