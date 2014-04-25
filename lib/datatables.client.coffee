@@ -256,10 +256,10 @@ Template.dataTable.setSubscriptionAutorun = ( fnCallback ) ->
   autorun = Deps.autorun =>
     if @getSubscriptionHandle() and @getSubscriptionHandle().ready()
       @log 'fnServerdData:handle:ready', @getSubscriptionHandle().ready()
-      cursorOptions =
-        skip: 0
-        limit: @getTableState().iDisplayLength
-        sort: @getTableState().sort
+      cursorOptions = skip: 0
+      cursorOptions.limit = @getTableState().iDisplayLength or 10
+      if @getTableState().sort
+        cursorOptions.sort = @getTableState().sort
       @setCursor @getCollection().find @getTableState().query, cursorOptions
       # Here data is fetched from the collection and passed dataTables by calling the `fnCallback()`
       # passed to `fnServerData()`.
