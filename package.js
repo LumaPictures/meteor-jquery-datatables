@@ -18,7 +18,7 @@ Package.on_use(function (api, where) {
   api.add_files([
     'vendor/datatables.min.js',
     'vendor/tabletools.min.js',
-    'vendor/columnFilterWidgets.js',
+    'plugins/column-filter.plugin.coffee',
     'lib/datatables.html',
     'lib/datatables.client.coffee'
   ], ['client']);
