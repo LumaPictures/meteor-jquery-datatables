@@ -83,7 +83,7 @@ class ColumnFilterWidget
             $.each oColumnDef, ( sDef, oDef ) ->
               widget[ sDef ] = oDef
 
-    widget.$Select = $( "<select></select>" ).addClass( "widget-" + widget.iColumn ).change ->
+    widget.$Select = $( """<select multiple="multiple" tabindex="2"></select>""" ).addClass( "widget-" + widget.iColumn ).change ->
       sSelected = widget.$Select.val()
       sText = undefined
       $TermLink = undefined
@@ -223,7 +223,7 @@ $.fn.dataTableExt.oApi.fnGetColumnData = (
   else aiRows = oSettings.aiDisplayMaster
   # set up data array
   asResultData = new Array()
-  setResultData = ( i ) ->
+  setResultData = ( i ) =>
     iRow = aiRows[ i ]
     sValue = @fnGetData iRow, iColumn
     # ignore empty values?

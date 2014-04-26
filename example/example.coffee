@@ -1,4 +1,12 @@
 if Meteor.isClient
+  Template.shittyTable.rendered = ->
+    $('#example').dataTable( {
+      "sDom": "<\"datatable-header\"fl><\"datatable-scroll\"rt><\"datatable-footer\"Wip>"
+    } )
+
+    $("select").select2
+      width: "100%"
+
   # Array Data Source
   # =================
   # * You can render static ( or client only ) data easily by setting the `rows` property to an array of objects
