@@ -470,11 +470,11 @@ Template.dataTable.getCountCollection = ->
 
 # ##### getTotalCount()
 Template.dataTable.getTotalCount = ->
-  return @getCountCollection().findOne( "#{ @getSubscription() }" ).count or false
+  return @getCountCollection().findOne( "#{ @getSubscription() }" ).count or 0
 
 # ##### getFilteredCount()
 Template.dataTable.getFilteredCount = ->
-  return @getCountCollection().findOne( "#{ @getSubscription() }_filtered" ).count or false
+  return @getCountCollection().findOne( "#{ @getSubscription() }_filtered" ).count or 0
 
 # ### Cursor
 #   The reactive cursor responsible for keeping the client in sync
