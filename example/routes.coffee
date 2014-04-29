@@ -1,10 +1,20 @@
 Router.addRoutes [{
   route: 'home'
   path: '/'
-  controller: 'ExampleController'
+  controller: "ExampleController"
   page:
     title: "jQuery DataTables"
     subtitle: "Sort, page, and filter millions of records reactively."
+},{
+  route: 'datasources'
+  path: 'datasources'
+  controller: "ExampleController"
+  page:
+    title: "Data Sources"
+    subtitle: "DOM, Array, or Live Cursor."
+  nav:
+    priority: 1
+    icon: 'icon-stack'
 },{
   route: 'gitHub'
   path: "https://github.com/lumapictures/meteor-jquery-datatables"

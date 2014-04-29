@@ -427,37 +427,18 @@
 </template>
 
 <template name="home">
-    <div class="panel panel-default">
-        <div class="panel-heading"><h6 class="panel-title"><i class="icon-table"></i> Shitty Fucking Table</h6></div>
+    {{#panel}}
+        {{> panelHeading icon="icon-table" title="Shitty Fucking Table" }}
         {{> shittyTable }}
-    </div>
+    {{/panel}}
 
-    <div class="panel panel-default">
-        <div class="panel-heading"><h6 class="panel-title"><i class="icon-table"></i> Column Filtering</h6></div>
+    {{#panel}}
+        {{> panelHeading icon="icon-table" title="Column Filtering" }}
         {{> dataTable
             selector=columnFilters.selector
             columns=columnFilters.columns
             rows=columnFilters.rows
             options=columnFilters.options
         }}
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-heading"><h6 class="panel-title"><i class="icon-table"></i> Reactive Cursor Data Source</h6></div>
-        {{> dataTable
-            selector=browsers.selector
-            columns=browsers.columns
-            collection=browsers.collection
-            subscription=browsers.subscription
-            query=browsers.query
-            debug="debug"
-        }}
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-heading"><h6 class="panel-title"><i class="icon-table"></i> Static Array Data Source</h6></div>
-        {{> dataTable
-            selector=pages.selector
-            columns=pages.columns
-            rows=pages.rows
-        }}
-    </div>
+    {{/panel}}
 </template>

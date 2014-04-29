@@ -14,7 +14,9 @@ Template.dataTable.rendered = ->
 # ##### destroyed()
 # Currently nothing is done when the component is destroyed.
 Template.dataTable.destroyed = ->
-  @log "destroyed"
+  templateInstance = @
+  instantiatedComponent = templateInstance.__component__
+  instantiatedComponent.log "destroyed", @
 
 # ##### initialize()
 # Set the initial table properties from the component declaration, initialize the jQuery DataTables object, and initialize

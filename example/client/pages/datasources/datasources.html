@@ -1,0 +1,21 @@
+<template name="datasources">
+    {{#panel}}
+        {{> panelHeading icon="icon-table" title="Reactive Cursor Data Source" }}
+        {{> dataTable
+            selector=browsers.selector
+            columns=browsers.columns
+            collection=browsers.collection
+            subscription=browsers.subscription
+            query=browsers.query
+            debug="debug"
+        }}
+    {{/panel}}
+    {{#panel}}
+        {{> panelHeading icon="icon-table" title="Static Array Data Source" }}
+        {{> dataTable
+            selector=pages.selector
+            columns=pages.columns
+            rows=pages.rows
+        }}
+    {{/panel}}
+</template>
