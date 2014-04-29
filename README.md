@@ -116,8 +116,8 @@ If you would like some help styling datatables you can check out my `luma-ui` pa
 
 ## [DataTables Docs](https://datatables.net/usage/)
 ## [TableTools Docs](https://datatables.net/extras/tabletools/)
-## [License](https://github.com/lumapictures/luma-datatables/LICENSE.md)
-## [Annotated Source](http://lumapictures.github.io/luma-datatables)
+## [License](https://github.com/lumapictures/meteor-jquery-datatables/LICENSE.md)
+## [Annotated Source](http://lumapictures.github.io/meteor-jquery-datatables)
 
 ## Contributing
 * [meteor-talk announcement discussion](https://groups.google.com/d/msg/meteor-talk/nhulj4Zh1fU/ju1J1Nq6_eQJ)
