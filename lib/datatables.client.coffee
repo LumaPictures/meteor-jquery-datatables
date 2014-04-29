@@ -11,6 +11,17 @@ Template.dataTable.rendered = ->
   instantiatedComponent.log "rendered", @
   instantiatedComponent.initialize()
 
+# ##### created()
+Template.dataTable.created = ->
+  templateInstance = @
+  instantiatedComponent = templateInstance.__component__
+  instantiatedComponent.log "created", @
+  instantiatedComponent.prepareQuery()
+  instantiatedComponent.prepareCollection()
+  instantiatedComponent.prepareColumns()
+  instantiatedComponent.prepareRows()
+  instantiatedComponent.prepareOptions()
+
 # ##### destroyed()
 # Currently nothing is done when the component is destroyed.
 Template.dataTable.destroyed = ->
@@ -22,14 +33,9 @@ Template.dataTable.destroyed = ->
 # Set the initial table properties from the component declaration, initialize the jQuery DataTables object, and initialize
 # other third parties if they exist ( plugins, select2, etc. )
 Template.dataTable.initialize = ->
-  @prepareQuery()
-  @prepareCollection()
-  @prepareColumns()
-  @prepareRows()
-  @prepareOptions()
-  @prepareDataTable()
-  @prepareFilters()
-  @preparePagination()
+  @initializeDataTable()
+  @initializeFilters()
+  @initializeDisplayLength()
   @log "initialized", @
 
 # ### Collection Counts
@@ -509,20 +515,20 @@ Template.dataTable.setDataTable = ( dataTable ) ->
   @log "dataTable:set", dataTable.fnSettings()
 
 # ##### prepareDataTable()
-Template.dataTable.prepareDataTable = ->
+Template.dataTable.initializeDataTable = ->
   @setDataTable $(".#{ @getSelector() } table").dataTable( @getOptions() )
 
-# ##### prepareFilters()
-Template.dataTable.prepareFilters = ->
-  @prepareFilterPlaceholder()
-  @prepareFooterFilter()
+# ##### initializeFilters()
+Template.dataTable.initializeFilters = ->
+  @initializeFilterPlaceholder()
+  @initializeFooterFilter()
 
-# ##### prepareFilterPlaceholder()
-Template.dataTable.prepareFilterPlaceholder = ->
+# ##### initializeFilterPlaceholder()
+Template.dataTable.initializeFilterPlaceholder = ->
   $(".#{ @getSelector() } .dataTables_filter input[type=text]").attr "placeholder", "Type to filter..."
 
 # ##### prepareFooterFilter()
-Template.dataTable.prepareFooterFilter = ->
+Template.dataTable.initializeFooterFilter = ->
   selector = @getSelector()
   if selector is 'datatable-add-row' and $.keyup
     self = @
@@ -530,8 +536,8 @@ Template.dataTable.prepareFooterFilter = ->
       target = @
       self.getDataTable().fnFilter target.value, $(".#{ self.getSelector() } .dataTables_wrapper tfoot input").index( target )
 
-# ##### preparePagination()
-Template.dataTable.preparePagination = ->
+# ##### initializeDisplayLength()
+Template.dataTable.initializeDisplayLength = ->
   unless $.select2
     $(".#{ @getSelector() } .dataTables_length select").select2 minimumResultsForSearch: "-1"
 
