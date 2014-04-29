@@ -13,8 +13,8 @@
       },
       "luma-ui": {
         "git": "https://github.com/lumapictures/meteor-luma-ui.git",
-        "tag": "v0.1.4",
-        "commit": "3f78100fad75f8db8de7a0bc98f32388b202616e"
+        "tag": "v0.1.9",
+        "commit": "27ce640dd9390946e5f1a520c8f61a6ca2352850"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",
@@ -25,11 +25,6 @@
         "git": "https://github.com/EventedMind/iron-router.git",
         "tag": "v0.7.1",
         "commit": "d1ffb3f06ea4c112132b030f2eb1a70b81675ecb"
-      },
-      "iron-router-active": {
-        "git": "https://github.com/XpressiveCode/iron-router-active.git",
-        "tag": "v0.2.0",
-        "commit": "1b05aad5325c3dfdb5186b9c288aa53013d767b8"
       },
       "jquery-ui": {
         "git": "https://github.com/TimHeckel/meteor-jquery-ui.git",
