@@ -1,7 +1,7 @@
 Router.addRoutes [{
   route: 'home'
   path: '/'
-  controller: 'PackageLayoutController'
+  controller: 'ExampleController'
   page:
     title: "jQuery DataTables"
     subtitle: "Sort, page, and filter millions of records reactively."
