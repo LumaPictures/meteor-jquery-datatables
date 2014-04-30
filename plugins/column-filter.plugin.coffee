@@ -238,7 +238,9 @@ $.fn.dataTableExt.oApi.fnGetColumnData = (
 # * Register the Columng Filter Widget feature with DataTables
 if typeof $.fn.dataTable is "function" and typeof $.fn.dataTableExt.fnVersionCheck is "function" and $.fn.dataTableExt.fnVersionCheck("1.7.0")
   $.fn.dataTableExt.aoFeatures.push
-    fnInit: ( oDTSettings ) -> return new ColumnFilterWidgets( oDTSettings ).getContainer()
+    fnInit: ( oDTSettings ) ->
+      console.log oDTSettings.oInit.instantiatedComponent.getGuid()
+      #return new ColumnFilterWidgets( oDTSettings ).getContainer()
     cFeature: "W"
     sFeature: "ColumnFilterWidgets"
 else throw "Warning: ColumnFilterWidgets requires DataTables 1.7 or greater - www.datatables.net/download"

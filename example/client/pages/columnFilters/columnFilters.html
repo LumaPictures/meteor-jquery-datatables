@@ -1,0 +1,8 @@
+<template name="columnFilters">
+    {{#panel}}
+        {{> panelHeading title="Drill Down" }}
+        {{#dataTable selector="drill-down" dom=true options=options }}
+            {{> domSource }}
+        {{/dataTable}}
+    {{/panel}}
+</template>

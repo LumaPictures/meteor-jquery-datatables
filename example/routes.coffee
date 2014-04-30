@@ -16,6 +16,16 @@ Router.addRoutes [{
     priority: 1
     icon: 'icon-stack'
 },{
+  route: 'columnFilters'
+  path: 'column-filters'
+  controller: "ExampleController"
+  page:
+    title: "Column Filters"
+    subtitle: "Drill Down and text search."
+  nav:
+    priority: 2
+    icon: 'icon-search'
+},{
   route: 'gitHub'
   path: "https://github.com/lumapictures/meteor-jquery-datatables"
   external: true

@@ -86,6 +86,7 @@ Template.dataTable.getOptions = ->
 # Prepares the datatable options object by merging the options passed in with the defaults.
 Template.dataTable.prepareOptions = ->
   options = @getOptions() or {}
+  options.instantiatedComponent = @
   unless @isDomSource()
     options.aaData = @getRows() or []
     options.aoColumns = @getColumns() or []
