@@ -1,3 +1,11 @@
-<template name="columnFilterContainer">
-    <div class="column-filter-container"><h1>title</h1></div>
+<template name="dataTableColumnDrilldownFilterContainer">
+    <div class="drilldown column-filter-container">
+        {{#each filterableColumns }}
+            {{> columnDrilldownFilterWidget }}
+        {{/each}}
+    </div>
+</template>
+
+<template name="columnDrilldownFilterWidget">
+    <h1 class="drilldown column-filter-widget">{{name}}</h1>
 </template>

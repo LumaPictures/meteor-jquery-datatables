@@ -1,5 +1,5 @@
 ###
-  Column Filter Widget
+  Drill Down Filter Widget
   ====================
   This column filter plugin is heavily inspired ( aka I copied his source and butchered it ) from
   the [ dataTables column filter plugin ](http://www.datatables.net/extras/thirdparty/ColumnFilterWidgets/DataTables/extras/ColumnFilterWidgets/)
@@ -242,18 +242,43 @@ $.fn.dataTableExt.oApi.fnGetComponent = ->
       return oSettings.oInit.component or false
   throw new Error "DataTable Blaze component not instantiated"
 
+# ##### Column Filters
+Template.dataTable.initializeColumnDrilldownFilters = ->
+  @prepareColumnDrilldownFilterContainer()
+  return @getColumnDrilldownFilterContainer()
+
+Template.dataTable.prepareColumnDrilldownFilterContainer = ->
+  @setColumnDrilldownFilterContainer UI.renderWithData Template.dataTableColumnDrilldownFilterContainer, @getData()
+
+Template.dataTable.setColumnDrilldownFilterContainer = ( markup ) ->
+  Match.test markup, String
+  @getTemplateInstance().$ColumnDrilldownFilterContainer = $( markup )
+
+Template.dataTable.getColumnDrilldownFilterContainer = ->
+  if @getTemplateInstance().$ColumnDrilldownFilterContainer
+    return @getTemplateInstance().$ColumnDrilldownFilterContainer[ 0 ].dom.members[ 1 ] or false
+
+Template.dataTableColumnDrilldownFilterContainer.created = ->
+  console.log @
+
+Template.dataTableColumnDrilldownFilterContainer.filterableColumns = ->
+  return [
+    {
+      name: 'test'
+    },{
+      name: 'test2'
+    }
+  ]
+
 Template.dataTable.events
-  'click div.column-filter-container': ( event, template ) ->
-    component = template.__component__
-    unless component.getColumnFilterContainer()
-      return event.preventDefault()
+  'click .drilldown.column-filter-widget': ( event, template ) ->
     console.log template
     console.log event
 
 # * Register the Columng Filter Widget feature with DataTables
 $.fn.dataTableExt.aoFeatures.push
   fnInit: ( oSettings ) ->
-    console.log oSettings.oInstance.fnGetComponent().initializeColumnFilters()
-    oSettings.oInstance.fnGetComponent().initializeColumnFilters()
+    component = oSettings.oInstance.fnGetComponent()
+    return component.initializeColumnDrilldownFilters()
   cFeature: "W"
-  sFeature: "ColumnFilterWidgets"
+  sFeature: "ColumnDrilldownFilters"

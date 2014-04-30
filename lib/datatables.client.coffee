@@ -504,12 +504,12 @@ Template.dataTable.getCursor = ->
 
 # ##### getDataTable()
 Template.dataTable.getDataTable = ->
-  return @getTemplateInstance().dataTable or false
+  return @getData().dataTable or false
 
 # ##### setDataTable()
 Template.dataTable.setDataTable = ( dataTable ) ->
   Match.test dataTable, Object
-  @getTemplateInstance().dataTable = dataTable
+  @setData 'dataTable', dataTable
   @log "dataTable:set", dataTable.fnSettings()
 
 # ##### prepareDataTable()
@@ -533,23 +533,6 @@ Template.dataTable.initializeFooterFilter = ->
     $(".#{ selector } .dataTables_wrapper tfoot input").keyup ->
       target = @
       self.getDataTable().fnFilter target.value, $(".#{ self.getSelector() } .dataTables_wrapper tfoot input").index( target )
-
-# ##### Column Filters
-Template.dataTable.initializeColumnFilters = ->
-  @prepareColumnFilterContainer()
-  return @getColumnFilterContainer()
-
-Template.dataTable.prepareColumnFilterContainer = ->
-  @setColumnFilterContainer UI.render Template[ 'columnFilterContainer' ]
-
-Template.dataTable.setColumnFilterContainer = ( markup ) ->
-  Match.test markup, String
-  @getTemplateInstance().$ColumnFilterContainer = $( markup )
-
-Template.dataTable.getColumnFilterContainer = ->
-  if @getTemplateInstance().$ColumnFilterContainer
-    return @getTemplateInstance().$ColumnFilterContainer[ 0 ].dom.members[ 1 ] or false
-  return false
 
 # ##### initializeDisplayLength()
 Template.dataTable.initializeDisplayLength = ->
