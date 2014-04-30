@@ -18,4 +18,35 @@
             rows=pages.rows
         }}
     {{/panel}}
+    {{#panel}}
+        {{> panelHeading icon="icon-table" title="DOM Source" }}
+        {{#dataTable selector="dom-source-datatable" dom=true }}
+            {{> domSource }}
+        {{/dataTable}}
+    {{/panel}}
+</template>
+
+<template name="domSource">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Route</th>
+            <th>Path</th>
+            <th>Controller</th>
+            <th>Title</th>
+            <th>Subtitle</th>
+        </tr>
+        </thead>
+        <tbody>
+            {{#each routes }}
+                <tr>
+                    <td>{{route}}</td>
+                    <td>{{path}}</td>
+                    <td>{{controller}}</td>
+                    <td>{{title}}</td>
+                    <td>{{subtitle}}</td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
 </template>

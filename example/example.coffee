@@ -1,13 +1,5 @@
 if Meteor.isClient
-  Template.shittyTable.rendered = ->
-    $('#example').dataTable( {
-      "sDom": "<\"datatable-header\"fl><\"datatable-scroll\"rt><\"datatable-footer\"Wip>"
-    } )
-
-    $("select").select2
-      width: "100%"
-
-  Template.datasources.columnFilters = ->
+  Template.home.columnFilters = ->
     columnFilters =
       # ## Columns
       #   * `mData` maps the object properties to column headings
@@ -47,15 +39,13 @@ if Meteor.isClient
             rawData.external ?= "false"
         }
       ]
-    # ## Selector
-    #   * must be unique in page scope
+      # ## Selector
+      #   * must be unique in page scope
       selector: "dataTable-columnFilters"
-    # ## Rows
-    #   * Array data source for this table
+      # ## Rows
+      #   * Array data source for this table
       rows: Router.collection.find().fetch()
       options:
         sDom: "<\"datatable-header\"Wfl><\"datatable-scroll\"rt><\"datatable-footer\"ip>"
-        oColumnFilterWidgets:
-          sSeparator: ',  '
 
     return columnFilters

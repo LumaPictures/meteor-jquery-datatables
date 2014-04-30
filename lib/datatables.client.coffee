@@ -54,7 +54,7 @@ DataTableSubscriptionCount = new Meteor.Collection "datatable_subscription_count
 Template.dataTable.defaultOptions =
   bJQueryUI: false
   bAutoWidth: true
-  bDeferRender: true
+  bDeferRender: false
   sPaginationType: "full_numbers"
   # ##### Bootstrap 3 Markup
   # You can change this by setting `Template.dataTable.defaultOptions.sDom` property.
@@ -71,10 +71,6 @@ Template.dataTable.defaultOptions =
       sLast: "Last"
       sNext: ">"
       sPrevious: "<"
-  aoColumnDefs: []
-  aaSorting: []
-  aaData: []
-  aoColumns: []
 
 # ##### setOptions()
 Template.dataTable.setOptions = ( options ) ->
@@ -90,17 +86,18 @@ Template.dataTable.getOptions = ->
 # Prepares the datatable options object by merging the options passed in with the defaults.
 Template.dataTable.prepareOptions = ->
   options = @getOptions() or {}
-  options.aaData = @getRows() or []
-  options.aoColumns = @getColumns() or []
-  # If the componet was declared with a collection and a query it is setup as a reactive datatable.
-  if @getCollection() and @getQuery()
-    options.bServerSide = true
-    options.bProcessing = true
-    # `options.sAjaxSource` is currently useless, but is passed into `fnServerData` by datatables.
-    options.sAjaxSource = "useful?"
-    # This binds the datatables `fnServerData` server callback to this component instance.
-    # `_.debounce` is used to prevent unneccesary subcription calls while typing a search
-    options.fnServerData = _.debounce( @fnServerData.bind( @ ), 300 )
+  unless @isDomSource()
+    options.aaData = @getRows() or []
+    options.aoColumns = @getColumns() or []
+    # If the componet was declared with a collection and a query it is setup as a reactive datatable.
+    if @getCollection() and @getQuery()
+      options.bServerSide = true
+      options.bProcessing = true
+      # `options.sAjaxSource` is currently useless, but is passed into `fnServerData` by datatables.
+      options.sAjaxSource = "useful?"
+      # This binds the datatables `fnServerData` server callback to this component instance.
+      # `_.debounce` is used to prevent unneccesary subcription calls while typing a search
+      options.fnServerData = _.debounce( @fnServerData.bind( @ ), 300 )
   @setOptions _.defaults( options, @defaultOptions )
 
 # #### `selector` String ( required )
@@ -130,8 +127,7 @@ Template.dataTable.setRows = ( rows ) ->
   @log 'rows:set', rows
 
 # ##### preprareRows()
-Template.dataTable.prepareRows = ->
-  return
+Template.dataTable.prepareRows = -> return
 
 # ##### getRows()
 Template.dataTable.getRows = ->
@@ -164,16 +160,17 @@ Template.dataTable.setColumns = ( columns ) ->
 
 # ##### prepareColumns()
 Template.dataTable.prepareColumns = ->
-  columns = @getColumns() or []
-  # Adds _id as a hidden column by default.
-  columns.push
-    sTitle: "id"
-    mData: "_id"
-    bVisible: false
-    bSearchable: false
-  # Sets a default cell render function for every column.
-  @setDefaultCellValue column for column in columns
-  @setColumns columns
+  unless @isDomSource()
+    columns = @getColumns() or []
+    # Adds _id as a hidden column by default.
+    columns.push
+      sTitle: "id"
+      mData: "_id"
+      bVisible: false
+      bSearchable: false
+    # Sets a default cell render function for every column.
+    @setDefaultCellValue column for column in columns
+    @setColumns columns
 
 # ##### setDefaultCellValue()
 # The default cell render function defaults all cells to "" if undefined.
@@ -225,8 +222,8 @@ Template.dataTable.setCountCollection = ( collection ) ->
 
 # ##### prepareCollection()
 Template.dataTable.prepareCollection = ->
-  @prepareCountCollection()
-  return
+  if @getCollection() and @getQuery()
+    @prepareCountCollection()
 
 # #### `subscription` String ( required )
 # The name of the subscription your datatable is paging, sorting, and filtering.
@@ -316,7 +313,7 @@ Template.dataTable.setQuery = ( query ) ->
 
 # ##### prepareQuery()
 Template.dataTable.prepareQuery = ->
-  unless @getQuery()
+  unless @getQuery() or @isDomSource()
     @setQuery {}
 
 # ##### getQuery()
@@ -341,7 +338,7 @@ Template.dataTable.isDebug = ->
 # ##### log()
 Template.dataTable.log = ( message, object ) ->
   if @isDebug()
-    if message.indexOf( @isDebug() ) isnt -1 or @isDebug() is "true"
+    if @isDebug() is "all" or message.indexOf( @isDebug() ) isnt -1
       console.log "dataTable:#{ @getSelector() }:#{ message } ->", object
 
 # ## Querying MongoDB
@@ -558,6 +555,11 @@ Template.dataTable.getData = ->
 # ##### setData()
 Template.dataTable.setData = ( key, data ) ->
   @templateInstance.data[ key ] = data
+
+# ##### isDomSource()
+# returns true if the dataTable is backed by a table in the dom
+Template.dataTable.isDomSource = ->
+  return @getData().dom is true or false
 
 # ##### arrayToDictionary()
 Template.dataTable.arrayToDictionary = ( array, key ) ->

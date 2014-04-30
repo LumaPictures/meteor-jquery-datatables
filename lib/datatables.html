@@ -1,10 +1,14 @@
 <template name="dataTable">
     <div class="{{selector}}">
-        {{#with chooseTemplate table_template }}
-            {{#with .. }}     {{! original arguments to dataTable}}
-                {{> .. }}     {{! return value from chooseTemplate(table_template) }}
+        {{#if UI.contentBlock }}
+            {{> UI.contentBlock }}
+        {{else}}
+            {{#with chooseTemplate table_template }}
+                {{#with .. }}     {{! original arguments to dataTable}}
+                    {{> .. }}     {{! return value from chooseTemplate(table_template) }}
+                {{/with}}
             {{/with}}
-        {{/with}}
+        {{/if}}
     </div>
 </template>
 

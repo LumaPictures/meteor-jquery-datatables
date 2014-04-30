@@ -1,3 +1,15 @@
+# DOM Sourced Table
+# =================
+# * You can create a datatable component from a table that already exists in the DOM
+###
+```html
+{{#dataTable selector="dom-source-datatable" domSource=true debug="all" }}
+    {{> domSource }}
+{{/dataTable}}
+```
+###
+Template.domSource.routes = -> Router.collection.find()
+
 # Array Data Source
 # =================
 # * You can render static ( or client only ) data easily by setting the `rows` property to an array of objects
