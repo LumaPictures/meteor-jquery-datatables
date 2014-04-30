@@ -235,12 +235,25 @@ $.fn.dataTableExt.oApi.fnGetColumnData = (
   setResultData i for i in [ 0..aiRows.length ]
   return asResultData
 
+$.fn.dataTableExt.oApi.fnGetComponent = ->
+  oSettings = @fnSettings()
+  if oSettings
+    if oSettings.oInit
+      return oSettings.oInit.component or false
+  throw new Error "DataTable Blaze component not instantiated"
+
+Template.dataTable.events
+  'click div.column-filter-container': ( event, template ) ->
+    component = template.__component__
+    unless component.getColumnFilterContainer()
+      return event.preventDefault()
+    console.log template
+    console.log event
+
 # * Register the Columng Filter Widget feature with DataTables
-if typeof $.fn.dataTable is "function" and typeof $.fn.dataTableExt.fnVersionCheck is "function" and $.fn.dataTableExt.fnVersionCheck("1.7.0")
-  $.fn.dataTableExt.aoFeatures.push
-    fnInit: ( oDTSettings ) ->
-      console.log oDTSettings.oInit.instantiatedComponent.getGuid()
-      #return new ColumnFilterWidgets( oDTSettings ).getContainer()
-    cFeature: "W"
-    sFeature: "ColumnFilterWidgets"
-else throw "Warning: ColumnFilterWidgets requires DataTables 1.7 or greater - www.datatables.net/download"
+$.fn.dataTableExt.aoFeatures.push
+  fnInit: ( oSettings ) ->
+    console.log oSettings.oInstance.fnGetComponent().initializeColumnFilters()
+    oSettings.oInstance.fnGetComponent().initializeColumnFilters()
+  cFeature: "W"
+  sFeature: "ColumnFilterWidgets"

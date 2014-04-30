@@ -86,7 +86,7 @@ Template.dataTable.getOptions = ->
 # Prepares the datatable options object by merging the options passed in with the defaults.
 Template.dataTable.prepareOptions = ->
   options = @getOptions() or {}
-  options.instantiatedComponent = @
+  options.component = @
   unless @isDomSource()
     options.aaData = @getRows() or []
     options.aoColumns = @getColumns() or []
@@ -534,10 +534,27 @@ Template.dataTable.initializeFooterFilter = ->
       target = @
       self.getDataTable().fnFilter target.value, $(".#{ self.getSelector() } .dataTables_wrapper tfoot input").index( target )
 
+# ##### Column Filters
+Template.dataTable.initializeColumnFilters = ->
+  @prepareColumnFilterContainer()
+  return @getColumnFilterContainer()
+
+Template.dataTable.prepareColumnFilterContainer = ->
+  @setColumnFilterContainer UI.render Template[ 'columnFilterContainer' ]
+
+Template.dataTable.setColumnFilterContainer = ( markup ) ->
+  Match.test markup, String
+  @getTemplateInstance().$ColumnFilterContainer = $( markup )
+
+Template.dataTable.getColumnFilterContainer = ->
+  if @getTemplateInstance().$ColumnFilterContainer
+    return @getTemplateInstance().$ColumnFilterContainer[ 0 ].dom.members[ 1 ] or false
+  return false
+
 # ##### initializeDisplayLength()
 Template.dataTable.initializeDisplayLength = ->
   unless $.select2
-    $(".#{ @getSelector() } .dataTables_length select").select2 minimumResultsForSearch: "-1"
+    $( ".#{ @getSelector() } .dataTables_length select" ).select2 minimumResultsForSearch: "-1"
 
 # ## Utility Methods
 
