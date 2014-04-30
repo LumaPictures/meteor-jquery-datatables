@@ -14,7 +14,7 @@ Template.dataTable.rendered = ->
 # ##### destroyed()
 # Currently nothing is done when the component is destroyed.
 Template.dataTable.destroyed = ->
-  if @
+  if @.log
     @log "destroyed"
 
 # ##### initialize()
