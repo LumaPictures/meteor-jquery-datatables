@@ -1,4 +1,4 @@
-Template.columnVis.browsers = ->
+Template.colVis.browsers = ->
   browsers =
     columns: [
       {
@@ -42,15 +42,13 @@ Template.columnVis.browsers = ->
         mData: "counter"
       }
     ]
-    selector: "dataTable-browsers"
-  # ## Collection
-  #   * the collection these documents come from, must be the same as the server collection
+    selector: "column-visibiltiy"
+    # ## Collection
+    #   * the collection these documents come from, must be the same as the server collection
     collection: Browsers
-  # ## Subscription
-  #   * the datatables publication providing the data on the server
+    # ## Subscription
+    #   * the datatables publication providing the data on the server
     subscription: "a_browsers"
-  # ## Query
-  #   * the initial filter on the dataset
-    query:
-      grade: "A"
+    options:
+      sDom:"<\"datatable-header\"flC><\"datatable-scroll\"rt><\"datatable-footer\"ip>"
   return browsers

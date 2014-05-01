@@ -16,7 +16,7 @@ Router.addRoutes [{
     priority: 1
     icon: 'icon-stack'
 },{
-  route: 'columnVis'
+  route: 'colVis'
   path: 'column-visibility'
   controller: "ExampleController"
   page:
