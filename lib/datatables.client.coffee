@@ -504,6 +504,7 @@ Template.dataTable.getDataTable = ->
 # ##### setDataTable()
 Template.dataTable.setDataTable = ( dataTable ) ->
   Match.test dataTable, Object
+  @setData 'dataTable', dataTable
   @getTemplateInstance().dataTable = dataTable
   @log "dataTable:set", dataTable.fnSettings()
 
