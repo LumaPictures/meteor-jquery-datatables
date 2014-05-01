@@ -4,27 +4,6 @@
 # The default options are listed below and can be changed by setting `Template.dataTable.defaultOptions.yourDumbProperty`
 # ##### [DataTables Options Full Reference](https://datatables.net/ref)
 DataTableMixins.Options =
-  defaultOptions:
-    bJQueryUI: false
-    bAutoWidth: true
-    bDeferRender: false
-    sPaginationType: "full_numbers"
-    # ##### Bootstrap 3 Markup
-    # You can change this by setting `Template.dataTable.defaultOptions.sDom` property.
-    # For some example Less / CSS styles check out [luma-ui's dataTable styles](https://github.com/LumaPictures/luma-ui/blob/master/components/dataTables/dataTables.import.less)
-    sDom: "<\"datatable-header\"fl><\"datatable-scroll\"rt><\"datatable-footer\"ip>"
-    oLanguage:
-      sSearch: "_INPUT_"
-      sLengthMenu: "<span>Show :</span> _MENU_"
-      # ##### Loading Message
-      # Set `oLanguage.sProcessing` to whatever you want, event html. I haven't tried a Meteor template yet, could be fun!
-      sProcessing: "Loading"
-      oPaginate:
-        sFirst: "First"
-        sLast: "Last"
-        sNext: ">"
-        sPrevious: "<"
-
   # ##### setOptions()
   setOptions: ( options ) ->
     Match.test options, Object

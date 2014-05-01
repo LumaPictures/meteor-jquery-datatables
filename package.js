@@ -38,7 +38,7 @@ Package.on_use(function (api, where) {
   ], [ 'server' ]);
 
   api.add_files([
-    'lib/mixins/init.coffee',
+    'lib/mixins/initialize.coffee',
     'lib/mixins/collection.coffee',
     'lib/mixins/columns.coffee',
     'lib/mixins/cursor.coffee',

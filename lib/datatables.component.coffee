@@ -1,5 +1,5 @@
 if Meteor.isClient
-  DataTable = _.extend DataTableMixins.Init,
+  DataTable = _.extend DataTableMixins.Initialize,
     DataTableMixins.Collection,
     DataTableMixins.Columns,
     DataTableMixins.Cursor,
