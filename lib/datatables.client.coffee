@@ -14,7 +14,8 @@ Template.dataTable.rendered = ->
 # ##### destroyed()
 # Currently nothing is done when the component is destroyed.
 Template.dataTable.destroyed = ->
-  @log "destroyed"
+  if @.log
+    @log "destroyed"
 
 # ##### initialize()
 # Set the initial table properties from the component declaration, initialize the jQuery DataTables object, and initialize
@@ -256,7 +257,7 @@ Template.dataTable.setSubscriptionAutorun = ( fnCallback ) ->
   autorun = Deps.autorun =>
     if @getSubscriptionHandle() and @getSubscriptionHandle().ready()
       @log 'fnServerdData:handle:ready', @getSubscriptionHandle().ready()
-      cursorOptions = skip: 0
+      cursorOptions = skip: @getTableState().iDisplayStart or 0
       cursorOptions.limit = @getTableState().iDisplayLength or 10
       if @getTableState().sort
         cursorOptions.sort = @getTableState().sort
@@ -333,7 +334,7 @@ Template.dataTable.isDebug = ->
 # ##### log()
 Template.dataTable.log = ( message, object ) ->
   if @isDebug()
-    if message.indexOf( @isDebug() ) isnt -1 or @isDebug() is "true"
+    if message.indexOf( @isDebug() ) isnt -1 or @isDebug() is "true" or @isDebug() is true
       console.log "dataTable:#{ @getSelector() }:#{ message } ->", object
 
 # ## Querying MongoDB
@@ -503,6 +504,7 @@ Template.dataTable.getDataTable = ->
 # ##### setDataTable()
 Template.dataTable.setDataTable = ( dataTable ) ->
   Match.test dataTable, Object
+  @setData 'dataTable', dataTable
   @getTemplateInstance().dataTable = dataTable
   @log "dataTable:set", dataTable.fnSettings()
 
