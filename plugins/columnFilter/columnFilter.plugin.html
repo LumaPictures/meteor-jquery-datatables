@@ -1,0 +1,42 @@
+<!DOCTYPE html><html lang="en"><head><title>plugins/columnFilter/columnFilter.plugin</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../"><meta name="groc-document-path" content="plugins/columnFilter/columnFilter.plugin"><meta name="groc-project-path" content="lib/plugins/columnFilter/columnFilter.plugin.coffee"><meta name="groc-github-url" content="https://github.com/lumapictures/jquery-datatables"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/lumapictures/jquery-datatables/blob/master/lib/plugins/columnFilter/columnFilter.plugin.coffee">lib/plugins/columnFilter/columnFilter.plugin.coffee</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h5 id="column-filters">Column Filters</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">ColumnDrillDownFilters =</span>
+  <span class="nv">initializeColumnDrilldownFilters: </span><span class="nf">-&gt;</span>
+    <span class="nx">@prepareColumnDrilldownFilterContainer</span><span class="p">()</span>
+    <span class="k">return</span> <span class="nx">@getColumnDrilldownFilterContainer</span><span class="p">()</span>
+
+  <span class="nv">prepareColumnDrilldownFilterContainer: </span><span class="nf">-&gt;</span>
+    <span class="nv">container = </span><span class="nx">UI</span><span class="p">.</span><span class="nx">renderWithData</span> <span class="nx">Template</span><span class="p">.</span><span class="nx">dataTableColumnDrilldownFilterContainer</span><span class="p">,</span> <span class="nx">@getData</span><span class="p">()</span>
+    <span class="nx">@setColumnDrilldownFilterContainer</span> <span class="nx">container</span>
+
+  <span class="nv">setColumnDrilldownFilterContainer: </span><span class="nf">( markup ) -&gt;</span>
+    <span class="nx">Match</span><span class="p">.</span><span class="nx">test</span> <span class="nx">markup</span><span class="p">,</span> <span class="nb">String</span>
+    <span class="nx">@getTemplateInstance</span><span class="p">().</span><span class="nv">$ColumnDrilldownFilterContainer = </span><span class="nx">$</span><span class="p">(</span> <span class="nx">markup</span> <span class="p">)</span>
+
+  <span class="nv">getColumnDrilldownFilterContainer: </span><span class="nf">-&gt;</span>
+    <span class="k">if</span> <span class="nx">@getTemplateInstance</span><span class="p">().</span><span class="nx">$ColumnDrilldownFilterContainer</span>
+      <span class="k">return</span> <span class="nx">@getTemplateInstance</span><span class="p">().</span><span class="nx">$ColumnDrilldownFilterContainer</span><span class="p">[</span> <span class="mi">0</span> <span class="p">].</span><span class="nx">dom</span><span class="p">.</span><span class="nx">members</span><span class="p">[</span> <span class="mi">1</span> <span class="p">]</span> <span class="o">or</span> <span class="kc">false</span>
+
+<span class="nv">Template.dataTable = </span><span class="nx">_</span><span class="p">.</span><span class="nx">extend</span> <span class="nx">Template</span><span class="p">.</span><span class="nx">dataTable</span><span class="p">,</span> <span class="nx">ColumnDrillDownFilters</span>
+
+<span class="nx">Template</span><span class="p">.</span><span class="nx">dataTable</span><span class="p">.</span><span class="nx">events</span>
+  <span class="s">&#39;click .drilldown.column-filter-widget&#39;</span><span class="o">:</span> <span class="nf">( event, template ) -&gt;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">template</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">event</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Register the Columng Filter Widget feature with DataTables</li>
+</ul></div></div><div class="code"><div class="wrapper"><span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">dataTableExt</span><span class="p">.</span><span class="nx">aoFeatures</span><span class="p">.</span><span class="nx">push</span>
+  <span class="nv">fnInit: </span><span class="nf">( oSettings ) -&gt;</span>
+    <span class="nv">component = </span><span class="nx">oSettings</span><span class="p">.</span><span class="nx">oInstance</span><span class="p">.</span><span class="nx">fnGetComponent</span><span class="p">()</span>
+    <span class="k">return</span> <span class="nx">component</span><span class="p">.</span><span class="nx">initializeColumnDrilldownFilters</span><span class="p">()</span>
+  <span class="nv">cFeature: </span><span class="s">&quot;W&quot;</span>
+  <span class="nv">sFeature: </span><span class="s">&quot;ColumnDrilldownFilters&quot;</span>
+
+<span class="nv">Template.dataTableColumnDrilldownFilterContainer.created = </span><span class="nf">-&gt;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">@</span>
+
+<span class="nv">Template.dataTableColumnDrilldownFilterContainer.filterableColumns = </span><span class="nf">-&gt;</span>
+  <span class="k">return</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nv">name: </span><span class="s">&#39;test&#39;</span>
+    <span class="p">},{</span>
+      <span class="nv">name: </span><span class="s">&#39;test2&#39;</span>
+    <span class="p">}</span>
+  <span class="p">]</span></div></div></div></div></body></html>

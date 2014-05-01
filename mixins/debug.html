@@ -1,0 +1,38 @@
+<!DOCTYPE html><html lang="en"><head><title>mixins/debug</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="mixins/debug"><meta name="groc-project-path" content="lib/mixins/debug.coffee"><meta name="groc-github-url" content="https://github.com/lumapictures/jquery-datatables"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/lumapictures/jquery-datatables/blob/master/lib/mixins/debug.coffee">lib/mixins/debug.coffee</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h4 id="debugstringoptional"><code>debug</code> String ( optional )</h4>
+
+<p>A handy option for granular debug logs.
+<code>all</code> logs all messages from datatables.
+Set debug to any string to only log messages that contain that string</p>
+
+<h5 id="client-examples">client examples</h5>
+
+<ul>
+<li><code>rendered</code> logs the instantiated component on render</li>
+<li><code>destroyed</code> logs when the component is detroyed</li>
+<li><code>initialized</code> logs the inital state of the datatable after data is acquired</li>
+<li><code>options</code> logs the datatables options for that instantiated component</li>
+<li><code>fnServerData</code> logs each request to the server by the component</li>
+</ul>
+
+<h5 id="server-examples">server examples</h5>
+
+<ul>
+<li><code>"query"</code> : will log the base and filtered queries for every subscription.</li>
+<li><code>"added"</code> : will log all documents added to subscriptions.</li>
+<li><code>"changed"</code> : will log all documents changed for a subscription.</li>
+<li><code>"removed"</code> : will log all documents removed from a collection.</li>
+</ul></div></div><div class="code"><div class="wrapper"><span class="nv">DataTableMixins.Debug =</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="isdebug">isDebug()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper">  <span class="nv">isDebug: </span><span class="nf">-&gt;</span>
+    <span class="k">if</span> <span class="nx">Meteor</span><span class="p">.</span><span class="nx">isClient</span>
+      <span class="k">return</span> <span class="nx">@getData</span><span class="p">().</span><span class="nx">debug</span> <span class="o">or</span> <span class="kc">false</span>
+    <span class="k">if</span> <span class="nx">Meteor</span><span class="p">.</span><span class="nx">isServer</span>
+      <span class="k">return</span> <span class="nx">DataTable</span><span class="p">.</span><span class="nx">debug</span> <span class="o">or</span> <span class="kc">false</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="log">log()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper">  <span class="nv">log: </span><span class="nf">( message, object ) -&gt;</span>
+    <span class="k">if</span> <span class="nx">Meteor</span><span class="p">.</span><span class="nx">isClient</span>
+      <span class="k">if</span> <span class="nx">@isDebug</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nx">@isDebug</span><span class="p">()</span> <span class="o">is</span> <span class="s">&quot;all&quot;</span> <span class="o">or</span> <span class="nx">message</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span> <span class="nx">@isDebug</span><span class="p">()</span> <span class="p">)</span> <span class="o">isnt</span> <span class="o">-</span><span class="mi">1</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;dataTable:</span><span class="si">#{</span> <span class="nx">@getSelector</span><span class="p">()</span> <span class="si">}</span><span class="s">:</span><span class="si">#{</span> <span class="nx">message</span> <span class="si">}</span><span class="s"> -&gt;&quot;</span><span class="p">,</span> <span class="nx">object</span>
+    <span class="k">if</span> <span class="nx">Meteor</span><span class="p">.</span><span class="nx">isServer</span>
+      <span class="k">if</span> <span class="nx">DataTable</span><span class="p">.</span><span class="nx">isDebug</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nx">message</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span> <span class="nx">DataTable</span><span class="p">.</span><span class="nx">isDebug</span><span class="p">()</span> <span class="p">)</span> <span class="o">isnt</span> <span class="o">-</span><span class="mi">1</span> <span class="o">or</span> <span class="nx">DataTable</span><span class="p">.</span><span class="nx">isDebug</span><span class="p">()</span> <span class="o">is</span> <span class="s">&quot;all&quot;</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;dataTable:</span><span class="si">#{</span> <span class="nx">message</span> <span class="si">}</span><span class="s"> -&gt;&quot;</span><span class="p">,</span> <span class="nx">object</span>
+
+<span class="nv">DataTableMixins.Debug.debug = </span><span class="kc">false</span> <span class="k">if</span> <span class="nx">Meteor</span><span class="p">.</span><span class="nx">isServer</span></div></div></div></div></body></html>

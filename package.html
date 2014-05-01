@@ -4,32 +4,59 @@
 
 <span class="nx">Package</span><span class="p">.</span><span class="nx">on_use</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">api</span><span class="p">,</span> <span class="nx">where</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">api</span><span class="p">.</span><span class="nx">use</span><span class="p">([</span>
-    <span class="s1">&#39;coffeescript&#39;</span>
-  <span class="p">],[</span><span class="s1">&#39;client&#39;</span><span class="p">,</span> <span class="s1">&#39;server&#39;</span><span class="p">]);</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>for helpers</p></div></div><div class="code"><div class="wrapper">  <span class="nx">api</span><span class="p">.</span><span class="nx">use</span><span class="p">([</span>
+    <span class="s1">&#39;coffeescript&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;underscore&#39;</span>
+  <span class="p">],[</span> <span class="s1">&#39;client&#39;</span><span class="p">,</span> <span class="s1">&#39;server&#39;</span> <span class="p">]);</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>for helpers</p></div></div><div class="code"><div class="wrapper">  <span class="nx">api</span><span class="p">.</span><span class="nx">use</span><span class="p">([</span>
     <span class="s1">&#39;jquery&#39;</span><span class="p">,</span>
     <span class="s1">&#39;ui&#39;</span><span class="p">,</span>
     <span class="s1">&#39;templating&#39;</span><span class="p">,</span>
     <span class="s1">&#39;spacebars&#39;</span>
-  <span class="p">],</span> <span class="s1">&#39;client&#39;</span><span class="p">);</span>
+  <span class="p">],</span> <span class="p">[</span> <span class="s1">&#39;client&#39;</span> <span class="p">]);</span>
+
+  <span class="nx">api</span><span class="p">.</span><span class="kr">export</span><span class="p">([</span>
+    <span class="s1">&#39;DataTableMixins&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;DataTable&#39;</span>
+  <span class="p">],</span> <span class="p">[</span><span class="s1">&#39;client&#39;</span><span class="p">,</span><span class="s1">&#39;server&#39;</span><span class="p">]);</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>External Libraries </p></div></div><div class="code"><div class="wrapper">  <span class="nx">api</span><span class="p">.</span><span class="nx">add_files</span><span class="p">([</span>
+    <span class="s1">&#39;vendor/datatables.min.js&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;vendor/tabletools.min.js&#39;</span>
+  <span class="p">],</span> <span class="p">[</span><span class="s1">&#39;client&#39;</span><span class="p">]);</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Mixins </p></div></div><div class="code"><div class="wrapper">  <span class="nx">api</span><span class="p">.</span><span class="nx">add_files</span><span class="p">([</span>
+    <span class="s1">&#39;lib/mixins/dataTableMixins.coffee&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;lib/mixins/debug.coffee&#39;</span>
+  <span class="p">],</span> <span class="p">[</span> <span class="s1">&#39;client&#39;</span><span class="p">,</span> <span class="s1">&#39;server&#39;</span> <span class="p">]);</span>
 
   <span class="nx">api</span><span class="p">.</span><span class="nx">add_files</span><span class="p">([</span>
-    <span class="s1">&#39;vendor/datatables.min.js&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;vendor/tabletools.min.js&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;lib/mixins/publish.coffee&#39;</span>
+  <span class="p">],</span> <span class="p">[</span> <span class="s1">&#39;server&#39;</span> <span class="p">]);</span>
+
+  <span class="nx">api</span><span class="p">.</span><span class="nx">add_files</span><span class="p">([</span>
+    <span class="s1">&#39;lib/mixins/initialize.coffee&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;lib/mixins/collection.coffee&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;lib/mixins/columns.coffee&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;lib/mixins/cursor.coffee&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;lib/mixins/filters.coffee&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;lib/mixins/options.coffee&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;lib/mixins/presetTables.coffee&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;lib/mixins/query.coffee&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;lib/mixins/queryBuilder.coffee&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;lib/mixins/rows.coffee&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;lib/mixins/selector.coffee&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;lib/mixins/subscription.coffee&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;lib/mixins/tableTemplate.coffee&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;lib/mixins/utility.coffee&#39;</span>
+  <span class="p">],</span> <span class="p">[</span> <span class="s1">&#39;client&#39;</span> <span class="p">]);</span>
+
+  <span class="nx">api</span><span class="p">.</span><span class="nx">add_files</span><span class="p">([</span>
+    <span class="s1">&#39;lib/datatables.component.coffee&#39;</span>
+  <span class="p">],</span> <span class="p">[</span> <span class="s1">&#39;client&#39;</span><span class="p">,</span> <span class="s1">&#39;server&#39;</span><span class="p">]);</span>
+
+  <span class="nx">api</span><span class="p">.</span><span class="nx">add_files</span><span class="p">([</span>
     <span class="s1">&#39;lib/datatables.html&#39;</span><span class="p">,</span>
     <span class="s1">&#39;lib/datatables.client.coffee&#39;</span>
-  <span class="p">],</span> <span class="p">[</span><span class="s1">&#39;client&#39;</span><span class="p">]);</span>
-
-  <span class="nx">api</span><span class="p">.</span><span class="nx">add_files</span><span class="p">([</span>
-    <span class="s1">&#39;lib/datatables.server.coffee&#39;</span>
-  <span class="p">],[</span><span class="s1">&#39;server&#39;</span><span class="p">]);</span>
-
-  <span class="nx">api</span><span class="p">.</span><span class="kr">export</span><span class="p">([</span>
-    <span class="s1">&#39;DataTable&#39;</span>
-  <span class="p">],[</span><span class="s1">&#39;client&#39;</span><span class="p">,</span><span class="s1">&#39;server&#39;</span><span class="p">]);</span>
-
-  <span class="nx">api</span><span class="p">.</span><span class="kr">export</span><span class="p">([</span>
-    <span class="s1">&#39;DataTableSubscriptionCount&#39;</span>
-  <span class="p">],[</span> <span class="s1">&#39;client&#39;</span> <span class="p">]);</span>
+  <span class="p">],</span> <span class="p">[</span> <span class="s1">&#39;client&#39;</span> <span class="p">]);</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Plugins 
+column filter plugin</p></div></div><div class="code"><div class="wrapper">  <span class="nx">api</span><span class="p">.</span><span class="nx">add_files</span><span class="p">([</span>
+    <span class="s1">&#39;lib/plugins/columnFilter/columnFilter.html&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;lib/plugins/columnFilter/columnFilter.plugin.coffee&#39;</span>
+  <span class="p">],</span> <span class="p">[</span> <span class="s1">&#39;client&#39;</span> <span class="p">]);</span>
 <span class="p">});</span>
 
 <span class="nx">Package</span><span class="p">.</span><span class="nx">on_test</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">api</span><span class="p">)</span> <span class="p">{</span>

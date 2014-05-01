@@ -1,0 +1,26 @@
+<!DOCTYPE html><html lang="en"><head><title>datatables.component</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="datatables.component"><meta name="groc-project-path" content="lib/datatables.component.coffee"><meta name="groc-github-url" content="https://github.com/lumapictures/jquery-datatables"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/lumapictures/jquery-datatables/blob/master/lib/datatables.component.coffee">lib/datatables.component.coffee</a></div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="k">if</span> <span class="nx">Meteor</span><span class="p">.</span><span class="nx">isClient</span>
+  <span class="nv">DataTable = </span><span class="nx">_</span><span class="p">.</span><span class="nx">extend</span> <span class="nx">DataTableMixins</span><span class="p">.</span><span class="nx">Initialize</span><span class="p">,</span>
+    <span class="nx">DataTableMixins</span><span class="p">.</span><span class="nx">Collection</span><span class="p">,</span>
+    <span class="nx">DataTableMixins</span><span class="p">.</span><span class="nx">Columns</span><span class="p">,</span>
+    <span class="nx">DataTableMixins</span><span class="p">.</span><span class="nx">Cursor</span><span class="p">,</span>
+    <span class="nx">DataTableMixins</span><span class="p">.</span><span class="nx">Filters</span><span class="p">,</span>
+    <span class="nx">DataTableMixins</span><span class="p">.</span><span class="nx">Options</span><span class="p">,</span>
+    <span class="nx">DataTableMixins</span><span class="p">.</span><span class="nx">PresetTables</span><span class="p">,</span>
+    <span class="nx">DataTableMixins</span><span class="p">.</span><span class="nx">Query</span><span class="p">,</span>
+    <span class="nx">DataTableMixins</span><span class="p">.</span><span class="nx">QueryBuilder</span><span class="p">,</span>
+    <span class="nx">DataTableMixins</span><span class="p">.</span><span class="nx">Rows</span><span class="p">,</span>
+    <span class="nx">DataTableMixins</span><span class="p">.</span><span class="nx">Selector</span><span class="p">,</span>
+    <span class="nx">DataTableMixins</span><span class="p">.</span><span class="nx">Subscription</span><span class="p">,</span>
+    <span class="nx">DataTableMixins</span><span class="p">.</span><span class="nx">TableTemplate</span><span class="p">,</span>
+    <span class="nx">DataTableMixins</span><span class="p">.</span><span class="nx">Utility</span><span class="p">,</span>
+    <span class="nx">DataTableMixins</span><span class="p">.</span><span class="nx">Debug</span>
+
+  <span class="nv">$.fn.dataTableExt.oApi.fnGetComponent = </span><span class="nf">-&gt;</span>
+    <span class="nv">oSettings = </span><span class="nx">@fnSettings</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nx">oSettings</span>
+      <span class="k">if</span> <span class="nx">oSettings</span><span class="p">.</span><span class="nx">oInit</span>
+        <span class="k">return</span> <span class="nx">oSettings</span><span class="p">.</span><span class="nx">oInit</span><span class="p">.</span><span class="nx">component</span> <span class="o">or</span> <span class="kc">false</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;DataTable Blaze component not instantiated&quot;</span>
+
+<span class="k">else</span> <span class="k">if</span> <span class="nx">Meteor</span><span class="p">.</span><span class="nx">isServer</span>
+  <span class="nv">DataTable = </span><span class="nx">_</span><span class="p">.</span><span class="nx">extend</span> <span class="nx">DataTableMixins</span><span class="p">.</span><span class="nx">Publish</span><span class="p">,</span> <span class="nx">DataTableMixins</span><span class="p">.</span><span class="nx">Debug</span></div></div></div></div></body></html>

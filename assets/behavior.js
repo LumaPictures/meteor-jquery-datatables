@@ -120,6 +120,22 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             {
               "type": "heading",
               "data": {
+                "level": 5,
+                "title": "Bootstrap 3 Markup",
+                "slug": "bootstrap-3-markup"
+              },
+              "depth": 5
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 5,
+                "title": "Loading Message",
+                "slug": "loading-message"
+              },
+              "depth": 5
+            }, {
+              "type": "heading",
+              "data": {
                 "level": 2,
                 "title": "Initialization",
                 "slug": "initialization"
@@ -138,174 +154,249 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "type": "heading",
                   "data": {
                     "level": 5,
+                    "title": "created()",
+                    "slug": "created"
+                  },
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
                     "title": "destroyed()",
                     "slug": "destroyed"
                   },
                   "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "initialize()",
-                    "slug": "initialize"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 3,
-                    "title": "Collection Counts",
-                    "slug": "collection-counts"
-                  },
-                  "depth": 3
                 }
               ]
+            }
+          ]
+        },
+        "title": "Client"
+      },
+      "depth": 1,
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 5,
+            "title": "Bootstrap 3 Markup",
+            "slug": "bootstrap-3-markup"
+          },
+          "depth": 5
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 5,
+            "title": "Loading Message",
+            "slug": "loading-message"
+          },
+          "depth": 5
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 2,
+            "title": "Initialization",
+            "slug": "initialization"
+          },
+          "depth": 2,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 5,
+                "title": "rendered()",
+                "slug": "rendered"
+              },
+              "depth": 5
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 5,
+                "title": "created()",
+                "slug": "created"
+              },
+              "depth": 5
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 5,
+                "title": "destroyed()",
+                "slug": "destroyed"
+              },
+              "depth": 5
+            }
+          ]
+        }
+      ]
+    }, {
+      "type": "file",
+      "data": {
+        "language": {
+          "nameMatchers": [".coffee", "Cakefile"],
+          "pygmentsLexer": "coffee-script",
+          "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+          "strictMultiLineEnd": false,
+          "singleLineComment": ["#"],
+          "ignorePrefix": "}",
+          "foldPrefix": "^",
+          "name": "CoffeeScript"
+        },
+        "sourcePath": "/home/austin/Workspace/packages/jquery-datatables/lib/datatables.component.coffee",
+        "projectPath": "lib/datatables.component.coffee",
+        "targetPath": "datatables.component",
+        "pageTitle": "datatables.component",
+        "title": "datatables.component"
+      },
+      "depth": 1,
+      "outline": []
+    }, {
+      "type": "folder",
+      "data": {
+        "path": "example",
+        "title": "example"
+      },
+      "depth": 1,
+      "children": [
+        {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".coffee", "Cakefile"],
+              "pygmentsLexer": "coffee-script",
+              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+              "strictMultiLineEnd": false,
+              "singleLineComment": ["#"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "CoffeeScript"
+            },
+            "sourcePath": "/home/austin/Workspace/packages/jquery-datatables/example/example.coffee",
+            "projectPath": "example/example.coffee",
+            "targetPath": "example/example",
+            "pageTitle": "example/example",
+            "title": "example"
+          },
+          "depth": 2,
+          "outline": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Columns",
+                "slug": "columns"
+              },
+              "depth": 2
             }, {
               "type": "heading",
               "data": {
                 "level": 2,
-                "title": "Component Parameters",
-                "slug": "component-parameters"
+                "title": "Selector",
+                "slug": "selector"
               },
-              "depth": 2,
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Rows",
+                "slug": "rows"
+              },
+              "depth": 2
+            }
+          ]
+        }, {
+          "type": "folder",
+          "data": {
+            "path": "example/lib",
+            "title": "lib"
+          },
+          "depth": 2,
+          "children": [
+            {
+              "type": "file",
+              "data": {
+                "language": {
+                  "nameMatchers": [".coffee", "Cakefile"],
+                  "pygmentsLexer": "coffee-script",
+                  "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+                  "strictMultiLineEnd": false,
+                  "singleLineComment": ["#"],
+                  "ignorePrefix": "}",
+                  "foldPrefix": "^",
+                  "name": "CoffeeScript"
+                },
+                "sourcePath": "/home/austin/Workspace/packages/jquery-datatables/example/lib/browsers.coffee",
+                "projectPath": "example/lib/browsers.coffee",
+                "targetPath": "example/lib/browsers",
+                "pageTitle": "example/lib/browsers",
+                "title": "browsers"
+              },
+              "depth": 3,
+              "outline": []
+            }
+          ]
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".coffee", "Cakefile"],
+              "pygmentsLexer": "coffee-script",
+              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+              "strictMultiLineEnd": false,
+              "singleLineComment": ["#"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "CoffeeScript"
+            },
+            "sourcePath": "/home/austin/Workspace/packages/jquery-datatables/example/routes.coffee",
+            "projectPath": "example/routes.coffee",
+            "targetPath": "example/routes",
+            "pageTitle": "example/routes",
+            "title": "routes"
+          },
+          "depth": 2,
+          "outline": []
+        }
+      ]
+    }, {
+      "type": "folder",
+      "data": {
+        "path": "mixins",
+        "title": "mixins"
+      },
+      "depth": 1,
+      "children": [
+        {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".coffee", "Cakefile"],
+              "pygmentsLexer": "coffee-script",
+              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+              "strictMultiLineEnd": false,
+              "singleLineComment": ["#"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "CoffeeScript"
+            },
+            "sourcePath": "/home/austin/Workspace/packages/jquery-datatables/lib/mixins/collection.coffee",
+            "projectPath": "lib/mixins/collection.coffee",
+            "targetPath": "mixins/collection",
+            "pageTitle": "mixins/collection",
+            "title": "collection"
+          },
+          "depth": 2,
+          "outline": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Collection Counts",
+                "slug": "collection-counts"
+              },
+              "depth": 3,
               "children": [
                 {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "Bootstrap 3 Markup",
-                    "slug": "bootstrap-3-markup"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "Loading Message",
-                    "slug": "loading-message"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "setOptions()",
-                    "slug": "setoptions"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "getOptions()",
-                    "slug": "getoptions"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "prepareOptions()",
-                    "slug": "prepareoptions"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "getSelector()",
-                    "slug": "getselector"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "prepareSelector()",
-                    "slug": "prepareselector"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "setRows()",
-                    "slug": "setrows"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "preprareRows()",
-                    "slug": "preprarerows"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "getRows()",
-                    "slug": "getrows"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "getRowIndex()",
-                    "slug": "getrowindex"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "setColumns()",
-                    "slug": "setcolumns"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "prepareColumns()",
-                    "slug": "preparecolumns"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "setDefaultCellValue()",
-                    "slug": "setdefaultcellvalue"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "getColumns()",
-                    "slug": "getcolumns"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "Default Table Template",
-                    "slug": "default-table-template"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "chooseTemplate Helper",
-                    "slug": "choosetemplate-helper"
-                  },
-                  "depth": 5
-                }, {
                   "type": "heading",
                   "data": {
                     "level": 5,
@@ -325,109 +416,612 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "type": "heading",
                   "data": {
                     "level": 5,
-                    "title": "setSubscriptionOptions()",
-                    "slug": "setsubscriptionoptions"
+                    "title": "prepareCountCollection()",
+                    "slug": "preparecountcollection"
                   },
                   "depth": 5
                 }, {
                   "type": "heading",
                   "data": {
                     "level": 5,
-                    "title": "setSubscriptionHandle()",
-                    "slug": "setsubscriptionhandle"
+                    "title": "getCollection()",
+                    "slug": "getcollection"
                   },
                   "depth": 5
                 }, {
                   "type": "heading",
                   "data": {
                     "level": 5,
-                    "title": "setSubscriptionAutorun()",
-                    "slug": "setsubscriptionautorun"
+                    "title": "getCountCollection()",
+                    "slug": "getcountcollection"
                   },
                   "depth": 5
                 }, {
                   "type": "heading",
                   "data": {
                     "level": 5,
-                    "title": "getSubscription()",
-                    "slug": "getsubscription"
+                    "title": "getTotalCount()",
+                    "slug": "gettotalcount"
                   },
                   "depth": 5
                 }, {
                   "type": "heading",
                   "data": {
                     "level": 5,
-                    "title": "getSubscriptionOptions()",
-                    "slug": "getsubscriptionoptions"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "getSubscriptionHandle()",
-                    "slug": "getsubscriptionhandle"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "getSubscriptionAutorun()",
-                    "slug": "getsubscriptionautorun"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "setQuery()",
-                    "slug": "setquery"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "prepareQuery()",
-                    "slug": "preparequery"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "getQuery()",
-                    "slug": "getquery"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "examples",
-                    "slug": "examples"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "isDebug()",
-                    "slug": "isdebug"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "log()",
-                    "slug": "log"
+                    "title": "getFilteredCount()",
+                    "slug": "getfilteredcount"
                   },
                   "depth": 5
                 }
               ]
+            }
+          ]
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".coffee", "Cakefile"],
+              "pygmentsLexer": "coffee-script",
+              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+              "strictMultiLineEnd": false,
+              "singleLineComment": ["#"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "CoffeeScript"
+            },
+            "sourcePath": "/home/austin/Workspace/packages/jquery-datatables/lib/mixins/columns.coffee",
+            "projectPath": "lib/mixins/columns.coffee",
+            "targetPath": "mixins/columns",
+            "pageTitle": "mixins/columns",
+            "title": "columns"
+          },
+          "depth": 2,
+          "outline": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 5,
+                "title": "setColumns()",
+                "slug": "setcolumns"
+              },
+              "depth": 5
             }, {
+              "type": "heading",
+              "data": {
+                "level": 5,
+                "title": "prepareColumns()",
+                "slug": "preparecolumns"
+              },
+              "depth": 5
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 5,
+                "title": "setDefaultCellValue()",
+                "slug": "setdefaultcellvalue"
+              },
+              "depth": 5
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 5,
+                "title": "getColumns()",
+                "slug": "getcolumns"
+              },
+              "depth": 5
+            }
+          ]
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".coffee", "Cakefile"],
+              "pygmentsLexer": "coffee-script",
+              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+              "strictMultiLineEnd": false,
+              "singleLineComment": ["#"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "CoffeeScript"
+            },
+            "sourcePath": "/home/austin/Workspace/packages/jquery-datatables/lib/mixins/cursor.coffee",
+            "projectPath": "lib/mixins/cursor.coffee",
+            "targetPath": "mixins/cursor",
+            "pageTitle": "mixins/cursor",
+            "title": "cursor"
+          },
+          "depth": 2,
+          "outline": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Cursor",
+                "slug": "cursor"
+              },
+              "depth": 3,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "setCursor()",
+                    "slug": "setcursor"
+                  },
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "prepareCursor()",
+                    "slug": "preparecursor"
+                  },
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "getCursor()",
+                    "slug": "getcursor"
+                  },
+                  "depth": 5
+                }
+              ]
+            }
+          ]
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".coffee", "Cakefile"],
+              "pygmentsLexer": "coffee-script",
+              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+              "strictMultiLineEnd": false,
+              "singleLineComment": ["#"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "CoffeeScript"
+            },
+            "sourcePath": "/home/austin/Workspace/packages/jquery-datatables/lib/mixins/dataTableMixins.coffee",
+            "projectPath": "lib/mixins/dataTableMixins.coffee",
+            "targetPath": "mixins/dataTableMixins",
+            "pageTitle": "mixins/dataTableMixins",
+            "title": "dataTableMixins"
+          },
+          "depth": 2,
+          "outline": []
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".coffee", "Cakefile"],
+              "pygmentsLexer": "coffee-script",
+              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+              "strictMultiLineEnd": false,
+              "singleLineComment": ["#"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "CoffeeScript"
+            },
+            "sourcePath": "/home/austin/Workspace/packages/jquery-datatables/lib/mixins/debug.coffee",
+            "projectPath": "lib/mixins/debug.coffee",
+            "targetPath": "mixins/debug",
+            "pageTitle": "mixins/debug",
+            "title": "debug"
+          },
+          "depth": 2,
+          "outline": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 5,
+                "title": "client examples",
+                "slug": "client-examples"
+              },
+              "depth": 5
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 5,
+                "title": "server examples",
+                "slug": "server-examples"
+              },
+              "depth": 5
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 5,
+                "title": "isDebug()",
+                "slug": "isdebug"
+              },
+              "depth": 5
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 5,
+                "title": "log()",
+                "slug": "log"
+              },
+              "depth": 5
+            }
+          ]
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".coffee", "Cakefile"],
+              "pygmentsLexer": "coffee-script",
+              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+              "strictMultiLineEnd": false,
+              "singleLineComment": ["#"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "CoffeeScript"
+            },
+            "sourcePath": "/home/austin/Workspace/packages/jquery-datatables/lib/mixins/filters.coffee",
+            "projectPath": "lib/mixins/filters.coffee",
+            "targetPath": "mixins/filters",
+            "pageTitle": "mixins/filters",
+            "title": "filters"
+          },
+          "depth": 2,
+          "outline": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 5,
+                "title": "initializeFilters()",
+                "slug": "initializefilters"
+              },
+              "depth": 5
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 5,
+                "title": "initializeFilterPlaceholder()",
+                "slug": "initializefilterplaceholder"
+              },
+              "depth": 5
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 5,
+                "title": "prepareFooterFilter()",
+                "slug": "preparefooterfilter"
+              },
+              "depth": 5
+            }
+          ]
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".coffee", "Cakefile"],
+              "pygmentsLexer": "coffee-script",
+              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+              "strictMultiLineEnd": false,
+              "singleLineComment": ["#"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "CoffeeScript"
+            },
+            "sourcePath": "/home/austin/Workspace/packages/jquery-datatables/lib/mixins/initialize.coffee",
+            "projectPath": "lib/mixins/initialize.coffee",
+            "targetPath": "mixins/initialize",
+            "pageTitle": "mixins/initialize",
+            "title": "initialize"
+          },
+          "depth": 2,
+          "outline": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "DataTable Instance",
+                "slug": "datatable-instance"
+              },
+              "depth": 3,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "initialize()",
+                    "slug": "initialize"
+                  },
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "getDataTable()",
+                    "slug": "getdatatable"
+                  },
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "setDataTable()",
+                    "slug": "setdatatable"
+                  },
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "prepareDataTable()",
+                    "slug": "preparedatatable"
+                  },
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "initializeDisplayLength()",
+                    "slug": "initializedisplaylength"
+                  },
+                  "depth": 5
+                }
+              ]
+            }
+          ]
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".coffee", "Cakefile"],
+              "pygmentsLexer": "coffee-script",
+              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+              "strictMultiLineEnd": false,
+              "singleLineComment": ["#"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "CoffeeScript"
+            },
+            "sourcePath": "/home/austin/Workspace/packages/jquery-datatables/lib/mixins/options.coffee",
+            "projectPath": "lib/mixins/options.coffee",
+            "targetPath": "mixins/options",
+            "pageTitle": "mixins/options",
+            "title": "options"
+          },
+          "depth": 2,
+          "outline": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 5,
+                "title": "setOptions()",
+                "slug": "setoptions"
+              },
+              "depth": 5
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 5,
+                "title": "getOptions()",
+                "slug": "getoptions"
+              },
+              "depth": 5
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 5,
+                "title": "prepareOptions()",
+                "slug": "prepareoptions"
+              },
+              "depth": 5
+            }
+          ]
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".coffee", "Cakefile"],
+              "pygmentsLexer": "coffee-script",
+              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+              "strictMultiLineEnd": false,
+              "singleLineComment": ["#"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "CoffeeScript"
+            },
+            "sourcePath": "/home/austin/Workspace/packages/jquery-datatables/lib/mixins/presetTables.coffee",
+            "projectPath": "lib/mixins/presetTables.coffee",
+            "targetPath": "mixins/presetTables",
+            "pageTitle": "mixins/presetTables",
+            "title": "presetTables"
+          },
+          "depth": 2,
+          "outline": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Preset Tables",
+                "slug": "preset-tables"
+              },
+              "depth": 2,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "presetOptions()",
+                    "slug": "presetoptions"
+                  },
+                  "depth": 5
+                }
+              ]
+            }
+          ]
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".coffee", "Cakefile"],
+              "pygmentsLexer": "coffee-script",
+              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+              "strictMultiLineEnd": false,
+              "singleLineComment": ["#"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "CoffeeScript"
+            },
+            "sourcePath": "/home/austin/Workspace/packages/jquery-datatables/lib/mixins/publish.coffee",
+            "projectPath": "lib/mixins/publish.coffee",
+            "targetPath": "mixins/publish",
+            "pageTitle": "mixins/publish",
+            "title": "publish"
+          },
+          "depth": 2,
+          "outline": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 5,
+                "title": "@countCollection",
+                "slug": "countcollection"
+              },
+              "depth": 5
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 5,
+                "title": "@publish()",
+                "slug": "publish"
+              },
+              "depth": 5,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 6,
+                    "title": "Meteor.publish",
+                    "slug": "meteorpublish"
+                  },
+                  "depth": 6
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 6,
+                    "title": "Parameters",
+                    "slug": "parameters"
+                  },
+                  "depth": 6
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 6,
+                    "title": "updateCount",
+                    "slug": "updatecount"
+                  },
+                  "depth": 6
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 6,
+                    "title": "observe",
+                    "slug": "observe"
+                  },
+                  "depth": 6
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 6,
+                    "title": "addedAt()",
+                    "slug": "addedat"
+                  },
+                  "depth": 6
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 6,
+                    "title": "changedAt()",
+                    "slug": "changedat"
+                  },
+                  "depth": 6
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 6,
+                    "title": "removedAt()",
+                    "slug": "removedat"
+                  },
+                  "depth": 6
+                }
+              ]
+            }
+          ]
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".coffee", "Cakefile"],
+              "pygmentsLexer": "coffee-script",
+              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+              "strictMultiLineEnd": false,
+              "singleLineComment": ["#"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "CoffeeScript"
+            },
+            "sourcePath": "/home/austin/Workspace/packages/jquery-datatables/lib/mixins/query.coffee",
+            "projectPath": "lib/mixins/query.coffee",
+            "targetPath": "mixins/query",
+            "pageTitle": "mixins/query",
+            "title": "query"
+          },
+          "depth": 2,
+          "outline": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 5,
+                "title": "setQuery()",
+                "slug": "setquery"
+              },
+              "depth": 5
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 5,
+                "title": "prepareQuery()",
+                "slug": "preparequery"
+              },
+              "depth": 5
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 5,
+                "title": "getQuery()",
+                "slug": "getquery"
+              },
+              "depth": 5
+            }
+          ]
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".coffee", "Cakefile"],
+              "pygmentsLexer": "coffee-script",
+              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+              "strictMultiLineEnd": false,
+              "singleLineComment": ["#"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "CoffeeScript"
+            },
+            "sourcePath": "/home/austin/Workspace/packages/jquery-datatables/lib/mixins/queryBuilder.coffee",
+            "projectPath": "lib/mixins/queryBuilder.coffee",
+            "targetPath": "mixins/queryBuilder",
+            "pageTitle": "mixins/queryBuilder",
+            "title": "queryBuilder"
+          },
+          "depth": 2,
+          "outline": [
+            {
               "type": "heading",
               "data": {
                 "level": 2,
@@ -519,336 +1113,32 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                       "depth": 6
                     }
                   ]
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "prepareCountCollection()",
-                    "slug": "preparecountcollection"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "getCollection()",
-                    "slug": "getcollection"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "getCountCollection()",
-                    "slug": "getcountcollection"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "getTotalCount()",
-                    "slug": "gettotalcount"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "getFilteredCount()",
-                    "slug": "getfilteredcount"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 3,
-                    "title": "Cursor",
-                    "slug": "cursor"
-                  },
-                  "depth": 3,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 5,
-                        "title": "setCursor()",
-                        "slug": "setcursor"
-                      },
-                      "depth": 5
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 5,
-                        "title": "prepareCursor()",
-                        "slug": "preparecursor"
-                      },
-                      "depth": 5
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 5,
-                        "title": "getCursor()",
-                        "slug": "getcursor"
-                      },
-                      "depth": 5
-                    }
-                  ]
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 3,
-                    "title": "DataTable Instance",
-                    "slug": "datatable-instance"
-                  },
-                  "depth": 3,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 5,
-                        "title": "getDataTable()",
-                        "slug": "getdatatable"
-                      },
-                      "depth": 5
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 5,
-                        "title": "setDataTable()",
-                        "slug": "setdatatable"
-                      },
-                      "depth": 5
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 5,
-                        "title": "prepareDataTable()",
-                        "slug": "preparedatatable"
-                      },
-                      "depth": 5
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 5,
-                        "title": "prepareFilters()",
-                        "slug": "preparefilters"
-                      },
-                      "depth": 5
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 5,
-                        "title": "prepareFilterPlaceholder()",
-                        "slug": "preparefilterplaceholder"
-                      },
-                      "depth": 5
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 5,
-                        "title": "prepareFooterFilter()",
-                        "slug": "preparefooterfilter"
-                      },
-                      "depth": 5
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 5,
-                        "title": "preparePagination()",
-                        "slug": "preparepagination"
-                      },
-                      "depth": 5
-                    }
-                  ]
                 }
               ]
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "Utility Methods",
-                "slug": "utility-methods"
-              },
-              "depth": 2,
-              "children": [
-                {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "getTemplateInstance()",
-                    "slug": "gettemplateinstance"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "getGuid()",
-                    "slug": "getguid"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "getData()",
-                    "slug": "getdata"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "setData()",
-                    "slug": "setdata"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "arrayToDictionary()",
-                    "slug": "arraytodictionary"
-                  },
-                  "depth": 5
-                }
-              ]
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "Preset Tables",
-                "slug": "preset-tables"
-              },
-              "depth": 2,
-              "children": [
-                {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "presetOptions()",
-                    "slug": "presetoptions"
-                  },
-                  "depth": 5
-                }
-              ]
-            }
-          ]
-        },
-        "title": "Client"
-      },
-      "depth": 1,
-      "outline": [
-        {
-          "type": "heading",
-          "data": {
-            "level": 2,
-            "title": "Initialization",
-            "slug": "initialization"
-          },
-          "depth": 2,
-          "children": [
-            {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "rendered()",
-                "slug": "rendered"
-              },
-              "depth": 5
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "destroyed()",
-                "slug": "destroyed"
-              },
-              "depth": 5
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "initialize()",
-                "slug": "initialize"
-              },
-              "depth": 5
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 3,
-                "title": "Collection Counts",
-                "slug": "collection-counts"
-              },
-              "depth": 3
             }
           ]
         }, {
-          "type": "heading",
+          "type": "file",
           "data": {
-            "level": 2,
-            "title": "Component Parameters",
-            "slug": "component-parameters"
+            "language": {
+              "nameMatchers": [".coffee", "Cakefile"],
+              "pygmentsLexer": "coffee-script",
+              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+              "strictMultiLineEnd": false,
+              "singleLineComment": ["#"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "CoffeeScript"
+            },
+            "sourcePath": "/home/austin/Workspace/packages/jquery-datatables/lib/mixins/rows.coffee",
+            "projectPath": "lib/mixins/rows.coffee",
+            "targetPath": "mixins/rows",
+            "pageTitle": "mixins/rows",
+            "title": "rows"
           },
           "depth": 2,
-          "children": [
+          "outline": [
             {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "Bootstrap 3 Markup",
-                "slug": "bootstrap-3-markup"
-              },
-              "depth": 5
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "Loading Message",
-                "slug": "loading-message"
-              },
-              "depth": 5
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "setOptions()",
-                "slug": "setoptions"
-              },
-              "depth": 5
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "getOptions()",
-                "slug": "getoptions"
-              },
-              "depth": 5
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "prepareOptions()",
-                "slug": "prepareoptions"
-              },
-              "depth": 5
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "getSelector()",
-                "slug": "getselector"
-              },
-              "depth": 5
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "prepareSelector()",
-                "slug": "prepareselector"
-              },
-              "depth": 5
-            }, {
               "type": "heading",
               "data": {
                 "level": 5,
@@ -880,71 +1170,69 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                 "slug": "getrowindex"
               },
               "depth": 5
-            }, {
+            }
+          ]
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".coffee", "Cakefile"],
+              "pygmentsLexer": "coffee-script",
+              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+              "strictMultiLineEnd": false,
+              "singleLineComment": ["#"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "CoffeeScript"
+            },
+            "sourcePath": "/home/austin/Workspace/packages/jquery-datatables/lib/mixins/selector.coffee",
+            "projectPath": "lib/mixins/selector.coffee",
+            "targetPath": "mixins/selector",
+            "pageTitle": "mixins/selector",
+            "title": "selector"
+          },
+          "depth": 2,
+          "outline": [
+            {
               "type": "heading",
               "data": {
                 "level": 5,
-                "title": "setColumns()",
-                "slug": "setcolumns"
+                "title": "getSelector()",
+                "slug": "getselector"
               },
               "depth": 5
             }, {
               "type": "heading",
               "data": {
                 "level": 5,
-                "title": "prepareColumns()",
-                "slug": "preparecolumns"
+                "title": "prepareSelector()",
+                "slug": "prepareselector"
               },
               "depth": 5
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "setDefaultCellValue()",
-                "slug": "setdefaultcellvalue"
-              },
-              "depth": 5
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "getColumns()",
-                "slug": "getcolumns"
-              },
-              "depth": 5
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "Default Table Template",
-                "slug": "default-table-template"
-              },
-              "depth": 5
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "chooseTemplate Helper",
-                "slug": "choosetemplate-helper"
-              },
-              "depth": 5
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "setCountCollection()",
-                "slug": "setcountcollection"
-              },
-              "depth": 5
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "prepareCollection()",
-                "slug": "preparecollection"
-              },
-              "depth": 5
-            }, {
+            }
+          ]
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".coffee", "Cakefile"],
+              "pygmentsLexer": "coffee-script",
+              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+              "strictMultiLineEnd": false,
+              "singleLineComment": ["#"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "CoffeeScript"
+            },
+            "sourcePath": "/home/austin/Workspace/packages/jquery-datatables/lib/mixins/subscription.coffee",
+            "projectPath": "lib/mixins/subscription.coffee",
+            "targetPath": "mixins/subscription",
+            "pageTitle": "mixins/subscription",
+            "title": "subscription"
+          },
+          "depth": 2,
+          "outline": [
+            {
               "type": "heading",
               "data": {
                 "level": 5,
@@ -1000,645 +1288,9 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                 "slug": "getsubscriptionautorun"
               },
               "depth": 5
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "setQuery()",
-                "slug": "setquery"
-              },
-              "depth": 5
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "prepareQuery()",
-                "slug": "preparequery"
-              },
-              "depth": 5
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "getQuery()",
-                "slug": "getquery"
-              },
-              "depth": 5
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "examples",
-                "slug": "examples"
-              },
-              "depth": 5
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "isDebug()",
-                "slug": "isdebug"
-              },
-              "depth": 5
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "log()",
-                "slug": "log"
-              },
-              "depth": 5
             }
           ]
         }, {
-          "type": "heading",
-          "data": {
-            "level": 2,
-            "title": "Querying MongoDB",
-            "slug": "querying-mongodb"
-          },
-          "depth": 2,
-          "children": [
-            {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "mapTableState()",
-                "slug": "maptablestate"
-              },
-              "depth": 5
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "tableState",
-                "slug": "tablestate"
-              },
-              "depth": 5
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "getDataProp()",
-                "slug": "getdataprop"
-              },
-              "depth": 5
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "mapColumns()",
-                "slug": "mapcolumns"
-              },
-              "depth": 5
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "mapQuery()",
-                "slug": "mapquery"
-              },
-              "depth": 5
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "mapSortOrder()",
-                "slug": "mapsortorder"
-              },
-              "depth": 5
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "setTableState()",
-                "slug": "settablestate"
-              },
-              "depth": 5
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "getTableState()",
-                "slug": "gettablestate"
-              },
-              "depth": 5
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "fnServerData()",
-                "slug": "fnserverdata"
-              },
-              "depth": 5,
-              "children": [
-                {
-                  "type": "heading",
-                  "data": {
-                    "level": 6,
-                    "title": "Parameters",
-                    "slug": "parameters"
-                  },
-                  "depth": 6
-                }
-              ]
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "prepareCountCollection()",
-                "slug": "preparecountcollection"
-              },
-              "depth": 5
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "getCollection()",
-                "slug": "getcollection"
-              },
-              "depth": 5
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "getCountCollection()",
-                "slug": "getcountcollection"
-              },
-              "depth": 5
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "getTotalCount()",
-                "slug": "gettotalcount"
-              },
-              "depth": 5
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "getFilteredCount()",
-                "slug": "getfilteredcount"
-              },
-              "depth": 5
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 3,
-                "title": "Cursor",
-                "slug": "cursor"
-              },
-              "depth": 3,
-              "children": [
-                {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "setCursor()",
-                    "slug": "setcursor"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "prepareCursor()",
-                    "slug": "preparecursor"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "getCursor()",
-                    "slug": "getcursor"
-                  },
-                  "depth": 5
-                }
-              ]
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 3,
-                "title": "DataTable Instance",
-                "slug": "datatable-instance"
-              },
-              "depth": 3,
-              "children": [
-                {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "getDataTable()",
-                    "slug": "getdatatable"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "setDataTable()",
-                    "slug": "setdatatable"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "prepareDataTable()",
-                    "slug": "preparedatatable"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "prepareFilters()",
-                    "slug": "preparefilters"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "prepareFilterPlaceholder()",
-                    "slug": "preparefilterplaceholder"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "prepareFooterFilter()",
-                    "slug": "preparefooterfilter"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "preparePagination()",
-                    "slug": "preparepagination"
-                  },
-                  "depth": 5
-                }
-              ]
-            }
-          ]
-        }, {
-          "type": "heading",
-          "data": {
-            "level": 2,
-            "title": "Utility Methods",
-            "slug": "utility-methods"
-          },
-          "depth": 2,
-          "children": [
-            {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "getTemplateInstance()",
-                "slug": "gettemplateinstance"
-              },
-              "depth": 5
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "getGuid()",
-                "slug": "getguid"
-              },
-              "depth": 5
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "getData()",
-                "slug": "getdata"
-              },
-              "depth": 5
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "setData()",
-                "slug": "setdata"
-              },
-              "depth": 5
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "arrayToDictionary()",
-                "slug": "arraytodictionary"
-              },
-              "depth": 5
-            }
-          ]
-        }, {
-          "type": "heading",
-          "data": {
-            "level": 2,
-            "title": "Preset Tables",
-            "slug": "preset-tables"
-          },
-          "depth": 2,
-          "children": [
-            {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "presetOptions()",
-                "slug": "presetoptions"
-              },
-              "depth": 5
-            }
-          ]
-        }
-      ]
-    }, {
-      "type": "file",
-      "data": {
-        "language": {
-          "nameMatchers": [".coffee", "Cakefile"],
-          "pygmentsLexer": "coffee-script",
-          "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-          "strictMultiLineEnd": false,
-          "singleLineComment": ["#"],
-          "ignorePrefix": "}",
-          "foldPrefix": "^",
-          "name": "CoffeeScript"
-        },
-        "sourcePath": "/home/austin/Workspace/packages/jquery-datatables/lib/datatables.server.coffee",
-        "projectPath": "lib/datatables.server.coffee",
-        "targetPath": "datatables.server",
-        "pageTitle": "datatables.server",
-        "firstHeader": {
-          "type": "heading",
-          "data": {
-            "level": 1,
-            "title": "Server",
-            "slug": "server",
-            "isFileHeader": true
-          },
-          "depth": 1,
-          "children": [
-            {
-              "type": "heading",
-              "data": {
-                "level": 4,
-                "title": "DataTable",
-                "slug": "datatable"
-              },
-              "depth": 4,
-              "children": [
-                {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "@countCollection",
-                    "slug": "countcollection"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "@publish()",
-                    "slug": "publish"
-                  },
-                  "depth": 5,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 6,
-                        "title": "Meteor.publish",
-                        "slug": "meteorpublish"
-                      },
-                      "depth": 6
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 6,
-                        "title": "Parameters",
-                        "slug": "parameters"
-                      },
-                      "depth": 6
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 6,
-                        "title": "updateCount",
-                        "slug": "updatecount"
-                      },
-                      "depth": 6
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 6,
-                        "title": "observe",
-                        "slug": "observe"
-                      },
-                      "depth": 6
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 6,
-                        "title": "addedAt()",
-                        "slug": "addedat"
-                      },
-                      "depth": 6
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 6,
-                        "title": "changedAt()",
-                        "slug": "changedat"
-                      },
-                      "depth": 6
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 6,
-                        "title": "removedAt()",
-                        "slug": "removedat"
-                      },
-                      "depth": 6
-                    }
-                  ]
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "@debug",
-                    "slug": "debug"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "examples",
-                    "slug": "examples"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "@isDebug()",
-                    "slug": "isdebug"
-                  },
-                  "depth": 5
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 5,
-                    "title": "@log()",
-                    "slug": "log"
-                  },
-                  "depth": 5
-                }
-              ]
-            }
-          ]
-        },
-        "title": "Server"
-      },
-      "depth": 1,
-      "outline": [
-        {
-          "type": "heading",
-          "data": {
-            "level": 4,
-            "title": "DataTable",
-            "slug": "datatable"
-          },
-          "depth": 4,
-          "children": [
-            {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "@countCollection",
-                "slug": "countcollection"
-              },
-              "depth": 5
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "@publish()",
-                "slug": "publish"
-              },
-              "depth": 5,
-              "children": [
-                {
-                  "type": "heading",
-                  "data": {
-                    "level": 6,
-                    "title": "Meteor.publish",
-                    "slug": "meteorpublish"
-                  },
-                  "depth": 6
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 6,
-                    "title": "Parameters",
-                    "slug": "parameters"
-                  },
-                  "depth": 6
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 6,
-                    "title": "updateCount",
-                    "slug": "updatecount"
-                  },
-                  "depth": 6
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 6,
-                    "title": "observe",
-                    "slug": "observe"
-                  },
-                  "depth": 6
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 6,
-                    "title": "addedAt()",
-                    "slug": "addedat"
-                  },
-                  "depth": 6
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 6,
-                    "title": "changedAt()",
-                    "slug": "changedat"
-                  },
-                  "depth": 6
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 6,
-                    "title": "removedAt()",
-                    "slug": "removedat"
-                  },
-                  "depth": 6
-                }
-              ]
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "@debug",
-                "slug": "debug"
-              },
-              "depth": 5
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "examples",
-                "slug": "examples"
-              },
-              "depth": 5
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "@isDebug()",
-                "slug": "isdebug"
-              },
-              "depth": 5
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 5,
-                "title": "@log()",
-                "slug": "log"
-              },
-              "depth": 5
-            }
-          ]
-        }
-      ]
-    }, {
-      "type": "folder",
-      "data": {
-        "path": "example",
-        "title": "example"
-      },
-      "depth": 1,
-      "children": [
-        {
           "type": "file",
           "data": {
             "language": {
@@ -1651,115 +1303,30 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "CoffeeScript"
             },
-            "sourcePath": "/home/austin/Workspace/packages/jquery-datatables/example/example.coffee",
-            "projectPath": "example/example.coffee",
-            "targetPath": "example/example",
-            "pageTitle": "example/example",
-            "title": "example"
+            "sourcePath": "/home/austin/Workspace/packages/jquery-datatables/lib/mixins/tableTemplate.coffee",
+            "projectPath": "lib/mixins/tableTemplate.coffee",
+            "targetPath": "mixins/tableTemplate",
+            "pageTitle": "mixins/tableTemplate",
+            "title": "tableTemplate"
           },
           "depth": 2,
           "outline": [
             {
               "type": "heading",
               "data": {
-                "level": 1,
-                "title": "Array Data Source",
-                "slug": "array-data-source"
+                "level": 5,
+                "title": "Default Table Template",
+                "slug": "default-table-template"
               },
-              "depth": 1,
-              "children": [
-                {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Columns",
-                    "slug": "columns"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Selector",
-                    "slug": "selector"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Rows",
-                    "slug": "rows"
-                  },
-                  "depth": 2
-                }
-              ]
+              "depth": 5
             }, {
               "type": "heading",
               "data": {
-                "level": 1,
-                "title": "Reactive Data Source",
-                "slug": "reactive-data-source"
+                "level": 5,
+                "title": "chooseTemplate Helper",
+                "slug": "choosetemplate-helper"
               },
-              "depth": 1,
-              "children": [
-                {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Collection",
-                    "slug": "collection"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Subscription",
-                    "slug": "subscription"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Query",
-                    "slug": "query"
-                  },
-                  "depth": 2
-                }
-              ]
-            }
-          ]
-        }, {
-          "type": "folder",
-          "data": {
-            "path": "example/lib",
-            "title": "lib"
-          },
-          "depth": 2,
-          "children": [
-            {
-              "type": "file",
-              "data": {
-                "language": {
-                  "nameMatchers": [".coffee", "Cakefile"],
-                  "pygmentsLexer": "coffee-script",
-                  "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-                  "strictMultiLineEnd": false,
-                  "singleLineComment": ["#"],
-                  "ignorePrefix": "}",
-                  "foldPrefix": "^",
-                  "name": "CoffeeScript"
-                },
-                "sourcePath": "/home/austin/Workspace/packages/jquery-datatables/example/lib/browsers.coffee",
-                "projectPath": "example/lib/browsers.coffee",
-                "targetPath": "example/lib/browsers",
-                "pageTitle": "example/lib/browsers",
-                "title": "browsers"
-              },
-              "depth": 3,
-              "outline": []
+              "depth": 5
             }
           ]
         }, {
@@ -1775,14 +1342,75 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "CoffeeScript"
             },
-            "sourcePath": "/home/austin/Workspace/packages/jquery-datatables/example/routes.coffee",
-            "projectPath": "example/routes.coffee",
-            "targetPath": "example/routes",
-            "pageTitle": "example/routes",
-            "title": "routes"
+            "sourcePath": "/home/austin/Workspace/packages/jquery-datatables/lib/mixins/utility.coffee",
+            "projectPath": "lib/mixins/utility.coffee",
+            "targetPath": "mixins/utility",
+            "pageTitle": "mixins/utility",
+            "title": "utility"
           },
           "depth": 2,
-          "outline": []
+          "outline": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Utility Methods",
+                "slug": "utility-methods"
+              },
+              "depth": 2,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "getTemplateInstance()",
+                    "slug": "gettemplateinstance"
+                  },
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "getGuid()",
+                    "slug": "getguid"
+                  },
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "getData()",
+                    "slug": "getdata"
+                  },
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "setData()",
+                    "slug": "setdata"
+                  },
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "isDomSource()",
+                    "slug": "isdomsource"
+                  },
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "arrayToDictionary()",
+                    "slug": "arraytodictionary"
+                  },
+                  "depth": 5
+                }
+              ]
+            }
+          ]
         }
       ]
     }, {
@@ -1805,6 +1433,57 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
       },
       "depth": 1,
       "outline": []
+    }, {
+      "type": "folder",
+      "data": {
+        "path": "plugins",
+        "title": "plugins"
+      },
+      "depth": 1,
+      "children": [
+        {
+          "type": "folder",
+          "data": {
+            "path": "plugins/columnFilter",
+            "title": "columnFilter"
+          },
+          "depth": 2,
+          "children": [
+            {
+              "type": "file",
+              "data": {
+                "language": {
+                  "nameMatchers": [".coffee", "Cakefile"],
+                  "pygmentsLexer": "coffee-script",
+                  "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+                  "strictMultiLineEnd": false,
+                  "singleLineComment": ["#"],
+                  "ignorePrefix": "}",
+                  "foldPrefix": "^",
+                  "name": "CoffeeScript"
+                },
+                "sourcePath": "/home/austin/Workspace/packages/jquery-datatables/lib/plugins/columnFilter/columnFilter.plugin.coffee",
+                "projectPath": "lib/plugins/columnFilter/columnFilter.plugin.coffee",
+                "targetPath": "plugins/columnFilter/columnFilter.plugin",
+                "pageTitle": "plugins/columnFilter/columnFilter.plugin",
+                "title": "columnFilter.plugin"
+              },
+              "depth": 3,
+              "outline": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "Column Filters",
+                    "slug": "column-filters"
+                  },
+                  "depth": 5
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }, {
       "type": "file",
       "data": {
