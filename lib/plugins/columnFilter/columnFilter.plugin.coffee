@@ -5,7 +5,8 @@ ColumnDrillDownFilters =
     return @getColumnDrilldownFilterContainer()
 
   prepareColumnDrilldownFilterContainer: ->
-    @setColumnDrilldownFilterContainer UI.renderWithData Template.dataTableColumnDrilldownFilterContainer, @getData()
+    container = UI.renderWithData Template.dataTableColumnDrilldownFilterContainer, @getData()
+    @setColumnDrilldownFilterContainer container
 
   setColumnDrilldownFilterContainer: ( markup ) ->
     Match.test markup, String

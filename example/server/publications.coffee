@@ -1,6 +1,6 @@
 # Reactive Data Source
 # ====================
-DataTable.debug = "true"
+DataTable.debug = "all"
 DataTable.publish "a_browsers", Browsers
 
 # * Calling `_ensureIndex` is necessary in order to sort and filter collections.

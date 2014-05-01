@@ -6,7 +6,7 @@ Package.on_use(function (api, where) {
   api.use([
     'coffeescript',
     'underscore'
-  ],['client', 'server']);
+  ],[ 'client', 'server' ]);
 
   // for helpers
   api.use([
@@ -14,32 +14,61 @@ Package.on_use(function (api, where) {
     'ui',
     'templating',
     'spacebars'
-  ], 'client');
+  ], [ 'client' ]);
 
+  api.export([
+    'DataTableMixins',
+    'DataTable'
+  ], ['client','server']);
+
+  /* External Libraries */
   api.add_files([
     'vendor/datatables.min.js',
-    'vendor/tabletools.min.js',
-    'lib/datatables.html',
-    'lib/datatables.client.coffee'
+    'vendor/tabletools.min.js'
   ], ['client']);
 
-  /* column filter plugin */
+  /* Mixins */
   api.add_files([
-    'plugins/columnFilter/columnFilter.html',
-    'plugins/columnFilter/columnFilter.plugin.coffee',
-  ],[ 'client' ])
+    'lib/mixins/dataTableMixins.coffee',
+    'lib/mixins/debug.coffee'
+  ], [ 'client', 'server' ]);
 
   api.add_files([
-    'lib/datatables.server.coffee'
-  ],['server']);
+    'lib/mixins/publish.coffee'
+  ], [ 'server' ]);
 
-  api.export([
-    'DataTable'
-  ],['client','server']);
+  api.add_files([
+    'lib/mixins/init.coffee',
+    'lib/mixins/collection.coffee',
+    'lib/mixins/columns.coffee',
+    'lib/mixins/cursor.coffee',
+    'lib/mixins/filters.coffee',
+    'lib/mixins/options.coffee',
+    'lib/mixins/presetTables.coffee',
+    'lib/mixins/query.coffee',
+    'lib/mixins/queryBuilder.coffee',
+    'lib/mixins/rows.coffee',
+    'lib/mixins/selector.coffee',
+    'lib/mixins/subscription.coffee',
+    'lib/mixins/tableTemplate.coffee',
+    'lib/mixins/utility.coffee'
+  ], [ 'client' ]);
 
-  api.export([
-    'DataTableSubscriptionCount'
-  ],[ 'client' ]);
+  api.add_files([
+    'lib/datatables.component.coffee'
+  ], [ 'client', 'server']);
+
+  api.add_files([
+    'lib/datatables.html',
+    'lib/datatables.client.coffee'
+  ], [ 'client' ]);
+
+  /* Plugins */
+  // column filter plugin
+  api.add_files([
+    'lib/plugins/columnFilter/columnFilter.html',
+    'lib/plugins/columnFilter/columnFilter.plugin.coffee'
+  ], [ 'client' ]);
 });
 
 Package.on_test(function (api) {
