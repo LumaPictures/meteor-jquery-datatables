@@ -4,7 +4,8 @@ Package.describe({
 
 Package.on_use(function (api, where) {
   api.use([
-    'coffeescript'
+    'coffeescript',
+    'underscore'
   ],['client', 'server']);
 
   // for helpers
@@ -25,7 +26,7 @@ Package.on_use(function (api, where) {
   /* column filter plugin */
   api.add_files([
     'plugins/columnFilter/columnFilter.html',
-    'plugins/columnFilter/columnFilter.plugin.coffee'
+    'plugins/columnFilter/columnFilter.plugin.coffee',
   ],[ 'client' ])
 
   api.add_files([
