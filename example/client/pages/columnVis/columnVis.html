@@ -1,0 +1,13 @@
+<template name="columnVis">
+    {{#panel}}
+    {{> panelHeading icon="icon-table" title="Column Visibility" }}
+        {{> dataTable
+            selector=browsers.selector
+            columns=browsers.columns
+            collection=browsers.collection
+            subscription=browsers.subscription
+            query=browsers.query
+            debug="debug"
+        }}
+    {{/panel}}
+</template>

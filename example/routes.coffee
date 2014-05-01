@@ -16,6 +16,16 @@ Router.addRoutes [{
     priority: 1
     icon: 'icon-stack'
 },{
+  route: 'columnVis'
+  path: 'column-visibility'
+  controller: "ExampleController"
+  page:
+    title: "Column Visibility"
+    subtitle: "Show and hide columns on the flu."
+  nav:
+    priority: 2
+    icon: 'icon-search'
+},{
   route: 'columnFilters'
   path: 'column-filters'
   controller: "ExampleController"
@@ -23,7 +33,7 @@ Router.addRoutes [{
     title: "Column Filters"
     subtitle: "Drill Down and text search."
   nav:
-    priority: 2
+    priority: 3
     icon: 'icon-search'
 },{
   route: 'gitHub'
