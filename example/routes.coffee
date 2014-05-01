@@ -21,9 +21,19 @@ Router.addRoutes [{
   controller: "ExampleController"
   page:
     title: "Column Visibility"
-    subtitle: "Show and hide columns on the flu."
+    subtitle: "Show and hide columns on the fly."
   nav:
     priority: 2
+    icon: 'icon-search'
+},{
+  route: 'colReorder'
+  path: 'column-reorder'
+  controller: "ExampleController"
+  page:
+    title: "Column Reorder"
+    subtitle: "Put it wherever you want."
+  nav:
+    priority: 3
     icon: 'icon-search'
 },{
   route: 'columnFilters'
@@ -33,7 +43,7 @@ Router.addRoutes [{
     title: "Column Filters"
     subtitle: "Drill Down and text search."
   nav:
-    priority: 3
+    priority: 4
     icon: 'icon-search'
 },{
   route: 'gitHub'

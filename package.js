@@ -24,7 +24,8 @@ Package.on_use(function (api, where) {
   /* External Libraries */
   api.add_files([
     'vendor/DataTables-1.10.0/media/js/jquery.dataTables.min.js',
-    'vendor/DataTables-1.10.0/extensions/ColVis/js/dataTables.colVis.min.js'
+    'vendor/DataTables-1.10.0/extensions/ColVis/js/dataTables.colVis.min.js',
+    'vendor/DataTables-1.10.0/extensions/ColReorder/js/dataTables.colReorder.min.js'
   ], ['client']);
 
   /* Mixins */
