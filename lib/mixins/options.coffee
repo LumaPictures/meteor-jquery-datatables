@@ -12,7 +12,6 @@ DataTableMixins.Options =
 
   # ##### getOptions()
   getOptions: ->
-    console.log @
     return @getData().options or @presetOptions() or false
 
   # ##### prepareOptions()

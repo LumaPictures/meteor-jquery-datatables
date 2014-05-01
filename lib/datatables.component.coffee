@@ -15,5 +15,12 @@ if Meteor.isClient
     DataTableMixins.Utility,
     DataTableMixins.Debug
 
+  $.fn.dataTableExt.oApi.fnGetComponent = ->
+    oSettings = @fnSettings()
+    if oSettings
+      if oSettings.oInit
+        return oSettings.oInit.component or false
+    throw new Error "DataTable Blaze component not instantiated"
+
 else if Meteor.isServer
   DataTable = _.extend DataTableMixins.Publish, DataTableMixins.Debug

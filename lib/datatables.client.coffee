@@ -26,13 +26,6 @@ DataTable.defaultOptions =
 
 Template.dataTable = _.extend Template.dataTable, DataTable
 
-$.fn.dataTableExt.oApi.fnGetComponent = ->
-  oSettings = @fnSettings()
-  if oSettings
-    if oSettings.oInit
-      return oSettings.oInit.component or false
-  throw new Error "DataTable Blaze component not instantiated"
-
 # ## Initialization
 
 # ##### rendered()
