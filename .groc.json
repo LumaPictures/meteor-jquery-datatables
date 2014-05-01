@@ -14,7 +14,7 @@
     "*.idea",
     "*vendor",
     ".groc.json",
-    "temp.coffee",
+    "*temp.coffee",
     "example/packages/**",
     "example/.meteor/**"
   ],
