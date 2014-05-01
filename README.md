@@ -19,6 +19,27 @@ This package wraps the powerful and mature DataTables.net jQuery plugin for enha
 
 ## [Live Example](http://jquery-datatables.meteor.com)
 
+## Local Example
+
+The first time your run the example app it will take a minute or two to start, this is because the example is writing
+100k documents to the Browsers collection as an example dataset. You can change this [here](https://github.com/LumaPictures/meteor-jquery-datatables/blob/master/example/lib/browsers.coffee).
+
+
+```
+$ git clone https://github.com/lumapictures/meteor-jquery-datatables
+$ cd meteor-jquery-datatables/example
+$ mrt add jquery-datatables
+$ meteor
+```
+
+## Local Tests
+```
+$ git clone https://github.com/lumapictures/meteor-jquery-datatables
+$ cd meteor-jquery-datatables/example
+$ mrt add jquery-datatables
+$ meteor test-packages jquery-datatables
+```
+
 ## Usage
 
 All you have to do is include the datatable component in one of your templates like so:

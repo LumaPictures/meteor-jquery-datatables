@@ -1,3 +1,5 @@
+browsersCount = 100000
+
 # * Collection defined on server and client
 @Browsers = new Meteor.Collection 'browsers'
 
@@ -6,7 +8,6 @@ Browsers.allow
   insert: -> true
   update: -> true
   remove: -> true
-
 
 browserList = [
   {
@@ -107,7 +108,7 @@ browserList = [
   console.log( count + ' browsers inserted')
 
 if Meteor.isServer
-  # * initialize Browsers with 100k docs
+  # * initialize Browsers collection
   Meteor.startup ->
     if Browsers.find().count() is 0
-      insertBrowsers 100000
+      insertBrowsers browsersCount
