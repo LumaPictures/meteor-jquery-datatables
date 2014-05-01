@@ -257,7 +257,7 @@ Template.dataTable.setSubscriptionAutorun = ( fnCallback ) ->
   autorun = Deps.autorun =>
     if @getSubscriptionHandle() and @getSubscriptionHandle().ready()
       @log 'fnServerdData:handle:ready', @getSubscriptionHandle().ready()
-      cursorOptions = skip: 0
+      cursorOptions = skip: @getTableState().iDisplayStart or 0
       cursorOptions.limit = @getTableState().iDisplayLength or 10
       if @getTableState().sort
         cursorOptions.sort = @getTableState().sort
@@ -334,7 +334,7 @@ Template.dataTable.isDebug = ->
 # ##### log()
 Template.dataTable.log = ( message, object ) ->
   if @isDebug()
-    if message.indexOf( @isDebug() ) isnt -1 or @isDebug() is "true"
+    if message.indexOf( @isDebug() ) isnt -1 or @isDebug() is "true" or @isDebug() is true
       console.log "dataTable:#{ @getSelector() }:#{ message } ->", object
 
 # ## Querying MongoDB
