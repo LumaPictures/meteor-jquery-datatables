@@ -18,6 +18,7 @@ Package.on_use(function (api, where) {
   api.add_files([
     'vendor/datatables.min.js',
     'vendor/tabletools.min.js',
+    'vendor/colvis.min.js',
     'lib/datatables.html',
     'lib/datatables.client.coffee'
   ], ['client']);
