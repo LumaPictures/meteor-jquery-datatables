@@ -17,7 +17,7 @@ settings =
     private: {}
 
 unless process.env.METEOR_SETTINGS
-  console.log "=> No METEOR_SETTINGS passed in, using locally defined settings."
+  console.log "No METEOR_SETTINGS passed in, using locally defined settings."
   if environment is "production"
     Meteor.settings = settings.production
   else if environment is "staging"
@@ -27,4 +27,4 @@ unless process.env.METEOR_SETTINGS
 
   # Push a subset of settings to the client.
   __meteor_runtime_config__.PUBLIC_SETTINGS = Meteor.settings.public  if Meteor.settings and Meteor.settings.public
-  console.log "Meteor.settings", Meteor.settings
+  console.log "Meteor.settings [ #{ environment } ] : ", Meteor.settings
