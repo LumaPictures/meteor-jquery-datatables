@@ -18,6 +18,7 @@ Package.on_use(function (api, where) {
 
   api.export([
     'DataTableMixins',
+    'DataTableOptions',
     'DataTable'
   ], ['client','server']);
 
@@ -55,6 +56,17 @@ Package.on_use(function (api, where) {
     'lib/mixins/utility.coffee'
   ], [ 'client' ]);
 
+  /* Options */
+  api.add_files([
+    'lib/options/dataTableOptions.coffee'
+  ], [ 'client', 'server' ]);
+
+  api.add_files([
+    'lib/options/display.coffee',
+    'lib/options/language.coffee'
+  ], [ 'client' ]);
+
+  /* Component */
   api.add_files([
     'lib/datatables.component.coffee'
   ], [ 'client', 'server']);
@@ -65,7 +77,6 @@ Package.on_use(function (api, where) {
   ], [ 'client' ]);
 
   /* Plugins */
-  // column filter plugin
   api.add_files([
     'lib/plugins/columnFilter/columnFilter.html',
     'lib/plugins/columnFilter/columnFilter.plugin.coffee'

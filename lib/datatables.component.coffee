@@ -15,6 +15,8 @@ if Meteor.isClient
     DataTableMixins.Utility,
     DataTableMixins.Debug
 
+  DataTable.defaultOptions = _.extend DataTableOptions.display, DataTableOptions.language
+
   $.fn.dataTableExt.oApi.fnGetComponent = ->
     oSettings = @fnSettings()
     if oSettings
