@@ -36,7 +36,7 @@ DataTableMixins.Subscription =
     autorun = Deps.autorun =>
       if @getSubscriptionHandle() and @getSubscriptionHandle().ready()
         @log 'fnServerdData:handle:ready', @getSubscriptionHandle().ready()
-        cursorOptions = skip: 0
+        cursorOptions = skip: @getTableState().iDisplayStart or 0
         cursorOptions.limit = @getTableState().iDisplayLength or 10
         if @getTableState().sort
           cursorOptions.sort = @getTableState().sort
