@@ -28,6 +28,7 @@ DataTableMixins.Publish =
       console.log options
       clientCollectionName = options.collectionName
       options = _.omit options, 'collectionName'
+      subscription_id = subscription + EJSON.stringify(baseQuery)
       DataTable.log "#{ subscription }:#{ clientCollectionName }:query:base", baseQuery
       DataTable.log "#{ subscription }:#{ clientCollectionName }:query:filtered", filteredQuery
       DataTable.log "#{ subscription }:#{ clientCollectionName }:options", options
@@ -44,11 +45,11 @@ DataTableMixins.Publish =
           DataTable.log "#{ subscription }:count:filtered", filtered
           # `added` is a flag that is set to true on the initial insert into the DaTableCount collection from this subscription.
           if added
-            self.added( DataTable.countCollection, subscription, { count: total } )
-            self.added( DataTable.countCollection, "#{ subscription }_filtered", { count: filtered } )
+            self.added( DataTable.countCollection, subscription_id, { count: total } )
+            self.added( DataTable.countCollection, "#{ subscription_id }_filtered", { count: filtered } )
           else
-            self.changed( DataTable.countCollection, subscription, { count: total } )
-            self.changed( DataTable.countCollection, "#{ subscription }_filtered", { count: filtered } )
+            self.changed( DataTable.countCollection, subscription_id, { count: total } )
+            self.changed( DataTable.countCollection, "#{ subscription_id }_filtered", { count: filtered } )
 
       # ###### observe
       # DataTable observes just the filtered and paginated subset of the Collection. This is for performance reasons as

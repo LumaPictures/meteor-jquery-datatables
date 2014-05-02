@@ -17,3 +17,7 @@ DataTableMixins.Query =
   # ##### getQuery()
   getQuery: ->
     return @getData().query or false
+
+  getQueryAsString: ->
+    query = @getData().query
+    if query is false then "" else EJSON.stringify @getData().query
