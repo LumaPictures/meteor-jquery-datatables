@@ -4,8 +4,10 @@
         {{> dataTable
             selector=browsers.selector
             columns=browsers.columns
+            collection=browsers.collection
             subscription=browsers.subscription
             query=browsers.query
+            debug="all"
         }}
     {{/panel}}
     {{#panel}}
@@ -14,7 +16,6 @@
             selector=pages.selector
             columns=pages.columns
             rows=pages.rows
-            debug="all"
         }}
     {{/panel}}
     {{#panel}}

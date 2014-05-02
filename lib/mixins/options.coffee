@@ -23,7 +23,7 @@ DataTableMixins.Options =
       options.aaData = @getRows() or []
       options.aoColumns = @getColumns() or []
       # If the componet was declared with a collection and a query it is setup as a reactive datatable.
-      if @getSubscription()
+      if @getCollection() and @getQuery()
         options.bServerSide = true
         options.bProcessing = true
         # `options.sAjaxSource` is currently useless, but is passed into `fnServerData` by datatables.
