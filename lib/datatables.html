@@ -1,5 +1,5 @@
 <template name="dataTable">
-    <div class="{{selector}}">
+    <div id="{{selector}}" class="dataTable-container">
         {{#if UI.contentBlock }}
             {{> UI.contentBlock }}
         {{else}}
@@ -13,5 +13,5 @@
 </template>
 
 <template name="default_table_template">
-    <table class="table {{../../table_styles}}"></table>
+    <table class="table display {{../../table_styles}}" cellspacing="0" width="100%"></table>
 </template>

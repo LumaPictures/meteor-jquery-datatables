@@ -22,9 +22,9 @@ DataTableMixins.Initialize =
 
   # ##### prepareDataTable()
   initializeDataTable: ->
-    @setDataTable $(".#{ @getSelector() } table").dataTable( @getOptions() )
+    @setDataTable $("##{ @getSelector() } table").dataTable( @getOptions() )
 
   # ##### initializeDisplayLength()
   initializeDisplayLength: ->
     unless $.select2
-      $( ".#{ @getSelector() } .dataTables_length select" ).select2 minimumResultsForSearch: "-1"
+      $( "##{ @getSelector() } .dataTables_length select" ).select2 minimumResultsForSearch: "-1"
