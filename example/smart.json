@@ -3,6 +3,7 @@
     "jquery-datatables": {
       "path": ".."
     },
-    "luma-ui": {}
+    "luma-ui": {},
+    "apm": {}
   }
 }

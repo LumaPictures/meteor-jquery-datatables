@@ -5,7 +5,8 @@
       "jquery-datatables": {
         "path": ".."
       },
-      "luma-ui": {}
+      "luma-ui": {},
+      "apm": {}
     },
     "packages": {
       "jquery-datatables": {
@@ -15,6 +16,11 @@
         "git": "https://github.com/lumapictures/meteor-luma-ui.git",
         "tag": "v0.1.11",
         "commit": "686b176a9fae45965e92bd5950131c752eb270f9"
+      },
+      "apm": {
+        "git": "https://github.com/arunoda/meteor-apm-client.git",
+        "tag": "v1.2.5",
+        "commit": "c4552ec9c2d011604729af42d66d8c896aaa77d4"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",

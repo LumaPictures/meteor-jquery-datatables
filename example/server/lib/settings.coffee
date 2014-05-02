@@ -1,0 +1,30 @@
+environment = process.env.METEOR_ENV or "development"
+
+settings =
+  development:
+    public: {}
+    private:
+      apm:
+        appId: "A4sHhXvv5qaaEafDX"
+        appSecret: "915ed5bd-317b-4aca-92a9-e98fc8451ec5"
+
+  staging:
+    public: {}
+    private: {}
+
+  production:
+    public: {}
+    private: {}
+
+unless process.env.METEOR_SETTINGS
+  console.log "=> No METEOR_SETTINGS passed in, using locally defined settings."
+  if environment is "production"
+    Meteor.settings = settings.production
+  else if environment is "staging"
+    Meteor.settings = settings.staging
+  else
+    Meteor.settings = settings.development
+
+  # Push a subset of settings to the client.
+  __meteor_runtime_config__.PUBLIC_SETTINGS = Meteor.settings.public  if Meteor.settings and Meteor.settings.public
+  console.log "Meteor.settings", Meteor.settings
