@@ -25,9 +25,12 @@ DataTableMixins.Publish =
       Match.test baseQuery, Object
       Match.test filteredQuery, Object
       Match.test options, Object
-      DataTable.log "#{ subscription }:query:base", baseQuery
-      DataTable.log "#{ subscription }:query:filtered", filteredQuery
-      DataTable.log "#{ subscription }:options", options
+      console.log options
+      clientCollectionName = options.collectionName
+      options = _.omit options, 'collectionName'
+      DataTable.log "#{ subscription }:#{ clientCollectionName }:query:base", baseQuery
+      DataTable.log "#{ subscription }:#{ clientCollectionName }:query:filtered", filteredQuery
+      DataTable.log "#{ subscription }:#{ clientCollectionName }:options", options
 
       # ###### updateCount
       # Update the count values of the client DataTableCount Collection to reflect the current filter state.
@@ -56,20 +59,20 @@ DataTableMixins.Publish =
         # Updates the count and sends the new doc to the client.
         addedAt: ( doc, index, before ) ->
           updateCount initialized
-          self.added collection._name, doc._id, doc
-          DataTable.log "#{ subscription }:added", doc._id
+          self.added clientCollectionName, doc._id, doc
+          DataTable.log "#{ subscription }:#{ clientCollectionName }:added", doc._id
         # ###### changedAt()
         # Updates the count and sends the changed properties to the client.
         changedAt: ( newDoc, oldDoc, index ) ->
           updateCount initialized
-          self.changed collection._name, newDoc._id, newDoc
-          DataTable.log "#{ subscription }:changed", newDoc._id
+          self.changed clientCollectionName, newDoc._id, newDoc
+          DataTable.log "#{ subscription }:#{ clientCollectionName }:changed", newDoc._id
         # ###### removedAt()
         # Updates the count and removes the document from the client.
         removedAt: ( doc, index ) ->
           updateCount initialized
-          self.removed collection._name, doc._id
-          DataTable.log "#{ subscription }:removed", doc._id
+          self.removed clientCollectionName, doc._id
+          DataTable.log "#{ subscription }:#{ clientCollectionName }:removed", doc._id
       # After the observer is initialized the `initialized` flag is set to true, the initial count is published,
       # and the publication is marked as `ready()`
       initialized = true
