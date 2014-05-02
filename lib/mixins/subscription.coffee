@@ -13,7 +13,6 @@ DataTableMixins.Subscription =
       skip: @getTableState().iDisplayStart
       limit: @getTableState().iDisplayLength
       sort: @getTableState().sort
-      collectionName: @getCollectionName()
     @setData 'subscriptionOptions', options
     @log 'subscription:options:set', options
 

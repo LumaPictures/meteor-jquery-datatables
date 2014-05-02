@@ -18,9 +18,7 @@ DataTableMixins.Collection =
 
   # ##### prepareCollection()
   prepareCollection: ->
-    if @getQuery()
-      unless @getCollection()
-        @setCollection new Meteor.Collection @getSelector()
+    if @getCollection() and @getQuery()
       @prepareCountCollection()
 
   # ##### prepareCountCollection()
@@ -31,10 +29,6 @@ DataTableMixins.Collection =
   # ##### getCollection()
   getCollection: ->
     return @getData().collection or false
-
-  # ##### getCollectionName()
-  getCollectionName: ->
-    return @getCollection()._name or false
 
   # ##### getCountCollection()
   getCountCollection: ->
