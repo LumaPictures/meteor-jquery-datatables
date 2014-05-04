@@ -2,44 +2,44 @@ Template.colReorder.browsers = ->
   browsers =
     columns: [
       {
-        sTitle: "Engine"
-        mData: "engine"
+        title: "Engine"
+        data: "engine"
       }
       {
-        sTitle: "Browser"
-        mData: "browser"
+        title: "Browser"
+        data: "browser"
       }
       {
-        sTitle: "Platform"
-        mData: "platform"
+        title: "Platform"
+        data: "platform"
       }
       {
-        sTitle: "Version"
-        mData: "version"
+        title: "Version"
+        data: "version"
         sClass: "center"
       }
       {
-        sTitle: "Grade"
-        mData: "grade"
+        title: "Grade"
+        data: "grade"
         sClass: "center"
-        mRender: ( dataSource, call, rawData ) ->
-          rawData ?= ""
-          switch rawData.grade
+        mRender: ( data, type, row ) ->
+          row ?= ""
+          switch row.grade
             when "A" then return "<b>A</b>"
-            else return rawData.grade
+            else return row.grade
       }
       {
-        sTitle: "Created"
-        mData: "createdAt"
-        mRender: ( dataSource, call, rawData ) ->
-          rawData.createdAt ?= ""
-          if rawData.createdAt
-            return moment( rawData.createdAt ).fromNow()
-          else return rawData.createdAt
+        title: "Created"
+        data: "createdAt"
+        mRender: ( data, type, row ) ->
+          row.createdAt ?= ""
+          if row.createdAt
+            return moment( row.createdAt ).fromNow()
+          else return row.createdAt
       }
       {
-        sTitle: "Counter"
-        mData: "counter"
+        title: "Counter"
+        data: "counter"
       }
     ]
     selector: "column-visibiltiy"
@@ -50,5 +50,5 @@ Template.colReorder.browsers = ->
     #   * the datatables publication providing the data on the server
     subscription: "a_browsers"
     options:
-      sDom:"<\"datatable-header\"flR><\"datatable-scroll\"rt><\"datatable-footer\"ip>"
+      dom:"<\"datatable-header\"flR><\"datatable-scroll\"rt><\"datatable-footer\"ip>"
   return browsers

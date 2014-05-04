@@ -24,10 +24,10 @@ Template.domSource.routes = -> Router.collection.find()
 ###
 Template.datasources.pages = ->
   pages =
-  # ## Columns
-  #   * `data` maps the object properties to column headings
-  #   * `title` is the column heading
-  #   * `mRender` is a custom render function for that property ( default is "" )
+    # ## Columns
+    #   * `data` maps the object properties to column headings
+    #   * `title` is the column heading
+    #   * `mRender` is a custom render function for that property ( default is "" )
     columns: [
       {
         title: "Route"
@@ -40,26 +40,26 @@ Template.datasources.pages = ->
       {
         title: "Controller"
         data: "controller"
-        mRender:  ( dataSource, call, rawData ) ->
-          rawData.controller ?= "null"
+        mRender:  ( data, type, row ) ->
+          row.controller ?= "null"
       }
       {
         title: "Title"
         data: "page.title"
-        mRender:  ( dataSource, call, rawData ) ->
-          rawData.page.title ?= ""
+        mRender:  ( data, type, row ) ->
+          row.page.title ?= ""
       }
       {
         title: "Subtitile"
         data: "page.subtitle"
-        mRender:  ( dataSource, call, rawData ) ->
-          rawData.page.subtitle ?= ""
+        mRender:  ( data, type, row ) ->
+          row.page.subtitle ?= ""
       }
       {
         title: "External Route"
         data: "external"
-        mRender: ( dataSource, call, rawData ) ->
-          rawData.external ?= "false"
+        mRender: ( data, type, row ) ->
+          row.external ?= "false"
       }
     ]
   # ## Selector
@@ -98,20 +98,20 @@ Template.datasources.browsers = ->
         title: "Grade"
         data: "grade"
         sClass: "center"
-        mRender: ( dataSource, call, rawData ) ->
-          rawData ?= ""
-          switch rawData.grade
+        mRender: ( data, type, row ) ->
+          row ?= ""
+          switch row.grade
             when "A" then return "<b>A</b>"
-            else return rawData.grade
+            else return row.grade
       }
       {
         title: "Created"
         data: "createdAt"
-        mRender: ( dataSource, call, rawData ) ->
-          rawData.createdAt ?= ""
-          if rawData.createdAt
-            return moment( rawData.createdAt ).fromNow()
-          else return rawData.createdAt
+        mRender: ( data, type, row ) ->
+          row.createdAt ?= ""
+          if row.createdAt
+            return moment( row.createdAt ).fromNow()
+          else return row.createdAt
       }
       {
         title: "Counter"
