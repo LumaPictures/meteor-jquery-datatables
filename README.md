@@ -46,87 +46,66 @@ All you have to do is include the datatable component in one of your templates l
 
 ```html
 {{> dataTable
-    selector=browsers.selector
     columns=browsers.columns
-    collection=browsers.collection
     options=browsers.options
     subscription=browsers.subscription
     query=browsers.query
+    debug="all"
 }}
 ```
 
 Then setup the data in your controller or as template helpers:
 
-```js
-if (Meteor.isClient)
-  Template.home.browsers = {
-    columns: [
-      {
-        sTitle: "Engine",
-        mData: "engine"
-      },
-      {
-        sTitle: "Browser",
-        mData: "browser"
-      },
-      {
-        sTitle: "Platform",
-        mData: "platform"
-      },
-      {
-        sTitle: "Version",
-        mData: "version",
-        sClass: "center"
-      },
-      {
-        sTitle: "Grade",
-        mData: "grade",
-        sClass: "center",
-        mRender: function (dataSource, call, rawData) {
-          if (rawData == null) rawData = "";
-          switch rawData.grade
-            when "A" then return "<b>A</b>"
-            else return rawData.grade
-          if (rawData.grade === "A") return "<b>A</b>";
-          return rawData.grade;
-        }
-      },
-      {
-        sTitle: "Created",
-        mData: "createdAt",
-        mRender: function (dataSource, call, rawData) {
-          if (rawData.createdAt == null) rawData.createdAt = "";
-          if (rawData.createdAt)
-            return moment(rawData.createdAt).fromNow()
-          else 
-            return rawData.createdAt || "";
-      },
-      {
-        sTitle: "Counter",
-        mData: "counter"
-      }
-    ],
-    selector: "dataTable-browsers",
-    collection: Browsers,
-    subscription: "all_browsers",
-    options: {
-      oLanguage: {
-        sProcessing: "You must construct additional pylons!"
-      }  
-    },    
-    query: {
-      grade: "A"
-    }  
-  }
+```coffeescript
+Template.dataSources.browsers = -> return {
+  columns: [{
+    title: "Engine"
+    data: "engine"
+  },{
+    title: "Browser"
+    data: "browser"
+  },{
+    title: "Platform"
+    data: "platform"
+  },{
+    title: "Version"
+    data: "version"
+  },{
+    title: "Grade"
+    data: "grade"
+    mRender: ( data, type, row ) ->
+      row ?= ""
+      switch row.grade
+        when "A" then return "<b>A</b>"
+        else return row.grade
+  },{
+    title: "Created"
+    data: "createdAt"
+    mRender: ( data, type, row ) ->
+      row.createdAt ?= ""
+      if row.createdAt
+        return moment( row.createdAt ).fromNow()
+      else return row.createdAt
+  },{
+    title: "Counter"
+    data: "counter"
+  }]
+  # ## Subscription
+  #   * the datatables publication providing the data on the server
+  subscription: "all_browsers"
+  # ## Query
+  #   * the initial filter on the dataset
+  query:
+    grade: "A"
+}
 ```
 
 On the server side, you need to publish the data:
 
-```js
-if (Meteor.isServer) {
-  DataTable.debug = "true";
-  DataTable.publish("all_browsers", Browsers);
-}
+```coffeescript
+if Meteor.isServer
+  DataTable.debug = "all";
+  DataTable.publish "all_browsers", Browsers
 ```
 
 ## Styling
