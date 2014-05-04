@@ -6,15 +6,54 @@ Router.addRoutes [{
     title: "jQuery DataTables"
     subtitle: "Sort, page, and filter millions of records reactively."
 },{
-  route: 'datasources'
-  path: 'datasources'
+  route: 'examples'
+  path: 'examples'
+  page:
+    title: "Examples"
+    subtitle: "Meteor usage examples."
+  nav:
+    priority: 1
+    icon: 'icon-happy2'
+    children: [{
+      title: "Data Sources"
+      route: "dataSources"
+    },{
+      title: "Blaze Templates"
+      route: "blazeTemplates"
+    }]
+},{
+  route: 'dataSources'
+  path: '/examples/data-sources'
   controller: "ExampleController"
   page:
     title: "Data Sources"
     subtitle: "DOM, Array, or Live Cursor."
+ },{
+  route: "blazeTemplates"
+  path: "/examples/blaze-templates"
+  controller: "ExampleController"
+  page:
+    title: "Blaze Templates"
+    subtitles: "Reactive templates in table cells."
+},{
+  route: "extensions"
+  path: "/extensions"
+  page:
+    title: "Extensions"
+    subtitle: "jQuery DataTables extensions."
   nav:
-    priority: 1
-    icon: 'icon-stack'
+    priority: 2
+    icon: "icon-puzzle"
+    children: [{
+      route: "colVis"
+      title: "Column Visibility"
+    },{
+      route: "colReorder"
+      title: "Column Reorder"
+    },{
+      route: "colFilters"
+      title: "Column Filters"
+    }]
 },{
   route: 'colVis'
   path: 'column-visibility'
@@ -22,9 +61,6 @@ Router.addRoutes [{
   page:
     title: "Column Visibility"
     subtitle: "Show and hide columns on the fly."
-  nav:
-    priority: 2
-    icon: 'icon-search'
 },{
   route: 'colReorder'
   path: 'column-reorder'
@@ -32,39 +68,23 @@ Router.addRoutes [{
   page:
     title: "Column Reorder"
     subtitle: "Put it wherever you want."
-  nav:
-    priority: 3
-    icon: 'icon-search'
 },{
-  route: 'columnFilters'
+  route: 'colFilters'
   path: 'column-filters'
   controller: "ExampleController"
   page:
     title: "Column Filters"
     subtitle: "Drill Down and text search."
-  nav:
-    priority: 4
-    icon: 'icon-search'
 },{
-  route: 'examples'
-  path: 'examples'
+  route: 'resources'
+  path: "https://datatables.net/"
+  external: true
   page:
-    title: "Examples"
-    subtitle: "Meteor usage examples."
+    title: "Official Resources"
+    subtitle: "Official jQuery DataTables resources"
   nav:
-    priority: 4
-    icon: 'icon-search'
-    children: [{
-      title: "Blaze Templates"
-      route: "blazeTemplates"
-    }]
-},{
-  route: "blazeTemplates"
-  path: "/examples/blaze-templates"
-  controller: "ExampleController"
-  page:
-    title: "Blaze Templates"
-    subtitles: "Reactive templates in table cells."
+    priority: 999
+    icon: "icon-book"
 },{
   route: 'gitHub'
   path: "https://github.com/lumapictures/meteor-jquery-datatables"
