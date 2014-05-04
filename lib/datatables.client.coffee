@@ -18,12 +18,13 @@ Template.dataTable.rendered = ->
 Template.dataTable.created = ->
   templateInstance = @
   instantiatedComponent = templateInstance.__component__
-  instantiatedComponent.log "created", @
-  instantiatedComponent.prepareQuery()
+  instantiatedComponent.prepareSelector()
   instantiatedComponent.prepareCollection()
+  instantiatedComponent.prepareQuery()
   instantiatedComponent.prepareColumns()
   instantiatedComponent.prepareRows()
   instantiatedComponent.prepareOptions()
+  instantiatedComponent.log "created", @
 
 # ##### destroyed()
 # Currently nothing is done when the component is destroyed.

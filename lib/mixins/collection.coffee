@@ -18,6 +18,8 @@ DataTableMixins.Collection =
 
   # ##### prepareCollection()
   prepareCollection: ->
+    if @getQuery()
+      @setCollection new Meteor.Collection @getSelector()
     if @getCollection() and @getQuery()
       @prepareCountCollection()
 
@@ -30,14 +32,17 @@ DataTableMixins.Collection =
   getCollection: ->
     return @getData().collection or false
 
+  getCollectionName: ->
+    return @getCollection()._name or false
+
   # ##### getCountCollection()
   getCountCollection: ->
     return @getData().countCollection or false
 
   # ##### getTotalCount()
   getTotalCount: ->
-    return @getCountCollection().findOne( "#{ @getSubscription() }#{ @getQueryAsString() }" ).count or 0
+    return @getCountCollection().findOne( @getCollectionName() ).count or 0
 
   # ##### getFilteredCount()
   getFilteredCount: ->
-    return @getCountCollection().findOne( "#{ @getSubscription() }#{ @getQueryAsString() }_filtered" ).count or 0
+    return @getCountCollection().findOne( "#{ @getCollectionName() }_filtered" ).count or 0

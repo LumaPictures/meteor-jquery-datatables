@@ -47,9 +47,6 @@ Template.blazeTemplates.pages = -> return {
       }
       return component.render().toHTML()
   }]
-  # ## Selector
-  #   * must be unique in page scope
-  selector: "dataTable-pages"
   # ## Rows
   #   * Array data source for this table
   rows: Router.collection.find().fetch()

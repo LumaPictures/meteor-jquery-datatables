@@ -18,14 +18,13 @@ DataTableMixins.Publish =
     # clients from gaining access to the entire dataset if they modify the baseQuery.
     #   + filteredQuery: ( object ) the filter being applied by the client datatable's current state.
     #   + options : ( object ) sort and pagination options supplied by the client datatables's current state.
-    Meteor.publish subscription, ( baseQuery, filteredQuery, options ) ->
+    Meteor.publish subscription, ( collectionName, baseQuery, filteredQuery, options ) ->
       self = @
       initialized = false
       countInitialized = false
       Match.test baseQuery, Object
       Match.test filteredQuery, Object
       Match.test options, Object
-      subscription_id = subscription + EJSON.stringify( baseQuery )
       DataTable.log "#{ subscription }:query:base", baseQuery
       DataTable.log "#{ subscription }:query:filtered", filteredQuery
       DataTable.log "#{ subscription }:options", options
@@ -42,11 +41,11 @@ DataTableMixins.Publish =
           DataTable.log "#{ subscription }:count:filtered", filtered
           # `added` is a flag that is set to true on the initial insert into the DaTableCount collection from this subscription.
           if added
-            self.added( DataTable.countCollection, subscription_id, { count: total } )
-            self.added( DataTable.countCollection, "#{ subscription_id }_filtered", { count: filtered } )
+            self.added( DataTable.countCollection, collectionName, { count: total } )
+            self.added( DataTable.countCollection, "#{ collectionName }_filtered", { count: filtered } )
           else
-            self.changed( DataTable.countCollection, subscription_id, { count: total } )
-            self.changed( DataTable.countCollection, "#{ subscription_id }_filtered", { count: filtered } )
+            self.changed( DataTable.countCollection, collectionName, { count: total } )
+            self.changed( DataTable.countCollection, "#{ collectionName }_filtered", { count: filtered } )
 
       # ###### observe
       # DataTable observes just the filtered and paginated subset of the Collection. This is for performance reasons as
@@ -57,19 +56,19 @@ DataTableMixins.Publish =
         # Updates the count and sends the new doc to the client.
         addedAt: ( doc, index, before ) ->
           updateCount initialized
-          self.added collection._name, doc._id, doc
+          self.added collectionName, doc._id, doc
           DataTable.log "#{ subscription }:added", doc._id
         # ###### changedAt()
         # Updates the count and sends the changed properties to the client.
         changedAt: ( newDoc, oldDoc, index ) ->
           updateCount initialized
-          self.changed collection._name, newDoc._id, newDoc
+          self.changed collectionName, newDoc._id, newDoc
           DataTable.log "#{ subscription }:changed", newDoc._id
         # ###### removedAt()
         # Updates the count and removes the document from the client.
         removedAt: ( doc, index ) ->
           updateCount initialized
-          self.removed collection._name, doc._id
+          self.removed collectionName, doc._id
           DataTable.log "#{ subscription }:removed", doc._id
       # After the observer is initialized the `initialized` flag is set to true, the initial count is published,
       # and the publication is marked as `ready()`

@@ -99,10 +99,6 @@ Template.dataSources.browsers = -> return {
     title: "Counter"
     data: "counter"
   }]
-  selector: "dataTable-browsers"
-  # ## Collection
-  #   * the collection these documents come from, must be the same as the server collection
-  collection: Browsers
   # ## Subscription
   #   * the datatables publication providing the data on the server
   subscription: "a_browsers"

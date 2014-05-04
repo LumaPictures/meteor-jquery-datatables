@@ -21,7 +21,7 @@ DataTableMixins.Subscription =
   setSubscriptionHandle: ->
     if @getSubscriptionHandle()
       @getSubscriptionHandle().stop()
-    handle = Meteor.subscribe @getSubscription(), @getQuery(), @getTableState().query, @getSubscriptionOptions()
+    handle = Meteor.subscribe @getSubscription(), @getCollectionName(), @getQuery(), @getTableState().query, @getSubscriptionOptions()
     @setData 'handle', handle
     @log 'subscription:handle:set', handle
 
