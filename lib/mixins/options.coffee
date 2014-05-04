@@ -20,15 +20,15 @@ DataTableMixins.Options =
     options = @getOptions() or {}
     options.component = @
     unless @isDomSource()
-      options.aaData = @getRows() or []
-      options.aoColumns = @getColumns() or []
+      options.data = @getRows() or []
+      options.columns = @getColumns() or []
       # If the componet was declared with a collection and a query it is setup as a reactive datatable.
       if @getCollection() and @getQuery()
-        options.bServerSide = true
-        options.bProcessing = true
+        options.serverSide = true
+        options.processing = true
         # `options.sAjaxSource` is currently useless, but is passed into `fnServerData` by datatables.
-        options.sAjaxSource = "useful?"
+        options.ajaxSource = "useful?"
         # This binds the datatables `fnServerData` server callback to this component instance.
         # `_.debounce` is used to prevent unneccesary subcription calls while typing a search
-        options.fnServerData = _.debounce( @fnServerData.bind( @ ), 300 )
+        options.serverData = _.debounce( @fnServerData.bind( @ ), 300 )
     @setOptions _.defaults( options, @defaultOptions )
