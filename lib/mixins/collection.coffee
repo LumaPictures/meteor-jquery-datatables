@@ -18,9 +18,8 @@ DataTableMixins.Collection =
 
   # ##### prepareCollection()
   prepareCollection: ->
-    if @getQuery()
+    if @getSubscription()
       @setCollection new Meteor.Collection @getSelector()
-    if @getCollection() and @getQuery()
       @prepareCountCollection()
 
   # ##### prepareCountCollection()

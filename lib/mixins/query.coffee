@@ -12,7 +12,8 @@ DataTableMixins.Query =
   # ##### prepareQuery()
   prepareQuery: ->
     if @getCollection()
-      @setQuery {}
+      unless @getQuery()
+        @setQuery {}
 
   # ##### getQuery()
   getQuery: ->
