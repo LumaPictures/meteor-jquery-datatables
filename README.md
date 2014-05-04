@@ -114,8 +114,7 @@ This package DOES NOT PROVIDE ANY STYLES OR ASSETS intentionally.
 
 If you would like some help styling datatables you can check out my `luma-ui` package or the DataTables.net official docs.
 
-## [DataTables Docs](https://datatables.net/usage/)
-## [TableTools Docs](https://datatables.net/extras/tabletools/)
+## [DataTables Official Site](https://datatables.net/)
 ## [License](https://github.com/lumapictures/meteor-jquery-datatables/LICENSE.md)
 ## [Annotated Source](http://lumapictures.github.io/meteor-jquery-datatables)
 
