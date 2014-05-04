@@ -34,7 +34,7 @@ Router.addRoutes [{
   controller: "ExampleController"
   page:
     title: "Blaze Templates"
-    subtitles: "Reactive templates in table cells."
+    subtitle: "Reactive templates in table cells."
 },{
   route: "extensions"
   path: "/extensions"
@@ -56,21 +56,21 @@ Router.addRoutes [{
     }]
 },{
   route: 'colVis'
-  path: 'column-visibility'
+  path: '/extensions/column-visibility'
   controller: "ExampleController"
   page:
     title: "Column Visibility"
     subtitle: "Show and hide columns on the fly."
 },{
   route: 'colReorder'
-  path: 'column-reorder'
+  path: '/extensions/column-reorder'
   controller: "ExampleController"
   page:
     title: "Column Reorder"
     subtitle: "Put it wherever you want."
 },{
   route: 'colFilters'
-  path: 'column-filters'
+  path: '/extensions/column-filters'
   controller: "ExampleController"
   page:
     title: "Column Filters"

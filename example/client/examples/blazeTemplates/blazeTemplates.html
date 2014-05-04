@@ -1,3 +1,22 @@
 <template name="blazeTemplates">
+  {{#panel}}
+    {{> panelHeading icon="icon-table" title="Blaze Templates in Table" }}
+    {{> dataTable
+      selector=pages.selector
+      columns=pages.columns
+      rows=pages.rows
+    }}
+  {{/panel}}
+</template>
 
+<template name="exampleLinkTemplate">
+  <a href="{{href}}" title="{{title}}" target="{{target}}">
+    {{anchor}}
+  </a>
+</template>
+
+<template name="exampleLabelTemplate">
+  <span class="label {{class}}">
+    {{label}}
+  </span>
 </template>

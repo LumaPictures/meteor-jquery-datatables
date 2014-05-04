@@ -22,7 +22,7 @@ Template.domSource.routes = -> Router.collection.find()
 }}
 ```
 ###
-Template.datasources.pages = -> return {
+Template.dataSources.pages = -> return {
   # ## Columns
   #   * `data` maps the object properties to column headings
   #   * `title` is the column heading
@@ -66,7 +66,7 @@ Template.datasources.pages = -> return {
 # ====================
 # * You must setup a Datatables publication on the server.
 # * See `server/publications.coffee` for example publications.
-Template.datasources.browsers = -> return {
+Template.dataSources.browsers = -> return {
   columns: [{
     title: "Engine"
     data: "engine"
