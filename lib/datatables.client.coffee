@@ -30,4 +30,5 @@ Template.dataTable.created = ->
 Template.dataTable.destroyed = ->
   templateInstance = @
   instantiatedComponent = templateInstance.__component__
+  instantiatedComponent.destroy()
   instantiatedComponent.log "destroyed", @
