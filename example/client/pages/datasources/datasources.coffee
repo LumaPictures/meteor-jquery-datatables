@@ -25,39 +25,39 @@ Template.domSource.routes = -> Router.collection.find()
 Template.datasources.pages = ->
   pages =
   # ## Columns
-  #   * `mData` maps the object properties to column headings
-  #   * `sTitle` is the column heading
+  #   * `data` maps the object properties to column headings
+  #   * `title` is the column heading
   #   * `mRender` is a custom render function for that property ( default is "" )
     columns: [
       {
-        sTitle: "Route"
-        mData: "route"
+        title: "Route"
+        data: "route"
       }
       {
-        sTitle: "Path"
-        mData: "path"
+        title: "Path"
+        data: "path"
       }
       {
-        sTitle: "Controller"
-        mData: "controller"
+        title: "Controller"
+        data: "controller"
         mRender:  ( dataSource, call, rawData ) ->
           rawData.controller ?= "null"
       }
       {
-        sTitle: "Title"
-        mData: "page.title"
+        title: "Title"
+        data: "page.title"
         mRender:  ( dataSource, call, rawData ) ->
           rawData.page.title ?= ""
       }
       {
-        sTitle: "Subtitile"
-        mData: "page.subtitle"
+        title: "Subtitile"
+        data: "page.subtitle"
         mRender:  ( dataSource, call, rawData ) ->
           rawData.page.subtitle ?= ""
       }
       {
-        sTitle: "External Route"
-        mData: "external"
+        title: "External Route"
+        data: "external"
         mRender: ( dataSource, call, rawData ) ->
           rawData.external ?= "false"
       }
@@ -78,25 +78,25 @@ Template.datasources.browsers = ->
   browsers =
     columns: [
       {
-        sTitle: "Engine"
-        mData: "engine"
+        title: "Engine"
+        data: "engine"
       }
       {
-        sTitle: "Browser"
-        mData: "browser"
+        title: "Browser"
+        data: "browser"
       }
       {
-        sTitle: "Platform"
-        mData: "platform"
+        title: "Platform"
+        data: "platform"
       }
       {
-        sTitle: "Version"
-        mData: "version"
+        title: "Version"
+        data: "version"
         sClass: "center"
       }
       {
-        sTitle: "Grade"
-        mData: "grade"
+        title: "Grade"
+        data: "grade"
         sClass: "center"
         mRender: ( dataSource, call, rawData ) ->
           rawData ?= ""
@@ -105,8 +105,8 @@ Template.datasources.browsers = ->
             else return rawData.grade
       }
       {
-        sTitle: "Created"
-        mData: "createdAt"
+        title: "Created"
+        data: "createdAt"
         mRender: ( dataSource, call, rawData ) ->
           rawData.createdAt ?= ""
           if rawData.createdAt
@@ -114,8 +114,8 @@ Template.datasources.browsers = ->
           else return rawData.createdAt
       }
       {
-        sTitle: "Counter"
-        mData: "counter"
+        title: "Counter"
+        data: "counter"
       }
     ]
     selector: "dataTable-browsers"
