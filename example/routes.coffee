@@ -46,6 +46,26 @@ Router.addRoutes [{
     priority: 4
     icon: 'icon-search'
 },{
+  route: 'examples'
+  path: 'examples'
+  page:
+    title: "Examples"
+    subtitle: "Meteor usage examples."
+  nav:
+    priority: 4
+    icon: 'icon-search'
+    children: [{
+      title: "Blaze Templates"
+      route: "blazeTemplates"
+    }]
+},{
+  route: "blazeTemplates"
+  path: "/examples/blaze-templates"
+  controller: "ExampleController"
+  page:
+    title: "Blaze Templates"
+    subtitles: "Reactive templates in table cells."
+},{
   route: 'gitHub'
   path: "https://github.com/lumapictures/meteor-jquery-datatables"
   external: true
