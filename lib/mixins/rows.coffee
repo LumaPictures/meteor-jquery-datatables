@@ -23,7 +23,7 @@ DataTableMixins.Rows =
     counter = 0
     rows = @getRows()
     checkIndex = ( row ) ->
-      if row._aData._id is _id
+      if row._data._id is _id
         index = counter
       counter++
     checkIndex row for row in rows

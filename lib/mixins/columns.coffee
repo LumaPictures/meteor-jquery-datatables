@@ -8,29 +8,29 @@ DataTableMixins.Columns =
     @setData 'columns', columns
     @log "columns:set", columns
 
+  # ##### getColumns()
+  getColumns: ->
+    return @getData().columns or false
+
   # ##### prepareColumns()
   prepareColumns: ->
-    unless @isDomSource()
-      columns = @getColumns() or []
+    columns = @getColumns() or []
+    if @getQuery() and @getCollection()
       # Adds _id as a hidden column by default.
       columns.push
-        sTitle: "id"
-        mData: "_id"
-        bVisible: false
-        bSearchable: false
-      # Sets a default cell render function for every column.
-      @setDefaultCellValue column for column in columns
-      @setColumns columns
+        title: "id"
+        data: "_id"
+        visible: false
+        searchable: false
+    # Sets a default cell render function for every column.
+    @setDefaultCellValue column for column in columns
+    @setColumns columns
 
   # ##### setDefaultCellValue()
   # The default cell render function defaults all cells to "" if undefined.
   setDefaultCellValue: ( column ) ->
-    Match.test column.mData, String
-    Match.test column.sTitle, String
+    Match.test column.data, String
+    Match.test column.title, String
     unless column.mRender
-      column.mRender = ( dataSource, call, rawData ) ->
-        rawData[ column.mData ] ?= ""
-
-  # ##### getColumns()
-  getColumns: ->
-    return @getData().columns or false
+      column.mRender = ( data, type, row ) ->
+        row[ column.data ] ?= ""
