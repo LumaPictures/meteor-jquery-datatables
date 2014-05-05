@@ -9,19 +9,6 @@ Template.nestedTable.rendered = -> return
 # ###### nestedTable.destroyed()
 Template.nestedTable.destroyed = -> return
 
-format = ( row ) ->
-  return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
-  '<tr>'+
-  '<td>Route:</td>'+
-  '<td>'+row.route+'</td>'+
-  '</tr>'+
-  '<tr>'+
-  '<td>Path:</td>'+
-  '<td>'+row.path+'</td>'+
-  '</tr>'+
-  '</table>'
-
-
 # ###### nestedTable.events()
 Template.nestedTable.events
   "click td.details-control": ( event, target ) ->
@@ -33,7 +20,8 @@ Template.nestedTable.events
       $( tr ).find( ".details-control i" ).removeClass( "icon-minus" ).addClass( "icon-plus" )
     else
       # Open this row
-      row.child( format( row.data() ) ).show()
+      component = UI.renderWithData( Template.childTable, row.data()).render().toHTML()
+      row.child( component ).show()
       $( tr ).find( ".details-control i" ).removeClass( "icon-plus" ).addClass( "icon-minus" )
 
 Template.nestedTable.pages = -> return {
@@ -45,11 +33,7 @@ Template.nestedTable.pages = -> return {
     class: "details-control"
     orderable: false
     data: null
-    mRender: ->
-      component = UI.renderWithData Template.icon, {
-        iconClass: "icon-plus"
-      }
-      return component.render().toHTML()
+    mRender: -> UI.renderWithData( Template.icon, { iconClass: "icon-plus" } ).render().toHTML()
   },{
     title: "Route"
     data: "route"
@@ -83,6 +67,4 @@ Template.nestedTable.pages = -> return {
   # ## Rows
   #   * Array data source for this table
   rows: Router.collection.find().fetch()
-  options:
-    order: [ [ 1, "asc"] ]
 }
