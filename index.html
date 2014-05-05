@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><title>index</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="index"><meta name="groc-project-path" content="README.md"><meta name="groc-github-url" content="https://github.com/lumapictures/jquery-datatables"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/lumapictures/jquery-datatables/blob/master/README.md">README.md</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="jquerydatatablesbuildstatushttpstravisciorglumapicturesmeteorjquerydatatablessvgbranchdevhttpstravisciorglumapicturesmeteorjquerydatatables">jQuery DataTables <a href="https://travis-ci.org/LumaPictures/meteor-jquery-datatables"><img src="https://travis-ci.org/LumaPictures/meteor-jquery-datatables.svg?branch=dev" alt="Build Status" title="" /></a></h1>
+<!DOCTYPE html><html lang="en"><head><title>index</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="index"><meta name="groc-project-path" content="README.md"><meta name="groc-github-url" content="https://github.com/lumapictures/meteor-jquery-datatables"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/lumapictures/meteor-jquery-datatables/blob/master/README.md">README.md</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="jquerydatatablesbuildstatushttpstravisciorglumapicturesmeteorjquerydatatablessvgbranchdevhttpstravisciorglumapicturesmeteorjquerydatatables">jQuery DataTables <a href="https://travis-ci.org/LumaPictures/meteor-jquery-datatables"><img src="https://travis-ci.org/LumaPictures/meteor-jquery-datatables.svg?branch=dev" alt="Build Status" title="" /></a></h1>
 
 <h3 id="sort-page-and-filter-millions-of-records">Sort, page, and filter millions of records.</h3>
 
@@ -23,90 +23,88 @@
 
 <h2 id="liveexamplehttpjquerydatatablesmeteorcom"><a href="http://jquery-datatables.meteor.com">Live Example</a></h2>
 
+<h2 id="local-example">Local Example</h2>
+
+<p>The first time your run the example app it will take a minute or two to start, this is because the example is writing
+100k documents to the Browsers collection as an example dataset. You can change this <a href="https://github.com/LumaPictures/meteor-jquery-datatables/blob/master/example/lib/browsers.coffee">here</a>.</p>
+
+<pre><code>$ git clone https://github.com/lumapictures/meteor-jquery-datatables
+$ cd meteor-jquery-datatables/example
+$ mrt add jquery-datatables
+$ meteor
+</code></pre>
+
+<h2 id="local-tests">Local Tests</h2>
+
+<pre><code>$ git clone https://github.com/lumapictures/meteor-jquery-datatables
+$ cd meteor-jquery-datatables/example
+$ mrt add jquery-datatables
+$ meteor test-packages jquery-datatables
+</code></pre>
+
 <h2 id="usage">Usage</h2>
 
 <p>All you have to do is include the datatable component in one of your templates like so:</p>
 
 <pre><code class="html">{{&gt; dataTable
-    selector=browsers.selector
     columns=browsers.columns
-    collection=browsers.collection
     options=browsers.options
     subscription=browsers.subscription
     query=browsers.query
+    debug="all"
 }}
 </code></pre>
 
 <p>Then setup the data in your controller or as template helpers:</p>
 
-<pre><code class="js">if (Meteor.isClient)
-  Template.home.browsers = {
-    columns: [
-      {
-        sTitle: "Engine",
-        mData: "engine"
-      },
-      {
-        sTitle: "Browser",
-        mData: "browser"
-      },
-      {
-        sTitle: "Platform",
-        mData: "platform"
-      },
-      {
-        sTitle: "Version",
-        mData: "version",
-        sClass: "center"
-      },
-      {
-        sTitle: "Grade",
-        mData: "grade",
-        sClass: "center",
-        mRender: function (dataSource, call, rawData) {
-          if (rawData == null) rawData = "";
-          switch rawData.grade
-            when "A" then return "&lt;b&gt;A&lt;/b&gt;"
-            else return rawData.grade
-          if (rawData.grade === "A") return "&lt;b&gt;A&lt;/b&gt;";
-          return rawData.grade;
-        }
-      },
-      {
-        sTitle: "Created",
-        mData: "createdAt",
-        mRender: function (dataSource, call, rawData) {
-          if (rawData.createdAt == null) rawData.createdAt = "";
-          if (rawData.createdAt)
-            return moment(rawData.createdAt).fromNow()
-          else 
-            return rawData.createdAt || "";
-      },
-      {
-        sTitle: "Counter",
-        mData: "counter"
-      }
-    ],
-    selector: "dataTable-browsers",
-    collection: Browsers,
-    subscription: "all_browsers",
-    options: {
-      oLanguage: {
-        sProcessing: "You must construct additional pylons!"
-      }  
-    },    
-    query: {
-      grade: "A"
-    }  
-  }
+<pre><code class="coffeescript">Template.dataSources.browsers = -&gt; return {
+  columns: [{
+    title: "Engine"
+    data: "engine"
+  },{
+    title: "Browser"
+    data: "browser"
+  },{
+    title: "Platform"
+    data: "platform"
+  },{
+    title: "Version"
+    data: "version"
+  },{
+    title: "Grade"
+    data: "grade"
+    mRender: ( data, type, row ) -&gt;
+      row ?= ""
+      switch row.grade
+        when "A" then return "&lt;b&gt;A&lt;/b&gt;"
+        else return row.grade
+  },{
+    title: "Created"
+    data: "createdAt"
+    mRender: ( data, type, row ) -&gt;
+      row.createdAt ?= ""
+      if row.createdAt
+        return moment( row.createdAt ).fromNow()
+      else return row.createdAt
+  },{
+    title: "Counter"
+    data: "counter"
+  }]
+  # ## Subscription
+  #   * the datatables publication providing the data on the server
+  subscription: "all_browsers"
+  # ## Query
+  #   * the initial filter on the dataset
+  query:
+    grade: "A"
+}
 </code></pre>
 
 <p>On the server side, you need to publish the data:</p>
 
-<pre><code class="js">if (Meteor.isServer) {
-  DataTable.debug = "true";
-  DataTable.publish("all_browsers", Browsers);
-}
+<pre><code class="coffeescript">if Meteor.isServer
+  DataTable.debug = "all";
+  DataTable.publish "all_browsers", Browsers
 </code></pre>
 
 <h2 id="styling">Styling</h2>
@@ -115,9 +113,7 @@
 
 <p>If you would like some help styling datatables you can check out my <code>luma-ui</code> package or the DataTables.net official docs.</p>
 
-<h2 id="datatablesdocshttpsdatatablesnetusage"><a href="https://datatables.net/usage/">DataTables Docs</a></h2>
-
-<h2 id="tabletoolsdocshttpsdatatablesnetextrastabletools"><a href="https://datatables.net/extras/tabletools/">TableTools Docs</a></h2>
+<h2 id="datatablesofficialsitehttpsdatatablesnet"><a href="https://datatables.net/">DataTables Official Site</a></h2>
 
 <h2 id="licensehttpsgithubcomlumapicturesmeteorjquerydatatableslicensemd"><a href="https://github.com/lumapictures/meteor-jquery-datatables/LICENSE.md">License</a></h2>
 

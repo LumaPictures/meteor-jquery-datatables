@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><title>example/routes</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="example/routes"><meta name="groc-project-path" content="example/routes.coffee"><meta name="groc-github-url" content="https://github.com/lumapictures/jquery-datatables"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/lumapictures/jquery-datatables/blob/master/example/routes.coffee">example/routes.coffee</a></div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="nx">Router</span><span class="p">.</span><span class="nx">addRoutes</span> <span class="p">[{</span>
+<!DOCTYPE html><html lang="en"><head><title>example/routes</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="example/routes"><meta name="groc-project-path" content="example/routes.coffee"><meta name="groc-github-url" content="https://github.com/lumapictures/meteor-jquery-datatables"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/lumapictures/meteor-jquery-datatables/blob/master/example/routes.coffee">example/routes.coffee</a></div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="nx">Router</span><span class="p">.</span><span class="nx">addRoutes</span> <span class="p">[{</span>
   <span class="nv">route: </span><span class="s">&#39;home&#39;</span>
   <span class="nv">path: </span><span class="s">&#39;/&#39;</span>
   <span class="nv">controller: </span><span class="s">&quot;ExampleController&quot;</span>
@@ -6,25 +6,85 @@
     <span class="nv">title: </span><span class="s">&quot;jQuery DataTables&quot;</span>
     <span class="nv">subtitle: </span><span class="s">&quot;Sort, page, and filter millions of records reactively.&quot;</span>
 <span class="p">},{</span>
-  <span class="nv">route: </span><span class="s">&#39;datasources&#39;</span>
-  <span class="nv">path: </span><span class="s">&#39;datasources&#39;</span>
+  <span class="nv">route: </span><span class="s">&#39;examples&#39;</span>
+  <span class="nv">path: </span><span class="s">&#39;examples&#39;</span>
+  <span class="nv">page:</span>
+    <span class="nv">title: </span><span class="s">&quot;Examples&quot;</span>
+    <span class="nv">subtitle: </span><span class="s">&quot;Meteor usage examples.&quot;</span>
+  <span class="nv">nav:</span>
+    <span class="nv">priority: </span><span class="mi">1</span>
+    <span class="nv">icon: </span><span class="s">&#39;icon-happy2&#39;</span>
+    <span class="nv">children: </span><span class="p">[{</span>
+      <span class="nv">title: </span><span class="s">&quot;Data Sources&quot;</span>
+      <span class="nv">route: </span><span class="s">&quot;dataSources&quot;</span>
+    <span class="p">},{</span>
+      <span class="nv">title: </span><span class="s">&quot;Blaze Templates&quot;</span>
+      <span class="nv">route: </span><span class="s">&quot;blazeTemplates&quot;</span>
+    <span class="p">}]</span>
+<span class="p">},{</span>
+  <span class="nv">route: </span><span class="s">&#39;dataSources&#39;</span>
+  <span class="nv">path: </span><span class="s">&#39;/examples/data-sources&#39;</span>
   <span class="nv">controller: </span><span class="s">&quot;ExampleController&quot;</span>
   <span class="nv">page:</span>
     <span class="nv">title: </span><span class="s">&quot;Data Sources&quot;</span>
     <span class="nv">subtitle: </span><span class="s">&quot;DOM, Array, or Live Cursor.&quot;</span>
-  <span class="nv">nav:</span>
-    <span class="nv">priority: </span><span class="mi">1</span>
-    <span class="nv">icon: </span><span class="s">&#39;icon-stack&#39;</span>
+ <span class="p">},{</span>
+  <span class="nv">route: </span><span class="s">&quot;blazeTemplates&quot;</span>
+  <span class="nv">path: </span><span class="s">&quot;/examples/blaze-templates&quot;</span>
+  <span class="nv">controller: </span><span class="s">&quot;ExampleController&quot;</span>
+  <span class="nv">page:</span>
+    <span class="nv">title: </span><span class="s">&quot;Blaze Templates&quot;</span>
+    <span class="nv">subtitle: </span><span class="s">&quot;Reactive templates in table cells.&quot;</span>
 <span class="p">},{</span>
-  <span class="nv">route: </span><span class="s">&#39;columnFilters&#39;</span>
-  <span class="nv">path: </span><span class="s">&#39;column-filters&#39;</span>
+  <span class="nv">route: </span><span class="s">&quot;extensions&quot;</span>
+  <span class="nv">path: </span><span class="s">&quot;/extensions&quot;</span>
+  <span class="nv">page:</span>
+    <span class="nv">title: </span><span class="s">&quot;Extensions&quot;</span>
+    <span class="nv">subtitle: </span><span class="s">&quot;jQuery DataTables extensions.&quot;</span>
+  <span class="nv">nav:</span>
+    <span class="nv">priority: </span><span class="mi">2</span>
+    <span class="nv">icon: </span><span class="s">&quot;icon-puzzle&quot;</span>
+    <span class="nv">children: </span><span class="p">[{</span>
+      <span class="nv">route: </span><span class="s">&quot;colVis&quot;</span>
+      <span class="nv">title: </span><span class="s">&quot;Column Visibility&quot;</span>
+    <span class="p">},{</span>
+      <span class="nv">route: </span><span class="s">&quot;colReorder&quot;</span>
+      <span class="nv">title: </span><span class="s">&quot;Column Reorder&quot;</span>
+    <span class="p">},{</span>
+      <span class="nv">route: </span><span class="s">&quot;colFilters&quot;</span>
+      <span class="nv">title: </span><span class="s">&quot;Column Filters&quot;</span>
+    <span class="p">}]</span>
+<span class="p">},{</span>
+  <span class="nv">route: </span><span class="s">&#39;colVis&#39;</span>
+  <span class="nv">path: </span><span class="s">&#39;/extensions/column-visibility&#39;</span>
+  <span class="nv">controller: </span><span class="s">&quot;ExampleController&quot;</span>
+  <span class="nv">page:</span>
+    <span class="nv">title: </span><span class="s">&quot;Column Visibility&quot;</span>
+    <span class="nv">subtitle: </span><span class="s">&quot;Show and hide columns on the fly.&quot;</span>
+<span class="p">},{</span>
+  <span class="nv">route: </span><span class="s">&#39;colReorder&#39;</span>
+  <span class="nv">path: </span><span class="s">&#39;/extensions/column-reorder&#39;</span>
+  <span class="nv">controller: </span><span class="s">&quot;ExampleController&quot;</span>
+  <span class="nv">page:</span>
+    <span class="nv">title: </span><span class="s">&quot;Column Reorder&quot;</span>
+    <span class="nv">subtitle: </span><span class="s">&quot;Put it wherever you want.&quot;</span>
+<span class="p">},{</span>
+  <span class="nv">route: </span><span class="s">&#39;colFilters&#39;</span>
+  <span class="nv">path: </span><span class="s">&#39;/extensions/column-filters&#39;</span>
   <span class="nv">controller: </span><span class="s">&quot;ExampleController&quot;</span>
   <span class="nv">page:</span>
     <span class="nv">title: </span><span class="s">&quot;Column Filters&quot;</span>
     <span class="nv">subtitle: </span><span class="s">&quot;Drill Down and text search.&quot;</span>
+<span class="p">},{</span>
+  <span class="nv">route: </span><span class="s">&#39;resources&#39;</span>
+  <span class="nv">path: </span><span class="s">&quot;https://datatables.net/&quot;</span>
+  <span class="nv">external: </span><span class="kc">true</span>
+  <span class="nv">page:</span>
+    <span class="nv">title: </span><span class="s">&quot;Official Resources&quot;</span>
+    <span class="nv">subtitle: </span><span class="s">&quot;Official jQuery DataTables resources&quot;</span>
   <span class="nv">nav:</span>
-    <span class="nv">priority: </span><span class="mi">2</span>
-    <span class="nv">icon: </span><span class="s">&#39;icon-search&#39;</span>
+    <span class="nv">priority: </span><span class="mi">999</span>
+    <span class="nv">icon: </span><span class="s">&quot;icon-book&quot;</span>
 <span class="p">},{</span>
   <span class="nv">route: </span><span class="s">&#39;gitHub&#39;</span>
   <span class="nv">path: </span><span class="s">&quot;https://github.com/lumapictures/meteor-jquery-datatables&quot;</span>

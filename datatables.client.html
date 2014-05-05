@@ -1,24 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><title>datatables.client</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="datatables.client"><meta name="groc-project-path" content="lib/datatables.client.coffee"><meta name="groc-github-url" content="https://github.com/lumapictures/jquery-datatables"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/lumapictures/jquery-datatables/blob/master/lib/datatables.client.coffee">lib/datatables.client.coffee</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="client">Client</h1></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">DataTable.countCollection = </span><span class="k">new</span> <span class="nx">Meteor</span><span class="p">.</span><span class="nx">Collection</span> <span class="s">&quot;datatable_subscription_count&quot;</span>
-
-<span class="nv">DataTable.defaultOptions =</span>
-  <span class="nv">bJQueryUI: </span><span class="kc">false</span>
-  <span class="nv">bAutoWidth: </span><span class="kc">true</span>
-  <span class="nv">bDeferRender: </span><span class="kc">false</span>
-  <span class="nv">bScrollCollapse: </span><span class="kc">false</span>
-  <span class="nv">sPaginationType: </span><span class="s">&quot;full_numbers&quot;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="bootstrap-3-markup">Bootstrap 3 Markup</h5>
-
-<p>You can change this by setting <code>Template.dataTable.defaultOptions.sDom</code> property.
-For some example Less / CSS styles check out <a href="https://github.com/LumaPictures/luma-ui/blob/master/components/dataTables/dataTables.import.less">luma-ui's dataTable styles</a></p></div></div><div class="code"><div class="wrapper">  <span class="nv">sDom: </span><span class="s">&quot;&lt;\&quot;datatable-header\&quot;fl&gt;&lt;\&quot;datatable-scroll\&quot;rt&gt;&lt;\&quot;datatable-footer\&quot;ip&gt;&quot;</span>
-  <span class="nv">oLanguage:</span>
-    <span class="nv">sSearch: </span><span class="s">&quot;_INPUT_&quot;</span>
-    <span class="nv">sLengthMenu: </span><span class="s">&quot;&lt;span&gt;Show :&lt;/span&gt; _MENU_&quot;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="loading-message">Loading Message</h5>
-
-<p>Set <code>oLanguage.sProcessing</code> to whatever you want, event html. I haven't tried a Meteor template yet, could be fun!</p></div></div><div class="code"><div class="wrapper">    <span class="nv">sProcessing: </span><span class="s">&quot;Loading&quot;</span>
-    <span class="nv">oPaginate:</span>
-      <span class="nv">sFirst: </span><span class="s">&quot;First&quot;</span>
-      <span class="nv">sLast: </span><span class="s">&quot;Last&quot;</span>
-      <span class="nv">sNext: </span><span class="s">&quot;&gt;&quot;</span>
-      <span class="nv">sPrevious: </span><span class="s">&quot;&lt;&quot;</span>
+<!DOCTYPE html><html lang="en"><head><title>datatables.client</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="datatables.client"><meta name="groc-project-path" content="lib/datatables.client.coffee"><meta name="groc-github-url" content="https://github.com/lumapictures/meteor-jquery-datatables"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/lumapictures/meteor-jquery-datatables/blob/master/lib/datatables.client.coffee">lib/datatables.client.coffee</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="client">Client</h1></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">DataTable.countCollection = </span><span class="k">new</span> <span class="nx">Meteor</span><span class="p">.</span><span class="nx">Collection</span> <span class="s">&quot;datatable_subscription_count&quot;</span>
 
 <span class="nv">Template.dataTable = </span><span class="nx">_</span><span class="p">.</span><span class="nx">extend</span> <span class="nx">Template</span><span class="p">.</span><span class="nx">dataTable</span><span class="p">,</span> <span class="nx">DataTable</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="initialization">Initialization</h2></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="rendered">rendered()</h5>
 
@@ -29,14 +9,16 @@ For some example Less / CSS styles check out <a href="https://github.com/LumaPic
   <span class="nx">instantiatedComponent</span><span class="p">.</span><span class="nx">initialize</span><span class="p">()</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="created">created()</h5></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.created = </span><span class="nf">-&gt;</span>
   <span class="nv">templateInstance = </span><span class="nx">@</span>
   <span class="nv">instantiatedComponent = </span><span class="nx">templateInstance</span><span class="p">.</span><span class="nx">__component__</span>
-  <span class="nx">instantiatedComponent</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;created&quot;</span><span class="p">,</span> <span class="nx">@</span>
-  <span class="nx">instantiatedComponent</span><span class="p">.</span><span class="nx">prepareQuery</span><span class="p">()</span>
+  <span class="nx">instantiatedComponent</span><span class="p">.</span><span class="nx">prepareSelector</span><span class="p">()</span>
   <span class="nx">instantiatedComponent</span><span class="p">.</span><span class="nx">prepareCollection</span><span class="p">()</span>
+  <span class="nx">instantiatedComponent</span><span class="p">.</span><span class="nx">prepareQuery</span><span class="p">()</span>
   <span class="nx">instantiatedComponent</span><span class="p">.</span><span class="nx">prepareColumns</span><span class="p">()</span>
   <span class="nx">instantiatedComponent</span><span class="p">.</span><span class="nx">prepareRows</span><span class="p">()</span>
-  <span class="nx">instantiatedComponent</span><span class="p">.</span><span class="nx">prepareOptions</span><span class="p">()</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="destroyed">destroyed()</h5>
+  <span class="nx">instantiatedComponent</span><span class="p">.</span><span class="nx">prepareOptions</span><span class="p">()</span>
+  <span class="nx">instantiatedComponent</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;created&quot;</span><span class="p">,</span> <span class="nx">@</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="destroyed">destroyed()</h5>
 
 <p>Currently nothing is done when the component is destroyed.</p></div></div><div class="code"><div class="wrapper"><span class="nv">Template.dataTable.destroyed = </span><span class="nf">-&gt;</span>
   <span class="nv">templateInstance = </span><span class="nx">@</span>
   <span class="nv">instantiatedComponent = </span><span class="nx">templateInstance</span><span class="p">.</span><span class="nx">__component__</span>
+  <span class="nx">instantiatedComponent</span><span class="p">.</span><span class="nx">destroy</span><span class="p">()</span>
   <span class="nx">instantiatedComponent</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;destroyed&quot;</span><span class="p">,</span> <span class="nx">@</span></div></div></div></div></body></html>
