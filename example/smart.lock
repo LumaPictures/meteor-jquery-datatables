@@ -14,8 +14,8 @@
       },
       "luma-ui": {
         "git": "https://github.com/lumapictures/meteor-luma-ui.git",
-        "tag": "v0.1.11",
-        "commit": "686b176a9fae45965e92bd5950131c752eb270f9"
+        "tag": "v0.1.12",
+        "commit": "bdce09190fdf41e205d28898d6ae0e6f6d0c491b"
       },
       "apm": {
         "git": "https://github.com/arunoda/meteor-apm-client.git",
