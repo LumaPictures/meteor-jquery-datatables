@@ -20,6 +20,9 @@ Router.addRoutes [{
     },{
       title: "Blaze Templates"
       route: "blazeTemplates"
+    },{
+      title: "Nested Table"
+      route: "nestedTable"
     }]
 },{
   route: 'dataSources'
@@ -35,6 +38,13 @@ Router.addRoutes [{
   page:
     title: "Blaze Templates"
     subtitle: "Reactive templates in table cells."
+},{
+  route: "nestedTable"
+  path: "/examples/nested-table"
+  controller: "ExampleController"
+  page:
+    title: "Nested Tables"
+    subtitle: "Yo Dawg, heard you like tables."
 },{
   route: "extensions"
   path: "/extensions"
