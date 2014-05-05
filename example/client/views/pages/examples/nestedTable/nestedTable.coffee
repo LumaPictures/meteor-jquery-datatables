@@ -61,9 +61,6 @@ Template.nestedTable.pages = -> return {
     mRender: ( data, type, row ) ->
       row.external ?= "false"
   }]
-  # ## Selector
-  #   * must be unique in page scope
-  selector: "example"
   # ## Rows
   #   * Array data source for this table
   rows: Router.collection.find().fetch()
