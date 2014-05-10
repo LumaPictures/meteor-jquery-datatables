@@ -2,7 +2,12 @@ environment = process.env.METEOR_ENV or "development"
 
 settings =
   development:
-    public: {}
+    public:
+      package:
+        name: "jquery-datatables"
+        description: "Sort, page, and filter millions of records. Reactively."
+        owner: "LumaPictures"
+        repo: "meteor-jquery-datatables"
     private:
       apm:
         appId: "A4sHhXvv5qaaEafDX"

@@ -13,7 +13,8 @@ Package.on_use(function (api, where) {
     'jquery',
     'ui',
     'templating',
-    'spacebars'
+    'spacebars',
+    'jquery-select2'
   ], [ 'client' ]);
 
   api.export([
