@@ -18,3 +18,81 @@
     font-size: 19px;
   }
 }
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * ColVis styles
+ */
+.ColVis {
+  padding: 16px 14px;
+  button.ColVis_Button,
+  ul.ColVis_collection li {
+    .btn();
+    .btn-primary();
+  }
+}
+
+
+.ColVis_collectionBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba( 0, 0, 0, 0.9 );
+  z-index: 1100;
+}
+
+.ColVis_collection {
+  width: 150px;
+  padding: 8px 8px 4px 8px;
+  margin: 0;
+  background-color: rgba( 0, 0, 0, 0.9 );
+  overflow: hidden;
+  z-index: 2002;
+  li {
+    text-align: left;
+    position: relative;
+    height: auto;
+    left: 0;
+    right: 0;
+    padding: 0.5em;
+    display: block;
+    float: none;
+    margin-bottom: 4px;
+    .btn-primary();
+    &:hover {
+      .btn-success();
+    }
+    span {
+      display: inline-block;
+      padding-left: 0.5em;
+      cursor: pointer;
+    }
+  }
+}
+
+
+ul.ColVis_collection li.ColVis_Special {
+  border-color: #555;
+  background: rgb(237,237,237); /* Old browsers */
+  background: -webkit-linear-gradient(top, rgba(237,237,237,1) 0%,rgba(214,214,214,1) 77%,rgba(232,232,232,1) 100%); /* Chrome10+,Safari5.1+ */
+  background:    -moz-linear-gradient(top, rgba(237,237,237,1) 0%, rgba(214,214,214,1) 77%, rgba(232,232,232,1) 100%); /* FF3.6+ */
+  background:     -ms-linear-gradient(top, rgba(237,237,237,1) 0%,rgba(214,214,214,1) 77%,rgba(232,232,232,1) 100%); /* IE10+ */
+  background:      -o-linear-gradient(top, rgba(237,237,237,1) 0%,rgba(214,214,214,1) 77%,rgba(232,232,232,1) 100%); /* Opera 11.10+ */
+  background:         linear-gradient(to bottom, rgba(237,237,237,1) 0%,rgba(214,214,214,1) 77%,rgba(232,232,232,1) 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', endColorstr='#e8e8e8',GradientType=0 ); /* IE6-9 */
+}
+
+
+.ColVis_radio {
+  display: inline-block;
+  width: 20px;
+}
+
+.ColVis_catcher {
+  position: absolute;
+  z-index: 1101;
+}
+
+

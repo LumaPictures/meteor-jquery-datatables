@@ -1,3 +1,7 @@
+Template.colVis.events
+  "click .ColVis_Button": ->
+    $(".ColVis_collection li label input").uniform()
+
 Template.colVis.browsers = ->
   browsers =
     columns: [
