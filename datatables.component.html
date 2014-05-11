@@ -16,7 +16,23 @@
     <span class="nx">DataTableMixins</span><span class="p">.</span><span class="nx">Utility</span><span class="p">,</span>
     <span class="nx">DataTableMixins</span><span class="p">.</span><span class="nx">Debug</span>
 
-  <span class="nv">DataTable.defaultOptions = </span><span class="nx">_</span><span class="p">.</span><span class="nx">extend</span> <span class="nx">DataTableOptions</span><span class="p">.</span><span class="nx">display</span><span class="p">,</span> <span class="nx">DataTableOptions</span><span class="p">.</span><span class="nx">language</span>
+  <span class="nv">DataTable.defaultOptions =</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h6 id="display-options">Display Options</h6></div></div></div><div class="segment"><div class="code"><div class="wrapper">    <span class="nv">jQueryUI: </span><span class="kc">false</span>
+    <span class="nv">autoWidth: </span><span class="kc">true</span>
+    <span class="nv">deferRender: </span><span class="kc">false</span>
+    <span class="nv">scrollCollapse: </span><span class="kc">false</span>
+    <span class="nv">paginationType: </span><span class="s">&quot;full_numbers&quot;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="bootstrap-3-markup">Bootstrap 3 Markup</h5>
+
+<p>You can change this by setting <code>Template.dataTable.defaultOptions.sDom</code> property.
+For some example Less / CSS styles check out <a href="https://github.com/LumaPictures/luma-ui/blob/master/components/dataTables/dataTables.import.less">luma-ui's dataTable styles</a></p></div></div><div class="code"><div class="wrapper">    <span class="nv">dom: </span><span class="s">&quot;&lt;\&quot;datatable-header\&quot;fl&gt;&lt;\&quot;datatable-scroll\&quot;rt&gt;&lt;\&quot;datatable-footer\&quot;ip&gt;&quot;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h6 id="language-options">Language Options</h6></div></div></div><div class="segment"><div class="code"><div class="wrapper">    <span class="nv">language:</span>
+      <span class="nv">search: </span><span class="s">&quot;_INPUT_&quot;</span>
+      <span class="nv">lengthMenu: </span><span class="s">&quot;&lt;span&gt;Show :&lt;/span&gt; _MENU_&quot;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h5 id="loading-message">Loading Message</h5>
+
+<p>Set <code>oLanguage.sProcessing</code> to whatever you want, event html. I haven't tried a Meteor template yet, could be fun!</p></div></div><div class="code"><div class="wrapper">      <span class="nv">processing: </span><span class="s">&quot;Loading&quot;</span>
+      <span class="nv">paginate:</span>
+        <span class="nv">first: </span><span class="s">&quot;First&quot;</span>
+        <span class="nv">last: </span><span class="s">&quot;Last&quot;</span>
+        <span class="nv">next: </span><span class="s">&quot;&gt;&quot;</span>
+        <span class="nv">previous: </span><span class="s">&quot;&lt;&quot;</span>
 
   <span class="nv">$.fn.dataTableExt.oApi.fnGetComponent = </span><span class="nf">-&gt;</span>
     <span class="nv">oSettings = </span><span class="nx">@fnSettings</span><span class="p">()</span>

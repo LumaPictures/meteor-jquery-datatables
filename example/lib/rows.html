@@ -1,0 +1,29 @@
+<!DOCTYPE html><html lang="en"><head><title>example/lib/rows</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../"><meta name="groc-document-path" content="example/lib/rows"><meta name="groc-project-path" content="example/lib/rows.coffee"><meta name="groc-github-url" content="https://github.com/lumapictures/meteor-jquery-datatables"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/lumapictures/meteor-jquery-datatables/blob/master/example/lib/rows.coffee">example/lib/rows.coffee</a></div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="nv">rowCount = </span><span class="mi">100000</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Collection defined on server and client</li>
+</ul></div></div><div class="code"><div class="wrapper"><span class="vi">@Rows = </span><span class="k">new</span> <span class="nx">Meteor</span><span class="p">.</span><span class="nx">Collection</span> <span class="s">&#39;rows&#39;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>for the purposes of this example all changes to <code>Rows</code> are allowed</li>
+</ul></div></div><div class="code"><div class="wrapper"><span class="nx">Rows</span><span class="p">.</span><span class="nx">allow</span>
+  <span class="nv">insert: </span><span class="nf">-&gt;</span> <span class="kc">true</span>
+  <span class="nv">update: </span><span class="nf">-&gt;</span> <span class="kc">true</span>
+  <span class="nv">remove: </span><span class="nf">-&gt;</span> <span class="kc">true</span>
+
+<span class="vi">@insertRow = </span><span class="nf">( i ) -&gt;</span>
+  <span class="k">if</span> <span class="nx">Meteor</span><span class="p">.</span><span class="nx">isServer</span>
+    <span class="nv">navigator =</span>
+      <span class="nv">platform: </span><span class="s">&quot;NodeJS&quot;</span>
+      <span class="nv">language: </span><span class="s">&quot;en-us&quot;</span>
+  <span class="k">if</span> <span class="nx">Meteor</span><span class="p">.</span><span class="nx">isClient</span>
+    <span class="nv">navigator = </span><span class="nx">_</span><span class="p">.</span><span class="nx">pick</span> <span class="nb">window</span><span class="p">.</span><span class="nx">navigator</span><span class="p">,</span> <span class="s">&quot;cookieEnabled&quot;</span><span class="p">,</span> <span class="s">&quot;language&quot;</span><span class="p">,</span> <span class="s">&quot;onLine&quot;</span><span class="p">,</span> <span class="s">&quot;platform&quot;</span><span class="p">,</span> <span class="s">&#39;userAgent&#39;</span><span class="p">,</span> <span class="s">&quot;systemLanguage&quot;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Inserting Row&quot;</span><span class="p">,</span> <span class="nx">navigator</span>
+  <span class="nx">Rows</span><span class="p">.</span><span class="nx">insert</span> <span class="nx">_</span><span class="p">.</span><span class="nx">extend</span> <span class="nx">navigator</span><span class="p">,</span> <span class="nv">createdAt: </span><span class="k">new</span> <span class="nb">Date</span><span class="p">()</span>
+
+<span class="vi">@insertRows = </span><span class="nf">( howManyRows ) -&gt;</span>
+  <span class="nx">insertRow</span> <span class="nx">i</span> <span class="k">for</span> <span class="nx">i</span> <span class="k">in</span> <span class="p">[</span> <span class="mi">1</span><span class="p">..</span><span class="nx">howManyRows</span> <span class="p">]</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;</span><span class="si">#{</span> <span class="nx">howManyRows</span> <span class="si">}</span><span class="s"> rows inserted&quot;</span>
+
+<span class="k">if</span> <span class="nx">Meteor</span><span class="p">.</span><span class="nx">isServer</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>initialize Rows collection</li>
+</ul></div></div><div class="code"><div class="wrapper">  <span class="nx">Meteor</span><span class="p">.</span><span class="nx">startup</span> <span class="nf">-&gt;</span>
+    <span class="k">if</span> <span class="nx">Rows</span><span class="p">.</span><span class="nx">find</span><span class="p">().</span><span class="nx">count</span><span class="p">()</span> <span class="o">is</span> <span class="mi">0</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Initializing </span><span class="si">#{</span> <span class="nx">rowCount</span> <span class="si">}</span><span class="s"> rows&quot;</span>
+      <span class="nx">insertRows</span> <span class="nx">rowCount</span></div></div></div></div></body></html>
