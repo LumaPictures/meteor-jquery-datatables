@@ -11,6 +11,7 @@ less
 spacebars
 coffeescript
 jquery-datatables
+jquery-select2
 luma-ui
 iron-router
 apm

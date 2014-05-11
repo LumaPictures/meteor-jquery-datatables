@@ -5,12 +5,18 @@
       "jquery-datatables": {
         "path": ".."
       },
+      "jquery-select2": {},
       "luma-ui": {},
       "apm": {}
     },
     "packages": {
       "jquery-datatables": {
         "path": ".."
+      },
+      "jquery-select2": {
+        "git": "https://github.com/LumaPictures/meteor-jquery-select2",
+        "tag": "v0.1.4",
+        "commit": "c06f88b68c642e2e8ed23e1f14fd828ebae7095a"
       },
       "luma-ui": {
         "git": "https://github.com/lumapictures/meteor-luma-ui.git",
@@ -19,13 +25,8 @@
       },
       "apm": {
         "git": "https://github.com/arunoda/meteor-apm-client.git",
-        "tag": "v1.2.6",
-        "commit": "426e3c3c33457736ec64d8af17c765d477d1476b"
-      },
-      "jquery-select2": {
-        "git": "https://github.com/LumaPictures/meteor-jquery-select2",
-        "tag": "v0.1.4",
-        "commit": "c06f88b68c642e2e8ed23e1f14fd828ebae7095a"
+        "tag": "v1.2.7",
+        "commit": "97834d13daf2a3e2a6ce27a311fdf09a3796423b"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",

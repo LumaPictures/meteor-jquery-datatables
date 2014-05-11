@@ -8,21 +8,21 @@ DataTableMixins.QueryBuilder =
 
     # ##### tableState
     tableState =
-    #   + `aoData.sEcho` is a request counter, incremented on every server call
+      #   + `aoData.sEcho` is a request counter, incremented on every server call
       sEcho: aoData.sEcho.value or 1
       bRegex: aoData.bRegex.value or false
-    #   + `aoData.columns` contains the property meta data for each column
+      #   + `aoData.columns` contains the property meta data for each column
       columns: []
-    #   + `aoData.iColumns` is the number of columns being displayed
+      #   + `aoData.iColumns` is the number of columns being displayed
       iColumns: aoData.iColumns.value or 0
-    #   + `aoData.iSortingCols` is the number of columns being sorted
+      #   + `aoData.iSortingCols` is the number of columns being sorted
       iSortingCols: aoData.iSortingCols.value or 0
       sColumns: aoData.sColumns.value or ""
-    #   + `aoData.iDisplayLength` is the number of rows being displayed
+      #   + `aoData.iDisplayLength` is the number of rows being displayed
       iDisplayLength: aoData.iDisplayLength.value or 10
-    #   + `aoData.iDisplayStart` is the number of rows to skip for pagination
+      #   + `aoData.iDisplayStart` is the number of rows to skip for pagination
       iDisplayStart: aoData.iDisplayStart.value or 0
-    #   + `aoData.sSearch` is the datatables search input value
+      #   + `aoData.sSearch` is the datatables search input value
       sSearch: aoData.sSearch.value or ""
 
     # ##### getDataProp()
@@ -35,15 +35,15 @@ DataTableMixins.QueryBuilder =
     # iterator for setting up columns
     mapColumns = ( index ) ->
       tableState.columns[ getDataProp 'mDataProp', index ] =
-      #   + `mDataProp` is the field name
+        #   + `mDataProp` is the field name
         mDataProp: getDataProp 'mDataProp', index
-      #   + `bRegex` is a boolean for if the field has a search input
+        #   + `bRegex` is a boolean for if the field has a search input
         bRegex: getDataProp 'bRegex', index
-      #   + `bSearchable` is a boolean used to determine which fields are searchable
+        #   + `bSearchable` is a boolean used to determine which fields are searchable
         bSearchable: getDataProp 'bSearchable', index
-      #   + `bSortable` is a boolean used to determine which fields are sortable
+        #   + `bSortable` is a boolean used to determine which fields are sortable
         bSortable: getDataProp 'bSortable', index
-      #   + `sSearch` contains the column search string if column filters are setup
+        #   + `sSearch` contains the column search string if column filters are setup
         sSearch: getDataProp 'sSearch', index
     mapColumns index for index in [ 0..( tableState.iColumns - 1 ) ]
 
@@ -64,7 +64,7 @@ DataTableMixins.QueryBuilder =
       # If the base query is for all records in the collection, the filter query is the only query run.
       if @getQuery is {}
         tableState.query = searchQuery
-        # If the base query is already filter the collection, the filter query is run as an `$and` against it.
+      # If the base query is already filter the collection, the filter query is run as an `$and` against it.
       else
         tableState.query =
           $and: [

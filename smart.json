@@ -5,7 +5,5 @@
   "author": "Austin Rivas <austinrivas@gmail.com> (https://github.com/austinrivas)",
   "version": "0.1.25",
   "git": "https://github.com/lumapictures/meteor-jquery-datatables",
-  "packages": {
-    "jquery-select2": {}
-  }
+  "packages": {}
 }

@@ -13,8 +13,7 @@ Package.on_use(function (api, where) {
     'jquery',
     'ui',
     'templating',
-    'spacebars',
-    'jquery-select2'
+    'spacebars'
   ], [ 'client' ]);
 
   api.export([
@@ -58,16 +57,6 @@ Package.on_use(function (api, where) {
     'lib/mixins/utility.coffee'
   ], [ 'client' ]);
 
-  /* Options */
-  api.add_files([
-    'lib/options/dataTableOptions.coffee'
-  ], [ 'client', 'server' ]);
-
-  api.add_files([
-    'lib/options/display.coffee',
-    'lib/options/language.coffee'
-  ], [ 'client' ]);
-
   /* Component */
   api.add_files([
     'lib/datatables.component.coffee'
@@ -78,11 +67,12 @@ Package.on_use(function (api, where) {
     'lib/datatables.client.coffee'
   ], [ 'client' ]);
 
-  /* Plugins */
+  /* Plugins
   api.add_files([
     'lib/plugins/columnFilter/columnFilter.html',
     'lib/plugins/columnFilter/columnFilter.plugin.coffee'
   ], [ 'client' ]);
+  */
 });
 
 Package.on_test(function (api) {

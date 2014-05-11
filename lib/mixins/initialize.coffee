@@ -10,7 +10,7 @@ DataTableMixins.Initialize =
     @log "initialized", @
 
 
-    # ##### getDataTable()
+  # ##### getDataTable()
   getDataTable: ->
     return @getData().dataTable or false
 

@@ -1,8 +1,14 @@
 <template name="colFilters">
     {{#panel}}
         {{> panelHeading title="Drill Down" }}
-        {{#dataTable selector="drill-down" dom=true options=options }}
-            {{> domSource }}
-        {{/dataTable}}
+        {{#panelBody}}
+          <code>work in progress</code>
+        {{/panelBody}}
     {{/panel}}
+</template>
+
+<template name="colFiltersWIP">
+  {{#dataTable selector="drill-down" dom=true options=options }}
+    {{> domSource }}
+  {{/dataTable}}
 </template>

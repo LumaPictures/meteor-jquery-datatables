@@ -16,7 +16,29 @@ if Meteor.isClient
     DataTableMixins.Utility,
     DataTableMixins.Debug
 
-  DataTable.defaultOptions = _.extend DataTableOptions.display, DataTableOptions.language
+  DataTable.defaultOptions =
+    # ###### Display Options
+    jQueryUI: false
+    autoWidth: true
+    deferRender: false
+    scrollCollapse: false
+    paginationType: "full_numbers"
+    # ##### Bootstrap 3 Markup
+    # You can change this by setting `Template.dataTable.defaultOptions.sDom` property.
+    # For some example Less / CSS styles check out [luma-ui's dataTable styles](https://github.com/LumaPictures/luma-ui/blob/master/components/dataTables/dataTables.import.less)
+    dom: "<\"datatable-header\"fl><\"datatable-scroll\"rt><\"datatable-footer\"ip>"
+    # ###### Language Options
+    language:
+      search: "_INPUT_"
+      lengthMenu: "<span>Show :</span> _MENU_"
+    # ##### Loading Message
+    # Set `oLanguage.sProcessing` to whatever you want, event html. I haven't tried a Meteor template yet, could be fun!
+      processing: "Loading"
+      paginate:
+        first: "First"
+        last: "Last"
+        next: ">"
+        previous: "<"
 
   $.fn.dataTableExt.oApi.fnGetComponent = ->
     oSettings = @fnSettings()
