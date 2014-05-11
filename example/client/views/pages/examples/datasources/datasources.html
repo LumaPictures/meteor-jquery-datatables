@@ -1,18 +1,13 @@
 <template name="dataSources">
     {{#panel}}
-        {{> panelHeading icon="icon-table" title="Reactive Cursor Data Source" }}
-        {{> dataTable
-            columns=browsers.columns
-            subscription=browsers.subscription
-            query=browsers.query
-        }}
+        {{#panelHeading icon="icon-table" title="Reactive Cursor Data Source" }}
+          <a href="#" class="add-row">Add Row</a>
+        {{/panelHeading}}
+        {{> dataTable rows }}
     {{/panel}}
     {{#panel}}
         {{> panelHeading icon="icon-table" title="Static Array Data Source" }}
-        {{> dataTable
-            columns=pages.columns
-            rows=pages.rows
-        }}
+        {{> dataTable pages }}
     {{/panel}}
     {{#panel}}
         {{> panelHeading icon="icon-table" title="DOM Source" }}

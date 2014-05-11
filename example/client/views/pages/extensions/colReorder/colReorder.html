@@ -2,9 +2,11 @@
     {{#panel}}
     {{> panelHeading icon="icon-table" title="Column Reorder" }}
         {{> dataTable
-            columns=browsers.columns
-            subscription=browsers.subscription
-            options=browsers.options
+            columns=rows.columns
+            subscription=rows.subscription
+            query=rows.query
+            debug=rows.debug
+            options=options
         }}
     {{/panel}}
 </template>
