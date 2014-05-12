@@ -8,10 +8,7 @@ settings =
         description: "Sort, page, and filter millions of records. Reactively."
         owner: "LumaPictures"
         repo: "meteor-jquery-datatables"
-    private:
-      apm:
-        appId: "A4sHhXvv5qaaEafDX"
-        appSecret: "915ed5bd-317b-4aca-92a9-e98fc8451ec5"
+    private: {}
 
   staging:
     public: {}
