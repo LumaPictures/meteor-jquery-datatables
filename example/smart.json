@@ -5,6 +5,7 @@
     },
     "jquery-select2": {},
     "luma-ui": {},
-    "apm": {}
+    "apm": {},
+    "githubReadme": {}
   }
 }

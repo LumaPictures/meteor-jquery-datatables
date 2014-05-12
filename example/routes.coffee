@@ -3,7 +3,7 @@ Router.addRoutes [{
   path: '/'
   controller: "ExampleController"
   page:
-    title: "jQuery DataTables"
+    title: "Home"
     subtitle: "Sort, page, and filter millions of records reactively."
 },{
   route: 'examples'

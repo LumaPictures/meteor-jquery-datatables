@@ -3,7 +3,17 @@
 </head>
 
 <template name="home">
-
+  {{getGithubReadme name="meteor-jquery-datatables" owner="LumaPictures"}}
+  {{#panel styles="panel-success" }}
+    {{> panelHeading icon="icon-github" title="README.md" }}
+    {{#panelBody}}
+      {{#if githubReadme}}
+        {{{githubReadme}}}
+      {{else}}
+        <h3>Loading...</h3>
+      {{/if}}
+    {{/panelBody}}
+  {{/panel}}
 </template>
 
 <template name="columnFiltering">

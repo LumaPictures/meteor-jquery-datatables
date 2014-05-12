@@ -7,7 +7,8 @@
       },
       "jquery-select2": {},
       "luma-ui": {},
-      "apm": {}
+      "apm": {},
+      "githubReadme": {}
     },
     "packages": {
       "jquery-datatables": {
@@ -27,6 +28,11 @@
         "git": "https://github.com/arunoda/meteor-apm-client.git",
         "tag": "v1.2.7",
         "commit": "97834d13daf2a3e2a6ce27a311fdf09a3796423b"
+      },
+      "githubReadme": {
+        "git": "https://github.com/austinrivas/meteor-githubReadme.git",
+        "tag": "v1.3.3",
+        "commit": "bad1919563d230c97338afa7f6d70c9a6397d911"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",
