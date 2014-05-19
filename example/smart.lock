@@ -7,7 +7,6 @@
       },
       "jquery-select2": {},
       "luma-ui": {},
-      "apm": {},
       "githubReadme": {}
     },
     "packages": {
@@ -24,11 +23,6 @@
         "tag": "v0.1.20",
         "commit": "e36c4634eaaf0cb9b0ed51da4715e75cf4075979"
       },
-      "apm": {
-        "git": "https://github.com/arunoda/meteor-apm-client.git",
-        "tag": "v1.3.1",
-        "commit": "0ed9f0d89a31ff186f45130cb0ae508b56f268db"
-      },
       "githubReadme": {
         "git": "https://github.com/austinrivas/meteor-githubReadme.git",
         "tag": "v1.3.3",
@@ -36,8 +30,8 @@
       },
       "luma-component": {
         "git": "https://github.com/LumaPictures/meteor-luma-component",
-        "tag": "v0.0.7",
-        "commit": "9ea561c1b10c4ccb111489d469577870c6cca51b"
+        "tag": "v0.0.8",
+        "commit": "d098c1aa4a9ff4acafc003f26847e67d835a8e81"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",

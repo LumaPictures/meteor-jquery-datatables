@@ -1,4 +1,5 @@
 class DataTableComponent extends Component
+  __name__: "DataTableComponent"
   @extend DataTableMixins.Base
   @extend DataTableMixins.Collection
 
