@@ -25,21 +25,34 @@ class DataTableComponent extends Component
 
   # ##### rendered()
   rendered: ->
-    @$ = $("#{ @selector() } table").dataTable @options()
-    @log "$", @$
-    @initializeFilterPlaceholder()
-    # TODO : footer filters
-    # @initializeFooterFilter()
-    @initializeDisplayLength()
+    if Meteor.isClient
+      @$ = $("#{ @selector() } table").dataTable @options()
+      @log "$", @$
+      @initializeFilterPlaceholder()
+      # TODO : footer filters
+      # @initializeFooterFilter()
+      @initializeDisplayLength()
     super
 
   # ##### destroyed()
   destroyed: ->
-    if $(".ColVis_collection") then $(".ColVis_collection").remove()
-    if @subscriptionAutorun and @subscriptionAutorun().stop then @subscriptionAutorun().stop()
+    if Meteor.isClient
+      if $(".ColVis_collection") then $(".ColVis_collection").remove()
+      if @subscriptionAutorun and @subscriptionAutorun().stop then @subscriptionAutorun().stop()
     super
 
 if Meteor.isClient
+  # DataTable Client
+  # ================
+  # ##### Extending the Template
+  # `Template.dataTable` is extended with `DataTableComponent`'s methods so that the template callbacks can execute
+  # `DataTableComponent` instance methods. In truth `Template.dataTable` is the actual `DataTableComponent`.
+
+  # ##### created()
+  # This is the component constructor.
+  Template.dataTable.created = -> new DataTableComponent @
+
+  # ##### DataTable Plugin fnGetComponent()
   $.fn.dataTableExt.oApi.fnGetComponent = ->
     oSettings = @fnSettings()
     if oSettings

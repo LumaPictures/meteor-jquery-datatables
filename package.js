@@ -40,22 +40,15 @@ Package.on_use(function (api, where) {
     'lib/mixins/Rows.mixin.coffee'
   ], [ 'client', 'server' ]);
 
+  /* Template */
+  api.add_files([
+    'lib/datatables.html'
+  ], [ 'client' ]);
+
   /* Component */
   api.add_files([
     'lib/datatables.component.coffee'
   ], [ 'client', 'server']);
-
-  api.add_files([
-    'lib/datatables.html',
-    'lib/datatables.client.coffee'
-  ], [ 'client' ]);
-
-  /* Plugins
-  api.add_files([
-    'lib/plugins/columnFilter/columnFilter.html',
-    'lib/plugins/columnFilter/columnFilter.plugin.coffee'
-  ], [ 'client' ]);
-  */
 });
 
 Package.on_test(function (api) {
