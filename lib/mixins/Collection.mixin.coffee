@@ -3,13 +3,34 @@
 # These counts are published by the datatables publication
 DataTableMixins.Collection =
   countCollection: if Meteor.isClient then new Meteor.Collection "datatable_count" else "datatable_count"
+  collections: []
+
+  # ##### DataTableComponent.getCollection( String )
+  # Checks to see if a colletion already exists and returns the collection
+  getCollection: ( string ) ->
+    for id, collection of DataTableComponent.collections
+      if collection instanceof Meteor.Collection
+        if collection._name is string
+          return collection
+          break
+    # if none of the collections match
+    return undefined
+
   extended: ->
     @include
       # ##### prepareCollection()
       prepareCollection: ->
         if Meteor.isClient
           if @subscription
-            @data.collection = new Meteor.Collection @id()
+            collection = DataTableComponent.getCollection @id()
+            @log "collection", collection
+            if collection
+              @data.collection = collection
+              @log "collection:exists", collection
+            else
+              @data.collection = new Meteor.Collection @id()
+              DataTableComponent.collections.push @data.collection
+              @log "collection:created", @data.collection
             @addGetterSetter "data", "collection"
         if Meteor.isServer
           throw new Error "collection property is not defined" unless @data.collection

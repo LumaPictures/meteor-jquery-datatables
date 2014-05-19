@@ -60,6 +60,7 @@ Package.on_test(function (api) {
   ], ['client', 'server']);
 
   api.add_files([
+    'tests/rows.fixture.coffee',
     'tests/datatables.test.coffee'
   ], ['client', 'server']);
 });

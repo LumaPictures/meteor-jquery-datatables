@@ -80,16 +80,17 @@ DataTableMixins =
 
           # ##### initializeDisplayLength()
           initializeDisplayLength: ->
-            unless $.select2
+            if $.select2 and $( "#{ @selector() } .dataTables_length select" )
               $( "#{ @selector() } .dataTables_length select" ).select2 minimumResultsForSearch: "-1"
 
           # ##### initializeFilterPlaceholder()
           initializeFilterPlaceholder: ->
-            $("#{ @selector() } .dataTables_filter input[type=text]").attr "placeholder", "Type to filter..."
+            if $("#{ @selector() } .dataTables_filter input[type=text]")
+              $("#{ @selector() } .dataTables_filter input[type=text]").attr "placeholder", "Type to filter..."
 
           # ##### prepareFooterFilter()
           initializeFooterFilter: ->
-            if @selector() is 'datatable-add-row' and $.keyup
+            if $.keyup and $( ".#{ @selector() } .dataTables_wrapper tfoot input" )
               self = @
               $( ".#{ @selector() } .dataTables_wrapper tfoot input" ).keyup ->
                 target = @
