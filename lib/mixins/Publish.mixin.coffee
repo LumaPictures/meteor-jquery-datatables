@@ -75,7 +75,7 @@ DataTableMixins.Publish =
 
             # This is an attempt to monitor the last page in the dataset for changes, this is due to datatable on the client
             # breaking when the last page no longer contains any data, or is no longer the last page.
-            lastPage = component.collection.find( filteredQuery ).count() - options.limit
+            lastPage = component.collection().find( filteredQuery ).count() - options.limit
             if lastPage > 0
               countOptions = options
               countOptions.skip = lastPage
@@ -86,7 +86,7 @@ DataTableMixins.Publish =
               countInitialized = true
 
             # When the publication is terminated the observers are stopped to prevent memory leaks.
-            self.onStop ->
+            publish.onStop ->
               handle.stop()
               if countHandle
                 countHandle.stop()
