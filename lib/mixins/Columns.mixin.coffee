@@ -11,7 +11,7 @@ DataTableMixins.Columns =
             @data.columns = undefined
             @addGetterSetter "data", "columns"
           columns = @columns() or []
-          if @query and @collection
+          if @subscription
             # Adds _id as a hidden column by default.
             columns.push
               title: "id"

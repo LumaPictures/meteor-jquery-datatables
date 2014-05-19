@@ -63,7 +63,8 @@ Package.on_test(function (api) {
     'tests/rows.fixture.coffee',
     'tests/page.fixture.coffee',
     'tests/datatables.test.coffee',
-    'tests/base.mixin.test.coffee',
-    'tests/collection.mixin.test.coffee'
+    'tests/Base.mixin.test.coffee',
+    'tests/Collection.mixin.test.coffee',
+    'tests/Columns.mixin.test.coffee'
   ], ['client', 'server']);
 });
