@@ -15,23 +15,25 @@ DataTableMixins.Subscription =
             @data.subscriptionOptions = options
             @addGetterSetter "data", "subscriptionOptions"
           else @subscriptionOptions options
+          @log "subscriptionOptions", @subscriptionOptions()
 
         # ##### setSubscriptionHandle()
         # Subscribes to the dataset for the current table state and stores the handle for later access.
         setSubscriptionHandle: ->
-          if @handle and @handle().stop
-            @handle().stop()
+          if @subscriptionHandle and @subscriptionHandle().stop
+            @subscriptionHandle().stop()
           else
-            @data.handle = undefined
-            @addGetterSetter "data", "handle"
-          @handle Meteor.subscribe( @subscription(), @collectionName(), @query(), @tableState().query, @subscriptionOptions() )
+            @data.subscriptionHandle = undefined
+            @addGetterSetter "data", "subscriptionHandle"
+          @subscriptionHandle Meteor.subscribe( @subscription(), @collectionName(), @query(), @tableState().query, @subscriptionOptions() )
+          @log "subscriptionHandle", @subscriptionHandle()
 
         # ##### setSubscriptionAutorun()
         # Creates a reactive computation that runs when the subscription is `ready()`
         # and sets up local cursor ( identical to server except no skip ).
         setSubscriptionAutorun: ( fnCallback ) ->
           Match.test fnCallback, Object
-          if @subscriptionAutorun
+          if @subscriptionAutorun and @subscriptionAutorun().stop
             @subscriptionAutorun().stop()
           else
             @data.subscriptionAutorun = undefined
@@ -43,6 +45,9 @@ DataTableMixins.Subscription =
               cursorOptions.limit = @tableState().iDisplayLength or 10
               if @tableState().sort
                 cursorOptions.sort = @tableState().sort
+              unless @cursor
+                @data.cursor = undefined
+                @addGetterSetter "data", "cursor"
               @cursor @collection().find @tableState().query, cursorOptions
               # Here data is fetched from the collection and passed dataTables by calling the `fnCallback()`
               # passed to `fnServerData()`.
@@ -59,3 +64,4 @@ DataTableMixins.Subscription =
                 # Gets total records, after filtering i.e. the total number of records after filtering has been applied
                 iTotalDisplayRecords: @filteredCount()
                 aaData: aaData
+          @log "subscriptionAutorun", @subscriptionAutorun()
