@@ -41,13 +41,14 @@ DataTableMixins.Collection =
 
       # ##### collectionName()
       collectionName: ->
-        return @collection()._name or false
+        return if @collection then @collection()._name else false
 
       # ##### prepareCountCollection()
       prepareCountCollection: ->
-        unless @countCollection
-          @data.countCollection = DataTableComponent.countCollection
-          @addGetterSetter "data", "countCollection"
+        if @subscription
+          unless @countCollection
+            @data.countCollection = DataTableComponent.countCollection
+            @addGetterSetter "data", "countCollection"
 
     if Meteor.isClient
       @include
@@ -55,10 +56,14 @@ DataTableMixins.Collection =
         # This is the collection that houses the documents your datatable is displaying
         # and must be defined on both the client and the server.
 
+        # ##### getCount( String )
+        getCount: ( collectionName ) ->
+          if @subscription
+            countDoc = @countCollection().findOne( collectionName )
+            if countDoc and "count" of countDoc then return countDoc.count else return 0
+
         # ##### getTotalCount()
-        totalCount: ->
-          return @countCollection().findOne( @collectionName() ).count or 0
+        totalCount: -> @getCount @collectionName()
 
         # ##### getFilteredCount()
-        filteredCount: ->
-          return @countCollection().findOne( "#{ @collectionName() }_filtered" ).count or 0
+        filteredCount: -> @getCount "#{ @collectionName() }_filtered"
