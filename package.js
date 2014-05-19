@@ -5,7 +5,8 @@ Package.describe({
 Package.on_use(function (api, where) {
   api.use([
     'coffeescript',
-    'underscore'
+    'underscore',
+    'luma-component'
   ],[ 'client', 'server' ]);
 
   // for helpers
@@ -18,8 +19,7 @@ Package.on_use(function (api, where) {
 
   api.export([
     'DataTableMixins',
-    'DataTableOptions',
-    'DataTable'
+    'DataTableComponent'
   ], ['client','server']);
 
   /* External Libraries */
@@ -31,31 +31,14 @@ Package.on_use(function (api, where) {
 
   /* Mixins */
   api.add_files([
-    'lib/mixins/dataTableMixins.coffee',
-    'lib/mixins/debug.coffee'
+    'lib/mixins/Base.mixin.coffee',
+    'lib/mixins/Collection.mixin.coffee',
+    'lib/mixins/Columns.mixin.coffee',
+    'lib/mixins/Publish.mixin.coffee',
+    'lib/mixins/Query.mixin.coffee',
+    'lib/mixins/Subscription.mixin.coffee',
+    'lib/mixins/Rows.mixin.coffee'
   ], [ 'client', 'server' ]);
-
-  api.add_files([
-    'lib/mixins/publish.coffee'
-  ], [ 'server' ]);
-
-  api.add_files([
-    'lib/mixins/initialize.coffee',
-    'lib/mixins/destroy.coffee',
-    'lib/mixins/collection.coffee',
-    'lib/mixins/columns.coffee',
-    'lib/mixins/cursor.coffee',
-    'lib/mixins/filters.coffee',
-    'lib/mixins/options.coffee',
-    'lib/mixins/presetTables.coffee',
-    'lib/mixins/query.coffee',
-    'lib/mixins/queryBuilder.coffee',
-    'lib/mixins/rows.coffee',
-    'lib/mixins/selector.coffee',
-    'lib/mixins/subscription.coffee',
-    'lib/mixins/tableTemplate.coffee',
-    'lib/mixins/utility.coffee'
-  ], [ 'client' ]);
 
   /* Component */
   api.add_files([

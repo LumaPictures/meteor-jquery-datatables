@@ -1,17 +1,17 @@
 <template name="dataTable">
-    <div id="{{selector}}" class="dataTable-container">
+    <div id="{{id}}" class="dataTable-container">
         {{#if UI.contentBlock }}
             {{> UI.contentBlock }}
         {{else}}
-            {{#with chooseTemplate table_template }}
-                {{#with .. }}     {{! original arguments to dataTable}}
-                    {{> .. }}     {{! return value from chooseTemplate(table_template) }}
+            {{#with self.chooseTemplate template }}
+                {{#with .. }}     {{! original arguments to dataTable }}
+                    {{> .. }}     {{! return value from chooseTemplate( table_template ) }}
                 {{/with}}
             {{/with}}
         {{/if}}
     </div>
 </template>
 
-<template name="default_table_template">
-    <table class="table display {{../../table_styles}}" cellspacing="0" width="100%"></table>
+<template name="DataTableComponentDefault">
+    <table class="table display {{../../styles}}" cellspacing="0" width="100%"></table>
 </template>

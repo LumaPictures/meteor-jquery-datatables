@@ -1,35 +1,15 @@
-# Client
-# ======
-DataTable.countCollection = new Meteor.Collection "datatable_subscription_count"
-
-Template.dataTable = _.extend Template.dataTable, DataTable
-
-# ## Initialization
-
-# ##### rendered()
-# When the component is first rendered datatables is initialized `templateInstance.__component__` is the this context
-Template.dataTable.rendered = ->
-  templateInstance = @
-  instantiatedComponent = templateInstance.__component__
-  instantiatedComponent.log "rendered", @
-  instantiatedComponent.initialize()
+# DataTable Client
+# ================
+# ##### Extending the Template
+# `Template.dataTable` is extended with `DataTableComponent`'s methods so that the template callbacks can execute
+# `DataTableComponent` instance methods. In truth `Template.dataTable` is the actual `DataTableComponent`.
 
 # ##### created()
-Template.dataTable.created = ->
-  templateInstance = @
-  instantiatedComponent = templateInstance.__component__
-  instantiatedComponent.prepareSelector()
-  instantiatedComponent.prepareCollection()
-  instantiatedComponent.prepareQuery()
-  instantiatedComponent.prepareColumns()
-  instantiatedComponent.prepareRows()
-  instantiatedComponent.prepareOptions()
-  instantiatedComponent.log "created", @
+# This is the component constructor.
+Template.dataTable.created = -> new DataTableComponent @
+
+# ##### rendered()
+Template.dataTable.rendered = -> @rendered()
 
 # ##### destroyed()
-# Currently nothing is done when the component is destroyed.
-Template.dataTable.destroyed = ->
-  templateInstance = @
-  instantiatedComponent = templateInstance.__component__
-  instantiatedComponent.destroy()
-  instantiatedComponent.log "destroyed", @
+Template.dataTable.destroyed = -> @destroyed()

@@ -16,23 +16,28 @@
       },
       "jquery-select2": {
         "git": "https://github.com/LumaPictures/meteor-jquery-select2",
-        "tag": "v0.1.4",
-        "commit": "c06f88b68c642e2e8ed23e1f14fd828ebae7095a"
+        "tag": "v0.1.7",
+        "commit": "4d069c02a1ab8afe0b1f837364271bada28d23e6"
       },
       "luma-ui": {
         "git": "https://github.com/lumapictures/meteor-luma-ui.git",
-        "tag": "v0.1.17",
-        "commit": "5379b844e1adb263473663b9c2864f60bf15ebb5"
+        "tag": "v0.1.20",
+        "commit": "e36c4634eaaf0cb9b0ed51da4715e75cf4075979"
       },
       "apm": {
         "git": "https://github.com/arunoda/meteor-apm-client.git",
-        "tag": "v1.2.7",
-        "commit": "97834d13daf2a3e2a6ce27a311fdf09a3796423b"
+        "tag": "v1.3.1",
+        "commit": "0ed9f0d89a31ff186f45130cb0ae508b56f268db"
       },
       "githubReadme": {
         "git": "https://github.com/austinrivas/meteor-githubReadme.git",
         "tag": "v1.3.3",
         "commit": "bad1919563d230c97338afa7f6d70c9a6397d911"
+      },
+      "luma-component": {
+        "git": "https://github.com/LumaPictures/meteor-luma-component",
+        "tag": "v0.0.7",
+        "commit": "9ea561c1b10c4ccb111489d469577870c6cca51b"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",
