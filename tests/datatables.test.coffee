@@ -1,7 +1,3 @@
-@unsetCollection = ( name ) ->
-  collection = getCollection name
-  console.log collection
-
 Tinytest.add "jQuery DataTables - Definition", ( test ) ->
   test.notEqual DataTableComponent, undefined, "Expected DataTableComponent to be defined on the client and server."
   test.notEqual DataTableMixins, undefined, "Expected DataTableComponent to be defined on the client and server."
@@ -35,7 +31,6 @@ if Meteor.isClient
     test.notEqual tI.$, undefined, "Component should have a jQuery node defined after being rendered."
     test.notEqual tI.selector, undefined, "Component should have selector method defined."
     test.equal tI.selector(), "##{ RowsData.id }", "Component selector should be based on the id passed in through constructor."
-    RowsData.debug = undefined
 
 
 

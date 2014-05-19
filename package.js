@@ -61,6 +61,8 @@ Package.on_test(function (api) {
 
   api.add_files([
     'tests/rows.fixture.coffee',
-    'tests/datatables.test.coffee'
+    'tests/page.fixture.coffee',
+    'tests/datatables.test.coffee',
+    'tests/base.mixin.test.coffee'
   ], ['client', 'server']);
 });

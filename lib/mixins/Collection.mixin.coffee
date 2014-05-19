@@ -3,6 +3,9 @@
 # These counts are published by the datatables publication
 DataTableMixins.Collection =
   countCollection: if Meteor.isClient then new Meteor.Collection "datatable_count" else "datatable_count"
+
+  # ##### collections [ Array ]
+  # An array to track the collections initialized by datatables to prevent duplicate collection errors.
   collections: []
 
   # ##### DataTableComponent.getCollection( String )

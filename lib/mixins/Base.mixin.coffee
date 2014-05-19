@@ -24,6 +24,10 @@
 DataTableMixins =
   Base:
     extended: ->
+      if Meteor.isServer
+        @include
+          defaults: {}
+
       if Meteor.isClient
         @include
           # ##### defaults
