@@ -1,7 +1,12 @@
 # Reactive Data Source
 # ====================
-DataTable.debug = "all"
-DataTable.publish "rows", Rows
+RowsTable = new DataTableComponent
+  id: "RowsTable"
+  debug: "all"
+  subscription: "rows"
+  collection: Rows
+
+RowsTable.publish()
 
 # * Calling `_ensureIndex` is necessary in order to sort and filter collections.
 #   * [see mongod docs for more info](http://docs.mongodb.org/manual/reference/method/db.collection.ensureIndex/)
