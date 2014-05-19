@@ -1,8 +1,8 @@
-@Rows = new Meteor.Collection "rows"
+@Reactive = new Meteor.Collection "reactive"
 
 if Meteor.isClient
-  @RowsData =
-    id: "RowsData"
+  @ReactiveData =
+    id: "ReactiveData"
     columns: [{
       title: "Platform"
       data: "platform"
@@ -24,7 +24,7 @@ if Meteor.isClient
     }]
     # ## Subscription
     #   * the datatables publication providing the data on the server
-    subscription: "rows"
+    subscription: "reactive"
     # ## Query
     #   * the initial filter on the dataset
     query: {}
@@ -33,7 +33,7 @@ if Meteor.isClient
         [ 5, 'desc' ]
 
 if Meteor.isServer
-  @RowsData =
-    id: "RowsTable"
-    subscription: "rows"
-    collection: Rows
+  @ReactiveData =
+    id: "ReactiveTable"
+    subscription: "reactive"
+    collection: Reactive

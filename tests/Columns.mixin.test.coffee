@@ -3,12 +3,12 @@ Tinytest.add "jQuery DataTables Mixins - Columns:Definition", ( test ) ->
 
 if Meteor.isClient
   Tinytest.add "jQuery DataTables Mixins - Columns:Rendered", ( test ) ->
-    component = UI.renderWithData Template.dataTable, RowsData
+    component = UI.renderWithData Template.DataTable, ReactiveData
     tI = component.templateInstance
     $DOM = $( '<div id="parentNode"></div>' )
     UI.insert component, $DOM
 
-    staticComponent = UI.renderWithData Template.dataTable, PageData
+    staticComponent = UI.renderWithData Template.DataTable, StaticData
     tI2 = staticComponent.templateInstance
     UI.insert staticComponent, $DOM
 
@@ -24,5 +24,5 @@ if Meteor.isClient
     test.notEqual tI.columns, undefined, "Component should have a columns method defined."
     test.equal lastColumn, idColumn, "Reactive Components last column should be a hidden id column."
     test.notEqual lastColumnStatic, idColumn, "Static Components should not have a hidden id column."
-    test.equal tI.columns().length, ( RowsData.columns.length ), "Components columns arrary should be the same as initializer columns array with an extra id column."
+    test.equal tI.columns().length, ( ReactiveData.columns.length ), "Components columns arrary should be the same as initializer columns array with an extra id column."
     test.equal tI.columns()[0].mRender( {}, "", [ "platform": null ] ), "", "All columns have a default mRender function that returns an empty string."

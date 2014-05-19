@@ -1,4 +1,4 @@
-@PageData =
+@StaticData =
   columns: [{
     title: "Route"
     data: "route"

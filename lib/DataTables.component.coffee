@@ -1,5 +1,5 @@
 class DataTableComponent extends Component
-  __name__: "DataTableComponent"
+  @__name__: "DataTable"
   @extend DataTableMixins.Base
   @extend DataTableMixins.Collection
 
@@ -14,12 +14,14 @@ class DataTableComponent extends Component
     @extend DataTableMixins.Publish
 
   constructor: ( context = {} ) ->
+    @__name__ = DataTableComponent.__name__
     super
     @prepareCollection()
     @prepareCountCollection()
     if Meteor.isClient
       @prepareQuery()
       @prepareColumns()
+      @prepareRows()
       @prepareOptions()
       @prepareTableState()
 
@@ -50,7 +52,7 @@ if Meteor.isClient
 
   # ##### created()
   # This is the component constructor.
-  Template.dataTable.created = -> new DataTableComponent @
+  Template.DataTable.created = -> new DataTableComponent @
 
   # ##### DataTable Plugin fnGetComponent()
   $.fn.dataTableExt.oApi.fnGetComponent = ->

@@ -3,17 +3,17 @@
         {{#panelHeading icon="icon-table" title="Reactive Cursor Data Source" }}
           <a href="#" class="add-row">Add Row</a>
         {{/panelHeading}}
-        {{> dataTable rows }}
+        {{> DataTable rows }}
     {{/panel}}
     {{#panel}}
         {{> panelHeading icon="icon-table" title="Static Array Data Source" }}
-        {{> dataTable pages }}
+        {{> DataTable pages }}
     {{/panel}}
     {{#panel}}
         {{> panelHeading icon="icon-table" title="DOM Source" }}
-        {{#dataTable selector="dom-source-datatable" dom=true }}
+        {{#DataTable selector="dom-source-datatable" dom=true }}
             {{> domSource }}
-        {{/dataTable}}
+        {{/DataTable}}
     {{/panel}}
 </template>
 

@@ -3,10 +3,10 @@ Tinytest.add "jQuery DataTables Mixins - Base:Definition", ( test ) ->
 
 Tinytest.add "jQuery DataTables Mixins - Base:Defaults", ( test ) ->
   if Meteor.isClient
-    component = UI.renderWithData Template.dataTable, _.omit( RowsData, "options" )
+    component = UI.renderWithData Template.DataTable, _.omit( ReactiveData, "options" )
     component = component.templateInstance
   if Meteor.isServer
-    component = new DataTableComponent _.omit( RowsData, "options" )
+    component = new DataTableComponent _.omit( ReactiveData, "options" )
 
     test.notEqual component.defaults, undefined, "Component defaults should be set on the client."
     test.equal _.isObject( component.defaults() ), true, "Calling the defaults method should returnt he defaults object."
@@ -15,7 +15,7 @@ Tinytest.add "jQuery DataTables Mixins - Base:Defaults", ( test ) ->
 
 if Meteor.isClient
   Tinytest.add "jQuery DataTables Mixins - Base:Rendered:Reactive", ( test ) ->
-    component = UI.renderWithData Template.dataTable, RowsData
+    component = UI.renderWithData Template.DataTable, ReactiveData
     tI = component.templateInstance
     $DOM = $( '<div id="parentNode"></div>' )
     UI.insert component, $DOM
@@ -28,12 +28,12 @@ if Meteor.isClient
     test.notEqual tI.options().serverData, undefined, "Component with reactive datasource should have serverData option defined."
 
   Tinytest.add "jQuery DataTables Mixins - Base:Rendered:Static", ( test ) ->
-    component = UI.renderWithData Template.dataTable, PageData
+    component = UI.renderWithData Template.DataTable, StaticData
     tI = component.templateInstance
     $DOM = $( '<div id="parentNode"></div>' )
     UI.insert component, $DOM
 
-    test.equal tI.options().data, PageData.rows, "Component with static datasource should have an empty options.data array."
+    test.equal tI.options().data, StaticData.rows, "Component with static datasource should have an empty options.data array."
     test.equal _.isArray( tI.columns() ), true, "Component with static datasource should have a columns array."
     test.equal tI.options().serverSide, undefined, "Component with static datasource should not have severSide option defined."
     test.equal tI.options().processing, undefined, "Component with static datasource should not have processing option defined."

@@ -68,7 +68,7 @@ DataTableMixins =
               @addGetterSetter "data", "options"
             @options().component = @
             unless @isDomSource()
-              @options().data = if @rows then @rows() else []
+              @options().data = @rows()
               @options().columns = if @columns then @columns() else []
               # If the componet was declared with a collection and a query it is setup as a reactive datatable.
               if @collection and @query

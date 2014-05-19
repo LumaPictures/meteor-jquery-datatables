@@ -4,6 +4,12 @@ DataTableMixins.Rows =
   extended: ->
     if Meteor.isClient
       @include
+        # ##### prepareRows()
+        prepareRows: ->
+          unless @data.rows
+            @data.rows = []
+          @addGetterSetter "data", "rows"
+
         # ##### getRows()
         getRows: ->
           if @$

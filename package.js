@@ -42,12 +42,12 @@ Package.on_use(function (api, where) {
 
   /* Template */
   api.add_files([
-    'lib/datatables.html'
+    'lib/DataTables.html'
   ], [ 'client' ]);
 
   /* Component */
   api.add_files([
-    'lib/datatables.component.coffee'
+    'lib/DataTables.component.coffee'
   ], [ 'client', 'server']);
 });
 
@@ -60,11 +60,12 @@ Package.on_test(function (api) {
   ], ['client', 'server']);
 
   api.add_files([
-    'tests/rows.fixture.coffee',
-    'tests/page.fixture.coffee',
-    'tests/datatables.test.coffee',
+    'tests/ReactiveData.fixture.coffee',
+    'tests/StaticData.fixture.coffee',
+    'tests/DataTables.component.test.coffee',
     'tests/Base.mixin.test.coffee',
     'tests/Collection.mixin.test.coffee',
-    'tests/Columns.mixin.test.coffee'
+    'tests/Columns.mixin.test.coffee',
+    'tests/Rows.mixin.test.coffee'
   ], ['client', 'server']);
 });
