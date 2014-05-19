@@ -11,9 +11,9 @@ Template.nestedTable.destroyed = -> return
 
 # ###### nestedTable.events()
 Template.nestedTable.events
-  "click td.details-control": ( event, target ) ->
+  "click td.details-control": ( event, template ) ->
     tr = event.currentTarget.parentElement
-    row = @dataTable.api().row( tr )
+    row = @self.$.api().row( tr )
     if row.child.isShown()
       # This row is already open - close it
       row.child.hide()
@@ -33,7 +33,7 @@ Template.nestedTable.pages = -> return {
     class: "details-control"
     orderable: false
     data: null
-    mRender: -> UI.renderWithData( Template.icon, { iconClass: "icon-plus" } ).render().toHTML()
+    mRender: -> UI.renderWithData( Template.icon, { styles: "icon-plus" } ).render().toHTML()
   },{
     title: "Route"
     data: "route"

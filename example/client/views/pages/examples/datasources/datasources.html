@@ -7,13 +7,13 @@
     {{/panel}}
     {{#panel}}
         {{> panelHeading icon="icon-table" title="Static Array Data Source" }}
-        {{! > dataTable pages }}
+        {{> dataTable pages }}
     {{/panel}}
     {{#panel}}
         {{> panelHeading icon="icon-table" title="DOM Source" }}
-        {{! #dataTable selector="dom-source-datatable" dom=true }}
-            {{! > domSource }}
-        {{! /dataTable}}
+        {{#dataTable selector="dom-source-datatable" dom=true }}
+            {{> domSource }}
+        {{/dataTable}}
     {{/panel}}
 </template>
 

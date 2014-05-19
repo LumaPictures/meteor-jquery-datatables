@@ -2,7 +2,6 @@
 # ====================
 RowsTable = new DataTableComponent
   id: "RowsTable"
-  debug: "all"
   subscription: "rows"
   collection: Rows
 

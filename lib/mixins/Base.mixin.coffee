@@ -68,6 +68,8 @@ DataTableMixins =
               @options().columns = if @columns then @columns() else []
               # If the componet was declared with a collection and a query it is setup as a reactive datatable.
               if @collection and @query
+                @log "xxx", @collection()
+                @log "xxx", @query()
                 @options().serverSide = true
                 @options().processing = true
                 # `options.sAjaxSource` is currently useless, but is passed into `fnServerData` by datatables.

@@ -10,9 +10,10 @@ DataTableMixins.Collection =
         if Meteor.isClient
           if @subscription
             @data.collection = new Meteor.Collection @id()
+            @addGetterSetter "data", "collection"
         if Meteor.isServer
           throw new Error "collection property is not defined" unless @data.collection
-        @addGetterSetter "data", "collection"
+          @addGetterSetter "data", "collection"
 
       # ##### collectionName()
       collectionName: ->
