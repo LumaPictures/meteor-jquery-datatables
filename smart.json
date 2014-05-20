@@ -3,7 +3,7 @@
   "description": "Sort, page, and filter millions of records. Reactively.",
   "homepage": "https://github.com/lumapictures/meteor-jquery-datatables",
   "author": "Austin Rivas <austinrivas@gmail.com> (https://github.com/austinrivas)",
-  "version": "0.1.30",
+  "version": "0.1.31",
   "git": "https://github.com/lumapictures/meteor-jquery-datatables",
   "packages": {
     "luma-component": {}
