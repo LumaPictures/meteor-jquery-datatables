@@ -45,10 +45,10 @@ Tinytest.add "jQuery DataTables - fnServerData", ( test ) ->
   if Meteor.isServer
     component = new DataTableComponent ReactiveData
 
-    try
+    ###try
       component.fnServerData()
     catch error
-      test.equal error.message, "fnServerData can only be called from the client.", "Calling fnServerData on the server should throw an error."
+      test.equal error.message, "fnServerData can only be called from the client.", "Calling fnServerData on the server should throw an error."###
 
 
 
