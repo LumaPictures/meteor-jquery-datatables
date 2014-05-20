@@ -59,14 +59,17 @@ if Meteor.isServer
         language: "en-us"
         createdAt: new Date()
 
-      cb = Meteor.bindEnvironment ( err, id ) ->
-        setTimeout expect ->
-          test.equal _.keys( PublishStub.collection ).length, args.options.limit, "observer() should publish only a paginated subset to the client."
-          test.notEqual PublishStub.collection[ id ], undefined, "When a document is added to the collection and matches the query it should be published while maintaining the limit."
-          handle.stop()
-        , 100
+      id = Reactive.insert doc
 
-      Reactive.insert doc, cb
+      cb = expect ->
+        test.equal _.keys( PublishStub.collection ).length, args.options.limit, "observer() should publish only a paginated subset to the client."
+        test.equal _.isObject( PublishStub.collection[ id ] ), true, "When a document is added to the collection and matches the query it should be published while maintaining the limit."
+        handle.stop()
+        PublishStub.collection = []
+
+      cbSync = Meteor.bindEnvironment cb
+
+      setTimeout cbSync, 100
   ]
 
 

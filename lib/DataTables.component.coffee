@@ -1,5 +1,5 @@
 class DataTableComponent extends Component
-  @__name__: "DataTable"
+  __name__: "DataTable"
   @extend DataTableMixins.Base
   @extend DataTableMixins.Collection
 
@@ -14,7 +14,6 @@ class DataTableComponent extends Component
     @extend DataTableMixins.Publish
 
   constructor: ( context = {} ) ->
-    @__name__ = DataTableComponent.__name__
     super
     @prepareCollection()
     @prepareCountCollection()
