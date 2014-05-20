@@ -84,7 +84,7 @@ DataTableMixins =
 
           # ##### initializeDisplayLength()
           initializeDisplayLength: ->
-            if $.select2 and $( "#{ @selector() } .dataTables_length select" )
+            if $().select2 and $( "#{ @selector() } .dataTables_length select" )
               $( "#{ @selector() } .dataTables_length select" ).select2 minimumResultsForSearch: "-1"
 
           # ##### initializeFilterPlaceholder()

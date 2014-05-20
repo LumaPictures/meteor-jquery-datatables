@@ -59,13 +59,24 @@ Package.on_test(function (api) {
     'test-helpers'
   ], ['client', 'server']);
 
+  /* Fixtures */
   api.add_files([
-    'tests/ReactiveData.fixture.coffee',
-    'tests/StaticData.fixture.coffee',
-    'tests/DataTables.component.test.coffee',
-    'tests/Base.mixin.test.coffee',
-    'tests/Collection.mixin.test.coffee',
-    'tests/Columns.mixin.test.coffee',
-    'tests/Rows.mixin.test.coffee'
+    'tests/fixtures/ReactiveData.fixture.coffee',
+    'tests/fixtures/StaticData.fixture.coffee',
+    'tests/fixtures/Publish.fixture.coffee'
+  ], [ 'client', 'server' ]);
+
+  /* Component */
+  api.add_files([
+    'tests/DataTables.component.test.coffee'
   ], ['client', 'server']);
+
+  /* Mixins */
+  api.add_files([
+    'tests/mixins/Base.mixin.test.coffee',
+    'tests/mixins/Collection.mixin.test.coffee',
+    'tests/mixins/Columns.mixin.test.coffee',
+    'tests/mixins/Rows.mixin.test.coffee',
+    'tests/mixins/Publish.mixin.test.coffee'
+  ], [ 'client', 'server' ]);
 });
