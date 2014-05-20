@@ -2,6 +2,33 @@ Tinytest.add "jQuery DataTables Mixins - Query:Definition", ( test ) ->
   test.notEqual DataTableMixins.Query, undefined, "Expected DataTableMixins.Query to be defined on the client and server."
 
 if Meteor.isClient
+  Tinytest.add "jQuery DataTables Mixins - Query:arrayToDictionary: ( Array, String )", ( test ) ->
+    array = []
+    array[ 0 ] =
+      name: "someKey"
+      value: "value1"
+    array[ 1 ] =
+      name: "someOtherKey"
+      value: "value2"
+
+    dict =
+      someKey:
+        name: "someKey"
+        value: "value1"
+      someOtherKey:
+        name: "someOtherKey"
+        value: "value2"
+
+    component = UI.renderWithData Template.DataTable, ReactiveData
+    tI = component.templateInstance
+    $DOM = $( '<div id="parentNode"></div>' )
+    UI.insert component, $DOM
+
+    newDict = tI.arrayToDictionary array, "name"
+
+    test.equal newDict, dict, "DataTableComponent.arrayToDictionary() should map a dataTables aoData array to a usable object of key value pairs."
+
+if Meteor.isClient
   Tinytest.add "jQuery DataTables Mixins - Query:prepareQuery()", ( test ) ->
     component = UI.renderWithData Template.DataTable, ReactiveData
     tI = component.templateInstance
@@ -116,8 +143,6 @@ if Meteor.isClient
 
     tI.mapSortOrder 1, data
     tI.mapSortOrder 2, data
-
-    console.log tI.tableState()
 
     test.equal tI.tableState().sort[ column.mDataProp ], 1, "A datatable with sort asc set maps to a sort element in the tablestate of 1."
     test.equal tI.tableState().sort[ otherColumn.mDataProp ], -1, "A datatable with sort desc set maps to a sort element in the tablestate of -1."

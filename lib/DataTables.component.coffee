@@ -42,6 +42,26 @@ class DataTableComponent extends Component
       if @subscriptionAutorun and @subscriptionAutorun().stop then @subscriptionAutorun().stop()
     super
 
+  # ##### fnServerData()
+  # The callback for every dataTables user / reactivity event
+  # ###### Parameters
+  #   + `sSource` is the currently useless `sAjaxProp` from the options
+  #   + `aoData` is an array of objects provided by datatables reflecting its current state
+  #   + `fnCallback` is the function that will be called when the server returns a result
+  #   + `oSettings` is the datatables settings object
+  fnServerData: ( sSource, aoData, fnCallback, oSettings ) ->
+    if Meteor.isClient
+      # `setTableState()` parses aoData and creates a usable table state object.
+      @mapTableState aoData
+      # `setSubscriptionOptions()` turns the table state into a MongoDB query options object.
+      @setSubscriptionOptions()
+      # `setSubscriptionHandle()` subscribes the the dataset for the current table state.
+      @setSubscriptionHandle()
+      # `setSubscriptionAutorun()` creates a Deps.autrun computation. The autorun computation will call datatables fnCallback
+      # when the current table state subscription is ready.
+      @setSubscriptionAutorun fnCallback
+    else throw new Error "fnServerData can only be called from the client."
+
 if Meteor.isClient
   # DataTable Client
   # ================

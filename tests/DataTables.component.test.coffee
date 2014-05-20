@@ -29,6 +29,28 @@ if Meteor.isClient
     test.notEqual tI.selector, undefined, "Component should have selector method defined."
     test.equal tI.selector(), "##{ ReactiveData.id }", "Component selector should be based on the id passed in through constructor."
 
+Tinytest.add "jQuery DataTables - fnServerData", ( test ) ->
+  if Meteor.isClient
+    component = UI.renderWithData Template.DataTable, ReactiveData
+    tI = component.templateInstance
+    $DOM = $( '<div id="parentNode"></div>' )
+    UI.insert component, $DOM
+
+    test.notEqual tI.fnServerData, undefined, "All components should have an fnServerData method defined."
+    test.notEqual tI.mapTableState, undefined, "fnServerData() expects @mapTableState() to be defined"
+    test.notEqual tI.setSubscriptionOptions, undefined, "fnServerData() expects @setSubscriptionOptions() to be defined"
+    test.notEqual tI.setSubscriptionHandle, undefined, "fnServerData() expects @setSubscriptionHandle() to be defined"
+    test.notEqual tI.setSubscriptionAutorun, undefined, "fnServerData() expects @setSubscriptionAutorun() to be defined"
+
+  if Meteor.isServer
+    component = new DataTableComponent ReactiveData
+
+    try
+      component.fnServerData()
+    catch error
+      test.equal error.message, "fnServerData can only be called from the client.", "Calling fnServerData on the server should throw an error."
+
+
 
 
 

@@ -103,9 +103,3 @@ DataTableMixins =
           # returns true if the dataTable is backed by a table in the dom
           isDomSource: ->
             if @dom then return @dom() else return false
-
-          # ##### arrayToDictionary()
-          arrayToDictionary: ( array, key ) ->
-            dict = {}
-            dict[obj[key]] = obj for obj in array when obj[ key ]?
-            dict

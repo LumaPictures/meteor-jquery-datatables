@@ -4,6 +4,12 @@
 # You should attempt to narrow your selection as much as possbile to improve performance.
 DataTableMixins.Query =
   extended: ->
+    @include
+      # ##### arrayToDictionary()
+      arrayToDictionary: ( array, key ) ->
+        dict = {}
+        dict[obj[key]] = obj for obj in array when obj[ key ]?
+        dict
     if Meteor.isClient
       @include
         # ##### prepareQuery()
@@ -110,21 +116,3 @@ DataTableMixins.Query =
             @tableState().sort = {}
             # Sets sort direction for each sorted field, allowing multi column sort.
             @mapSortOrder( sortIndex, aoData ) for sortIndex in [ 1..@tableState().iSortingCols ]
-
-        # ##### fnServerData()
-        # The callback for every dataTables user / reactivity event
-        # ###### Parameters
-        #   + `sSource` is the currently useless `sAjaxProp` from the options
-        #   + `aoData` is an array of objects provided by datatables reflecting its current state
-        #   + `fnCallback` is the function that will be called when the server returns a result
-        #   + `oSettings` is the datatables settings object
-        fnServerData: ( sSource, aoData, fnCallback, oSettings ) ->
-          # `setTableState()` parses aoData and creates a usable table state object.
-          @mapTableState aoData
-          # `setSubscriptionOptions()` turns the table state into a MongoDB query options object.
-          @setSubscriptionOptions()
-          # `setSubscriptionHandle()` subscribes the the dataset for the current table state.
-          @setSubscriptionHandle()
-          # `setSubscriptionAutorun()` creates a Deps.autrun computation. The autorun computation will call datatables fnCallback
-          # when the current table state subscription is ready.
-          @setSubscriptionAutorun fnCallback
