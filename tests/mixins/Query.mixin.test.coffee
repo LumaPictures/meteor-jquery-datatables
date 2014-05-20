@@ -89,6 +89,42 @@ if Meteor.isClient
     test.equal regex, orProperty.$regex, "Calling mapQuery should set an and property on each searchable key with the global search."
     test.equal options, orProperty.$options, "Calling mapQuery should set an and property on each searchable key with the global search."
 
+  Tinytest.add "jQuery DataTables Mixins - Query:mapSortOrder( Number, Object )", ( test ) ->
+    column =
+      mDataProp: "somePropertyKey"
+
+    otherColumn =
+      mDataProp: "someOtherKey"
+
+    data = []
+    data[ "mDataProp_0" ] = value: column.mDataProp
+    data[ "iSortCol_0" ] = value: 0
+    data[ "sSortDir_0" ] = value: "asc"
+    data[ "mDataProp_1" ] = value: otherColumn.mDataProp
+    data[ "iSortCol_1" ] = value: 1
+    data[ "sSortDir_1" ] = value: "desc"
+
+    sortIndex = 1
+
+    component = UI.renderWithData Template.DataTable, ReactiveData
+    tI = component.templateInstance
+    $DOM = $( '<div id="parentNode"></div>' )
+    UI.insert component, $DOM
+
+    tI.tableState
+      sort: {}
+
+    tI.mapSortOrder 1, data
+    tI.mapSortOrder 2, data
+
+    console.log tI.tableState()
+
+    test.equal tI.tableState().sort[ column.mDataProp ], 1, "A datatable with sort asc set maps to a sort element in the tablestate of 1."
+    test.equal tI.tableState().sort[ otherColumn.mDataProp ], -1, "A datatable with sort desc set maps to a sort element in the tablestate of -1."
+
+
+
+
 
 
 
