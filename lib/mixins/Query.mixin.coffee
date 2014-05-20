@@ -8,27 +8,24 @@ DataTableMixins.Query =
       @include
         # ##### prepareQuery()
         prepareQuery: ->
-          if @collection
+          if @subscription
             unless @query
               @data.query = {}
               @addGetterSetter "data", "query"
 
         # ##### prepareTableState()
         prepareTableState: ->
-          @data.tableState = undefined
-          @addGetterSetter "data", "tableState"
+          if @subscription
+            @data.tableState = undefined
+            @addGetterSetter "data", "tableState"
 
-        # ##### getQueryAsString()
-        getQueryAsString: ->
-          if @query() is false then "" else EJSON.stringify @query()
-
-        # ##### getDataProp()
+        # ##### getDataProp( String, Number, Object )
         # Function scope helper for getting `aoData` properties.
         getDataProp: ( key, index, data ) ->
           key = "#{ key }_#{ index }"
           return data[ key ].value
 
-        # ##### mapColumns()
+        # ##### mapColumns( Number, Object )
         # iterator for setting up columns
         mapColumns: ( index, data ) ->
           @tableState().columns[ @getDataProp 'mDataProp', index, data ] =
@@ -43,6 +40,7 @@ DataTableMixins.Query =
             #   + `sSearch` contains the column search string if column filters are setup
             sSearch: @getDataProp 'sSearch', index, data
 
+        # ##### mapQuery( String, Object, Object )
         mapQuery: ( key, property, searchQuery ) ->
           unless property.bSearchable is false
             obj = {}
@@ -52,6 +50,7 @@ DataTableMixins.Query =
               $options: 'i'
             searchQuery.$or.push obj
 
+        # ##### mapSortOrder( Number, Object )
         mapSortOrder: ( sortIndex, data ) ->
           sortIndex = sortIndex - 1
           propertyIndex = @getDataProp 'iSortCol', sortIndex, data
@@ -60,7 +59,7 @@ DataTableMixins.Query =
             when 'asc' then @tableState().sort[ propertyName ] = 1
             when 'desc' then @tableState().sort[ propertyName ] = -1
 
-        # ##### mapTableState()
+        # ##### mapTableState( Array )
         # Take the `aoData` parameter of `fnServerData` and map it into a more usable object.
         mapTableState: ( aoData ) ->
           aoData = @arrayToDictionary aoData, 'name'

@@ -1,17 +1,5 @@
 @Reactive = new Meteor.Collection "reactive"
 
-# * Calling `_ensureIndex` is necessary in order to sort and filter collections.
-#   * [see mongod docs for more info](http://docs.mongodb.org/manual/reference/method/db.collection.ensureIndex/)
-Meteor.startup ->
-  Reactive._ensureIndex { _id: 1 }, { unique: 1 }
-  Reactive._ensureIndex 'cookieEnabled': 1
-  Reactive._ensureIndex 'language': 1
-  Reactive._ensureIndex 'onLine': 1
-  Reactive._ensureIndex 'platform': 1
-  Reactive._ensureIndex 'userAgent': 1
-  Reactive._ensureIndex 'systemLanguage': 1
-  Reactive._ensureIndex createdAt: 1
-
 if Meteor.isClient
   @ReactiveData =
     id: "ReactiveData"
