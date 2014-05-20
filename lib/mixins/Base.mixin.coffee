@@ -81,7 +81,6 @@ DataTableMixins =
                 @options().serverData = _.debounce( @fnServerData.bind( @ ), 300 )
             @options _.defaults( @options(), @defaults )
 
-
           # ##### initializeDisplayLength()
           initializeDisplayLength: ->
             if $().select2 and $( "#{ @selector() } .dataTables_length select" )

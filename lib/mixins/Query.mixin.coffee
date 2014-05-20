@@ -22,14 +22,52 @@ DataTableMixins.Query =
         getQueryAsString: ->
           if @query() is false then "" else EJSON.stringify @query()
 
+        # ##### getDataProp()
+        # Function scope helper for getting `aoData` properties.
+        getDataProp: ( key, index, data ) ->
+          key = "#{ key }_#{ index }"
+          return data[ key ].value
+
+        # ##### mapColumns()
+        # iterator for setting up columns
+        mapColumns: ( index, data ) ->
+          @tableState().columns[ @getDataProp 'mDataProp', index, data ] =
+            #   + `mDataProp` is the field name
+            mDataProp: @getDataProp 'mDataProp', index, data
+            #   + `bRegex` is a boolean for if the field has a search input
+            bRegex: @getDataProp 'bRegex', index, data
+            #   + `bSearchable` is a boolean used to determine which fields are searchable
+            bSearchable: @getDataProp 'bSearchable', index, data
+            #   + `bSortable` is a boolean used to determine which fields are sortable
+            bSortable: @getDataProp 'bSortable', index, data
+            #   + `sSearch` contains the column search string if column filters are setup
+            sSearch: @getDataProp 'sSearch', index, data
+
+        mapQuery: ( key, property, searchQuery ) ->
+          unless property.bSearchable is false
+            obj = {}
+            obj[ key ] =
+              $regex: @tableState().sSearch
+              # Letter case is ignored for all search querys.
+              $options: 'i'
+            searchQuery.$or.push obj
+
+        mapSortOrder: ( sortIndex, data ) ->
+          sortIndex = sortIndex - 1
+          propertyIndex = @getDataProp 'iSortCol', sortIndex, data
+          propertyName = @getDataProp 'mDataProp', propertyIndex, data
+          switch @getDataProp( 'sSortDir', sortIndex, data )
+            when 'asc' then @tableState().sort[ propertyName ] = 1
+            when 'desc' then @tableState().sort[ propertyName ] = -1
+
         # ##### mapTableState()
         # Take the `aoData` parameter of `fnServerData` and map it into a more usable object.
-        mapTableState: (aoData ) ->
+        mapTableState: ( aoData ) ->
           aoData = @arrayToDictionary aoData, 'name'
           @log 'mapTableState:aoData', aoData
 
           # ##### tableState
-          tableState =
+          @tableState
             #   + `aoData.sEcho` is a request counter, incremented on every server call
             sEcho: aoData.sEcho.value or 1
             bRegex: aoData.bRegex.value or false
@@ -47,68 +85,32 @@ DataTableMixins.Query =
             #   + `aoData.sSearch` is the datatables search input value
             sSearch: aoData.sSearch.value or ""
 
-          # ##### getDataProp()
-          # Function scope helper for getting `aoData` properties.
-          getDataProp = ( key, index ) ->
-            key = "#{ key }_#{ index }"
-            return aoData[ key ].value
-
-          # ##### mapColumns()
-          # iterator for setting up columns
-          mapColumns = ( index ) ->
-            tableState.columns[ getDataProp 'mDataProp', index ] =
-              #   + `mDataProp` is the field name
-              mDataProp: getDataProp 'mDataProp', index
-              #   + `bRegex` is a boolean for if the field has a search input
-              bRegex: getDataProp 'bRegex', index
-              #   + `bSearchable` is a boolean used to determine which fields are searchable
-              bSearchable: getDataProp 'bSearchable', index
-              #   + `bSortable` is a boolean used to determine which fields are sortable
-              bSortable: getDataProp 'bSortable', index
-              #   + `sSearch` contains the column search string if column filters are setup
-              sSearch: getDataProp 'sSearch', index
-          mapColumns index for index in [ 0..( tableState.iColumns - 1 ) ]
+          @mapColumns( index, aoData ) for index in [ 0..( @tableState().iColumns - 1 ) ]
 
           # ##### mapQuery()
-          if tableState.sSearch isnt ""
+          if @tableState().sSearch isnt ""
             # The filter query is initialized as an `$or` of all the searchable columns against the search regex.
             searchQuery = $or: []
-            mapQuery = ( key, property ) ->
-              unless property.bSearchable is false
-                obj = {}
-                obj[ key ] =
-                  $regex: tableState.sSearch
-                # Letter case is ignored for all search querys.
-                  $options: 'i'
-                searchQuery.$or.push obj
-            for key, property of tableState.columns
-              mapQuery key, property
+            for key, property of @tableState().columns
+              @mapQuery key, property, searchQuery
             # If the base query is for all records in the collection, the filter query is the only query run.
             if @query() is {}
-              tableState.query = searchQuery
+              @tableState().query = searchQuery
               # If the base query is already filter the collection, the filter query is run as an `$and` against it.
             else
-              tableState.query =
+              @tableState().query =
                 $and: [
                   @query()
                   searchQuery
                 ]
-          else tableState.query = @query()
+          else @tableState().query = @query()
 
           # ##### mapSortOrder()
           # Only runs if columns are being sorted.
-          if tableState.iSortingCols > 0
-            tableState.sort = {}
+          if @tableState().iSortingCols > 0
+            @tableState().sort = {}
             # Sets sort direction for each sorted field, allowing multi column sort.
-            mapSortOrder = ( sortIndex ) ->
-              sortIndex = sortIndex - 1
-              propertyIndex = getDataProp 'iSortCol', sortIndex
-              propertyName = getDataProp 'mDataProp', propertyIndex
-              switch getDataProp( 'sSortDir', sortIndex )
-                when 'asc' then tableState.sort[ propertyName ] = 1
-                when 'desc' then tableState.sort[ propertyName ] = -1
-            mapSortOrder sortIndex for sortIndex in [ 1..tableState.iSortingCols ]
-          return tableState
+            @mapSortOrder( sortIndex, aoData ) for sortIndex in [ 1..@tableState().iSortingCols ]
 
         # ##### fnServerData()
         # The callback for every dataTables user / reactivity event
@@ -119,7 +121,7 @@ DataTableMixins.Query =
         #   + `oSettings` is the datatables settings object
         fnServerData: ( sSource, aoData, fnCallback, oSettings ) ->
           # `setTableState()` parses aoData and creates a usable table state object.
-          @tableState @mapTableState( aoData )
+          @mapTableState aoData
           # `setSubscriptionOptions()` turns the table state into a MongoDB query options object.
           @setSubscriptionOptions()
           # `setSubscriptionHandle()` subscribes the the dataset for the current table state.

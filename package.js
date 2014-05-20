@@ -77,6 +77,7 @@ Package.on_test(function (api) {
     'tests/mixins/Collection.mixin.test.coffee',
     'tests/mixins/Columns.mixin.test.coffee',
     'tests/mixins/Rows.mixin.test.coffee',
-    'tests/mixins/Publish.mixin.test.coffee'
+    'tests/mixins/Publish.mixin.test.coffee',
+    'tests/mixins/Query.mixin.test.coffee'
   ], [ 'client', 'server' ]);
 });
