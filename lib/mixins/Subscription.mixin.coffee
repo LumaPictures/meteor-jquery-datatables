@@ -7,14 +7,14 @@ DataTableMixins.Subscription =
       @include
         # ##### setSubscriptionOptions()
         setSubscriptionOptions: ->
+          unless @subscriptionOptions
+            @data.subscriptionOptions = undefined
+            @addGetterSetter "data", "subscriptionOptions"
           options =
             skip: @tableState().iDisplayStart
             limit: @tableState().iDisplayLength
             sort: @tableState().sort
-          unless @subscriptionOptions
-            @data.subscriptionOptions = options
-            @addGetterSetter "data", "subscriptionOptions"
-          else @subscriptionOptions options
+          @subscriptionOptions options
           @log "subscriptionOptions", @subscriptionOptions()
 
         # ##### setSubscriptionHandle()

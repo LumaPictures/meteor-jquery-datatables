@@ -4,14 +4,14 @@
 # You should attempt to narrow your selection as much as possbile to improve performance.
 DataTableMixins.Query =
   extended: ->
-    @include
-      # ##### arrayToDictionary()
-      arrayToDictionary: ( array, key ) ->
-        dict = {}
-        dict[obj[key]] = obj for obj in array when obj[ key ]?
-        dict
     if Meteor.isClient
       @include
+        # ##### arrayToDictionary()
+        arrayToDictionary: ( array, key ) ->
+          dict = {}
+          dict[obj[key]] = obj for obj in array when obj[ key ]?
+          dict
+
         # ##### prepareQuery()
         prepareQuery: ->
           if @subscription
