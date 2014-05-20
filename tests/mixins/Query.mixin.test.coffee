@@ -83,8 +83,11 @@ if Meteor.isClient
       $options: "i"
 
     key = searchQuery.$or[ 0 ].somePropertyKey
-    debugger
-    test.notEqual key, orProperty, "Calling mapQuery should set an and property on each searchable key with the global search."
+    regex = key.$regex
+    options = key.$options
+
+    test.equal regex, orProperty.$regex, "Calling mapQuery should set an and property on each searchable key with the global search."
+    test.equal options, orProperty.$options, "Calling mapQuery should set an and property on each searchable key with the global search."
 
 
 
