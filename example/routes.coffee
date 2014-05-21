@@ -23,6 +23,9 @@ Router.addRoutes [{
     },{
       title: "Nested Table"
       route: "nestedTable"
+    },{
+      title: "Reactive Options"
+      route: "reactiveOptions"
     }]
 },{
   route: 'dataSources'
@@ -38,6 +41,13 @@ Router.addRoutes [{
   page:
     title: "Blaze Templates"
     subtitle: "Reactive templates in table cells."
+},{
+  route: "reactiveOptions"
+  path: "/examples/reactive-options"
+  controller: "ExampleController"
+  page:
+    title: "Reactive Options"
+    subtitle: "Rerender DataTable when the options change."
 },{
   route: "nestedTable"
   path: "/examples/nested-table"
