@@ -45,7 +45,7 @@ $ meteor test-packages jquery-datatables
 All you have to do is include the datatable component in one of your templates like so:
 
 ```html
-{{> dataTable
+{{> DataTable
     columns=browsers.columns
     options=browsers.options
     subscription=browsers.subscription
