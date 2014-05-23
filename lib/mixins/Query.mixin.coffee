@@ -19,6 +19,14 @@ DataTableMixins.Query =
               @data.query = {}
               @addGetterSetter "data", "query"
 
+        # ##### setQuery( Object )
+        setQuery: ( query ) ->
+          if @subscription
+            @prepareQuery() unless @query
+            @query query
+            @rendered()
+
+
         # ##### prepareTableState()
         prepareTableState: ->
           if @subscription

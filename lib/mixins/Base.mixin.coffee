@@ -78,7 +78,7 @@ DataTableMixins =
                 @options().ajaxSource = "useful?"
                 # This binds the datatables `fnServerData` server callback to this component instance.
                 # `_.debounce` is used to prevent unneccesary subcription calls while typing a search
-                @options().serverData = _.debounce( @fnServerData.bind( @ ), 300 )
+                @options().serverData = _.debounce( _.bind( @fnServerData, @ ), 300 )
             @options _.defaults( @options(), @defaults )
 
           # ##### initializeDisplayLength()

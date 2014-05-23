@@ -1,5 +1,11 @@
 class @ExampleController extends PackageLayoutController
+  onBeforeAction: ->
+    Session.set "reactive-query", {}
+    super
+
   data: ->
+    @data.reactiveQuery = Session.get "reactive-query"
+
     @data.rows =
       columns: [{
         title: "Platform"
@@ -27,7 +33,7 @@ class @ExampleController extends PackageLayoutController
       subscription: "rows"
       # ## Query
       #   * the initial filter on the dataset
-      query: {}
+      query: Session.get "reactive-query"
       debug: "all"
       options:
         order:

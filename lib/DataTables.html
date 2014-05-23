@@ -1,15 +1,15 @@
 <template name="DataTable">
-    <div id="{{id}}" class="dataTable-container">
-        {{#if UI.contentBlock }}
-            {{> UI.contentBlock }}
-        {{else}}
-            {{#with self.chooseTemplate template }}
-                {{#with .. }}     {{! original arguments to dataTable }}
-                    {{> .. }}     {{! return value from chooseTemplate( table_template ) }}
-                {{/with}}
-            {{/with}}
-        {{/if}}
-    </div>
+  <div id="{{id}}" class="dataTable-container">
+    {{#if UI.contentBlock }}
+      {{> UI.contentBlock }}
+    {{else}}
+      {{#with self.chooseTemplate template }}
+        {{#with .. }}   {{! original arguments to dataTable }}
+          {{> .. }}     {{! return value from chooseTemplate( table_template ) }}
+        {{/with}}
+      {{/with}}
+    {{/if}}
+  </div>
 </template>
 
 <template name="DataTableDefault">
