@@ -104,8 +104,12 @@ On the server side, you need to publish the data:
 
 ```coffeescript
 if Meteor.isServer
-  DataTable.debug = "all";
-  DataTable.publish "all_browsers", Browsers
+  RowsTable = new DataTableComponent
+    id: "RowsTable"
+    subscription: "rows"
+    collection: Rows
+  
+  RowsTable.publish()
 ```
 
 ## Styling
