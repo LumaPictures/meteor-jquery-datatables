@@ -1,6 +1,7 @@
 @Reactive = new Meteor.Collection "reactive"
 
 if Meteor.isClient
+  Session.setDefault "reactive-query", {}
   @ReactiveData =
     id: "ReactiveData"
     columns: [{
@@ -27,7 +28,7 @@ if Meteor.isClient
     subscription: "reactive"
     # ## Query
     #   * the initial filter on the dataset
-    query: {}
+    query: Session.get "reactive-query"
     options:
       order:
         [ 5, 'desc' ]
