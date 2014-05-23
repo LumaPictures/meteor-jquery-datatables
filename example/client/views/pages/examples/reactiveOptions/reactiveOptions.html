@@ -3,9 +3,14 @@
       {{> panelHeading icon="icon-table" title="Reactive Table Options" }}
       {{#panelBody}}
         <div class="row block">
-          <div class="col-sm-3">
-            {{#select2 placeholder="Filter Platforms..." }}
+          <div class="col-sm-3 filter-platforms">
+            {{#select2
+              id="filter-platform"
+              placeholder="Filter Platforms..."
+              options=selectOptions
+            }}
               <option value="Linux">Linux</option>
+              <option value="NodeJS">NodeJS</option>
               <option value="Windows">Windows</option>
               <option value="OSX">OSX</option>
               <option value="iOS">iOS</option>
@@ -13,7 +18,11 @@
             {{/select2}}
           </div>
           <div class="col-sm-3">
-            {{#select2 placeholder="Filter User Agents..." }}
+            {{#select2
+              id="filter-user-agent"
+              placeholder="Filter User Agents..."
+              options=selectOptions
+            }}
               <option value="Chrome">Chrome</option>
               <option value="Firefox">Firefox</option>
               <option value="Safari">Safari</option>
@@ -21,15 +30,23 @@
             {{/select2}}
           </div>
           <div class="col-sm-3">
-            {{#select2 placeholder="Filter Cookies Enabled..." }}
+            {{#select2
+              id="filter-cookie-enabled"
+              placeholder="Filter Cookies Enabled..."
+              options=selectOptions
+            }}
               <option value="true">True</option>
-              <option value="true">False</option>
+              <option value="false">False</option>
             {{/select2}}
           </div>
           <div class="col-sm-3">
-            {{#select2 placeholder="Filter Browser Online..." }}
+            {{#select2
+              id="filter-browser-online"
+              placeholder="Filter Browser Online..."
+              options=selectOptions
+            }}
               <option value="true">True</option>
-              <option value="true">False</option>
+              <option value="false">False</option>
             {{/select2}}
           </div>
         </div>
@@ -39,7 +56,6 @@
             subscription=rows.subscription
             query=reactiveQuery
             options=rows.options
-            debug="all"
         }}
       {{/panelBody}}
     {{/panel}}
