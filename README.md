@@ -45,13 +45,13 @@ $ meteor test-packages jquery-datatables
 All you have to do is include the datatable component in one of your templates like so:
 
 ```html
-{{> DataTable rows }}
+{{> DataTable browsers }}
 ```
 
 Then setup the data in your controller or as template helpers:
 
 ```coffeescript
-Template.dataSources.browsers = -> return {
+Template.<yourTemplate>.browsers = -> return {
   columns: [{
     title: "Engine"
     data: "engine"
