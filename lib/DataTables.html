@@ -1,4 +1,5 @@
 <template name="DataTable">
+  {{ self.setQuery query }}
   <div id="{{id}}" class="dataTable-container">
     {{#if UI.contentBlock }}
       {{> UI.contentBlock }}

@@ -21,11 +21,12 @@ DataTableMixins.Query =
 
         # ##### setQuery( Object )
         setQuery: ( query ) ->
+          @log "xxx", query
           if @subscription
             @prepareQuery() unless @query
-            @query query
-            @rendered()
-
+            unless @query() is query
+              @query query
+              @rendered()
 
         # ##### prepareTableState()
         prepareTableState: ->

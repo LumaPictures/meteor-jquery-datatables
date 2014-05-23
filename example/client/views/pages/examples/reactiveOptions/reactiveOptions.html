@@ -33,7 +33,14 @@
             {{/select2}}
           </div>
         </div>
-        {{> DataTable rows }}
+        {{> DataTable
+            id="reactive-options"
+            columns=rows.columns
+            subscription=rows.subscription
+            query=reactiveQuery
+            options=rows.options
+            debug="all"
+        }}
       {{/panelBody}}
     {{/panel}}
 </template>

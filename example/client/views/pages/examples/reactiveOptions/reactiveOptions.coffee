@@ -13,4 +13,5 @@ Template.reactiveOptions.destroyed = -> return
 Template.reactiveOptions.events {}
 
 # ##### reactiveOptions.helpers()
-Template.reactiveOptions.helpers {}
+Template.reactiveOptions.helpers
+  reactiveQuery: -> return Session.get "reactive-query"
