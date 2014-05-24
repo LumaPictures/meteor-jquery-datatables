@@ -94,7 +94,17 @@ Template.<yourTemplate>.browsers = -> return {
 }
 ```
 
-[ You can also set the query parameter to a reactive datasource for external manipulation as seen here. ](http://jquery-datatables.meteor.com/examples/reactive-query)
+### Reactive Query
+
+The query parameter for reactive tables is now reactive ( duh ). My goal was to have the table impose no structure on the query and just use raw mongoDB selector.
+
+The basic idea is that you set a session variable ( or some other reactive datasource ) to your initial query and then use that var as the query parameter for the table component. Whenever the query parm changes the table will automagically rerender using the new query to fetch its dataset.
+
+[ You can see a basic implementation of this there. ](https://github.com/LumaPictures/meteor-jquery-datatables/blob/master/example/client/views/pages/examples/reactiveQuery/reactiveQuery.coffee#L9) In the [ example ](http://jquery-datatables.meteor.com/examples/reactive-query) the table controls just extend the query object with whatever value they are set to. I tried to include examples of all the common control types, but if you think of any that I missed feel free to let me know.
+
+Currently applying the filter can cause a somewhat janky table reload depending on what its contents looks like, this is something I plan on addressing ASAP.
+
+### Publishing Data
 
 On the server side, you need to publish the data:
 
@@ -106,6 +116,8 @@ if Meteor.isServer
   
   RowsTable.publish()
 ```
+
+### Limit Client Data Access
 
 If you would like to limit the dataset published to the client simply append a query parameter to you the initialization object
 
