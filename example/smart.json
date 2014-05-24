@@ -4,7 +4,6 @@
       "path": ".."
     },
     "jquery-select2": {},
-    "luma-ui": {},
-    "githubReadme": {}
+    "luma-ui": {}
   }
 }

@@ -21,7 +21,6 @@ DataTableMixins.Query =
 
         # ##### setQuery( Object )
         setQuery: ( query ) ->
-          console.log query
           if @subscription
             @prepareQuery() unless @query
             unless @query() is query

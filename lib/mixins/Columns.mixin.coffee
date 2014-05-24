@@ -11,13 +11,6 @@ DataTableMixins.Columns =
             @data.columns = undefined
             @addGetterSetter "data", "columns"
           columns = @columns() or []
-          if @subscription
-            # Adds _id as a hidden column by default.
-            columns.push
-              title: "id"
-              data: "_id"
-              visible: false
-              searchable: false
           # Sets a default cell render function for every column.
           @setDefaultCellValue column for column in columns
           @columns columns
