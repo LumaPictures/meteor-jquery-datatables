@@ -94,14 +94,29 @@ Template.<yourTemplate>.browsers = -> return {
 }
 ```
 
+[ You can also set the query parameter to a reactive datasource for external manipulation as seen here. ](http://jquery-datatables.meteor.com/examples/reactive-query)
+
 On the server side, you need to publish the data:
 
 ```coffeescript
 if Meteor.isServer
   RowsTable = new DataTableComponent
-    id: "RowsTable"
     subscription: "rows"
     collection: Rows
+  
+  RowsTable.publish()
+```
+
+If you would like to limit the dataset published to the client simply append a query parameter to you the initialization object
+
+```coffeescript
+if Meteor.isServer
+  RowsTable = new DataTableComponent
+    subscription: "rows"
+    collection: Rows
+    # ##### Only return the rows created today
+    query:
+      createdAt: $gte: moment().startOf( "day").toDate()
   
   RowsTable.publish()
 ```
