@@ -1,7 +1,6 @@
 # Reactive Data Source
 # ====================
 RowsTable = new DataTableComponent
-  id: "RowsTable"
   subscription: "rows"
   collection: Rows
 
