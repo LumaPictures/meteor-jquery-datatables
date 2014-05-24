@@ -4,6 +4,13 @@
 # You should attempt to narrow your selection as much as possbile to improve performance.
 DataTableMixins.Query =
   extended: ->
+    @include
+      # ##### prepareQuery()
+      prepareQuery: ->
+        if @subscription or Meteor.isServer
+          unless @query
+            @data.query = {}
+            @addGetterSetter "data", "query"
     if Meteor.isClient
       @include
         # ##### arrayToDictionary()
@@ -11,13 +18,6 @@ DataTableMixins.Query =
           dict = {}
           dict[obj[key]] = obj for obj in array when obj[ key ]?
           dict
-
-        # ##### prepareQuery()
-        prepareQuery: ->
-          if @subscription
-            unless @query
-              @data.query = {}
-              @addGetterSetter "data", "query"
 
         # ##### setQuery( Object )
         setQuery: ( query ) ->
