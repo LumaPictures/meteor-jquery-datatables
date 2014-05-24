@@ -44,9 +44,7 @@ $ meteor test-packages jquery-datatables
 
 All you have to do is include the datatable component in one of your templates like so:
 
-```html
-{{> DataTable browsers }}
-```
+`{{> DataTable browsers }}`
 
 Then setup the data in your controller or as template helpers:
 
@@ -67,26 +65,19 @@ Template.<yourTemplate>.browsers = -> return {
   },{
     title: "Grade"
     data: "grade"
-    mRender: ( data, type, row ) ->
-      row ?= ""
-      switch row.grade
-        when "A" then return "<b>A</b>"
-        else return row.grade
   },{
     title: "Created"
     data: "createdAt"
-    mRender: ( data, type, row ) ->
-      row.createdAt ?= ""
-      if row.createdAt
-        return moment( row.createdAt ).fromNow()
-      else return row.createdAt
+    mRender: ( data, type, row ) -> return moment( row.createdAt ).fromNow()
   },{
     title: "Counter"
     data: "counter"
   }]
+  
   # ## Subscription
   #   * the datatables publication providing the data on the server
   subscription: "all_browsers"
+  
   # ## Query
   #   * the initial filter on the dataset
   query:
@@ -132,6 +123,41 @@ if Meteor.isServer
   
   RowsTable.publish()
 ```
+
+## Event Binding
+
+You can access the datatable after it has been initialized, it is stored in the data context of the instantiated datatable component. However this is not the best way to extend the tables features.
+
+You have 3 main options ( going from simplest to most flexible )
+
+1. simply attach events via jquery ( you must set id )
+
+`{{> dataTable id="example" columns=pages.columns rows=pages.rows }}`
+
+```coffeescript
+$( '#example tbody' ).on 'click', 'tr', ->
+  name = $( 'td', @ ).eq( 0 ).text()
+  console.log "You clicked on #{ name }'s row"
+```
+
+The major drawback of this method is that you have to track the table state externally. Good for simple events, but I wouldn't recommend it for anything complex. 
+
+2. Attach events through the initialization options
+
+Set options in your controller or via a template helper
+
+```coffeescript
+options =
+  initComplete: ->
+    api = @api()
+    api.$( 'td' ).click -> api.search( @innerHTML ).draw()
+```
+
+`{{> DataTable options=options columns=pages.columns rows=pages.rows }}`
+
+Now datatables is handling the data for you. Here is a ton of api method example https://datatables.net/examples/api/
+
+This option will cover most of your use cases.
 
 ## Styling
 
