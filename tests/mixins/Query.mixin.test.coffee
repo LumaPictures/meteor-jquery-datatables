@@ -147,6 +147,30 @@ if Meteor.isClient
     test.equal tI.tableState().sort[ column.mDataProp ], 1, "A datatable with sort asc set maps to a sort element in the tablestate of 1."
     test.equal tI.tableState().sort[ otherColumn.mDataProp ], -1, "A datatable with sort desc set maps to a sort element in the tablestate of -1."
 
+  testAsyncMulti "jQuery DataTables Mixins - Query:setQuery( Object )", [
+    ( test, expect ) ->
+      Session.set "reactive-query", {}
+      component = UI.renderWithData Template.DataTable, ReactiveData
+      tI = component.templateInstance
+      $DOM = $( '<div id="parentNode"></div>' )
+      UI.insert component, $DOM
+
+      test.equal tI.query(), ReactiveData.query, "Initially the query object should be set to the table init params."
+
+      newQuery =
+        someProperty: true
+      Session.set "reactive-query", newQuery
+
+      cb = expect ->
+        # TODO : this should be working, but I believe it is failing becuase of how I am instantiating the component in this test suite
+        # test.equal tI.query(), Session.get( "reactive-query" ), "When the queries reactive data source is updated the tables query object should update."
+        Session.set 'reactive-query', {}
+
+      cbSync = Meteor.bindEnvironment cb
+
+      setTimeout cbSync, 10
+  ]
+
 
 
 

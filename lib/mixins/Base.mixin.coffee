@@ -32,6 +32,8 @@ DataTableMixins =
         @include
           # ##### defaults
           defaults:
+            # ###### Allow the table to be rerendered reactively
+            destroy: true
             # ###### Display Options
             jQueryUI: false
             autoWidth: true

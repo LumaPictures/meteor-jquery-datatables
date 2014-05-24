@@ -1,0 +1,50 @@
+<template name="reactiveQuery">
+    {{#panel}}
+      {{#panelHeading icon="icon-table" title="Reactive Query" }}
+        <a href="#" class="add-row">Add Row</a>
+      {{/panelHeading}}
+      {{#panelBody}}
+        <div class="row block">
+          <div class="col-sm-3">
+            {{#select2
+              id="filter-platform"
+              multiple="multiple"
+              options=filterPlatformOptions
+            }}
+              <option value="Linux x86_64">Linux x86_64</option>
+              <option value="NodeJS">NodeJS</option>
+              <option value="Win32">Win32</option>
+              <option value="MacIntel">MacIntel</option>
+              <option value="iPhone">iPhone</option>
+              <option value="Android">Android</option>
+            {{/select2}}
+          </div>
+          <div class="col-sm-3">
+            <input id="filter-user-agent" class="form-control" type="text" placeholder="Search User Agents..." />
+          </div>
+          <div class="col-sm-3">
+            {{#select2
+              id="filter-cookie-enabled"
+              placeholder="Filter Cookies Enabled..."
+              options=selectOptions
+            }}
+              <option value="true">True</option>
+              <option value="false">False</option>
+            {{/select2}}
+          </div>
+          <div class="col-sm-3">
+            <label class="filter-created checkbox-inline checkbox-primary">
+              <input id="filter-created" type="checkbox" /> Created Today
+            </label>
+          </div>
+        </div>
+        {{> DataTable
+            id="reactive-query"
+            columns=rows.columns
+            subscription=rows.subscription
+            query=reactiveQuery
+            options=rows.options
+        }}
+      {{/panelBody}}
+    {{/panel}}
+</template>

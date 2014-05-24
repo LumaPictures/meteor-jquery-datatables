@@ -70,6 +70,18 @@ DataTableMixins.Publish =
             component.log "#{ component.subscription() }:query:base", baseQuery
             component.log "#{ component.subscription() }:query:filtered", filteredQuery
             component.log "#{ component.subscription() }:options", options
+
+            # The baseQuery is an and of the client and server queries, to prevent the client from accessing the entire collection
+            baseQuery = $and: [
+              component.query()
+              baseQuery
+            ]
+
+            filteredQuery = $and: [
+              component.query()
+              baseQuery
+            ]
+
             args =
               publish: @
               initialized: false
