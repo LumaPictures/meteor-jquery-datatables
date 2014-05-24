@@ -4,9 +4,10 @@ Template.reactiveQuery.rendered = -> $( "#filter-created" ).uniform()
 
 # ###### reactiveQuery.events()
 Template.reactiveQuery.events
+  "click .add-row": ( event, template ) -> insertRow()
+  
   "change #filter-platform": ( event, template ) ->
     query = Session.get "reactive-query"
-    console.log event.val
     if _.isArray( event.val ) and event.val.length > 0
       $in = []
       event.val.forEach ( val ) -> $in.push val
@@ -39,15 +40,13 @@ Template.reactiveQuery.events
     else delete query.cookieEnabled
     Session.set "reactive-query", query
 
-  "click #filter-created": ( event, template ) ->
+  "change #filter-created": ( event, template ) ->
     query = Session.get "reactive-query"
-    if event.val
-      val = true if event.val is "true"
-      val = false if event.val is "false"
+    if event.target.checked
       filter =
-        onLine: val
+        createdAt: $gte: moment().startOf( "day").toDate()
       _.extend( query, filter )
-    else delete query.onLine
+    else delete query.createdAt
     Session.set "reactive-query", query
 
 
