@@ -3,6 +3,13 @@
 # This must be a datatable compatible publication ( for more info see Server )
 DataTableMixins.Subscription =
   extended: ->
+    @include
+      # ##### prepareSubscription()
+      prepareSubscription: ->
+        if Meteor.isServer
+          @data.id = @data.subscription
+          @addGetterSetter "data", "id"
+
     if Meteor.isClient
       @include
         # ##### setSubscriptionOptions()

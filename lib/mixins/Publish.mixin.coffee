@@ -73,7 +73,7 @@ DataTableMixins.Publish =
 
             if _.isFunction component.query()
               queryMethod = _.bind component.query(), @
-              query = queryMethod()
+              query = queryMethod component
             else query = component.query()
 
             # The baseQuery is an and of the client and server queries, to prevent the client from accessing the entire collection

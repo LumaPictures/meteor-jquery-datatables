@@ -3,11 +3,11 @@ class DataTableComponent extends Component
   @extend DataTableMixins.Base
   @extend DataTableMixins.Collection
   @extend DataTableMixins.Query
+  @extend DataTableMixins.Subscription
 
   if Meteor.isClient
     @extend DataTableMixins.Columns
     @extend DataTableMixins.Rows
-    @extend DataTableMixins.Subscription
     @extend ComponentMixins.ChooseTemplate
 
   if Meteor.isServer
@@ -15,6 +15,7 @@ class DataTableComponent extends Component
 
   constructor: ( context = {} ) ->
     super
+    @prepareSubscription()
     @prepareCollection()
     @prepareCountCollection()
     @prepareQuery()

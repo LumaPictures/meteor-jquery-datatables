@@ -1,6 +1,17 @@
 Tinytest.add "jQuery DataTables Mixins - Subscription:Definition", ( test ) ->
   test.notEqual DataTableMixins.Subscription, undefined, "Expected DataTableMixins.Subscription to be defined on the client and server."
 
+Tinytest.add "jQuery DataTables Mixins - Subscription:prepareSubscription()", ( test ) ->
+  if Meteor.isServer
+    RowsTable = new DataTableComponent
+      subscription: "rows"
+      collection: Reactive
+      query: ( component ) ->
+        component.log "userId", Meteor.userId
+        return {}
+
+    test.equal RowsTable.id(), "rows", "On the server the subscription is the component id."
+
 if Meteor.isClient
   Tinytest.add "jQuery DataTables Mixins - Subscription:Rendered", ( test ) ->
     component = UI.renderWithData Template.DataTable, ReactiveData

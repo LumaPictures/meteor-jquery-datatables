@@ -124,6 +124,25 @@ if Meteor.isServer
   RowsTable.publish()
 ```
 
+You can also set the query parameter to a function if you require access the the `this` context of the publication for things like user restricted access.
+
+Query functions take the component as a parameter, so you still have access to the component context and all its instance methods.
+
+```coffeescript
+if Meteor.isServer
+  RowsTable = new DataTableComponent
+    subscription: "rows"
+    collection: Rows
+    # ##### Only return rows this user owns
+    query: ( component ) ->
+        component.log "userId", Meteor.userId
+        return { owner: Meteor.userId }
+    debug: "userId"
+
+  RowsTable.publish()
+```
+
+
 ## Event Binding
 
 You can access the datatable after it has been initialized, it is stored in the data context of the instantiated datatable component. However this is not the best way to extend the tables features.

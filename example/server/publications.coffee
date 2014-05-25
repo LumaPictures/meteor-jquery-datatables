@@ -3,6 +3,10 @@
 RowsTable = new DataTableComponent
   subscription: "rows"
   collection: Rows
+  debug: "userId"
+  query: ( component ) ->
+    component.log "userId", Meteor.userId
+    return {}
 
 RowsTable.publish()
 
