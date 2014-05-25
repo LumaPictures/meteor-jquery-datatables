@@ -6,8 +6,7 @@
         "path": ".."
       },
       "jquery-select2": {},
-      "luma-ui": {},
-      "githubReadme": {}
+      "luma-ui": {}
     },
     "packages": {
       "jquery-datatables": {
@@ -22,11 +21,6 @@
         "git": "https://github.com/lumapictures/meteor-luma-ui.git",
         "tag": "v0.1.20",
         "commit": "e36c4634eaaf0cb9b0ed51da4715e75cf4075979"
-      },
-      "githubReadme": {
-        "git": "https://github.com/austinrivas/meteor-githubReadme.git",
-        "tag": "v1.3.3",
-        "commit": "bad1919563d230c97338afa7f6d70c9a6397d911"
       },
       "luma-component": {
         "git": "https://github.com/LumaPictures/meteor-luma-component",
