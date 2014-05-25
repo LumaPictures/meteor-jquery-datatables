@@ -34,6 +34,7 @@ DataTableMixins.Publish =
             addedAt: ( doc, index, before ) ->
               component.updateCount args
               args.publish.added args.collectionName, doc._id, doc
+              args.publish.added component.collection()._name, doc._id, doc
               component.log "#{ component.subscription() }:added", doc._id
 
             # ###### changedAt( Object, Object, Number )
@@ -41,6 +42,7 @@ DataTableMixins.Publish =
             changedAt: ( newDoc, oldDoc, index ) ->
               component.updateCount args
               args.publish.changed args.collectionName, newDoc._id, newDoc
+              args.publish.changed component.collection()._name, newDoc._id, newDoc
               component.log "#{ component.subscription() }:changed", newDoc._id
 
             # ###### removedAt( Object, Number )
@@ -48,6 +50,7 @@ DataTableMixins.Publish =
             removedAt: ( doc, index ) ->
               component.updateCount args
               args.publish.removed args.collectionName, doc._id
+              args.publish.removed args.collection()._name, doc._id
               component.log "#{ component.subscription() }:removed", doc._id
 
         # ##### @publish()
