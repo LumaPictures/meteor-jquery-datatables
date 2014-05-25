@@ -44,20 +44,12 @@ $ meteor test-packages jquery-datatables
 
 All you have to do is include the datatable component in one of your templates like so:
 
-```html
-{{> dataTable
-    columns=browsers.columns
-    options=browsers.options
-    subscription=browsers.subscription
-    query=browsers.query
-    debug="all"
-}}
-```
+`{{> DataTable browsers }}`
 
 Then setup the data in your controller or as template helpers:
 
 ```coffeescript
-Template.dataSources.browsers = -> return {
+Template.<yourTemplate>.browsers = -> return {
   columns: [{
     title: "Engine"
     data: "engine"
@@ -73,26 +65,19 @@ Template.dataSources.browsers = -> return {
   },{
     title: "Grade"
     data: "grade"
-    mRender: ( data, type, row ) ->
-      row ?= ""
-      switch row.grade
-        when "A" then return "<b>A</b>"
-        else return row.grade
   },{
     title: "Created"
     data: "createdAt"
-    mRender: ( data, type, row ) ->
-      row.createdAt ?= ""
-      if row.createdAt
-        return moment( row.createdAt ).fromNow()
-      else return row.createdAt
+    mRender: ( data, type, row ) -> return moment( row.createdAt ).fromNow()
   },{
     title: "Counter"
     data: "counter"
   }]
+  
   # ## Subscription
   #   * the datatables publication providing the data on the server
   subscription: "all_browsers"
+  
   # ## Query
   #   * the initial filter on the dataset
   query:
@@ -100,13 +85,79 @@ Template.dataSources.browsers = -> return {
 }
 ```
 
+### Reactive Query
+
+The query parameter for reactive tables is now reactive ( duh ). My goal was to have the table impose no structure on the query and just use raw mongoDB selector.
+
+The basic idea is that you set a session variable ( or some other reactive datasource ) to your initial query and then use that var as the query parameter for the table component. Whenever the query parm changes the table will automagically rerender using the new query to fetch its dataset.
+
+[ You can see a basic implementation of this here ](https://github.com/LumaPictures/meteor-jquery-datatables/blob/master/example/client/views/pages/examples/reactiveQuery/reactiveQuery.coffee#L9) In the [ example ](http://jquery-datatables.meteor.com/examples/reactive-query) the table controls just extend the query object with whatever value they are set to. I tried to include examples of all the common control types, but if you think of any that I missed feel free to let me know.
+
+Currently applying the filter can cause a somewhat janky table reload depending on what its contents looks like, this is something I plan on addressing ASAP.
+
+### Publishing Data
+
 On the server side, you need to publish the data:
 
 ```coffeescript
 if Meteor.isServer
-  DataTable.debug = "all";
-  DataTable.publish "all_browsers", Browsers
+  RowsTable = new DataTableComponent
+    subscription: "rows"
+    collection: Rows
+  
+  RowsTable.publish()
 ```
+
+### Limit Client Data Access
+
+If you would like to limit the dataset published to the client simply append a query parameter to you the initialization object
+
+```coffeescript
+if Meteor.isServer
+  RowsTable = new DataTableComponent
+    subscription: "rows"
+    collection: Rows
+    # ##### Only return the rows created today
+    query:
+      createdAt: $gte: moment().startOf( "day").toDate()
+  
+  RowsTable.publish()
+```
+
+## Event Binding
+
+You can access the datatable after it has been initialized, it is stored in the data context of the instantiated datatable component. However this is not the best way to extend the tables features.
+
+You have 3 main options ( going from simplest to most flexible )
+
+1. simply attach events via jquery ( you must set id )
+
+`{{> dataTable id="example" columns=pages.columns rows=pages.rows }}`
+
+```coffeescript
+$( '#example tbody' ).on 'click', 'tr', ->
+  name = $( 'td', @ ).eq( 0 ).text()
+  console.log "You clicked on #{ name }'s row"
+```
+
+The major drawback of this method is that you have to track the table state externally. Good for simple events, but I wouldn't recommend it for anything complex. 
+
+2. Attach events through the initialization options
+
+Set options in your controller or via a template helper
+
+```coffeescript
+options =
+  initComplete: ->
+    api = @api()
+    api.$( 'td' ).click -> api.search( @innerHTML ).draw()
+```
+
+`{{> DataTable options=options columns=pages.columns rows=pages.rows }}`
+
+Now datatables is handling the data for you. Here is a ton of api method example https://datatables.net/examples/api/
+
+This option will cover most of your use cases.
 
 ## Styling
 
