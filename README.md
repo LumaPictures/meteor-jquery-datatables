@@ -50,6 +50,13 @@ Then setup the data in your controller or as template helpers:
 
 ```coffeescript
 Template.<yourTemplate>.browsers = -> return {
+  
+  # ## Id
+  #   * While not required, setting a unique table id makes external manipulation possible through jquery
+  id: "my-unique-table-id"
+  
+  # ## Columns
+  #   * Map your dataset to columns you want displayed
   columns: [{
     title: "Engine"
     data: "engine"
@@ -79,7 +86,7 @@ Template.<yourTemplate>.browsers = -> return {
   subscription: "all_browsers"
   
   # ## Query
-  #   * the initial filter on the dataset
+  #   * the initial client filter on the dataset
   query:
     grade: "A"
 }
@@ -115,8 +122,11 @@ If you would like to limit the dataset published to the client simply append a q
 ```coffeescript
 if Meteor.isServer
   RowsTable = new DataTableComponent
+    
     subscription: "rows"
+    
     collection: Rows
+    
     # ##### Only return the rows created today
     query:
       createdAt: $gte: moment().startOf( "day").toDate()
@@ -131,12 +141,16 @@ Query functions take the component as a parameter, so you still have access to t
 ```coffeescript
 if Meteor.isServer
   RowsTable = new DataTableComponent
+    
     subscription: "rows"
+    
     collection: Rows
+    
     # ##### Only return rows this user owns
     query: ( component ) ->
         component.log "userId", Meteor.userId
         return { owner: Meteor.userId }
+    
     debug: "userId"
 
   RowsTable.publish()
