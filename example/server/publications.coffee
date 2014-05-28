@@ -5,7 +5,7 @@ RowsTable = new DataTableComponent
   collection: Rows
   debug: "userId"
   query: ( component ) ->
-    component.log "userId", Meteor.userId
+    component.log "userId", this.userId
     return {}
 
 RowsTable.publish()
