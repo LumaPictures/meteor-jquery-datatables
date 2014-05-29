@@ -148,8 +148,8 @@ if Meteor.isServer
     
     # ##### Only return rows this user owns
     query: ( component ) ->
-        component.log "userId", Meteor.userId
-        return { owner: Meteor.userId }
+        component.log "userId", this.userId
+        return { owner: this.userId }
     
     debug: "userId"
 

@@ -7,7 +7,7 @@ Tinytest.add "jQuery DataTables Mixins - Subscription:prepareSubscription()", ( 
       subscription: "rows"
       collection: Reactive
       query: ( component ) ->
-        component.log "userId", Meteor.userId
+        component.log "userId", this.userId
         return {}
 
     test.equal RowsTable.id(), "rows", "On the server the subscription is the component id."
