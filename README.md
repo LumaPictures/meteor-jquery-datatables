@@ -1,3 +1,6 @@
+
+**NOTE** This project is no longer maintained.  Having a look at [meteor-tabular](https://github.com/aldeed/meteor-tabular) for an actively maintained alternative with automatic serverside publishing.
+
 # jQuery DataTables [![Build Status](https://travis-ci.org/LumaPictures/meteor-jquery-datatables.svg?branch=dev)](https://travis-ci.org/LumaPictures/meteor-jquery-datatables)
 ### Sort, page, and filter millions of records.
 #### Reactively.
