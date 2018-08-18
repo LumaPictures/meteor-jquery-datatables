@@ -137,7 +137,7 @@ if Meteor.isServer
   RowsTable.publish()
 ```
 
-You can also set the query parameter to a function if you require access the the `this` context of the publication for things like user restricted access.
+You can also set the query parameter to a function if you require access the `this` context of the publication for things like user restricted access.
 
 Query functions take the component as a parameter, so you still have access to the component context and all its instance methods.
 
